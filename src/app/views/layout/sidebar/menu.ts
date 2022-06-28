@@ -18,17 +18,58 @@ export const MENU: MenuItem[] = [
   {
     label: 'Compras',
     icon: 'shopping-bag',
-    link: '/a'
+    subItems: [
+      {
+        label: 'Registro de compra',
+        subItems: [
+          {
+            label: 'Nacionales',
+            link: '/a'
+          },
+          {
+            label: 'Importadas',
+            link: '/a'
+          },
+        ]
+      },
+      {
+        label: 'Consultas de compras',
+        link: '/a'
+      },
+      {
+        label: 'Reportes',
+        subItems: [
+          {
+            label: 'Cantidad comprada vs recibida',
+            link: '/a'
+          },
+        ]
+      },
+    ]
   },
   {
     label: 'Inventarios',
     icon: 'layers',
-    link: '/a'
+    subItems: [
+      {
+        label: 'Kardex de movimientos',
+        link: '/a'
+      },
+      {
+        label: 'Movimientos de inventario',
+        link: '/a'
+      },
+    ]
   },
   {
-    label: 'Recepción de Combustible',
+    label: 'Recibo',
     icon: 'life-buoy',
-    link: '/a'
+    subItems: [
+      {
+        label: 'Recepción de combustible',
+        link: '/a'
+      },
+    ]
   },
 
   {
@@ -36,19 +77,42 @@ export const MENU: MenuItem[] = [
     isTitle: true
   },
   {
-    label: 'Ticket Entrega',
+    label: 'Venta',
     icon: 'tag',
-    link: '/a'
+    subItems: [
+      {
+        label: 'Ticket de Entrega de producto',
+        link: '/a'
+      },
+    ]
   },
   {
     label: 'Cobranza',
     icon: 'shopping-cart',
-    link: '/a'
+    subItems: [
+      {
+        label: 'Cuentas por cobrar',
+        link: '/a'
+      },
+      {
+        label: 'Consulta de movimientos',
+        link: '/a'
+      },
+    ]
   },
   {
     label: 'Control de Flujos',
     icon: 'filter',
-    link: '/a'
+    subItems: [
+      {
+        label: 'Registro de Egresos',
+        link: '/a'
+      },
+      {
+        label: 'Consulta de movimientos',
+        link: '/a'
+      },
+    ]
   },
 
   {
@@ -58,23 +122,54 @@ export const MENU: MenuItem[] = [
   {
     label: 'Pagos Diversos',
     icon: 'dollar-sign',
-    link: '/a'
+    subItems: [
+      {
+        label: 'Registro de costos indirectos',
+        link: '/a'
+      },
+      {
+        label: 'Registro de abonos',
+        link: '/a'
+      },
+      {
+        label: 'Consulta de movimientos',
+        link: '/a'
+      },
+    ]
   },
   {
-    label: 'Bancos',
+    label: 'Control de Bancos',
     icon: 'home',
-    link: '/a'
-  },
-
-  {
-    label: '',
-    isTitle: true
+    subItems: [
+      {
+        label: 'Registro de movimientos',
+        link: '/a'
+      },
+      {
+        label: 'Consulta de movimientos',
+        link: '/a'
+      },
+    ]
   },
   {
     label: 'Reportes Directivos',
     icon: 'book-open',
-    link: '/a'
+    subItems: [
+      {
+        label: 'Existencias Globales',
+        link: '/a'
+      },
+      {
+        label: 'Dashboard',
+        link: '/a'
+      },
+      {
+        label: 'Reporte concentrado',
+        link: '/a'
+      },
+    ]
   },
+  
 
   {
     label: '',
@@ -83,7 +178,74 @@ export const MENU: MenuItem[] = [
   {
     label: 'Configuración General',
     icon: 'settings',
-    link: '/a'
+    subItems: [
+      {
+        label: 'Catálogos',
+        subItems: [
+          {
+            label: 'Perfiles',
+            link: '/a'
+          },
+          {
+            label: 'Usuarios',
+            link: '/a'
+          },
+          {
+            label: 'Clientes',
+            link: '/a'
+          },
+          {
+            label: 'Proveedores',
+            link: '/a'
+          },
+          {
+            label: 'Empresas',
+            link: '/a'
+          },
+          {
+            label: 'Sucursales',
+            link: '/a'
+          },
+          {
+            label: 'Almacenes ',
+            link: '/a'
+          },
+          {
+            label: 'Choferes',
+            link: '/a'
+          },
+          {
+            label: 'Vehículos',
+            link: '/a'
+          },
+          {
+            label: 'Transp. Fletes',
+            link: '/a'
+          },
+          {
+            label: 'Concepto de Gastos',
+            link: '/a'
+          },
+          {
+            label: 'Cuentas de Bancos',
+            link: '/a'
+          },
+        ]
+      },
+      {
+        label: 'Permisos',
+        subItems: [
+          {
+            label: 'Privilegios',
+            link: '/a'
+          },
+        ]
+      },
+      {
+        label: 'Correo electrónico',
+        link: '/a'
+      },
+    ]
   },
 
 ];

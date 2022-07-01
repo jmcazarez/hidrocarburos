@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'feather';
-  src:  url('fonts/feather.eot?mn05yz');
-  src:  url('fonts/feather.eot?mn05yz#iefix') format('embedded-opentype'),
-    url('fonts/feather.ttf?mn05yz') format('truetype'),
-    url('fonts/feather.woff?mn05yz') format('woff'),
-    url('fonts/feather.svg?mn05yz#feather') format('svg');
+  src:  url('feather.eot?mn05yz');
+  src:  url('feather.eot?mn05yz#iefix') format('embedded-opentype'),
+    url('feather.ttf?mn05yz') format('truetype'),
+    url('feather.woff?mn05yz') format('woff'),
+    url('feather.svg?mn05yz#feather') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;

@@ -1,3 +1,4 @@
+/* ---------- Generals ---------- */
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'nobleui-angular';
-
+  
   ngOnInit(): void {}
 
 }

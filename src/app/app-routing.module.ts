@@ -1,8 +1,13 @@
+/* ---------- Modules ---------- */
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+/* ---------- Components ---------- */
 import { BaseComponent } from './views/layout/base/base.component';
-import { AuthGuard } from './core/guard/auth.guard';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
+
+/* ---------- Others ---------- */
+import { AuthGuard } from './core/guard/auth.guard';
 
 
 const routes: Routes = [
@@ -15,6 +20,10 @@ const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import('./views/pages/dashboard/dashboard.module').then(m => m.DashboardModule)
+      },
+      {
+        path: 'providers',
+        loadChildren: () => import('./views/pages/providers/providers.module').then(m => m.ProvidersModule)
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, 
     ]

@@ -1,15 +1,17 @@
-import { BrowserModule } from '@angular/platform-browser';
+/* ---------- Modules ---------- */
 import { NgModule } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { LayoutModule } from './views/layout/layout.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AppRoutingModule } from './app-routing.module';
-
-import { LayoutModule } from './views/layout/layout.module';
-import { AuthGuard } from './core/guard/auth.guard';
-
+/* ---------- Components ---------- */
 import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 
+/* ---------- Others ---------- */
+import { AuthGuard } from './core/guard/auth.guard';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 @NgModule({
@@ -23,10 +25,13 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
     BrowserAnimationsModule,
     LayoutModule,
   ],
+  exports: [
+    SharedModule
+  ],
   providers: [
     AuthGuard,
     {
-      provide: HIGHLIGHT_OPTIONS, // https://www.npmjs.com/package/ngx-highlightjs
+      provide: HIGHLIGHT_OPTIONS,
       useValue: {
         coreLibraryLoader: () => import('highlight.js/lib/core'),
         languages: {

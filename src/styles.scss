@@ -33,3 +33,16 @@
 
 // NobleUI styles For RTL
 // @import "./assets/scss/style.rtl.css";
+
+.btn-warning{
+  color: white;
+  &:hover{
+    color: white;
+  }
+}
+
+.btn-outline-warning{
+  &:hover{
+    color: white;
+  }
+}

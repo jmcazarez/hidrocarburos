@@ -196,7 +196,7 @@ export const MENU: MenuItem[] = [
           },
           {
             label: 'Proveedores',
-            link: '/a'
+            link: '/providers'
           },
           {
             label: 'Empresas',

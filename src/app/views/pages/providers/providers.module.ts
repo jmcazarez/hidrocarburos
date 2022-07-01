@@ -5,21 +5,21 @@ import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 /* ---------- Components ---------- */
-import { DashboardComponent } from './dashboard.component';
+import { ProvidersComponent } from './providers.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent
+    component: ProvidersComponent
   }
 ]
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [ProvidersComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    SharedModule
+    SharedModule,
   ]
 })
-export class DashboardModule { }
+export class ProvidersModule { }

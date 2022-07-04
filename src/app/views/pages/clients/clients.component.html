@@ -2,7 +2,7 @@
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a routerLink=".">Configuración General</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Proveedores</li>
+    <li class="breadcrumb-item active" aria-current="page">Clientes</li>
   </ol>
 </nav>
 
@@ -11,8 +11,8 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Registro de Proveedores</h4>
-        <p class="text-muted">Sección dedicada para el registro de nuevos proveedores en el sistema, recuerda llenar todos los campos requeridos y asi podras guardar la información.</p>
+        <h4 class="card-title">Registro de Clientes</h4>
+        <p class="text-muted">Sección dedicada para el registro de nuevos clientes en el sistema, recuerda llenar todos los campos requeridos y asi podras guardar la información.</p>
       </div>
     </div>
   </div>
@@ -23,7 +23,7 @@
   <div class="col-md-12 stretch-card">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title">Formulario de Proveedor</h6>
+        <h6 class="card-title">Formulario de Clientes</h6>
           <form>
 
             <div class="my-4">
@@ -50,13 +50,7 @@
               </div>
               <div class="col-sm-3">
                 <div class="mb-3">
-                  <label class="form-label">Nombre Comercial</label>
-                  <input type="text" class="form-control" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="mb-3">
-                  <label class="form-label">Nombre</label>
+                  <label class="form-label">Cliente(s)</label>
                   <input type="text" class="form-control" placeholder="">
                 </div>
               </div>
@@ -66,18 +60,51 @@
                   <input type="text" class="form-control" placeholder="">
                 </div>
               </div>
-            </div>
-
-            <div class="row">
               <div class="col-sm-3">
                 <div class="mb-3">
                   <label class="form-label">Apellido Meterno</label>
                   <input type="text" class="form-control" placeholder="">
                 </div>
               </div>
+            </div>
+
+            <div class="row">
               <div class="col-sm-3">
                 <div class="mb-3">
-                  <label class="form-label">RFC</label>
+                  <label class="form-label">Sexo</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label class="form-label">Fecha de Nacimiento</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label class="form-label">Pais</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label class="form-label">Estado</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label class="form-label">Municipio</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label class="form-label">Colonia</label>
                   <input type="text" class="form-control" placeholder="">
                 </div>
               </div>
@@ -89,7 +116,7 @@
               </div>
               <div class="col-sm-3">
                 <div class="mb-3">
-                  <label class="form-label">¨Telefono</label>
+                  <label class="form-label">RFC</label>
                   <input type="text" class="form-control" placeholder="">
                 </div>
               </div>
@@ -97,56 +124,47 @@
 
             <div class="row">
               <div class="col-sm-4">
-                <div class="mb-3">
-                  <label class="form-label">Celular</label>
-                  <input type="text" class="form-control" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="mb-3">
-                  <label class="form-label">Nacionalidad</label>
-                  <input type="text" class="form-control" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="mb-3">
-                  <label class="form-label">Contacto</label>
-                  <input type="text" class="form-control" placeholder="">
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-sm-4">
-                <div class="mb-3">
-                  <label class="form-label">Estado</label>
-                  <input type="text" class="form-control" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="mb-3">
-                  <label class="form-label">Municipio</label>
-                  <input type="text" class="form-control" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="mb-3">
-                  <label class="form-label">Colonia</label>
-                  <input type="text" class="form-control" placeholder="">
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-sm-9">
                 <div class="mb-3">
                   <label class="form-label">Dirección</label>
                   <input type="text" class="form-control" placeholder="">
                 </div>
               </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label class="form-label">N. Exterior</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label class="form-label">N. Interior</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
               <div class="col-sm-3">
                 <div class="mb-3">
                   <label class="form-label">CP</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label class="form-label">Teléfono</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label class="form-label">Celular</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label class="form-label">Correo</label>
                   <input type="text" class="form-control" placeholder="">
                 </div>
               </div>

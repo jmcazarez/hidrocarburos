@@ -184,15 +184,15 @@ export const MENU: MenuItem[] = [
         subItems: [
           {
             label: 'Perfiles',
-            link: '/a'
+            link: '/profiles'
           },
           {
             label: 'Usuarios',
-            link: '/a'
+            link: '/users'
           },
           {
             label: 'Clientes',
-            link: '/a'
+            link: '/clients'
           },
           {
             label: 'Proveedores',
@@ -204,31 +204,31 @@ export const MENU: MenuItem[] = [
           },
           {
             label: 'Sucursales',
-            link: '/a'
+            link: '/branchs'
           },
           {
             label: 'Almacenes ',
-            link: '/a'
+            link: '/stores'
           },
           {
             label: 'Choferes',
-            link: '/a'
+            link: '/drivers'
           },
           {
             label: 'Vehículos',
-            link: '/a'
+            link: '/vehicles'
           },
           {
             label: 'Transp. Fletes',
-            link: '/a'
+            link: '/parcel'
           },
           {
             label: 'Concepto de Gastos',
-            link: '/a'
+            link: '/bills'
           },
           {
-            label: 'Cuentas de Bancos',
-            link: '/a'
+            label: 'Cuentas de Banco',
+            link: '/bank-accounts'
           },
         ]
       },

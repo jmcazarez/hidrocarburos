@@ -25,6 +25,46 @@ const routes: Routes = [
         path: 'providers',
         loadChildren: () => import('./views/pages/providers/providers.module').then(m => m.ProvidersModule)
       },
+      {
+        path: 'clients',
+        loadChildren: () => import('./views/pages/clients/clients.module').then(m => m.ClientsModule)
+      },
+      {
+        path: 'drivers',
+        loadChildren: () => import('./views/pages/drivers/drivers.module').then(m => m.DriversModule)
+      },
+      {
+        path: 'vehicles',
+        loadChildren: () => import('./views/pages/vehicles/vehicles.module').then(m => m.DriversModule)
+      },
+      {
+        path: 'parcel',
+        loadChildren: () => import('./views/pages/parcel/parcel.module').then(m => m.ParcelModule)
+      },
+      {
+        path: 'branchs',
+        loadChildren: () => import('./views/pages/branchs/branchs.module').then(m => m.BranchsModule)
+      },
+      {
+        path: 'users',
+        loadChildren: () => import('./views/pages/users/users.module').then(m => m.UsersModule)
+      },
+      {
+        path: 'stores',
+        loadChildren: () => import('./views/pages/stores/stores.module').then(m => m.StoresModule)
+      },
+      {
+        path: 'bank-accounts',
+        loadChildren: () => import('./views/pages/bank-accounts/bank-accounts.module').then(m => m.BankAccountsModule)
+      },
+      {
+        path: 'profiles',
+        loadChildren: () => import('./views/pages/profiles/profiles.module').then(m => m.ProfilesModule)
+      },
+      {
+        path: 'bills',
+        loadChildren: () => import('./views/pages/bills/bills.module').then(m => m.BillsModule)
+      },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, 
     ]
   },

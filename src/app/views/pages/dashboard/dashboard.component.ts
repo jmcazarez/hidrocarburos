@@ -181,7 +181,7 @@ function getGrowthChartOptions(obj: any) {
 function getRevenueChartOptions(obj: any) {
   return {
     series: [{
-      name: "Revenue",
+      name: "Niveles",
       data: [
         49.3,
         48.7,
@@ -383,7 +383,7 @@ function getRevenueChartOptions(obj: any) {
     },
     yaxis: {
       title: {
-        text: 'Revenue ( $1000 x )',
+        text: 'Niveles',
         style:{
           size: 9,
           color: obj.muted

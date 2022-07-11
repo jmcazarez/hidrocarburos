@@ -1,0 +1,96 @@
+<!-- ---------- Breadcrumb ---------- -->
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Recibo</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Recepción de Combustible</li>
+  </ol>
+</nav>
+
+<!-- ---------- Section description ---------- -->
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Viajes por Recibir</h4>
+        <p class="text-muted">Sección dedicada para el visualizar los viajes por recibir en el sistema.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---------- Form ---------- -->
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-7">
+            <h6 class="card-title">Tablero de Viajes por Recibir</h6>
+          </div>
+          <div class="col-5">
+            <form>
+              <div class="row">
+                <div class="col-md">
+                  <div  class="d-flex">
+                    <label class="form-label">Fecha de Recepción:</label>
+                    <input type="text" class="form-control" placeholder="" value="16 - ABR - 2022">
+                  </div>
+                </div>
+              </div>  
+            </form>
+          </div>
+        </div>
+
+        <div class="table-responsive my-3">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Folio</th>
+                <th>Folio Venta</th>
+                <th>No. Factura</th>
+                <th>Fecha Envío</th>
+                <th>Código</th>
+                <th>Artículo</th>
+                <th>Descripción</th>
+                <th>Unidad</th>
+                <th>C. Enviada</th>
+                <th>C. Recibida</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>145122</td>
+                <td>145262</td>
+                <td>A-1770</td>
+                <td>25/02/2022</td>
+                <td>1501506</td>
+                <td>GASOLINA</td>
+                <td>GASOLINA 95 OCTANOS</td>
+                <td>LITROS</td>
+                <td>5,000.00</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>148476</td>
+                <td>146798</td>
+                <td>A-1890</td>
+                <td>01/03/2022</td>
+                <td>1501507</td>
+                <td>DIESEL</td>
+                <td>DIESEL</td>
+                <td>LITROS</td>
+                <td>25,000.00</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+          <div class="d-flex justify-content-center my-4">
+              <button type="button" class="btn btn-dark mx-2">Cancelar</button>
+              <button type="button" class="btn btn-primary mx-2">Registarr</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<!-- ---------- Breadcrumb ---------- -->
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Compras</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Consultas de compras</li>
+  </ol>
+</nav>
+
+<!-- ---------- Section description ---------- -->
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Consultas de compras</h4>
+        <p class="text-muted">Sección dedicada para la consulta de compras en el sistema, recuerda llenar todos los campos requeridos y asi podras guardar la información.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---------- Form ---------- -->
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Formulario de Consultas de compras</h6>
+          <form>
+
+            <div class="my-4">
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" name="radioInline" id="radioInline" checked>
+                <label class="form-check-label" for="radioInline">
+                  Nacionales
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" name="radioInline" id="radioInline1">
+                <label class="form-check-label" for="radioInline1">
+                  Imoportados
+                </label>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label class="form-label">Folio</label>
+                  <input type="text" class="form-control" placeholder="" value="0002">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label class="form-label">Proveedor</label>
+                  <input type="text" class="form-control" placeholder="" value="Agro Exportado S.A de C.V">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label class="form-label">Almacen</label>
+                  <input type="text" class="form-control" placeholder="" value="Suc Mexicali">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label class="form-label">articulo</label>
+                  <input type="text" class="form-control" placeholder="" value="UN 1202 DIESEL FUEL">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="mb-3">
+                  <label class="form-label">Fecha de Registro</label>
+                  <input type="text" class="form-control" placeholder="" value="01 - Ene - 2022">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="mb-3">
+                  <label class="form-label">Fecha de Recepción</label>
+                  <input type="text" class="form-control" placeholder="" 
+                  value="16 - Ene - 2022">
+                </div>
+              </div>
+            </div>
+
+          </form>
+          <div class="d-flex justify-content-center my-4">
+            <button type="button" class="btn btn-warning mx-2">Limpiar</button>
+              <button type="button" class="btn btn-dark mx-2">Cancelar</button>
+              <button type="button" class="btn btn-primary mx-2">Guardar</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

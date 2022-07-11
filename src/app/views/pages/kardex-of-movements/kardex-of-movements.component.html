@@ -1,0 +1,81 @@
+<!-- ---------- Breadcrumb ---------- -->
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Inventarios</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Kardex de Movimientos</li>
+  </ol>
+</nav>
+
+<!-- ---------- Section description ---------- -->
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Consultas Kardex de Movimientos</h4>
+        <p class="text-muted">Sección dedicada para la consulta de Kardex de Movimientos en el sistema, recuerda llenar todos los campos requeridos y asi podras guardar la información.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---------- Form ---------- -->
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Formulario de Consultas de Kardex de Movimientos</h6>
+          <form>
+            
+            <div class="row">
+              <div class="col-md">
+                <div class="mb-3">
+                  <label class="form-label">Almacen</label>
+                  <input type="text" class="form-control" placeholder="" value="CEDIS">
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="mb-3">
+                  <label class="form-label">Articulo</label>
+                  <input type="text" class="form-control" placeholder="" value="UN 1202 DIESEL FUEL">
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="mb-3">
+                  <label class="form-label">Tipo de Movimiento</label>
+                  <select class="form-select" aria-label="Default select example">
+                    <option selected disabled></option>
+                    <option value="1">Entrada x Compra</option>
+                    <option value="2">Ajuste de Salida x Merma</option>
+                    <option value="3">Salida x Venta</option>
+                    <option value="4">Traspasos a Sucursales</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md">
+                <div class="mb-3">
+                  <label class="form-label">Fecha de Inicio</label>
+                  <input type="text" class="form-control" placeholder="" value="01 - Ene - 2022">
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="mb-3">
+                  <label class="form-label">Fecha de Fin</label>
+                  <input type="text" class="form-control" placeholder="" 
+                  value="15 - Ene - 2022">
+                </div>
+              </div>
+            </div>
+
+          </form>
+          <div class="d-flex justify-content-center my-4">
+            <button type="button" class="btn btn-warning mx-2">Limpiar</button>
+              <button type="button" class="btn btn-dark mx-2">Cancelar</button>
+              <button type="button" class="btn btn-primary mx-2">Guardar</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

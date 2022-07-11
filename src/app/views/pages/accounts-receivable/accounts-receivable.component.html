@@ -1,0 +1,93 @@
+<!-- ---------- Breadcrumb ---------- -->
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Cobranza</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Cuentas por Cobrar</li>
+  </ol>
+</nav>
+
+<!-- ---------- Section description ---------- -->
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Cuentas por Cobrar</h4>
+        <p class="text-muted">Sección dedicada para Cuentas por Cobrar en el sistema, recuerda llenar todos los campos requeridos y asi podras guardar la información.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---------- Form ---------- -->
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Formulario de Cuentas por Cobrar</h6>
+          <form>
+            
+            <div class="row">
+              <div class="col-md">
+                <div class="mb-3">
+                  <label class="form-label">Proveedor</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="mb-3">
+                  <label class="form-label">Registro</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+            </div>
+          </form>
+
+          
+        <div class="table-responsive my-3">
+          <table class="table table-bordered">
+            <thead>
+              <tr >
+                <th>Cliente</th>
+                <th>Factura</th>
+                <th>F. Factura</th>
+                <th>F. Vencimiento</th>
+                <th>Días Transcurridos</th>
+                <th>Valor Factura</th>
+                <th>Abonado</th>
+                <th>Estatus</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Marvic Petroleum</td>
+                <td>A-145</td>
+                <td>10/01/2022</td>
+                <td>17/01/2022</td>
+                <td>9</td>
+                <td>$150,000.00</td>
+                <td>$90,000.00</td>
+                <td class="table-danger">Vencida</td>
+              </tr>
+              
+              <tr>
+                <td>Halcón México</td>
+                <td>A-160</td>
+                <td>15/01/2022</td>
+                <td>22/01/2022</td>
+                <td>4</td>
+                <td>$650,000.00</td>
+                <td>$400,000.00</td>
+                <td class="table-success">Al Corriente</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+          <div class="d-flex justify-content-center my-4">
+              <button type="button" class="btn btn-dark mx-2">Cancelar</button>
+              <button type="button" class="btn btn-success mx-2">Imprimir</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

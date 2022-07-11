@@ -1,0 +1,89 @@
+<!-- ---------- Breadcrumb ---------- -->
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Configuración General</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Correo Electrónico</li>
+  </ol>
+</nav>
+
+<!-- ---------- Section description ---------- -->
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Configuracion de Correo Electrónico</h4>
+        <p class="text-muted">Sección dedicada para la Configuracion de Correo Electrónico en el sistema, recuerda llenar todos los campos requeridos y asi podras guardar la información.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---------- Form ---------- -->
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Formulario de Correo Electrónico</h6>
+          <form>
+
+            <div class="my-4">
+              <div class="form-check mb-2">
+                <input type="checkbox" class="form-check-input" id="checkChecked" checked>
+                <label class="form-check-label" for="checkChecked">
+                  Utilizar Exchange
+                </label>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md">
+                <div class="mb-3">
+                  <label class="form-label">Nombre</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="mb-3">
+                  <label class="form-label">Cuenta de Correo</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="mb-3">
+                  <label class="form-label">Contraseña</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md">
+                <div class="mb-3">
+                  <label class="form-label">Repetir Contraseña</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="mb-3">
+                  <label class="form-label">Servidor SMTP</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="mb-3">
+                  <label class="form-label">Puerto de Salida</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+            </div>
+
+          </form>
+          <div class="d-flex justify-content-center my-4">
+            <button type="button" class="btn btn-warning mx-2">Limpiar</button>
+              <button type="button" class="btn btn-dark mx-2">Cancelar</button>
+              <button type="button" class="btn btn-primary mx-2">Guardar</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

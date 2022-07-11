@@ -24,17 +24,17 @@ export const MENU: MenuItem[] = [
         subItems: [
           {
             label: 'Nacionales',
-            link: '/a'
+            link: '/nationals'
           },
           {
             label: 'Importadas',
-            link: '/a'
+            link: '/imported'
           },
         ]
       },
       {
         label: 'Consultas de compras',
-        link: '/a'
+        link: '/purchase-consultation'
       },
       {
         label: 'Reportes',
@@ -53,11 +53,11 @@ export const MENU: MenuItem[] = [
     subItems: [
       {
         label: 'Kardex de movimientos',
-        link: '/a'
+        link: '/kardex-of-movements'
       },
       {
         label: 'Movimientos de inventario',
-        link: '/a'
+        link: '/inventory-movements'
       },
     ]
   },
@@ -67,7 +67,7 @@ export const MENU: MenuItem[] = [
     subItems: [
       {
         label: 'Recepción de combustible',
-        link: '/a'
+        link: '/trips-to-receive'
       },
     ]
   },
@@ -82,7 +82,7 @@ export const MENU: MenuItem[] = [
     subItems: [
       {
         label: 'Ticket de Entrega de producto',
-        link: '/a'
+        link: '/product-delivery-ticket'
       },
     ]
   },
@@ -92,7 +92,7 @@ export const MENU: MenuItem[] = [
     subItems: [
       {
         label: 'Cuentas por cobrar',
-        link: '/a'
+        link: '/accounts-receivable'
       },
       {
         label: 'Consulta de movimientos',
@@ -106,11 +106,11 @@ export const MENU: MenuItem[] = [
     subItems: [
       {
         label: 'Registro de Egresos',
-        link: '/a'
+        link: '/expense-record'
       },
       {
         label: 'Consulta de movimientos',
-        link: '/a'
+        link: '/query-movements'
       },
     ]
   },
@@ -200,7 +200,7 @@ export const MENU: MenuItem[] = [
           },
           {
             label: 'Empresas',
-            link: '/a'
+            link: '/business'
           },
           {
             label: 'Sucursales',
@@ -237,13 +237,13 @@ export const MENU: MenuItem[] = [
         subItems: [
           {
             label: 'Privilegios',
-            link: '/a'
+            link: '/privileges'
           },
         ]
       },
       {
         label: 'Correo electrónico',
-        link: '/a'
+        link: '/email'
       },
     ]
   },

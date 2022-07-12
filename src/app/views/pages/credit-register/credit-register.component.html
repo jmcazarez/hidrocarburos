@@ -1,0 +1,111 @@
+<!-- ---------- Breadcrumb ---------- -->
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Pagos Diversos</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Registro de Costos Indirectos</li>
+  </ol>
+</nav>
+
+<!-- ---------- Section description ---------- -->
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Registro de Egresos</h4>
+        <p class="text-muted">Sección dedicada para el Registro de Costos Indirectos en el sistema, recuerda llenar todos los campos requeridos y asi podras guardar la información.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---------- Form ---------- -->
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Formulario de Registro de Costos Indirectos</h6>
+          <form>
+
+            <div class="row mt-4">
+              <div class="col-sm-5">
+                <div class="mb-3">
+                  <label class="form-label">Proveedor</label>
+                  <input type="text" class="form-control" placeholder="" value="COMBUSTIBLE RIO C">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Monto a abonar $</label>
+                  <input type="text" class="form-control" placeholder="" value="$$$$">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Forma de Pago</label>
+                  <input type="text" class="form-control" placeholder="" value="EFE / TRANSF / CHEQUE">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">No. Documento</label>
+                  <input type="text" class="form-control" placeholder="" value="1234">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Saldo Pendiente</label>
+                  <input type="text" class="form-control" placeholder="" value="$$$$">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label class="form-label">Fecha Registro</label>
+                  <input type="text" class="form-control" placeholder="" value="01 - Ene - 2022">
+                </div>
+              </div>
+            </div>
+
+          </form>
+
+          <div class="table-responsive my-3">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Documento</th>
+                  <th>Concepto</th>
+                  <th>Fecha Fact</th>
+                  <th>Valor Factura</th>
+                  <th>Abonado</th>
+                  <th>Forma Pago</th>
+                  <th>Fecha Abono</th>
+                  <th>Saldo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>A-145</td>
+                  <td>Flete</td>
+                  <td>01/01/2022</td>
+                  <td>$ 150,000.00</td>
+                  <td>$ 60,000.00</td>
+                  <td>Transfer</td>
+                  <td>10/01/2022</td>
+                  <td>$ 90,000.00</td>
+                </tr>
+                <tr>
+                  <td>A-145</td>
+                  <td>Cruce</td>
+                  <td>15/02/2022</td>
+                  <td>$ 110,000.00</td>
+                  <td>$ 30,000.00</td>
+                  <td>Cheque</td>
+                  <td>15/02/2022</td>
+                  <td>$ 80,000.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="d-flex justify-content-center my-4">
+            <button type="button" class="btn btn-dark mx-2">Cancelar</button>
+            <button type="button" class="btn btn-primary mx-2">Abonar</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

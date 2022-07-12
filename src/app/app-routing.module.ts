@@ -83,6 +83,43 @@ const routes: Routes = [
       },
 
 
+      /* ---------- Pagos Diversos ---------- */
+      {
+        path: 'registered-movements',
+        loadChildren: () => import('./views/pages/registered-movements/registered-movements.module').then(m => m.RegisteredMovementsModule)
+      },
+      {
+        path: 'credit-register',
+        loadChildren: () => import('./views/pages/credit-register/credit-register.module').then(m => m.CreditRegisterModule)
+      },
+      {
+        path: 'indirect-cost-record',
+        loadChildren: () => import('./views/pages/indirect-cost-record/indirect-cost-record.module').then(m => m.IndirectCostRecordModule)
+      },
+
+
+      /* ---------- Control de Bancos ---------- */
+      {
+        path: 'movement-record',
+        loadChildren: () => import('./views/pages/movement-record/movement-record.module').then(m => m.MovementRecordModule)
+      },
+
+      
+      /* ---------- Reportes Directivos ---------- */
+      {
+        path: 'global-stocks',
+        loadChildren: () => import('./views/pages/global-stocks/global-stocks.module').then(m => m.GlobalStocksModule)
+      },
+      {
+        path: 'executive-dashboard',
+        loadChildren: () => import('./views/pages/executive-dashboard/executive-dashboard.module').then(m => m.ExecutiveDashboardModule)
+      },
+      {
+        path: 'concentrated-report',
+        loadChildren: () => import('./views/pages/concentrated-report/concentrated-report.module').then(m => m.ConcentratedReportModule)
+      },
+
+
       /* ---------- Configurarción General ---------- */
       {
         path: 'profiles',

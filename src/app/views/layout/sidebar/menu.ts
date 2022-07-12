@@ -125,15 +125,15 @@ export const MENU: MenuItem[] = [
     subItems: [
       {
         label: 'Registro de costos indirectos',
-        link: '/a'
+        link: '/indirect-cost-record'
       },
       {
         label: 'Registro de abonos',
-        link: '/a'
+        link: '/credit-register'
       },
       {
         label: 'Consulta de movimientos',
-        link: '/a'
+        link: '/registered-movements'
       },
     ]
   },
@@ -143,7 +143,7 @@ export const MENU: MenuItem[] = [
     subItems: [
       {
         label: 'Registro de movimientos',
-        link: '/a'
+        link: '/movement-record'
       },
       {
         label: 'Consulta de movimientos',
@@ -157,15 +157,15 @@ export const MENU: MenuItem[] = [
     subItems: [
       {
         label: 'Existencias Globales',
-        link: '/a'
+        link: '/global-stocks'
       },
       {
         label: 'Dashboard',
-        link: '/a'
+        link: '/executive-dashboard'
       },
       {
         label: 'Reporte concentrado',
-        link: '/a'
+        link: '/concentrated-report'
       },
     ]
   },

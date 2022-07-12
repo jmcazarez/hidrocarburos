@@ -1,0 +1,142 @@
+<!-- ---------- Breadcrumb ---------- -->
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Reportes Directivos</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Dashboard Directivo</li>
+  </ol>
+</nav>
+
+<!-- ---------- Section description ---------- -->
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Dashboard Directivo</h4>
+        <p class="text-muted">Sección dedicada para el Dashboard Directivo en el sistema, recuerda llenar todos los campos requeridos y asi podras guardar la información.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---------- Form ---------- -->
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Consulta Dashboard Directivo</h6>
+          <form>
+
+            <div class="row mt-4">
+              <div class="col-sm-9">
+                <div class="row">
+                  <div class="col-xl-6 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h6 class="card-title">Line chart</h6>
+                
+                        <apx-chart
+                          [series]="lineChartOptions.series"
+                          [chart]="lineChartOptions.chart"
+                          [colors]="lineChartOptions.colors"
+                          [grid]="lineChartOptions.grid"
+                          [xaxis]="lineChartOptions.xaxis"
+                          [yaxis]="lineChartOptions.yaxis"
+                          [markers]="lineChartOptions.markers"
+                          [legend]="lineChartOptions.legend"
+                          [stroke]="lineChartOptions.stroke"
+                        ></apx-chart>
+                
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h6 class="card-title">Bar chart</h6>
+                
+                        <apx-chart
+                          [series]="barChartOptions.series"
+                          [chart]="barChartOptions.chart"
+                          [colors]="barChartOptions.colors"
+                          [grid]="barChartOptions.grid"
+                          [xaxis]="barChartOptions.xaxis"
+                          [yaxis]="barChartOptions.yaxis"
+                          [plotOptions]="barChartOptions.plotOptions"
+                        ></apx-chart>
+                
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-xl-6 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h6 class="card-title">Area chart</h6>
+                
+                        <apx-chart
+                          [series]="areaChartOptions.series"
+                          [chart]="areaChartOptions.chart"
+                          [colors]="areaChartOptions.colors"
+                          [stroke]="areaChartOptions.stroke"
+                          [dataLabels]="areaChartOptions.dataLabels"
+                          [xaxis]="areaChartOptions.xaxis"
+                          [yaxis]="areaChartOptions.yaxis"
+                          [grid]="areaChartOptions.grid"
+                          [tooltip]="areaChartOptions.tooltip"
+                          [fill]="areaChartOptions.fill"
+                          [legend]="areaChartOptions.legend"
+                        ></apx-chart>
+                
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h6 class="card-title">Mixed chart</h6>
+                
+                        <apx-chart
+                          [series]="mixedChartOptions.series"
+                          [chart]="mixedChartOptions.chart"
+                          [colors]="mixedChartOptions.colors"
+                          [grid]="mixedChartOptions.grid"
+                          [stroke]="mixedChartOptions.stroke"
+                          [plotOptions]="mixedChartOptions.plotOptions"
+                          [legend]="mixedChartOptions.legend"
+                          [fill]="mixedChartOptions.fill"
+                          [labels]="mixedChartOptions.labels"
+                          [markers]="mixedChartOptions.markers"
+                          [xaxis]="mixedChartOptions.xaxis"
+                          [yaxis]="mixedChartOptions.yaxis"
+                          [tooltip]="mixedChartOptions.tooltip"
+                        ></apx-chart>
+                
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label class="form-label">Fecha de Inicio</label>
+                  <input type="text" class="form-control" placeholder="" value="01 - Ene - 2022">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Fecha de Fin</label>
+                  <input type="text" class="form-control" placeholder="" value="15 - Ene - 2022">
+                </div>
+              </div>
+            </div>
+
+          </form>
+          <div class="d-flex justify-content-center my-4">
+            <button type="button" class="btn btn-warning mx-2">Limpiar</button>
+            <button type="button" class="btn btn-dark mx-2">Cancelar</button>
+            <button type="button" class="btn btn-primary mx-2">Consultar</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

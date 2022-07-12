@@ -1,0 +1,97 @@
+<!-- ---------- Breadcrumb ---------- -->
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Control de Bancos</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Registro de Movimientos</li>
+  </ol>
+</nav>
+
+<!-- ---------- Section description ---------- -->
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Registro de Movimientos</h4>
+        <p class="text-muted">Sección dedicada para el Registro de Movimientos Indirectos en el sistema, recuerda llenar todos los campos requeridos y asi podras guardar la información.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---------- Form ---------- -->
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Formulario de Registro de Movimientos</h6>
+          <form>
+
+            <div class="row mt-4">
+              <div class="col-sm-5">
+                <div class="mb-3">
+                  <label class="form-label">Seleccione Cuenta</label>
+                  <input type="text" class="form-control" placeholder="" value="Catalogo Cuentas Banco">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Tipo de Movimiento</label>
+                  <input type="text" class="form-control" placeholder="" value="ingreso / Egreso">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Concepto</label>
+                  <input type="text" class="form-control" placeholder="" value="Catalogo de Movtos">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Origen / Destino</label>
+                  <input type="text" class="form-control" placeholder="" value="Quien paga o quien se la paga">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Fecha del Movimiento</label>
+                  <input type="text" class="form-control" placeholder="" value="01 - Ene - 2022">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Monto $</label>
+                  <input type="text" class="form-control" placeholder="" value="$$$$">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Forma de Pago</label>
+                  <input type="text" class="form-control" placeholder="" value="Catálogo">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">No. Documento</label>
+                  <input type="text" class="form-control" placeholder="" value="1234">
+                </div>
+                
+              </div>
+              <div class="col-sm-4">
+                
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label class="form-label">Fecha Registro</label>
+                  <input type="text" class="form-control" placeholder="" value="01 - Ene - 2022">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Saldo Cuenta 1</label>
+                  <input type="text" class="form-control" placeholder="" value="854,300.00">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Saldo Cuenta 2</label>
+                  <input type="text" class="form-control" placeholder="" value="454,300.00">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Saldo Cuenta 3</label>
+                  <input type="text" class="form-control" placeholder="" value="1,254,300.00">
+                </div>
+              </div>
+            </div>
+
+          </form>
+          <div class="d-flex justify-content-center my-4">
+            <button type="button" class="btn btn-warning mx-2">Limpiar</button>
+              <button type="button" class="btn btn-dark mx-2">Cancelar</button>
+              <button type="button" class="btn btn-primary mx-2">Registrar</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

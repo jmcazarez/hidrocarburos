@@ -1,0 +1,156 @@
+<!-- ---------- Breadcrumb ---------- -->
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Compras</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Reportes</li>
+  </ol>
+</nav>
+
+<!-- ---------- Section description ---------- -->
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Cantidad Comprada vs Cantidad Recibida</h4>
+        <p class="text-muted">Sección dedicada para Cantidad Comprada vs Cantidad Recibida en el sistema, recuerda llenar todos los campos requeridos y asi podras guardar la información.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---------- Form ---------- -->
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Formulario de Compra vs Recepción</h6>
+          <form>
+            <div class="row mt-4">
+              <div class="col-sm-5">            
+                <div class="row">
+            
+                  <label class="form-label col-sm-3 col-form-label text-end">Folio Compra</label>
+                  <div class="col-sm-7">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control form-control-sm border-end-0" value="525821">
+                      <span class="input-group-text border-start-0 bg-white">
+                        <img class="icon-search" src="/assets/images/search.svg">
+                      </span>
+                    </div>
+                  </div>
+
+                  <label class="form-label col-sm-3 col-form-label text-end">Almacen</label>
+                  <div class="col-sm-7">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control form-control-sm border-end-0" value="CEDIS">
+                      <span class="input-group-text border-start-0 bg-white">
+                        <img class="icon-search" src="/assets/images/search.svg">
+                      </span>
+                    </div>
+                  </div>
+
+                  <label class="form-label col-sm-3 col-form-label text-end">Articulo</label>
+                  <div class="col-sm-7">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control form-control-sm border-end-0" value="UN 1202 DIESEL DUEL">
+                      <span class="input-group-text border-start-0 bg-white">
+                        <img class="icon-search" src="/assets/images/search.svg">
+                      </span>
+                    </div>
+                  </div>
+
+                  <label class="form-label col-sm-3 col-form-label text-end">Factura</label>
+                  <div class="col-sm-7">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control form-control-sm border-end-0" value="A-1770">
+                      <span class="input-group-text border-start-0 bg-white">
+                        <img class="icon-search" src="/assets/images/search.svg">
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="col-sm-2"></div>
+            
+              <div class="col-sm-5">
+                <div class="row">
+                  <label class="form-label col-sm-5 col-form-label text-end">Fecha de Inicio</label>
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control form-control-sm" value="01 - Ene - 2022">
+                  </div>
+
+                  <label class="form-label col-sm-5 col-form-label text-end">Fecha de Fin</label>
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control form-control-sm" value="15 - Ene - 2022">
+                  </div>
+            
+                </div>
+              </div>
+            </div>
+          </form>
+
+          
+        <div class="table-responsive my-5">
+          <table class="table table-bordered">
+            <thead>
+              <tr >
+                <th>Folio</th>
+                <th>Folio Venta</th>
+                <th>Factura</th>
+                <th>F. Recepción</th>
+                <th>Codigo</th>
+                <th>Articulo</th>
+                <th>Unidad</th>
+                <th>C. Enviada</th>
+                <th>Recibida</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>145122</td>
+                <td>a-25120</td>
+                <td>10/01/2022</td>
+                <td>1200202</td>
+                <td>Gasolina</td>
+                <td>Litros</td>
+                <td>5000</td>
+                <td>5000</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>145202</td>
+                <td>a-25120</td>
+                <td>10/01/2022</td>
+                <td>5800202</td>
+                <td>Diesel</td>
+                <td>Litros</td>
+                <td>5000</td>
+                <td class="text-danger">4800</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>145203</td>
+                <td>a-25120</td>
+                <td>10/01/2022</td>
+                <td>5900202</td>
+                <td>Diesel</td>
+                <td>Litros</td>
+                <td>25000</td>
+                <td class="text-danger">24900</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+
+        <div class="d-flex justify-content-end my-4">
+          <button type="button" class="btn btn-warning mx-2">Limpiar</button>
+            <button type="button" class="btn btn-dark mx-2">Cancelar</button>
+            <button type="button" class="btn btn-primary mx-2">Consultar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

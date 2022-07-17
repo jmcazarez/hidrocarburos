@@ -24,7 +24,6 @@ const routes: Routes = [
         loadChildren: () => import('./views/pages/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
 
-
       /* ---------- Compras ---------- */
       {
         path: 'nationals',
@@ -37,6 +36,10 @@ const routes: Routes = [
       {
         path: 'purchase-consultation',
         loadChildren: () => import('./views/pages/purchase-consultation/purchase-consultation.module').then(m => m.PurchaseConsultationModule)
+      },
+      {
+        path: 'purchase-and-reception',
+        loadChildren: () => import('./views/pages/purchase-and-reception/purchase-and-reception.module').then(m => m.PurchaseAndReceptionModule)
       },
 
 
@@ -69,6 +72,10 @@ const routes: Routes = [
       {
         path: 'accounts-receivable',
         loadChildren: () => import('./views/pages/accounts-receivable/accounts-receivable.module').then(m => m.AccountsReceivableModule)
+      },
+      {
+        path: 'consultation-collection-movements',
+        loadChildren: () => import('./views/pages/consultation-collection-movements/consultation-collection-movements.module').then(m => m.ConsultationCollectionMovementsModule)
       },
 
       

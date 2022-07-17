@@ -41,7 +41,7 @@ export const MENU: MenuItem[] = [
         subItems: [
           {
             label: 'Cantidad comprada vs recibida',
-            link: '/a'
+            link: '/purchase-and-reception'
           },
         ]
       },
@@ -96,7 +96,7 @@ export const MENU: MenuItem[] = [
       },
       {
         label: 'Consulta de movimientos',
-        link: '/a'
+        link: '/consultation-collection-movements'
       },
     ]
   },

@@ -1,0 +1,113 @@
+<!-- ---------- Breadcrumb ---------- -->
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Cobranza</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Consulta de Movimientos</li>
+  </ol>
+</nav>
+
+<!-- ---------- Section description ---------- -->
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Abonos Realizados</h4>
+        <p class="text-muted">Sección dedicada para los Abonos Realizados en el sistema, recuerda llenar todos los campos requeridos y asi podras guardar la información.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---------- Form ---------- -->
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Deatalle de movimientos de Abonos Realizados</h6>
+          <form>
+            <div class="row mt-4">
+              <div class="col-sm-7">            
+                <div class="row">
+                  
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr >
+                          <th>Fecha Abono</th>
+                          <th>No. Factura</th>
+                          <th>Valor Factura</th>
+                          <th>Abonado</th>
+                          <th>Forma Pago</th>
+                          <th>Saldo</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>10/01/2022</td>
+                          <td>A-145</td>
+                          <td>$150,000.00</td>
+                          <td>$60,000.00</td>
+                          <td>Transfer</td>
+                          <td>$90,000.00</td>
+                        </tr>
+                        <tr>
+                          <td>10/01/2022</td>
+                          <td>A-147</td>
+                          <td>$610,000.00</td>
+                          <td>$300,000.00</td>
+                          <td>Efectivo</td>
+                          <td>$310,000.00</td>
+                        </tr>
+                        <tr>
+                          <td>10/01/2022</td>
+                          <td>A-150</td>
+                          <td>$850,000.00</td>
+                          <td>$700,000.00</td>
+                          <td>Transfer</td>
+                          <td>$150,000.00</td>
+                        </tr>
+                        <tr>
+                          <td>10/01/2022</td>
+                          <td>A-151</td>
+                          <td>$530,000.00</td>
+                          <td>$250,000.00</td>
+                          <td>Efectivo</td>
+                          <td>$280,000.00</td>
+                        </tr>
+                        
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+              </div>
+            
+            
+              <div class="col-sm-5">
+                <div class="row">
+                  <label class="form-label col-sm-5 col-form-label text-end">Fecha de Inicio</label>
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control form-control-sm" value="01 - Ene - 2022">
+                  </div>
+
+                  <label class="form-label col-sm-5 col-form-label text-end">Fecha de Fin</label>
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control form-control-sm" value="15 - Ene - 2022">
+                  </div>
+            
+                </div>
+              </div>
+            </div>
+          </form>
+
+
+        <div class="d-flex justify-content-end my-4">
+          <button type="button" class="btn btn-success mx-2">imprimir</button>
+          <button type="button" class="btn btn-warning mx-2">Limpiar</button>
+            <button type="button" class="btn btn-dark mx-2">Cancelar</button>
+            <button type="button" class="btn btn-primary mx-2">Consultar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -25,52 +25,65 @@
       <div class="card-body">
         <h6 class="card-title">Formulario de Consultas de Kardex de Movimientos</h6>
           <form>
-            
-            <div class="row">
-              <div class="col-md">
-                <div class="mb-3">
-                  <label class="form-label">Almacen</label>
-                  <input type="text" class="form-control" placeholder="" value="CEDIS">
-                </div>
-              </div>
-              <div class="col-md">
-                <div class="mb-3">
-                  <label class="form-label">Articulo</label>
-                  <input type="text" class="form-control" placeholder="" value="UN 1202 DIESEL FUEL">
-                </div>
-              </div>
-              <div class="col-md">
-                <div class="mb-3">
-                  <label class="form-label">Tipo de Movimiento</label>
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected disabled></option>
-                    <option value="1">Entrada x Compra</option>
-                    <option value="2">Ajuste de Salida x Merma</option>
-                    <option value="3">Salida x Venta</option>
-                    <option value="4">Traspasos a Sucursales</option>
-                  </select>
-                </div>
-              </div>
-            </div>
 
-            <div class="row">
-              <div class="col-md">
-                <div class="mb-3">
-                  <label class="form-label">Fecha de Inicio</label>
-                  <input type="text" class="form-control" placeholder="" value="01 - Ene - 2022">
+            <div class="row mt-4">
+              <div class="col-sm-5">
+                <div class="row">
+                  <label class="form-label col-sm-5 col-form-label text-end">Almacen</label>
+                  <div class="col-sm-7">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control form-control-sm border-end-0" value="CEDIS">
+                      <span class="input-group-text border-start-0 bg-white">
+                        <img class="icon-search" src="/assets/images/search.svg">
+                      </span>
+                    </div>
+                  </div>
+
+                  <label class="form-label col-sm-5 col-form-label text-end">Articulo</label>
+                  <div class="col-sm-7">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control form-control-sm border-end-0" value="UN 1202 DIESEL FUEL">
+                      <span class="input-group-text border-start-0 bg-white">
+                        <img class="icon-search" src="/assets/images/search.svg">
+                      </span>
+                    </div>
+                  </div>
+
+                  <label class="form-label col-sm-5 col-form-label text-end">Tipo de Movimiento</label>
+                  <div class="col-sm-7">
+                    <select class="form-select  form-control-sm" aria-label="Default select example">
+                      <option selected disabled></option>
+                      <option value="1">Entrada x Compra</option>
+                      <option value="2">Ajuste de Salida x Merma</option>
+                      <option value="3">Salida x Venta</option>
+                      <option value="4">Traspasos a Sucursales</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-              <div class="col-md">
-                <div class="mb-3">
-                  <label class="form-label">Fecha de Fin</label>
-                  <input type="text" class="form-control" placeholder="" 
-                  value="15 - Ene - 2022">
+
+              <div class="col-sm-2"></div>
+
+              <div class="col-sm-5">
+
+                <div class="row mt-4">
+                  <label class="form-label col-sm-5 col-form-label text-end">Fecha de Inicio</label>
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control form-control-sm" value="01 - Ene - 2022">
+                  </div>
+
+                  <label class="form-label col-sm-5 col-form-label text-end">Fecha de Fin</label>
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control form-control-sm" value="15 - Ene - 2022">
+                  </div>
+
                 </div>
               </div>
             </div>
+            
 
           </form>
-          <div class="d-flex justify-content-center my-4">
+          <div class="d-flex justify-content-end my-4">
             <button type="button" class="btn btn-warning mx-2">Limpiar</button>
               <button type="button" class="btn btn-dark mx-2">Cancelar</button>
               <button type="button" class="btn btn-primary mx-2">Guardar</button>

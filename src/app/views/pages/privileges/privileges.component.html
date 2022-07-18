@@ -27,22 +27,36 @@
           <form>
             
             <div class="row mt-4">
-              <div class="col-md">
-                <div class="mb-3">
-                  <label class="form-label">Usuario</label>
-                  <input type="text" class="form-control" placeholder="">
+              <div class="col-sm-5">
+                <div class="row">
+                  <label class="form-label col-sm-5 col-form-label text-end">Usuario</label>
+                  <div class="col-sm-7">
+                    <div class="input-group">
+                      <input type="text" class="form-control form-control-sm border-end-0">
+                      <span class="input-group-text border-start-0 bg-white">
+                        <img class="icon-search" src="/assets/images/search.svg">
+                      </span>
+                    </div>
+                  </div>            
                 </div>
               </div>
-              <div class="col-md">
-                <div class="mb-3">
-                  <label class="form-label">Tipo de Usuario</label>
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected disabled></option>
-                    <option value="1">Vendedor</option>
-                    <option value="2">Administrativo</option>
-                    <option value="3">Gerente</option>
-                    <option value="4">Asistente</option>
-                  </select>
+            
+              <div class="col-sm-2"></div>
+            
+              <div class="col-sm-5">
+                <div class="row">
+            
+                  <label class="form-label col-sm-5 col-form-label text-end">Tipo de Usuario</label>
+                  <div class="col-sm-7">
+                    <select class="form-select  form-control-sm" aria-label="Default select example">
+                      <option selected disabled></option>
+                      <option value="1">Vendedor</option>
+                      <option value="2">Administrativo</option>
+                      <option value="3">Gerente</option>
+                      <option value="4">Asistente</option>
+                    </select>
+                  </div>
+            
                 </div>
               </div>
             </div>
@@ -50,7 +64,8 @@
             <div class="my-4">
 
               <div class="row">
-                <div class="col-md">
+                <div class="col-sm-1"></div>
+                <div class="col-md-8">
                   <div class="form-check mb-2">
                     <input type="checkbox" class="form-check-input" id="checkChecked" checked>
                     <label class="form-check-label" for="checkChecked">
@@ -94,9 +109,6 @@
                       Ticket de Entrega
                     </label>
                   </div>
-                </div>
-
-                <div class="col-md">
     
                   <div class="form-check mb-2">
                     <input type="checkbox" class="form-check-input" id="checkChecked" checked>
@@ -140,11 +152,7 @@
                     <label class="form-check-label" for="checkChecked">
                       Reportes Directivos
                     </label>
-                  </div>
-                </div>
-
-                <div class="col-md ">
-                  
+                  </div>                
     
                   <div class="form-check mb-2">
                     <input type="checkbox" class="form-check-input" id="checkChecked" checked>
@@ -177,6 +185,7 @@
                     </label>
                   </div>
                 </div>
+                <div class="col-sm-3"></div>
               </div>
             </div>
 

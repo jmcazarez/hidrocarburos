@@ -147,7 +147,7 @@ export const MENU: MenuItem[] = [
       },
       {
         label: 'Consulta de movimientos',
-        link: '/a'
+        link: '/consult-bank'
       },
     ]
   },

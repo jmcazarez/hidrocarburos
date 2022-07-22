@@ -104,11 +104,15 @@ const routes: Routes = [
         loadChildren: () => import('./views/pages/indirect-cost-record/indirect-cost-record.module').then(m => m.IndirectCostRecordModule)
       },
 
-
+      
       /* ---------- Control de Bancos ---------- */
       {
         path: 'movement-record',
         loadChildren: () => import('./views/pages/movement-record/movement-record.module').then(m => m.MovementRecordModule)
+      },
+      {
+        path: 'consult-bank',
+        loadChildren: () => import('./views/pages/consult-bank/consult-bank.module').then(m => m.ConsultBankModule)
       },
 
       

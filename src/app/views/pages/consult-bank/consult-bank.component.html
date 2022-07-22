@@ -1,0 +1,131 @@
+<!-- ---------- Breadcrumb ---------- -->
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Control de Bancos</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Consulta de Movimientos</li>
+  </ol>
+</nav>
+
+<!-- ---------- Section description ---------- -->
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Consulta de Movimientos Banco (Ingresos/Egresos)</h4>
+        <p class="text-muted">Sección dedicada para la Consulta de Movimientos Banco en el sistema, recuerda llenar todos los campos requeridos y asi podras guardar la información.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---------- Form ---------- -->
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Formulario de Consulta de Movimientos Banco</h6>
+          <form>
+
+            <div class="row mt-4">
+              <div class="col-sm-5">
+                <div class="row">
+            
+                  <label class="form-label col-sm-5 col-form-label text-end">Seleccione Cuenta</label>
+                  <div class="col-sm-7">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control form-control-sm border-end-0" value="Catalogo Cuentas Banco">
+                      <span class="input-group-text border-start-0 bg-white">
+                        <i class="feather icon-search"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                  <label class="form-label col-sm-5 col-form-label text-end">Tipo de Movimiento</label>
+                  <div class="col-sm-7">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control form-control-sm border-end-0" value="Ingreso / Egreso / Ambos">
+                      <span class="input-group-text border-start-0 bg-white">
+                        <i class="feather icon-search"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                  <label class="form-label col-sm-5 col-form-label text-end">Fecha de Inicio</label>
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control form-control-sm" value="01 - Ene - 2022">
+                  </div>
+
+                  <label class="form-label col-sm-5 col-form-label text-end">Fecha de Fin</label>
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control form-control-sm" value="15 - Ene - 2022">
+                  </div>
+            
+                </div>
+                <div class="d-flex justify-content-end mt-3">
+                  <button type="button" class="btn btn-primary">Consultar</button>
+                </div>
+              </div>
+            
+              <div class="col-sm-2"></div>
+            
+              <div class="col-sm-5">
+              </div>
+
+              
+            </div>
+            <div class="table-responsive my-5">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Cuenta Banco</th>
+                    <th>Fecha Movto</th>
+                    <th>Tipo Movto</th>
+                    <th>Concepto Movto</th>
+                    <th>Origen / Destino</th>
+                    <th>Monto</th>
+                    <th>Folio</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Cuenta 1</td>
+                    <td>02/01/2022</td>
+                    <td>I</td>
+                    <td>Ingreso X</td>
+                    <td>Hidrocarburos X</td>
+                    <td>$ 250,000,000.00</td>
+                    <td>0001</td>
+                  </tr>
+                  <tr>
+                    <td>Cuenta 2</td>
+                    <td>02/01/2022</td>
+                    <td>E</td>
+                    <td>Pagos Diversos</td>
+                    <td>Terceros</td>
+                    <td>$ 100,000,000.00</td>
+                    <td>0002</td>
+                  </tr>
+                  <tr>
+                    <td>Cuenta 3</td>
+                    <td>06/01/2022</td>
+                    <td>E</td>
+                    <td>Pagos Varios</td>
+                    <td>Acreedor</td>
+                    <td>$ 50,000,000.00</td>
+                    <td>0003</td>
+                  </tr>
+                                     
+                </tbody>
+              </table>
+            </div>
+
+          </form>
+          <div class="d-flex justify-content-end my-4">
+            <button type="button" class="btn btn-success mx-2">Imprimir</button>
+              <button type="button" class="btn btn-dark mx-2">Cancelar</button>
+              
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

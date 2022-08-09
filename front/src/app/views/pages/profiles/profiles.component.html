@@ -12,7 +12,8 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Registro de Perfiles</h4>
-        <p class="text-muted">Sección dedicada para el registro de nuevos perfiles en el sistema, recuerda llenar todos los campos requeridos y asi podras guardar la información.</p>
+        <p class="text-muted">Sección dedicada para el registro de nuevos perfiles en el sistema, recuerda llenar todos
+          los campos requeridos y asi podras guardar la información.</p>
       </div>
     </div>
   </div>
@@ -24,29 +25,26 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Agregar Perfiles de Usuario</h6>
-          <form>
+        <form name="form" [formGroup]="form" >
 
-            <div class="row mt-4">
-              <div class="col-md-6 offset-md-3">
-                <div class="mb-3">
-                  <div class="input-group">
-                    <input type="text" class="form-control">
-                    <button class="btn btn-outline-secondary" type="button">Agregar</button>
-                    <button class="btn btn-outline-secondary" type="button">Borrar</button>
-                  </div>
+          <div class="row mt-4">
+            <div class="col-md-6 offset-md-3">
+              <div class="mb-3">
+                <div class="input-group">
+                  <input type="text" class="form-control" formControlName="cDescripcion">
+                  <button class="btn btn-outline-secondary" type="button" [disabled]="form.invalid" (click)="guardar()">Agregar</button>
+                  <button class="btn btn-outline-secondary" type="button">Borrar</button>
                 </div>
-
-                <ul class="list-group">
-                  <li class="list-group-item disabled" aria-disabled="true">Descripción</li>
-                  <li class="list-group-item">Vendedor</li>
-                  <li class="list-group-item">Administrativo</li>
-                  <li class="list-group-item">Gerente</li>
-                  <li class="list-group-item">Asistente</li>
-                </ul>
               </div>
-            </div>
 
-          </form>
+              <ul class="list-group" *ngFor="let perfil of perfiles">
+                <li class="list-group-item" aria-disabled="true">{{perfil.cDescripcion}}</li>
+              </ul>
+
+            </div>
+          </div>
+
+        </form>
       </div>
     </div>
   </div>

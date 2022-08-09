@@ -45,9 +45,13 @@ const login = require("./routes/login");
 // clientes
 const clientes = require("./routes/catalogos/clientes");
 
+// perfiles
+const perfiles = require("./routes/catalogos/perfiles");
+
 // rutas base
 
 app.use("/api/login", login);
 app.use("/api/catalogos/clientes", clientes);
+app.use("/api/catalogos/perfiles", perfiles);
 
 module.exports = app;

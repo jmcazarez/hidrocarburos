@@ -13,6 +13,8 @@ import { ErrorPageComponent } from './views/pages/error-page/error-page.componen
 /* ---------- Others ---------- */
 import { AuthGuard } from './core/guard/auth.guard';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
+    FormsModule,
+    HttpClientModule
   ],
   exports: [
     SharedModule

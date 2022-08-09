@@ -6,15 +6,25 @@
           <div class="auth-form-wrapper px-4 py-5">
             <a routerLink="." class="nobleui-logo d-block mb-2">Hidro<span>carburos</span></a>
             <h5 class="text-muted fw-normal mb-4">Bienvenido! conectate a tu cuenta.</h5>
-            <form class="forms-sample">
+            <form class="forms-sample" name="loginForm" [formGroup]="loginForm" novalidate>
               <div class="mb-3">
-                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="USUARIO">
+                <input type="text" class="form-control" id="exampleInputEmail1" formControlName="cLogin"
+                  placeholder="USUARIO">
+                <h6 *ngIf="f.cLogin?.touched && f.cLogin?.invalid">
+                  El usuario es requerido
+                </h6>
+
               </div>
               <div class="mb-4">
-                <input type="password" class="form-control" id="exampleInputPassword1" autocomplete="current-password" placeholder="**********">
+                <input type="password" class="form-control" id="exampleInputPassword1" formControlName="cContrasena"
+                  autocomplete="current-password" placeholder="**********">
+                <h6 *ngIf="f.cContrasena?.touched && f.cContrasena?.invalid">
+                  La contraseña es requerida
+                </h6>
               </div>
               <div class="d-flex flex-column">
-                <button type="submit" class="btn btn-primary mb-2 mb-md-0" (click)="onLoggedin($event)">CONECTAR</button>
+                <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary mb-2 mb-md-0"
+                  (click)="onLoggedin()">CONECTAR</button>
               </div>
               <a class="d-block mt-3 text-muted">¿Has olvidado tu contraseña?</a>
             </form>

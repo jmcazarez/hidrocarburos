@@ -23,9 +23,10 @@
 @import '~angular-archwizard/styles/archwizard.css';
 @import '~simple-datatables/dist/style.css';
 @import '~@swimlane/ngx-datatable/index.css';
-@import '~@swimlane/ngx-datatable/themes/bootstrap.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/themes/dark.scss';
+@import '~@swimlane/ngx-datatable/themes/bootstrap.scss';
 @import '~@swimlane/ngx-datatable/assets/icons.css';
-
 
 // NobleUI styles for LTR
 @import "./assets/scss/style";

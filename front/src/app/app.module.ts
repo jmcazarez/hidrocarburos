@@ -15,7 +15,7 @@ import { AuthGuard } from './core/guard/auth.guard';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     LayoutModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxDatatableModule
   ],
   exports: [
     SharedModule

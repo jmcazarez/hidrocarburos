@@ -16,6 +16,7 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+/* import { NgxSpinnerModule } from 'ngx-spinner'; */
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +29,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     LayoutModule,
     FormsModule,
     HttpClientModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+/*     NgxSpinnerModule */
   ],
   exports: [
     SharedModule

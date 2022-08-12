@@ -184,7 +184,6 @@ export class ProvidersComponent implements OnInit {
 
     modalRef.closed.subscribe(
       value => {
-        console.log('value:', value);
         if(value){
           this.form.controls["nProveedor"].setValue(value.id);
         }

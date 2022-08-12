@@ -1,7 +1,7 @@
 import { BusquedaBusinessComponent } from './busqueda-business/busqueda-business.component';
 /* ---------- Modules ---------- */
 import { NgModule } from '@angular/core';
-import { CommonModule,DecimalPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -20,7 +20,6 @@ const routes: Routes = [
   declarations: [BusinessComponent, BusquedaBusinessComponent],
   imports: [
     CommonModule,
-    DecimalPipe,
     RouterModule.forChild(routes),
     SharedModule,
 

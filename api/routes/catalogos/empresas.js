@@ -6,5 +6,6 @@ const { validateToken } = require('../../middlewares/authenticated');
 
 api.get("/:nEmpresa", validateToken, Controller.obtenerEmpresas);
 api.post("/", validateToken, Controller.guardarEmpresa);
+api.delete("/:nEmpresa", validateToken, Controller.eliminarEmpresa);
 
 module.exports = api;

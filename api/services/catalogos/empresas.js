@@ -38,6 +38,7 @@ async function obtenerEmpresas(params) {
 async function guardarEmpresa(params) {
 
     try {
+        console.log('empresa', params);
         let data = await sequelize.query(
             `
              CALL proc_guardar_empresa (
@@ -92,8 +93,49 @@ async function guardarEmpresa(params) {
     }
 }
 
+async function eliminarEmpresa(params) {
+    console.log(params);
+    try {
+        let data = await sequelize.query(
+            `
+             CALL proc_eliminar_empresa (
+                ${params.nEmpresa}
+            )
+             `,
+            {
+                type: QueryTypes.INSERT
+            }
+        );
+
+        return {
+            status: 200,
+            error: '',
+            data: []
+        }
+
+    } catch (err) {
+        // do something
+     
+        console.log(err);
+        if(err){
+            return {
+                status: 400,
+                error: err,
+                data: [],
+            };
+        }else{
+            return {
+                status: 400,
+                error: 'Error al guardar la empresa.',
+                data: [],
+            };
+        }
+      
+    }
+}
 
 module.exports = {
     obtenerEmpresas,
-    guardarEmpresa
+    guardarEmpresa,
+    eliminarEmpresa
 };

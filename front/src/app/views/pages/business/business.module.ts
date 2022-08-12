@@ -1,7 +1,7 @@
 import { BusquedaBusinessComponent } from './busqueda-business/busqueda-business.component';
 /* ---------- Modules ---------- */
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule,DecimalPipe } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -20,8 +20,10 @@ const routes: Routes = [
   declarations: [BusinessComponent, BusquedaBusinessComponent],
   imports: [
     CommonModule,
+    DecimalPipe,
     RouterModule.forChild(routes),
     SharedModule,
+
     NgxDatatableModule.forRoot({
       messages: {
         emptyMessage: 'No hay datos disponibles', // Message to show when array is presented, but contains no values

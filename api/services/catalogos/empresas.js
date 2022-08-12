@@ -14,6 +14,8 @@ async function obtenerEmpresas(params) {
             }
         );
 
+        console.log(data);
+
         return {
             status: 200,
             error: '',
@@ -25,7 +27,7 @@ async function obtenerEmpresas(params) {
         console.log(err);
         return {
             status: 400,
-            error: 'Error al obtener los perfiles.',
+            error: 'Error al obtener las empresas.',
             data: [],
         };
     }
@@ -41,7 +43,6 @@ async function guardarEmpresa(params) {
              CALL proc_guardar_empresa (
                 ${params.nEmpresa},
                 ${params.nTipo},
-                '${params.cFolio}',
                 '${params.cRazonSocial}',
                 '${params.cRFC}',
                 '${params.cCodigoPostal}',

@@ -1,8 +1,10 @@
+import { BusquedaBusinessComponent } from './busqueda-business/busqueda-business.component';
 import { UtilsService } from './../../../../services/utils.service';
 import { EmpresaService } from './../../../../services/empresa.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-business',
@@ -16,13 +18,14 @@ export class BusinessComponent implements OnInit {
 
   constructor(
     private service: EmpresaService,
-    private util: UtilsService
+    private util: UtilsService,
+    public modalService: NgbModal
   ) {}
 
   async ngOnInit(): Promise<void> {
     this.form = new FormGroup({
+      nEmpresa : new FormControl({ value: '', disabled: true }, []),
       nTipo : new FormControl('', Validators.required),
-      cFolio : new FormControl('', Validators.required),
       cRazonSocial : new FormControl('', Validators.required),
       cRFC : new FormControl('', Validators.required),
       cCodigoPostal : new FormControl('', Validators.required),
@@ -43,8 +46,8 @@ export class BusinessComponent implements OnInit {
     return this.form.get('nTipo')?.value ?? 0;
   }
 
-  get cFolio(): string {
-    return this.form.get('cFolio')?.value ?? '';
+  get nEmpresa(): number {
+    return this.form.get('cFolio')?.value ?? 0;
   }
 
   get cRazonSocial(): string {
@@ -98,9 +101,8 @@ export class BusinessComponent implements OnInit {
   async guardar(): Promise<void> {
 
     const objEmpresa = {
-      nEmpresa: 0,
+      nEmpresa: this.nEmpresa,
       nTipo: this.nTipo,
-      cFolio: this.cFolio,
       cRazonSocial : this.cRazonSocial,
       cRFC : this.cRFC,
       cCodigoPostal : this.cCodigoPostal,
@@ -133,6 +135,25 @@ export class BusinessComponent implements OnInit {
       this.util.dialogError('Error al guardar la empresa.');
 
     });
+  }
+
+  openModal() {
+    const modalRef = this.modalService.open(BusquedaBusinessComponent, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+      modalDialogClass: 'dialog-formulario',
+    });
+
+    modalRef.closed.subscribe(
+      value => {
+        console.log('value:', value);
+        if(value){
+          this.form.controls["nEmpresa"].setValue(value.id);
+        }
+        // this.enfocarBotonNuevaVenta()
+      }
+    );
   }
 
 }

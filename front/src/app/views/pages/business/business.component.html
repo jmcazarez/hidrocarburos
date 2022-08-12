@@ -46,7 +46,12 @@
                 <div class="row">
                   <label class="form-label col-sm-3 col-form-label text-end">Folio</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cFolio">
+                    <div class="input-group">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nEmpresa" [disabled]="true">
+                    <span class="input-group-text border-start-0 bg-white">
+                      <i class="feather icon-search" (click)="openModal()"></i>
+                    </span>
+                  </div>
                   </div>
                 </div>
               </div>

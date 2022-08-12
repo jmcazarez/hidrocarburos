@@ -48,10 +48,19 @@ const clientes = require("./routes/catalogos/clientes");
 // perfiles
 const perfiles = require("./routes/catalogos/perfiles");
 
+// formas pago
+const formasPago = require("./routes/catalogos/formas_pago");
+
+
+// proveedores
+const proveedores = require("./routes/catalogos/proveedores");
+
+
 // rutas base
 
 app.use("/api/login", login);
 app.use("/api/catalogos/clientes", clientes);
 app.use("/api/catalogos/perfiles", perfiles);
-
+app.use("/api/catalogos/formas_pago", formasPago);
+app.use("/api/catalogos/proveedores", proveedores);
 module.exports = app;

@@ -12,7 +12,8 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Registro de Proveedores</h4>
-        <p class="text-muted">Sección dedicada para el registro de nuevos proveedores en el sistema, recuerda llenar todos los campos requeridos y asi podras guardar la información.</p>
+        <p class="text-muted">Sección dedicada para el registro de nuevos proveedores en el sistema, recuerda llenar
+          todos los campos requeridos y asi podras guardar la información.</p>
       </div>
     </div>
   </div>
@@ -24,188 +25,198 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Formulario de Proveedor</h6>
-          <form>
+        <form name="form" [formGroup]="form">
 
-            <div class="my-4">
-              <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" name="radioInline" id="radioInline" checked>
-                <label class="form-check-label" for="radioInline">
-                  Fisica
-                </label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" name="radioInline" id="radioInline1">
-                <label class="form-check-label" for="radioInline1">
-                  Moral
-                </label>
-              </div>
+          <div class="col-sm-3">
+            <label class="form-label">Folio</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm border-end-0" id="id-usuario"
+                formControlName="nProveedor">
+              <span class="input-group-text border-start-0 bg-white">
+                <i class="feather icon-search" (click)="openProveedores()"></i>
+              </span>
             </div>
-            
-            <div class="row">
-              <div class="col-sm">
-                <div class="mb-3">
-                  <label class="form-label">Razón Social</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm">
-                <div class="mb-3">
-                  <label class="form-label">Nombre Comercial</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm">
-                <div class="mb-3">
-                  <label class="form-label">Nombre</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm">
-                <div class="mb-3">
-                  <label class="form-label">Apellido Paterno</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm">
-                <div class="mb-3">
-                  <label class="form-label">Apellido Meterno</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm">
-                <div class="mb-3">
-                  <label class="form-label">RFC</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              
-              
-              <div class="col-sm">
-                <div class="mb-3">
-                  <label class="form-label">CURP</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm">
-                <div class="mb-3">
-                  <label class="form-label">Telefono</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm">
-                <div class="mb-3">
-                  <label class="form-label">Celular</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm">
-                <div class="mb-3">
-                  <label class="form-label">Nacionalidad</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm">
-                <div class="mb-3">
-                  <label class="form-label">Contacto</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-sm">
-                <div class="mb-3">
-                  <label class="form-label">Estado</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm">
-                <div class="mb-3">
-                  <label class="form-label">Municipio</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm">
-                <div class="mb-3">
-                  <label class="form-label">Colonia</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="mb-3">
-                  <label class="form-label">Dirección</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-              </div>
-              <div class="col-sm">
-                <div class="mb-3">
-                  <label class="form-label">CP</label>
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-              </div>
-            </div>
-
-
-            <hr class="my-4">
-
-            <div class="row">
-              <div class="col-sm-5">
-                <div class="row">
-                  <div class="col-sm">
-                    <div class="mb-3">
-                      <label class="form-label">Dias de Entrega</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="">
-                    </div>
-                  </div>
-                  <div class="col-sm">
-                    <div class="mb-3">
-                      <label class="form-label">Forma de Pago</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-sm">
-                    <div class="mb-3">
-                      <label class="form-label">Limite de Credito</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="">
-                    </div>
-                  </div>
-                  <div class="col-sm">
-                    <div class="mb-3">
-                      <label class="form-label">Impuestos</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-sm">
-                    <div class="mb-3">
-                      <label class="form-label">Dias de Credito</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="">
-                    </div>
-                  </div>
-                  <div class="col-sm">
-                    <div class="mb-3">
-                      <label class="form-label">Pago de Flete Factura</label>
-                      <input type="text" class="form-control form-control-sm" placeholder="">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </form>
-          <div class="d-flex justify-content-center my-4">
-            <button type="button" class="btn btn-warning mx-2">Limpiar</button>
-              <button type="button" class="btn btn-dark mx-2">Cancelar</button>
-              <button type="button" class="btn btn-primary mx-2">Guardar</button>
           </div>
+          <div class="my-4">
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" name="radioInline" id="radioInline" checked>
+              <label class="form-check-label" for="radioInline">
+                Fisica
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" name="radioInline" id="radioInline1">
+              <label class="form-check-label" for="radioInline1">
+                Moral
+              </label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm">
+              <div class="mb-3">
+                <label class="form-label">Razón Social</label>
+                <input type="text" class="form-control form-control-sm"  formControlName="cDescripcion" placeholder="">
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                <label class="form-label">Nombre Comercial </label>
+                <input type="text" class="form-control form-control-sm"  formControlName="cNombreComercial" placeholder="">
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control form-control-sm"  formControlName="cNombre" placeholder="">
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                <label class="form-label">Apellido Paterno</label>
+                <input type="text" class="form-control form-control-sm"  formControlName="cApellidoPaterno" placeholder="">
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                <label class="form-label">Apellido Meterno</label>
+                <input type="text" class="form-control form-control-sm" formControlName="cApellidoMaterno" placeholder="">
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                <label class="form-label">RFC</label>
+                <input type="text" class="form-control form-control-sm" formControlName="cRFC" placeholder="">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+
+            <div class="col-sm">
+              <div class="mb-3">
+                <label class="form-label">CURP</label>
+                <input type="text" class="form-control form-control-sm" formControlName="cCURP" placeholder="">
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                <label class="form-label">Telefono</label>
+                <input type="text" class="form-control form-control-sm" formControlName="cTelefono" placeholder="">
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                <label class="form-label">Celular</label>
+                <input type="text" class="form-control form-control-sm" formControlName="cCelular" placeholder="">
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                <label class="form-label">Nacionalidad</label>
+                <input type="text" class="form-control form-control-sm" formControlName="cNacionalidad" placeholder="">
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                <label class="form-label">Contacto</label>
+                <input type="text" class="form-control form-control-sm" formControlName="cContacto" placeholder="">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm">
+              <div class="mb-3">
+                <label class="form-label">Estado</label>
+                <input type="text" class="form-control form-control-sm" formControlName="cEstado" placeholder="">
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                <label class="form-label">Municipio</label>
+                <input type="text" class="form-control form-control-sm" formControlName="cMunicipio" placeholder="">
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                <label class="form-label">Colonia</label>
+                <input type="text" class="form-control form-control-sm" formControlName="cColonia" placeholder="">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Dirección</label>
+                <input type="text" class="form-control form-control-sm" formControlName="cDireccion" placeholder="">
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                <label class="form-label">CP</label>
+                <input type="text" class="form-control form-control-sm" formControlName="cCodigoPostal" placeholder="">
+              </div>
+            </div>
+          </div>
+
+
+          <hr class="my-4">
+
+          <div class="row">
+            <div class="col-sm-5">
+              <div class="row">
+                <div class="col-sm">
+                  <div class="mb-3">
+                    <label class="form-label">Dias de Entrega</label>
+                    <input type="text" class="form-control form-control-sm"  formControlName="cDiasEntrega"placeholder="">
+                  </div>
+                </div>
+                <div class="col-sm">
+                  <div class="mb-3">
+                    <label class="form-label">Forma de Pago</label>
+                    <input type="text" class="form-control form-control-sm" formControlName="cFormaPago" placeholder="">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm">
+                  <div class="mb-3">
+                    <label class="form-label">Limite de Credito</label>
+                    <input type="text" class="form-control form-control-sm" formControlName="nLimiteCredito" placeholder="">
+                  </div>
+                </div>
+                <div class="col-sm">
+                  <div class="mb-3">
+                    <label class="form-label">Impuestos</label>
+                    <input type="text" class="form-control form-control-sm"  placeholder="">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm">
+                  <div class="mb-3">
+                    <label class="form-label">Dias de Credito</label>
+                    <input type="text" class="form-control form-control-sm"  formControlName="nDiasCredito" placeholder="">
+                  </div>
+                </div>
+                <div class="col-sm">
+                  <div class="mb-3">
+                    <label class="form-label">Pago de Flete Factura</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+        <div class="d-flex justify-content-center my-4">
+          <button type="button" class="btn btn-warning mx-2">Limpiar</button>
+          <button type="button" class="btn btn-dark mx-2">Cancelar</button>
+          <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid" (click)="guardar()">Guardar</button>
+        </div>
       </div>
     </div>
   </div>

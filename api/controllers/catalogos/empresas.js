@@ -25,7 +25,22 @@ async function guardarEmpresa(req, res) {
         data: result.data
     });
 }
+
+async function eliminarEmpresa(req, res) {
+    
+    let params = req.params;
+    params.cLogin = req.user.cLogin;
+
+    let result = await service.eliminarEmpresa(params);
+
+    res.status(result.status).json({
+        error: result.error,
+        data: result.data
+    });
+}
+
 module.exports = {
     obtenerEmpresas,
-    guardarEmpresa
+    guardarEmpresa,
+    eliminarEmpresa
 };

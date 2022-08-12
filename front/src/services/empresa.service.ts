@@ -22,4 +22,9 @@ export class EmpresaService {
 
     return this.http.post(this.baseUrl + this.urlEmpresas, item);
   }
+
+  eliminarEmpresa(nEmpresa: number): any {
+
+    return this.http.delete(this.baseUrl + this.urlEmpresas + '/' +  nEmpresa);
+  }
 }

@@ -47,7 +47,10 @@ export class BusinessComponent implements OnInit {
   }
 
   get nEmpresa(): number {
-    return this.form.get('cFolio')?.value ?? 0;
+    if (!this.form.get('nEmpresa')?.value ||  this.form.get('nEmpresa')?.value == ''){
+      return 0;
+    }
+    return this.form.get('nEmpresa')?.value;
   }
 
   get cRazonSocial(): string {
@@ -100,41 +103,49 @@ export class BusinessComponent implements OnInit {
 
   async guardar(): Promise<void> {
 
-    const objEmpresa = {
-      nEmpresa: this.nEmpresa,
-      nTipo: this.nTipo,
-      cRazonSocial : this.cRazonSocial,
-      cRFC : this.cRFC,
-      cCodigoPostal : this.cCodigoPostal,
-      cPais : this.cPais,
-      cEstado : this.cEstado,
-      cMunicipio : this.cMunicipio,
-      cCiudad : this.cCiudad,
-      cColonia : this.cColonia,
-      cDireccion : this.cDireccion,
-      cNombreRepresentante : this.cNombreRepresentante,
-      cApellidoPaternoRepresentante : this.cApellidoPaternoRepresentante,
-      cApellidoMaternoRepresentante : this.cApellidoMaternoRepresentante,
-    };
+    this.util.dialogConfirm('¿Está seguro que desea guardar los datos?').then((result) => {
 
-    await this.service.guardarEmpresa(objEmpresa).subscribe(async (resp: any) => {
+      if (result.isConfirmed) {
+        const objEmpresa = {
+          nEmpresa: this.nEmpresa,
+          nTipo: this.nTipo,
+          cRazonSocial : this.cRazonSocial,
+          cRFC : this.cRFC,
+          cCodigoPostal : this.cCodigoPostal,
+          cPais : this.cPais,
+          cEstado : this.cEstado,
+          cMunicipio : this.cMunicipio,
+          cCiudad : this.cCiudad,
+          cColonia : this.cColonia,
+          cDireccion : this.cDireccion,
+          cNombreRepresentante : this.cNombreRepresentante,
+          cApellidoPaternoRepresentante : this.cApellidoPaternoRepresentante,
+          cApellidoMaternoRepresentante : this.cApellidoMaternoRepresentante,
+        };
 
-      if (resp.error !== '') {
+        this.service.guardarEmpresa(objEmpresa).subscribe(async (resp: any) => {
 
-        Swal.fire('Error', resp.error.error, 'error');
+          if (resp.error !== '') {
+
+            this.util.dialogError(resp.error.error.type);
+          }
+          else {
+            console.log(resp);
+            this.form.controls["nEmpresa"].setValue(resp.data.id);
+            this.util.dialogSuccess('Empresa guardada correctamente.');
+          }
+        }, (err: { error: any; }) => {
+          // if(err.error.error.type){
+          //   this.util.dialogError(err.error.error.type);
+          // }else{
+          //   this.util.dialogError('Error al guardar la empresa.');
+          // }
+          this.util.dialogError('Error al guardar la empresa.');
+
+        });
       }
-      else {
-        this.util.dialogSuccess('Empresa guardada correctamente.');
-      }
-    }, (err: { error: any; }) => {
-      // if(err.error.error.type){
-      //   this.util.dialogError(err.error.error.type);
-      // }else{
-      //   this.util.dialogError('Error al guardar la empresa.');
-      // }
-      this.util.dialogError('Error al guardar la empresa.');
-
     });
+
   }
 
   openModal() {
@@ -150,10 +161,72 @@ export class BusinessComponent implements OnInit {
         console.log('value:', value);
         if(value){
           this.form.controls["nEmpresa"].setValue(value.id);
+
+          this.mostrarDatosEmpresa();
+
         }
-        // this.enfocarBotonNuevaVenta()
       }
     );
+  }
+
+  mostrarDatosEmpresa() {
+    this.service.obtenerEmpresas(this.nEmpresa).subscribe ( (resp: any) => {
+      if (resp) {
+        const empresa = resp.data[0];
+        console.log(empresa);
+        this.form.controls["nTipo"].setValue(empresa.nTipo);
+        this.form.controls["cRazonSocial"].setValue(empresa.cRazonSocial);
+        this.form.controls["cRFC"].setValue(empresa.cRFC);
+        this.form.controls["cCodigoPostal"].setValue(empresa.cCodigoPostal);
+        this.form.controls["cPais"].setValue(empresa.cPais);
+        this.form.controls["cEstado"].setValue(empresa.cEstado);
+        this.form.controls["cMunicipio"].setValue(empresa.cMunicipio);
+        this.form.controls["cCiudad"].setValue(empresa.cCiudad);
+        this.form.controls["cColonia"].setValue(empresa.cColonia);
+        this.form.controls["cDireccion"].setValue(empresa.cDireccion);
+        this.form.controls["cNombreRepresentante"].setValue(empresa.cNombreRepresentante);
+        this.form.controls["cApellidoPaternoRepresentante"].setValue(empresa.cApellidoPaternoRepresentante);
+        this.form.controls["cApellidoMaternoRepresentante"].setValue(empresa.cApellidoMaternoRepresentante);
+      }
+    }, (error: any) => {
+
+    });
+  }
+
+  limpiar() {
+    this.form.controls["nEmpresa"].setValue('');
+    this.form.controls["nTipo"].setValue('');
+    this.form.controls["cRazonSocial"].setValue('');
+    this.form.controls["cRFC"].setValue('');
+    this.form.controls["cCodigoPostal"].setValue('');
+    this.form.controls["cPais"].setValue('');
+    this.form.controls["cEstado"].setValue('');
+    this.form.controls["cMunicipio"].setValue('');
+    this.form.controls["cCiudad"].setValue('');
+    this.form.controls["cColonia"].setValue('');
+    this.form.controls["cDireccion"].setValue('');
+    this.form.controls["cNombreRepresentante"].setValue('');
+    this.form.controls["cApellidoPaternoRepresentante"].setValue('');
+    this.form.controls["cApellidoMaternoRepresentante"].setValue('');
+  }
+
+  eliminar() {
+    this.util.dialogConfirm('¿Está seguro que desea eliminar los datos?').then((result) => {
+      if (result.isConfirmed) {
+        this.service.eliminarEmpresa(this.nEmpresa).subscribe(async (resp: any) => {
+          this.util.dialogSuccess('Empresa eliminada correctamente.');
+          this.limpiar();
+        }, (err: { error: any; }) => {
+          // if(err.error.error.type){
+          //   this.util.dialogError(err.error.error.type);
+          // }else{
+          //   this.util.dialogError('Error al guardar la empresa.');
+          // }
+          this.util.dialogError('Error al eliminar la empresa.');
+
+        });
+      }
+    });
   }
 
 }

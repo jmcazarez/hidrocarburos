@@ -1,7 +1,7 @@
 {
-  "name": "api-bistroft",
+  "name": "api-hidro",
   "version": "1.0.0",
-  "description": "api para bistroft",
+  "description": "api para hidrocarburos",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

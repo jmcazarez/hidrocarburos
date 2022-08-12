@@ -24,17 +24,17 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Formulario de Empresas</h6>
-          <form>
+        <form name="form" [formGroup]="form" >
 
             <div class="my-4">
               <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" name="radioInline" id="radioInline" checked>
+                <input type="radio" class="form-check-input" id="nTipoFisica" checked formControlName="nTipo" [value]="1">
                 <label class="form-check-label" for="radioInline">
                   Fisica
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" name="radioInline" id="radioInline1">
+                <input type="radio" class="form-check-input" id="nTipoMoral" formControlName="nTipo" [value]="2">
                 <label class="form-check-label" for="radioInline1">
                   Moral
                 </label>
@@ -46,26 +46,26 @@
                 <div class="row">
                   <label class="form-label col-sm-3 col-form-label text-end">Folio</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cFolio">
                   </div>
                 </div>
               </div>
-            
+
               <div class="col-sm-4">
                 <div class="row">
                   <label class="form-label col-sm-5 col-form-label text-end">Nombre / Razon Social</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cRazonSocial">
                   </div>
                 </div>
               </div>
-            
+
               <div class="col-sm-3">
                 <div class="row">
                   <label class="form-label col-sm-3 col-form-label text-end">RFC</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
-                  </div>            
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cRFC">
+                  </div>
                 </div>
               </div>
             </div>
@@ -74,65 +74,65 @@
               <div class="col-sm-4">
                 <h5><span class="badge bg-primary mb-4">Domicilio Fiscal</span></h5>
                 <div class="row">
-                  <label class="form-label col-sm-5 col-form-label text-end">CP</label>
+                  <label class="form-label col-sm-5 col-form-label text-end">Código postal</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cCodigoPostal">
                   </div>
 
-                  <label class="form-label col-sm-5 col-form-label text-end">Pais</label>
+                  <label class="form-label col-sm-5 col-form-label text-end">País</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cPais">
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Estado</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cEstado">
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Municipio</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cMunicipio">
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Ciudad</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cCiudad">
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Colonia</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cColonia">
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Dirección</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cDireccion">
                   </div>
-                      
+
                 </div>
               </div>
-            
+
               <div class="col-sm-2"></div>
-            
+
               <div class="col-sm-4">
                 <h5><span class="badge bg-primary mb-4">Representante Legal</span></h5>
                 <div class="row">
-            
+
                   <label class="form-label col-sm-5 col-form-label text-end">Nombre</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cNombreRepresentante">
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Apellido Paterno</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cApellidoPaternoRepresentante">
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Apellido Materno</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cApellidoMaternoRepresentante">
                   </div>
-            
+
                 </div>
               </div>
             </div>
@@ -142,7 +142,7 @@
           <div class="d-flex justify-content-center my-4">
             <button type="button" class="btn btn-warning mx-2">Limpiar</button>
               <button type="button" class="btn btn-dark mx-2">Cancelar</button>
-              <button type="button" class="btn btn-primary mx-2">Guardar</button>
+              <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid" (click)="guardar()">Guardar</button>
           </div>
       </div>
     </div>

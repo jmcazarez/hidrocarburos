@@ -48,10 +48,14 @@ const clientes = require("./routes/catalogos/clientes");
 // perfiles
 const perfiles = require("./routes/catalogos/perfiles");
 
+// empresas
+const empresas = require("./routes/catalogos/empresas");
+
 // rutas base
 
 app.use("/api/login", login);
 app.use("/api/catalogos/clientes", clientes);
 app.use("/api/catalogos/perfiles", perfiles);
+app.use("/api/catalogos/empresas", empresas);
 
 module.exports = app;

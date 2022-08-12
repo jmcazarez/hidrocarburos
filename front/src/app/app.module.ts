@@ -14,8 +14,9 @@ import { ErrorPageComponent } from './views/pages/error-page/error-page.componen
 import { AuthGuard } from './core/guard/auth.guard';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { AuthInterceptor } from 'src/interceptors/authInterceptor';
 /* import { NgxSpinnerModule } from 'ngx-spinner'; */
 @NgModule({
   declarations: [
@@ -47,6 +48,11 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
           scss: () => import('highlight.js/lib/languages/scss'),
         }
       }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]

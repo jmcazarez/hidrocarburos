@@ -24,24 +24,22 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Agregar Concepto de Gastos</h6>
-          <form>
+          <form name="form" [formGroup]="form">
 
             <div class="row mt-4">
               <div class="col-md-6 offset-md-3">
                 <div class="mb-3">
                   <div class="input-group">
-                    <input type="text" class="form-control">
-                    <button class="btn btn-outline-secondary" type="button">Agregar</button>
-                    <button class="btn btn-outline-secondary" type="button">Borrar</button>
+                    <input type="text" class="form-control" formControlName="cDescripcion">
+                    <button class="btn btn-outline-secondary" [disabled]="form.invalid" (click)="guardar()" type="button">Agregar</button>
+                    <button class="btn btn-outline-secondary"[disabled]="this.nConcepto == 0" (click)="cancelar()" type="button">Borrar</button>
                   </div>
                 </div>
 
-                <ul class="list-group">
-                  <li class="list-group-item disabled" aria-disabled="true">Descripción</li>
-                  <li class="list-group-item">Mantenimiento de local</li>
-                  <li class="list-group-item">Renta</li>
-                  <li class="list-group-item">Telmex</li>
-                </ul>
+
+              <ul class="list-group" *ngFor="let concepto of conceptos">
+                <li class="list-group-item" aria-disabled="true" (click)="seleccionar(concepto)">{{concepto.cDescripcion}}</li>
+              </ul>
               </div>
             </div>
 

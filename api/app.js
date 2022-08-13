@@ -60,6 +60,10 @@ const proveedores = require("./routes/catalogos/proveedores");
 // empresas
 const empresas = require("./routes/catalogos/empresas");
 
+// empresas
+const conceptoDeGastos = require("./routes/catalogos/concepto_de_gastos");
+
+
 
 // rutas base
 
@@ -71,5 +75,7 @@ app.use("/api/catalogos/formas_pago", formasPago);
 app.use("/api/catalogos/proveedores", proveedores);
 
 app.use("/api/catalogos/empresas", empresas);
+app.use("/api/catalogos/concepto_de_gastos", conceptoDeGastos);
+
 
 module.exports = app;

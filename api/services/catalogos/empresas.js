@@ -126,7 +126,7 @@ async function eliminarEmpresa(params) {
         }else{
             return {
                 status: 400,
-                error: 'Error al guardar la empresa.',
+                error: 'Error al eliminar la empresa.',
                 data: [],
             };
         }

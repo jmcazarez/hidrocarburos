@@ -24,69 +24,88 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Formulario de Clientes</h6>
-          <form>
+          <form [formGroup]="form">
+
+            <div class="my-4">
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="nTipoFisica" checked formControlName="nTipo" [value]="1">
+                <label class="form-check-label" for="radioInline">
+                  Fisica
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="nTipoMoral" formControlName="nTipo" [value]="2">
+                <label class="form-check-label" for="radioInline1">
+                  Moral
+                </label>
+              </div>
+            </div>
 
             <div class="my-4">
               <div class="row">
-                <div class="col-md-3">
-                  <div class="form-check form-check mb-3">
-                    <input type="radio" class="form-check-input" name="radioInline" id="radioInline" checked>
-                    <label class="form-check-label" for="radioInline">
-                      Fisica
-                    </label>
-                  </div>
-                  <div class="form-check form-check">
-                    <input type="radio" class="form-check-input" name="radioInline" id="radioInline1">
-                    <label class="form-check-label" for="radioInline1">
-                      Moral
-                    </label>
+                <div class="col-sm-3">
+                  <div class="row">
+                    <label class="form-label col-sm-3 col-form-label text-end">Folio</label>
+                    <div class="col-sm-9">
+                      <div class="input-group">
+                      <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nCliente">
+                      <span class="input-group-text border-start-0 bg-white">
+                        <i class="feather icon-search" (click)="openModal()"></i>
+                      </span>
+                    </div>
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-5">
+
+                <div class="col-sm-6">
                   <div class="row">
-                    <div class="mb-3">
-                      <label class="form-label">Razón Social</label>
-                      <input type="text" class="form-control form-control-sm" value="Cuauthemoc Ernesto Alva Vazquez">
+                    <label class="form-label col-sm-5 col-form-label text-end">Nombre / Razon Social</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cRazonSocial">
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            
+
             <div class="row">
 
               <div class="col">
                 <div class="mb-3">
-                  <label class="form-label">Cliente(s)</label>
-                  <input type="text" class="form-control form-control-sm" value="Cuauthemoc">
+                  <label class="form-label">Nombre(s)</label>
+                  <input type="text" class="form-control form-control-sm" formControlName="cNombre">
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">Apellido Paterno</label>
-                  <input type="text" class="form-control form-control-sm" value="Alva">
+                  <input type="text" class="form-control form-control-sm" formControlName="cApellidoPaterno">
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
-                  <label class="form-label">Apellido Meterno</label>
-                  <input type="text" class="form-control form-control-sm" value="Vazquez">
+                  <label class="form-label">Apellido Materno</label>
+                  <input type="text" class="form-control form-control-sm" formControlName="cApellidoMaterno">
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">Sexo</label>
-                  <input type="text" class="form-control form-control-sm" value="Masculino">
+                  <select class="form-control form-control-sm" formControlName="cSexo">
+                    <option [value]="''">Seleccione ...</option>
+                    <option [value]="'M'">Masculino</option>
+                    <option [value]="'F'">Femenino</option>
+                  </select>
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
-                  <label class="form-label">Fecha de Nacimiento</label>
-                  <input type="text" class="form-control form-control-sm" value="21 - Ene - 1988">
+                  <label class="form-label">Fecha de nacimiento</label>
+                  <input type="date" class="form-control form-control-sm" formControlName="dFechaNacimiento">
                 </div>
               </div>
             </div>
@@ -96,35 +115,35 @@
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">Pais</label>
-                  <input type="text" class="form-control form-control-sm" value="Mexico">
+                  <input type="text" class="form-control form-control-sm" formControlName="cPais">
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">Estado</label>
-                  <input type="text" class="form-control form-control-sm" value="Sonora">
+                  <input type="text" class="form-control form-control-sm" formControlName="cEstado">
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">Municipio</label>
-                  <input type="text" class="form-control form-control-sm" value="Mexicali">
+                  <input type="text" class="form-control form-control-sm" formControlName="cMunicipio">
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">CURP</label>
-                  <input type="text" class="form-control form-control-sm" value="AAVC76119HQTZXO">
+                  <input type="text" class="form-control form-control-sm" formControlName="cCURP">
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">RFC</label>
-                  <input type="text" class="form-control form-control-sm" value="AAVC76119HQ">
+                  <input type="text" class="form-control form-control-sm" formControlName="cRFC">
                 </div>
               </div>
             </div>
@@ -134,21 +153,21 @@
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">Dirección</label>
-                  <input type="text" class="form-control form-control-sm" value="Los Rincones">
+                  <input type="text" class="form-control form-control-sm" formControlName="cDireccion">
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">N. Exterior</label>
-                  <input type="text" class="form-control form-control-sm" value="120">
+                  <input type="text" class="form-control form-control-sm" formControlName="cNumeroExterior">
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">N. Interior</label>
-                  <input type="text" class="form-control form-control-sm" value="P-201">
+                  <input type="text" class="form-control form-control-sm" formControlName="cNumeroInterior">
                 </div>
               </div>
             </div>
@@ -158,44 +177,44 @@
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">Colonia</label>
-                  <input type="text" class="form-control form-control-sm" value="Guadalupe">
+                  <input type="text" class="form-control form-control-sm" formControlName="cColonia">
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
-                  <label class="form-label">CP</label>
-                  <input type="text" class="form-control form-control-sm" value="12050">
+                  <label class="form-label">Código postal</label>
+                  <input type="text" class="form-control form-control-sm" formControlName="cCodigoPostal">
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
-                  <label class="form-label">Telefono</label>
-                  <input type="text" class="form-control form-control-sm" value="7152036">
+                  <label class="form-label">Teléfono</label>
+                  <input type="text" class="form-control form-control-sm" formControlName="cTelefono">
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">Celular</label>
-                  <input type="text" class="form-control form-control-sm" value="6952321032">
+                  <input type="text" class="form-control form-control-sm" formControlName="cCelular">
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
-                  <label class="form-label">Correo</label>
-                  <input type="text" class="form-control form-control-sm" value="soporte@hidrocarburos.com">
+                  <label class="form-label">Correo electrónico</label>
+                  <input type="text" class="form-control form-control-sm" formControlName="cCorreoElectronico">
                 </div>
               </div>
             </div>
 
           </form>
           <div class="d-flex justify-content-center my-4">
-            <button type="button" class="btn btn-warning mx-2">Limpiar</button>
-              <button type="button" class="btn btn-dark mx-2">Cancelar</button>
-              <button type="button" class="btn btn-primary mx-2">Guardar</button>
+            <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
+              <button *ngIf="this.nCliente > 0"  type="button" class="btn btn-danger mx-2" (click)="eliminar()" >Eliminar</button>
+              <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid" (click)="guardar()">Guardar</button>
           </div>
       </div>
     </div>

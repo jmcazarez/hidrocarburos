@@ -4,6 +4,9 @@ const { validateToken } = require('../../middlewares/authenticated');
 
 var Controller = require("../../controllers/catalogos/clientes");
 
-api.get("/", validateToken, Controller.obtenerClientes);
+api.get("/:nCliente", validateToken, Controller.obtenerClientes);
+api.post("/", validateToken, Controller.guardarCliente);
+api.delete("/:nCliente", validateToken, Controller.eliminarCliente);
+
 
 module.exports = api;

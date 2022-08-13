@@ -1,13 +1,13 @@
 <div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">Busqueda de empresas</h5>
+  <h5 class="modal-title" id="exampleModalLabel">Busqueda de proveedores</h5>
 
 </div>
 <div class="modal-body">
-  <input type='text' matInput placeholder='Buscar empresa' (keyup)='filterDatatable($event)' [(ngModel)]="valueBuscador">
+  <input type='text' matInput placeholder='Buscar proveedores' (keyup)='filterDatatable($event)' [(ngModel)]="valueBuscador">
   <ngx-datatable class="material shadow-none" [rows]="data" [loadingIndicator]="loadingIndicator"
-    [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [reorderable]="reorderable"
+    [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"  [reorderable]="reorderable"
     [limit]="10" [scrollbarH]="true" (activate)="onClick($event)">
-    <ngx-datatable-column name="Id. Proveedor" prop="nProveedor"></ngx-datatable-column>
+    <ngx-datatable-column name="Id. Proveedor" prop="nProveedor" [width]="80"></ngx-datatable-column>
     <ngx-datatable-column name="Razon Social" prop="cDescripcion" ></ngx-datatable-column>
     <ngx-datatable-column name="RFC" prop="cRFC" ></ngx-datatable-column>
   </ngx-datatable>

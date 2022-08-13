@@ -22,7 +22,7 @@ export class ProvidersComponent implements OnInit {
   ngOnInit(): void {
 
     this.form = this.formBuilder.group({
-      nProveedor: [{ value: '', disabled: false }],
+      nProveedor: [{ value: '', disabled: true }],
       bPersonaFisica: new FormControl(''),
       cDescripcion: new FormControl('', Validators.required),
       cNombreComercial: new FormControl('', Validators.required),
@@ -135,7 +135,7 @@ export class ProvidersComponent implements OnInit {
   }
 
   async guardar(): Promise<void> {
-    const objEmpresa = {
+    const objProveedor = {
       nProveedor: this.nProveedor,
       cRFC: this.cRFC,
       bPersonaFisica: 1,
@@ -161,7 +161,7 @@ export class ProvidersComponent implements OnInit {
       bActivo: this.bActivo,
     };
 
-    await this.service.guardarProveedor(objEmpresa).subscribe(async (resp: any) => {
+    await this.service.guardarProveedor(objProveedor).subscribe(async (resp: any) => {
 
       if (resp.error !== '') {
 

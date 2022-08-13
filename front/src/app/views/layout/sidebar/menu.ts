@@ -169,7 +169,7 @@ export const MENU: MenuItem[] = [
       },
     ]
   },
-  
+
 
   {
     label: '',
@@ -209,6 +209,10 @@ export const MENU: MenuItem[] = [
           {
             label: 'Almacenes ',
             link: '/stores'
+          },
+          {
+            label: 'Articulos',
+            link: '/articles'
           },
           {
             label: 'Choferes',

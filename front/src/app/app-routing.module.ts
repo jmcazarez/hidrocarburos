@@ -78,7 +78,7 @@ const routes: Routes = [
         loadChildren: () => import('./views/pages/consultation-collection-movements/consultation-collection-movements.module').then(m => m.ConsultationCollectionMovementsModule)
       },
 
-      
+
       /* ---------- Control de Flujos ---------- */
       {
         path: 'expense-record',
@@ -104,7 +104,7 @@ const routes: Routes = [
         loadChildren: () => import('./views/pages/indirect-cost-record/indirect-cost-record.module').then(m => m.IndirectCostRecordModule)
       },
 
-      
+
       /* ---------- Control de Bancos ---------- */
       {
         path: 'movement-record',
@@ -115,7 +115,7 @@ const routes: Routes = [
         loadChildren: () => import('./views/pages/consult-bank/consult-bank.module').then(m => m.ConsultBankModule)
       },
 
-      
+
       /* ---------- Reportes Directivos ---------- */
       {
         path: 'global-stocks',
@@ -149,6 +149,10 @@ const routes: Routes = [
         loadChildren: () => import('./views/pages/providers/providers.module').then(m => m.ProvidersModule)
       },
       {
+        path: 'articles',
+        loadChildren: () => import('./views/pages/articles/articles.module').then(m => m.ArticlesModule)
+      },
+      {
         path: 'business',
         loadChildren: () => import('./views/pages/business/business.module').then(m => m.BusinessModule)
       },
@@ -159,7 +163,7 @@ const routes: Routes = [
       {
         path: 'stores',
         loadChildren: () => import('./views/pages/stores/stores.module').then(m => m.StoresModule)
-      },      
+      },
       {
         path: 'drivers',
         loadChildren: () => import('./views/pages/drivers/drivers.module').then(m => m.DriversModule)
@@ -175,7 +179,7 @@ const routes: Routes = [
       {
         path: 'bills',
         loadChildren: () => import('./views/pages/bills/bills.module').then(m => m.BillsModule)
-      },     
+      },
       {
         path: 'bank-accounts',
         loadChildren: () => import('./views/pages/bank-accounts/bank-accounts.module').then(m => m.BankAccountsModule)
@@ -188,12 +192,12 @@ const routes: Routes = [
         path: 'email',
         loadChildren: () => import('./views/pages/email/email.module').then(m => m.EmailModule)
       },
-      
+
       /* ----------  ---------- */
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, 
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]
   },
-  { 
+  {
     path: 'error',
     component: ErrorPageComponent,
     data: {

@@ -1,0 +1,70 @@
+<!-- ---------- Breadcrumb ---------- -->
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Configuración General</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Atículos</li>
+  </ol>
+</nav>
+
+<!-- ---------- Section description ---------- -->
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Registro de Atículos</h4>
+        <p class="text-muted">Sección dedicada para el registro de nuevos atículos en el sistema, recuerda llenar
+          todos los campos requeridos y asi podras guardar la información.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---------- Form ---------- -->
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Formulario de Atículos</h6>
+        <form name="form" [formGroup]="form">
+
+
+          <div class="row mt-4">
+            <div class="col-sm-5">
+              <div class="row">
+                <label class="form-label col-sm-5 col-form-label text-end">Folio</label>
+                <div class="col-sm-7">
+                  <div class="input-group">
+                    <input type="text" class="form-control form-control-sm border-end-0" [disabled]="true"
+                      id="id-usuario" formControlName="nArticulo">
+                    <span class="input-group-text border-start-0 bg-white">
+                      <i class="feather icon-search" (click)="openArticulos()"></i>
+                    </span>
+                  </div>
+                </div>
+                <label class="form-label col-sm-5 col-form-label text-end">Descripción corta</label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control form-control-sm" placeholder=""
+                    formControlName="cDescripcionCorta">
+                </div>
+
+                <label class="form-label col-sm-5 col-form-label text-end">Descripción larga</label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control form-control-sm" placeholder=""
+                    formControlName="cDescripcionLarga">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+        <div class="d-flex justify-content-end my-4">
+          <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
+          <button type="button" *ngIf="this.nArticulo > 0" class="btn btn-dark mx-2"
+            (click)="cancelar()">Cancelar</button>
+          <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid"
+            (click)="guardar()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

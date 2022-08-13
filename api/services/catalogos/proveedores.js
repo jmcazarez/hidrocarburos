@@ -40,6 +40,7 @@ async function guardarProveedor(params) {
         let data = await sequelize.query(
             `
              CALL proc_guardar_proveedor (
+                '${params.nProveedor}',
                 '${params.cRFC}',
                 '${params.bPersonaFisica}',
                 '${params.cDescripcion}',
@@ -87,8 +88,50 @@ async function guardarProveedor(params) {
 }
 
 
+async function cancelarProveedor(params) {
+    console.log(params);
+    try {
+        let data = await sequelize.query(
+            `
+             CALL proc_eliminar_proveedor (
+                ${params.nProveedor}
+            )
+             `,
+            {
+                type: QueryTypes.INSERT
+            }
+        );
+
+        return {
+            status: 200,
+            error: '',
+            data: []
+        }
+
+    } catch (err) {
+        // do something
+     
+        console.log(err);
+        if(err){
+            return {
+                status: 400,
+                error: err,
+                data: [],
+            };
+        }else{
+            return {
+                status: 400,
+                error: 'Error al eliminar proveedor.',
+                data: [],
+            };
+        }
+      
+    }
+}
+
 
 module.exports = {
     guardarProveedor,
-    obtenerProveedores
+    obtenerProveedores,
+    cancelarProveedor
 };

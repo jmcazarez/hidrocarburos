@@ -22,4 +22,9 @@ export class ProveedorService {
 
     return this.http.post(this.baseUrl + this.urlProveedores, item);
   }
+
+  cancelarProveedor(nProveedor: number): any {
+
+    return this.http.delete(this.baseUrl + this.urlProveedores + '/' +  nProveedor);
+  }
 }

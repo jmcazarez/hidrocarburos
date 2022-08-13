@@ -30,7 +30,7 @@
           <div class="col-sm-3">
             <label class="form-label">Folio</label>
             <div class="input-group">
-              <input type="text" class="form-control form-control-sm border-end-0" id="id-usuario"
+              <input type="text" class="form-control form-control-sm border-end-0" [disabled]="true" id="nProveedor"
                 formControlName="nProveedor">
               <span class="input-group-text border-start-0 bg-white">
                 <i class="feather icon-search" (click)="openProveedores()"></i>
@@ -56,31 +56,34 @@
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">Razón Social</label>
-                <input type="text" class="form-control form-control-sm"  formControlName="cDescripcion" placeholder="">
+                <input type="text" class="form-control form-control-sm" formControlName="cDescripcion" placeholder="">
               </div>
             </div>
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">Nombre Comercial </label>
-                <input type="text" class="form-control form-control-sm"  formControlName="cNombreComercial" placeholder="">
+                <input type="text" class="form-control form-control-sm" formControlName="cNombreComercial"
+                  placeholder="">
               </div>
             </div>
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">Nombre</label>
-                <input type="text" class="form-control form-control-sm"  formControlName="cNombre" placeholder="">
+                <input type="text" class="form-control form-control-sm" formControlName="cNombre" placeholder="">
               </div>
             </div>
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">Apellido Paterno</label>
-                <input type="text" class="form-control form-control-sm"  formControlName="cApellidoPaterno" placeholder="">
+                <input type="text" class="form-control form-control-sm" formControlName="cApellidoPaterno"
+                  placeholder="">
               </div>
             </div>
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">Apellido Meterno</label>
-                <input type="text" class="form-control form-control-sm" formControlName="cApellidoMaterno" placeholder="">
+                <input type="text" class="form-control form-control-sm" formControlName="cApellidoMaterno"
+                  placeholder="">
               </div>
             </div>
             <div class="col-sm">
@@ -183,7 +186,8 @@
                 <div class="col-sm">
                   <div class="mb-3">
                     <label class="form-label">Dias de Entrega</label>
-                    <input type="text" class="form-control form-control-sm"  formControlName="cDiasEntrega"placeholder="">
+                    <input type="text" class="form-control form-control-sm" formControlName="cDiasEntrega"
+                      placeholder="">
                   </div>
                 </div>
                 <div class="col-sm">
@@ -198,13 +202,14 @@
                 <div class="col-sm">
                   <div class="mb-3">
                     <label class="form-label">Limite de Credito</label>
-                    <input type="text" class="form-control form-control-sm" formControlName="nLimiteCredito" placeholder="">
+                    <input type="text" class="form-control form-control-sm" formControlName="nLimiteCredito"
+                      placeholder="">
                   </div>
                 </div>
                 <div class="col-sm">
                   <div class="mb-3">
                     <label class="form-label">Impuestos</label>
-                    <input type="text" class="form-control form-control-sm"  placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cImpuestos">
                   </div>
                 </div>
               </div>
@@ -213,13 +218,14 @@
                 <div class="col-sm">
                   <div class="mb-3">
                     <label class="form-label">Dias de Credito</label>
-                    <input type="text" class="form-control form-control-sm"  formControlName="nDiasCredito" placeholder="">
+                    <input type="text" class="form-control form-control-sm" formControlName="nDiasCredito"
+                      placeholder="">
                   </div>
                 </div>
                 <div class="col-sm">
                   <div class="mb-3">
                     <label class="form-label">Pago de Flete Factura</label>
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nPagoFlete">
                   </div>
                 </div>
               </div>
@@ -229,8 +235,9 @@
         </form>
         <div class="d-flex justify-content-center my-4">
           <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
-          <button type="button" class="btn btn-dark mx-2">Cancelar</button>
-          <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid" (click)="guardar()">Guardar</button>
+          <button type="button" *ngIf="this.nProveedor > 0" class="btn btn-dark mx-2" (click)="cancelar()">Cancelar</button>
+          <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid"
+            (click)="guardar()">Guardar</button>
         </div>
       </div>
     </div>

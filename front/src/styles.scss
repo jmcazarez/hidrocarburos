@@ -53,3 +53,127 @@
   font-size: 15px;
   cursor: pointer;
 }
+
+.error {
+  font-size: 12px !important;
+  line-height: 12px;
+  color: #ff0000;
+}
+
+/*
+  @include dialog-base;
+*/
+@mixin dialog-base {
+  .modal-header {
+    background-color: var(--colorPrimario);
+    border-radius: 0px !important;
+    border: solid var(--colorPrimario) 1px;
+    padding: 0;
+    min-height: 40px;
+    height: auto;
+    user-select: none;
+
+    span {
+      margin-left: 20px;
+      font-size: var(--fuenteGrande);
+      font-weight: bold;
+      color: var(--colorLetraTituloDialog);
+      line-height: 1em;
+    }
+
+    button {
+      border: none;
+      background: transparent;
+      padding: 10px;
+      fa-icon {
+        color: var(--colorLetraTituloDialog) !important;
+      }
+    }
+  }
+  .modal-body {
+    tbody,
+    cdk-virtual-scroll-viewport {
+      tr:focus {
+        background-color: var(--colorFocusRegistroTabla);
+      }
+      tr:hover {
+        background-color: var(--colorFocusRegistroTabla);
+      }
+    }
+  }
+
+  .modal-footer {
+    border-radius: 0px !important;
+    padding: 0;
+    background-color: var(--colorFooterTabla);
+    border: solid var(--colorFooterTabla) 1px;
+    user-select: none;
+
+    span {
+      font-size: var(--fuenteChica);
+      color: var(--blanco);
+    }
+  }
+}
+
+.dialog-base {
+  @include dialog-base;
+}
+
+.dialog-formulario,
+.dialog-formulario-cantidad,
+.dialog-formulario-chico,
+.dialog-formulario-mediano,
+.dialog-formulario-mas-chico {
+  max-width: 95vw;
+  @include dialog-base;
+}
+
+// Modals
+.modal-xxl {
+  @media (min-width: 576px) {
+    max-width: 98vw;
+  }
+  @media (min-width: 1280px) {
+    max-width: 90%;
+  }
+}
+
+.modal-lg {
+  @media (min-width: 576px) {
+    max-width: 800px;
+  }
+  @media (max-width: 900px) {
+    max-width: calc( 100vw - 40px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.modal-content {
+  border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+}
+
+.modal-dialog {
+  border: 0px !important;
+}
+
+//Dialog que contiene formulario
+.dialog-formulario-cantidad {
+  max-width: 200px !important;
+}
+
+.dialog-formulario-mas-chico {
+  max-width: 400px !important;
+}
+
+.dialog-formulario-chico {
+  max-width: 500px !important;
+}
+
+.dialog-formulario-mediano {
+  margin-top: 5px !important;
+  max-width: 790px !important;
+}

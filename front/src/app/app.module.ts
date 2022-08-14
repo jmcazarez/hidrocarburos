@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AuthInterceptor } from 'src/interceptors/authInterceptor';
+import { Patterns } from 'src/utils/patterns';
 /* import { NgxSpinnerModule } from 'ngx-spinner'; */
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { AuthInterceptor } from 'src/interceptors/authInterceptor';
         }
       }
     },
+    Patterns,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

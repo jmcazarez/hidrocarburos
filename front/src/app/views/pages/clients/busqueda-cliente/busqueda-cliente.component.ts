@@ -29,6 +29,10 @@ export class BusquedaClienteComponent implements OnInit {
 
   }
 
+  ngAfterViewChecked():void{
+    window.dispatchEvent(new Event('resize'));
+  }
+
 
   close(vm: any = this) {
     vm.activeModal.close({});

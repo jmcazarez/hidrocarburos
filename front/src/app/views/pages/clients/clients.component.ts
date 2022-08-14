@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsService } from 'src/services/utils.service';
 import { formatDate } from '@angular/common';
+import { Patterns } from 'src/utils/patterns';
 
 @Component({
   selector: 'app-clients',
@@ -19,7 +20,8 @@ export class ClientsComponent implements OnInit {
   constructor(
     private service: ClienteService,
     private util: UtilsService,
-    public modalService: NgbModal
+    public modalService: NgbModal,
+    private patterns: Patterns,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -35,16 +37,16 @@ export class ClientsComponent implements OnInit {
       cPais : new FormControl('', Validators.required),
       cEstado : new FormControl('', Validators.required),
       cMunicipio : new FormControl('', Validators.required),
-      cCURP : new FormControl('', Validators.required),
-      cRFC : new FormControl('', Validators.required),
+      cCURP : new FormControl('', [Validators.pattern(this.patterns.curp)]),
+      cRFC : new FormControl('', [Validators.pattern(this.patterns.rfc)]),
       cDireccion : new FormControl('', Validators.required),
       cNumeroExterior : new FormControl('', Validators.required),
-      cNumeroInterior : new FormControl('', Validators.required),
+      cNumeroInterior : new FormControl('', []),
       cColonia : new FormControl('', Validators.required),
-      cCodigoPostal : new FormControl('', Validators.required),
-      cTelefono : new FormControl('', Validators.required),
-      cCelular : new FormControl('', Validators.required),
-      cCorreoElectronico : new FormControl('', Validators.required),
+      cCodigoPostal : new FormControl('', [Validators.required, Validators.pattern(this.patterns.zipCode)]),
+      cTelefono : new FormControl('', [Validators.pattern(this.patterns.basicPhone)]),
+      cCelular : new FormControl('', [Validators.pattern(this.patterns.basicPhone)]),
+      cCorreoElectronico : new FormControl('', [Validators.email]),
     });
 
   }
@@ -142,6 +144,12 @@ export class ClientsComponent implements OnInit {
     this.util.dialogConfirm('¿Está seguro que desea guardar los datos?').then((result) => {
 
       if (result.isConfirmed) {
+
+        // verificar validación del rfc
+        if (!this.validarRFC()) {
+          return;
+        }
+
         const objCliente = {
           nCliente: this.nCliente,
           nTipo: this.nTipo,
@@ -178,11 +186,7 @@ export class ClientsComponent implements OnInit {
             this.util.dialogSuccess('Cliente guardado correctamente.');
           }
         }, (err: { error: any; }) => {
-          // if(err.error.error.type){
-          //   this.util.dialogError(err.error.error.type);
-          // }else{
-          //   this.util.dialogError('Error al guardar la empresa.');
-          // }
+
           this.util.dialogError('Error al guardar el cliente.');
 
         });
@@ -191,12 +195,31 @@ export class ClientsComponent implements OnInit {
 
   }
 
+  validarRFC(): boolean {
+    if (this.cRFC.length > 0 && this.cRFC.length  !== 12 && this.cRFC.length !== 13) {
+      this.util.dialogWarning('La longitud del RFC debe ser de 12 o 13 caracteres.');
+      return false;
+    }
+
+    if (this.cRFC.length > 0) {
+      if (this.cRFC.length === 12 && this.nTipo == 1) { // Persona fisica
+        this.util.dialogWarning('El registro fiscal seleccionado no corresponde con con el RFC proporcionado.');
+        return false;
+      } else if (this.cRFC.length === 13 && this.nTipo == 2) {
+        this.util.dialogWarning('El registro fiscal seleccionado no corresponde con con el RFC proporcionado.');
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   openModal() {
     const modalRef = this.modalService.open(BusquedaClienteComponent, {
       centered: true,
       backdrop: 'static',
       keyboard: false,
-      modalDialogClass: 'dialog-formulario',
+      modalDialogClass: 'dialog-formulario-chico',
     });
 
     modalRef.closed.subscribe(

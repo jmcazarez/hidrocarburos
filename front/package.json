@@ -27,7 +27,7 @@
     "@fullcalendar/list": "^5.11.0",
     "@fullcalendar/timegrid": "^5.11.0",
     "@mdi/font": "^6.6.96",
-    "@ng-bootstrap/ng-bootstrap": "^12.0.2",
+    "@ng-bootstrap/ng-bootstrap": "^12.1.0",
     "@ng-select/ng-select": "^8.1.1",
     "@popperjs/core": "^2.11.5",
     "@rxweb/reactive-form-validators": "^2.1.7",

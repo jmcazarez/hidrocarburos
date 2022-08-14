@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Patterns } from 'src/utils/patterns';
 
 @Component({
   selector: 'app-business',
@@ -19,7 +20,8 @@ export class BusinessComponent implements OnInit {
   constructor(
     private service: EmpresaService,
     private util: UtilsService,
-    public modalService: NgbModal
+    public modalService: NgbModal,
+    private patterns: Patterns,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -27,17 +29,17 @@ export class BusinessComponent implements OnInit {
       nEmpresa : new FormControl({ value: '', disabled: true }, []),
       nTipo : new FormControl('', Validators.required),
       cRazonSocial : new FormControl('', Validators.required),
-      cRFC : new FormControl('', Validators.required),
-      cCodigoPostal : new FormControl('', Validators.required),
+      cRFC : new FormControl('', [Validators.pattern(this.patterns.rfc)]),
+      cCodigoPostal : new FormControl('', [Validators.pattern(this.patterns.zipCode), Validators.required]),
       cPais : new FormControl('', Validators.required),
       cEstado : new FormControl('', Validators.required),
       cMunicipio : new FormControl('', Validators.required),
       cCiudad : new FormControl('', Validators.required),
       cColonia : new FormControl('', Validators.required),
       cDireccion : new FormControl('', Validators.required),
-      cNombreRepresentante : new FormControl('', Validators.required),
-      cApellidoPaternoRepresentante : new FormControl('', Validators.required),
-      cApellidoMaternoRepresentante : new FormControl('', Validators.required),
+      cNombreRepresentante : new FormControl('', []),
+      cApellidoPaternoRepresentante : new FormControl('', []),
+      cApellidoMaternoRepresentante : new FormControl('', []),
     });
     // await this.obtenerPerfiles();
   }
@@ -106,6 +108,12 @@ export class BusinessComponent implements OnInit {
     this.util.dialogConfirm('¿Está seguro que desea guardar los datos?').then((result) => {
 
       if (result.isConfirmed) {
+
+        // verificar validación del rfc
+        if (!this.validarRFC()) {
+          return;
+        }
+
         const objEmpresa = {
           nEmpresa: this.nEmpresa,
           nTipo: this.nTipo,
@@ -148,12 +156,31 @@ export class BusinessComponent implements OnInit {
 
   }
 
+  validarRFC(): boolean {
+    if (this.cRFC.length > 0 && this.cRFC.length  !== 12 && this.cRFC.length !== 13) {
+      this.util.dialogWarning('La longitud del RFC debe ser de 12 o 13 caracteres.');
+      return false;
+    }
+
+    if (this.cRFC.length > 0) {
+      if (this.cRFC.length === 12 && this.nTipo == 1) { // Persona fisica
+        this.util.dialogWarning('El registro fiscal seleccionado no corresponde con con el RFC proporcionado.');
+        return false;
+      } else if (this.cRFC.length === 13 && this.nTipo == 2) {
+        this.util.dialogWarning('El registro fiscal seleccionado no corresponde con con el RFC proporcionado.');
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   openModal() {
     const modalRef = this.modalService.open(BusquedaBusinessComponent, {
       centered: true,
       backdrop: 'static',
       keyboard: false,
-      modalDialogClass: 'dialog-formulario',
+      modalDialogClass: 'dialog-formulario-chico',
     });
 
     modalRef.closed.subscribe(
@@ -161,9 +188,8 @@ export class BusinessComponent implements OnInit {
         console.log('value:', value);
         if(value){
           this.form.controls["nEmpresa"].setValue(value.id);
-
           this.mostrarDatosEmpresa();
-
+          modalRef.close();
         }
       }
     );

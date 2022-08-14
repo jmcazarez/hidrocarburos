@@ -15,28 +15,26 @@ export class BusquedaBusinessComponent implements OnInit {
   reorderable: boolean;
   valueBuscador = '';
   selectedRow: any;
-  constructor(public activeModal: NgbActiveModal, private modalService: NgbModal, private serviceEmpresa: EmpresaService) { }
+  constructor(public activeModal: NgbActiveModal, private modalService: NgbModal, private serviceEmpresa: EmpresaService) {
+  }
 
   ngOnInit(): void {
-    // this.data.push({ id: '1', nombre: 'heber' });
-    // this.data.push({ id: '3', nombre: 'pedro' });
-    // this.data.push({ id: '4', nombre: 'jose' });
-    // this.data.push({ id: '5', nombre: 'rafa' });
-
-    // Obtener los datos
 
     this.serviceEmpresa.obtenerEmpresas(0).subscribe( (resp: any) => {
       this.data = resp.data;
       this.dataTemp = [...this.data];
     }, (error: any) => {
 
-    })
+    });
 
+  }
+
+  ngAfterViewChecked():void{
+    window.dispatchEvent(new Event('resize'));
   }
 
 
   close(vm: any = this) {
-    console.log('cerrar');
     vm.activeModal.close({});
   }
 

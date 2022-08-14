@@ -24,54 +24,97 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Formulario de Sucursales</h6>
-          <form>
+        <form [formGroup]="form">
 
             <div class="row mt-4">
               <div class="col-sm-4">
                 <div class="row">
-                  <label class="form-label col-sm-5 col-form-label text-end">Folio</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
-                  </div>
+                 
+                      <label class="form-label col-sm-3 col-form-label text-end">Folio</label>
+                      <div class="col-sm-9">
+                        <div class="input-group">
+                        <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nSucursal" >
+                        <span class="input-group-text border-start-0 bg-white">
+                          <i class="feather icon-search" (click)="openModal()"></i>
+                        </span>
+                      </div>
+                      </div>
+                    
 
                   <label class="form-label col-sm-5 col-form-label text-end">Descripción</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cDescripcion" maxlength="100">
+                    <p class="error p-0 mt-1 mb-1"
+                    *ngIf="form.get('cDescripcion')?.hasError('required')">
+                      *Obligatorio.
+                  </p>
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Plaza</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cPlaza" maxlength="45">
+                    <p class="error p-0 mt-1 mb-1"
+                    *ngIf="form.get('cPlaza')?.hasError('required')">
+                      *Obligatorio.
+                  </p>
                   </div>
 
-                  <label class="form-label col-sm-5 col-form-label text-end">CP</label>
+                  <label class="form-label col-sm-5 col-form-label text-end">Código postal</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cCodigoPostal" maxlength="5">
+                    <p class="error p-0 mt-1 mb-1"
+                    *ngIf="form.get('cCodigoPostal')?.hasError('pattern')">
+                      El campo no es un código postal válido.
+                  </p>
+                  <p class="error p-0 mt-1 mb-1"
+                    *ngIf="form.get('cCodigoPostal')?.hasError('required')">
+                      *Obligatorio.
+                  </p>
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Pais</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cPais" maxlength="45">
+                    <p class="error p-0 mt-1 mb-1"
+                    *ngIf="form.get('cPais')?.hasError('required')">
+                      *Obligatorio.
+                  </p>
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Estado</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cEstado" maxlength="45">
+                    <p class="error p-0 mt-1 mb-1"
+                    *ngIf="form.get('cEstado')?.hasError('required')">
+                      *Obligatorio.
+                  </p>
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Municipio</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cMunicipio" maxlength="45">
+                    <p class="error p-0 mt-1 mb-1"
+                    *ngIf="form.get('cMunicipio')?.hasError('required')">
+                      *Obligatorio.
+                  </p>
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Ciudad</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cCiudad" maxlength="45">
+                    <p class="error p-0 mt-1 mb-1"
+                    *ngIf="form.get('cCiudad')?.hasError('required')">
+                      *Obligatorio.
+                  </p>
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Colonia</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cColonia" maxlength="45">
+                    <p class="error p-0 mt-1 mb-1"
+                    *ngIf="form.get('cColonia')?.hasError('required')">
+                      *Obligatorio.
+                  </p>
                   </div>
             
                 </div>
@@ -84,40 +127,69 @@
             
                   <label class="form-label col-sm-5 col-form-label text-end">Dirección</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cDireccion" maxlength="100">
+                    <p class="error p-0 mt-1 mb-1"
+                    *ngIf="form.get('cDireccion')?.hasError('required')">
+                      *Obligatorio.
+                  </p>
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Teléfono</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cTelefono" maxlength="10">
+                    <p class="error p-0 mt-1 mb-1"
+                    *ngIf="form.get('cTelefono')?.hasError('pattern')">
+                      El campo no es un teléfono válido a 10 dígitos.
+                    </p>
+                    <p class="error p-0 mt-1 mb-1"
+                      *ngIf="form.get('cTelefono')?.hasError('required')">
+                        *Obligatorio.
+                    </p>
                   </div>
 
-                  <label class="form-label col-sm-5 col-form-label text-end">Correo</label>
+                  <label class="form-label col-sm-5 col-form-label text-end">Correo electrónico</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cCorreoElectronico">
+                    <p class="error p-0 mt-1 mb-1"
+                  *ngIf="form.get('cCorreoElectronico')?.hasError('email')">
+                    El campo no es un correo electrónico válido.
+                  </p>
+                  <p class="error p-0 mt-1 mb-1"
+                    *ngIf="form.get('cCorreoElectronico')?.hasError('required')">
+                      *Obligatorio.
+                  </p>
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Encargado</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cEncargado" maxlength="100">
+                    <p class="error p-0 mt-1 mb-1"
+                    *ngIf="form.get('cEncargado')?.hasError('required')">
+                      *Obligatorio.
+                  </p>
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Cliente</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cCliente" maxlength="100">
+                    <p class="error p-0 mt-1 mb-1"
+                    *ngIf="form.get('cCliente')?.hasError('required')">
+                      *Obligatorio.
+                  </p>
                   </div>
 
-                  <label class="form-label col-sm-5 col-form-label text-end">Almacen</label>
+                  <!-- <label class="form-label col-sm-5 col-form-label text-end">Almacen</label>
                   <div class="col-sm-7">
                     <input type="text" class="form-control form-control-sm" placeholder="">
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
           </form>
-          <div class="d-flex justify-content-end my-4">
-              <button type="button" class="btn btn-dark mx-2">Cancelar</button>
-              <button type="button" class="btn btn-primary mx-2">Guardar</button>
+          <div class="d-flex justify-content-center my-4">
+            <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
+              <button *ngIf="this.nSucursal > 0"  type="button" class="btn btn-danger mx-2" (click)="eliminar()" >Eliminar</button>
+              <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid" (click)="guardar()">Guardar</button>
           </div>
       </div>
     </div>

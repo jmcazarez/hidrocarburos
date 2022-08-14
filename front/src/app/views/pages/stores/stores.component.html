@@ -24,34 +24,38 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Formulario de Almacenes</h6>
-          <form>
+        <form name="form" [formGroup]="form" >
+
 
             <div class="row mt-4">
               <div class="col-sm-5">
                 <div class="row">
                   <label class="form-label col-sm-5 col-form-label text-end">Folio</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <div class="input-group">
+                      <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nAlmacen" [disabled]="true">
+                      <span class="input-group-text border-start-0 bg-white">
+                        <i class="feather icon-search" (click)="openModal()"></i>
+                      </span>
+                    </div>
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Descripción</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cDescripcion" maxlength="100">
+                    <p class="error p-0 mt-1 mb-1"
+                    *ngIf="form.get('cDescripcion')?.hasError('required')">
+                      *Obligatorio.
+                </p>
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Domicilio</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
-                  </div>
-            
-                  <label class="form-label col-sm-5 col-form-label text-end">Sucursal</label>
-                  <div class="col-sm-7">
-                    <div class="input-group">
-                      <input type="text" class="form-control form-control-sm border-end-0">
-                      <span class="input-group-text border-start-0 bg-white">
-                        <i class="feather icon-search"></i>
-                      </span>
-                    </div>
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cDomicilio" maxlength="100">
+                    <p class="error p-0 mt-1 mb-1"
+                    *ngIf="form.get('cDomicilio')?.hasError('required')">
+                      *Obligatorio.
+                </p>
                   </div>
             
                 </div>
@@ -63,9 +67,10 @@
             </div>
 
           </form>
-          <div class="d-flex justify-content-end my-4">
-              <button type="button" class="btn btn-dark mx-2">Cancelar</button>
-              <button type="button" class="btn btn-primary mx-2">Guardar</button>
+          <div class="d-flex justify-content-center my-4">
+            <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
+              <button *ngIf="this.nAlmacen > 0"  type="button" class="btn btn-danger mx-2" (click)="eliminar()" >Eliminar</button>
+              <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid" (click)="guardar()">Guardar</button>
           </div>
       </div>
     </div>

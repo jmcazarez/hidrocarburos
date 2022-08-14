@@ -66,7 +66,8 @@ const conceptoDeGastos = require("./routes/catalogos/concepto_de_gastos");
 // articulos
 const articulos = require("./routes/catalogos/articulos");
 
-
+// almacenes
+const almacenes = require("./routes/catalogos/almacenes");
 
 // rutas base
 
@@ -78,6 +79,6 @@ app.use("/api/catalogos/proveedores", proveedores);
 app.use("/api/catalogos/empresas", empresas);
 app.use("/api/catalogos/concepto_de_gastos", conceptoDeGastos);
 app.use("/api/catalogos/articulos", articulos);
-
+app.use("/api/catalogos/almacenes", almacenes);
 
 module.exports = app;

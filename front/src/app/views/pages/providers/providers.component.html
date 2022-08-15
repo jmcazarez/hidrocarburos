@@ -39,107 +39,154 @@
           </div>
           <div class="my-4">
             <div class="form-check form-check-inline">
-              <input type="radio" class="form-check-input" name="radioInline" id="radioInline" [value]="0" checked>
+              <input type="radio" class="form-check-input" name="radioInline" id="radioInline"
+                formControlName="bPersonaFisica" [value]="0" checked>
               <label class="form-check-label" for="radioInline">
                 Fisica
               </label>
             </div>
             <div class="form-check form-check-inline">
-              <input type="radio" class="form-check-input" name="radioInline" [value]="1" id="radioInline1">
+              <input type="radio" class="form-check-input" name="radioInline" formControlName="bPersonaFisica"
+                [value]="1" id="radioInline1">
               <label class="form-check-label" for="radioInline1">
                 Moral
               </label>
+
             </div>
+            <p class="error p-0 mt-1 mb-1" *ngIf="form.get('bPersonaFisica')?.hasError('required')">
+              *Obligatorio.
+            </p>
           </div>
 
           <div class="row">
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">Razón Social</label>
-                <input type="text" class="form-control form-control-sm" formControlName="cDescripcion" placeholder="">
+                <input type="text" class="form-control form-control-sm" formControlName="cDescripcion" maxlength="100"
+                  placeholder="">
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cDescripcion')?.hasError('required')">
+                  *Obligatorio.
+                </p>
               </div>
+
             </div>
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">Nombre Comercial </label>
-                <input type="text" class="form-control form-control-sm" formControlName="cNombreComercial"
-                  placeholder="">
+                <input type="text" class="form-control form-control-sm" maxlength="100"
+                  formControlName="cNombreComercial" placeholder="">
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cNombreComercial')?.hasError('required')">
+                  *Obligatorio.
+                </p>
               </div>
+
             </div>
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">Nombre</label>
-                <input type="text" class="form-control form-control-sm" formControlName="cNombre" placeholder="">
+                <input type="text" class="form-control form-control-sm" formControlName="cNombre" maxlength="100"
+                  placeholder="">
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cNombre')?.hasError('required')">
+                  *Obligatorio.
+                </p>
               </div>
+
             </div>
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">Apellido Paterno</label>
                 <input type="text" class="form-control form-control-sm" formControlName="cApellidoPaterno"
-                  placeholder="">
+                  maxlength="100" placeholder="">
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cApellidoPaterno')?.hasError('required')">
+                  *Obligatorio.
+                </p>
+
               </div>
+
             </div>
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">Apellido Meterno</label>
                 <input type="text" class="form-control form-control-sm" formControlName="cApellidoMaterno"
-                  placeholder="">
+                  maxlength="100" placeholder="">
+
               </div>
+
             </div>
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">RFC</label>
-                <input type="text" class="form-control form-control-sm" formControlName="cRFC" placeholder="">
-                <h6 *ngIf="f.cRFC?.touched && f.cRFC?.invalid">
-                  Introduzca un RFC válido
-                </h6>
+                <input type="text" class="form-control form-control-sm" formControlName="cRFC" maxlength="20"
+                  placeholder="">
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cRFC')?.hasError('pattern')">
+                  El campo no es un RFC válido.
+                </p>
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cRFC')?.hasError('required')">
+                  *Obligatorio.
+                </p>
               </div>
+
             </div>
           </div>
 
           <div class="row">
-
-
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">CURP</label>
-                <input type="text" class="form-control form-control-sm" formControlName="cCURP" placeholder="">
-                <h6 *ngIf="f.cCURP?.touched && f.cCURP?.invalid">
-                  Introduzca un CURP válida
-                </h6>
+                <input type="text" class="form-control form-control-sm" formControlName="cCURP" maxlength="20"
+                  placeholder="">
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cCURP')?.hasError('pattern')">
+                  El campo no es un CURP válido.
+                </p>
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cCURP')?.hasError('required')">
+                  *Obligatorio.
+                </p>
               </div>
             </div>
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">Telefono</label>
-                <input type="text" class="form-control form-control-sm" formControlName="cTelefono" placeholder="">
-                <h6 *ngIf="f.cCURP?.touched && f.cCURP?.invalid">
-                  Introduzca un numero telefonico válido
-                </h6>
+                <input type="text" class="form-control form-control-sm" formControlName="cTelefono" maxlength="20"
+                  placeholder="">
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cTelefono')?.hasError('pattern')">
+                  El campo no es un teléfono válido a 10 dígitos.
+                </p>
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cTelefono')?.hasError('required')">
+                  *Obligatorio.
+                </p>
               </div>
             </div>
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">Celular</label>
-                <input type="text" class="form-control form-control-sm" formControlName="cCelular" placeholder="">
-                <h6 *ngIf="f.cCURP?.touched && f.cCURP?.invalid">
-                  Introduzca un numero de celular válido
-                </h6>
+                <input type="text" class="form-control form-control-sm" formControlName="cCelular" maxlength="20"
+                  placeholder="">
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cCelular')?.hasError('pattern')">
+                  El campo no es un celular válido a 10 dígitos.
+                </p>
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cCelular')?.hasError('required')">
+                  *Obligatorio.
+                </p>
               </div>
             </div>
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">Nacionalidad</label>
-                <input type="text" class="form-control form-control-sm" formControlName="cNacionalidad" placeholder="">
+                <input type="text" class="form-control form-control-sm" formControlName="cNacionalidad" maxlength="50"
+                  placeholder="">
               </div>
             </div>
             <div class="col-sm">
               <div class="mb-3">
-                <label class="form-label">Contacto</label>
-                <input type="text" class="form-control form-control-sm" formControlName="cContacto" placeholder="">
-                <h6 *ngIf="f.cContacto?.touched && f.cContacto?.invalid">
-                  Introduzca un E-Mail válido
-                </h6>
+                <label class="form-label">Correo electrónico</label>
+                <input type="text" class="form-control form-control-sm" formControlName="cContacto" maxlength="100"
+                  placeholder="">
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cContacto')?.hasError('email')">
+                  El campo no es un correo electrónico válido.
+                </p>
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cContacto')?.hasError('required')">
+                  *Obligatorio.
+                </p>
               </div>
             </div>
           </div>
@@ -148,31 +195,54 @@
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">Estado</label>
-                <input type="text" class="form-control form-control-sm" formControlName="cEstado" placeholder="">
+                <input type="text" class="form-control form-control-sm" formControlName="cEstado" maxlength="100"
+                  placeholder="">
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cEstado')?.hasError('required')">
+                  *Obligatorio.
+                </p>
               </div>
             </div>
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">Municipio</label>
-                <input type="text" class="form-control form-control-sm" formControlName="cMunicipio" placeholder="">
+                <input type="text" class="form-control form-control-sm" formControlName="cMunicipio" maxlength="100"
+                  placeholder="">
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cMunicipio')?.hasError('required')">
+                  *Obligatorio.
+                </p>
               </div>
             </div>
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">Colonia</label>
-                <input type="text" class="form-control form-control-sm" formControlName="cColonia" placeholder="">
+                <input type="text" class="form-control form-control-sm" formControlName="cColonia" maxlength="100"
+                  placeholder="">
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cColonia')?.hasError('required')">
+                  *Obligatorio.
+                </p>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="mb-3">
                 <label class="form-label">Dirección</label>
-                <input type="text" class="form-control form-control-sm" formControlName="cDireccion" placeholder="">
+                <input type="text" class="form-control form-control-sm" formControlName="cDireccion" maxlength="200"
+                  placeholder="">
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cDireccion')?.hasError('required')">
+                  *Obligatorio.
+                </p>
               </div>
             </div>
             <div class="col-sm">
               <div class="mb-3">
                 <label class="form-label">CP</label>
-                <input type="text" class="form-control form-control-sm" formControlName="cCodigoPostal" placeholder="">
+                <input type="text" class="form-control form-control-sm" formControlName="cCodigoPostal" maxlength="10"
+                  placeholder="">
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cCodigoPostal')?.hasError('pattern')">
+                  El campo no es un código postal válido.
+                </p>
+                <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cCodigoPostal')?.hasError('required')">
+                  *Obligatorio.
+                </p>
               </div>
             </div>
           </div>
@@ -187,13 +257,14 @@
                   <div class="mb-3">
                     <label class="form-label">Dias de Entrega</label>
                     <input type="text" class="form-control form-control-sm" formControlName="cDiasEntrega"
-                      placeholder="">
+                      maxlength="50" placeholder="">
                   </div>
                 </div>
                 <div class="col-sm">
                   <div class="mb-3">
                     <label class="form-label">Forma de Pago</label>
-                    <input type="text" class="form-control form-control-sm" formControlName="cFormaPago" placeholder="">
+                    <input type="text" class="form-control form-control-sm" formControlName="cFormaPago" placeholder=""
+                      maxlength="50">
                   </div>
                 </div>
               </div>
@@ -203,13 +274,14 @@
                   <div class="mb-3">
                     <label class="form-label">Limite de Credito</label>
                     <input type="text" class="form-control form-control-sm" formControlName="nLimiteCredito"
-                      placeholder="">
+                      maxlength="50" placeholder="">
                   </div>
                 </div>
                 <div class="col-sm">
                   <div class="mb-3">
                     <label class="form-label">Impuestos</label>
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cImpuestos">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cImpuestos"
+                      maxlength="50">
                   </div>
                 </div>
               </div>
@@ -219,13 +291,14 @@
                   <div class="mb-3">
                     <label class="form-label">Dias de Credito</label>
                     <input type="text" class="form-control form-control-sm" formControlName="nDiasCredito"
-                      placeholder="">
+                      maxlength="50" placeholder="">
                   </div>
                 </div>
                 <div class="col-sm">
                   <div class="mb-3">
                     <label class="form-label">Pago de Flete Factura</label>
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nPagoFlete">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nPagoFlete"
+                      maxlength="50">
                   </div>
                 </div>
               </div>
@@ -235,7 +308,8 @@
         </form>
         <div class="d-flex justify-content-center my-4">
           <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
-          <button type="button" *ngIf="this.nProveedor > 0" class="btn btn-dark mx-2" (click)="cancelar()">Cancelar</button>
+          <button type="button" *ngIf="this.nProveedor > 0" class="btn btn-dark mx-2"
+            (click)="cancelar()">Cancelar</button>
           <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid"
             (click)="guardar()">Guardar</button>
         </div>

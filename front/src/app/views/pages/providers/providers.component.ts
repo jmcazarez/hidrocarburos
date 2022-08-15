@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { disable, RxwebValidators } from '@rxweb/reactive-form-validators';
 import { ProveedorService } from 'src/services/proveedor.service';
 import { UtilsService } from 'src/services/utils.service';
+import { Patterns } from 'src/utils/patterns';
 import Swal from 'sweetalert2';
 import { BusquedaProvidersComponent } from './busqueda-providers/busqueda-providers.component';
 @Component({
@@ -17,34 +18,35 @@ export class ProvidersComponent implements OnInit {
   constructor(private service: ProveedorService,
     private util: UtilsService,
     public modalService: NgbModal,
-    private formBuilder: FormBuilder,) { }
+    private formBuilder: FormBuilder,
+    private patterns: Patterns,) { }
 
   ngOnInit(): void {
 
     this.form = this.formBuilder.group({
       nProveedor: [{ value: '', disabled: true }],
-      bPersonaFisica: new FormControl(''),
+      bPersonaFisica: new FormControl('', Validators.required),
       cDescripcion: new FormControl('', Validators.required),
       cNombreComercial: new FormControl('', Validators.required),
       cNombre: new FormControl('', Validators.required),
       cApellidoPaterno: new FormControl('', Validators.required),
-      cApellidoMaterno: new FormControl('', Validators.required),
+      cApellidoMaterno: new FormControl(''),
       /*    cCURP: new FormControl('', [Validators.pattern('/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/')]),
          cTelefono: new FormControl('', [RxwebValidators.mask({ mask: '(999)-999 9999' }), Validators.required]),
          cCelular: new FormControl('',[RxwebValidators.mask({ mask: '(999)-999 9999' })]),
          cContacto: new FormControl('', [ Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
          cRFC: new FormControl('',[Validators.pattern('^[A-Za-zñÑ&]{3,4}\d{6}\w{3}$'),Validators.required]), */
-      cCURP: new FormControl('', [Validators.required]),
-      cTelefono: new FormControl('', [Validators.required]),
-      cCelular: new FormControl('', [Validators.required]),
-      cContacto: new FormControl('', [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
-      cRFC: new FormControl('', [Validators.required]),
+      cCURP: new FormControl('', [Validators.pattern(this.patterns.curp)]),
+      cRFC: new FormControl('', [Validators.pattern(this.patterns.rfc)]),
       cNacionalidad: new FormControl('', Validators.required),
       cDireccion: new FormControl('', Validators.required),
       cEstado: new FormControl('', Validators.required),
       cMunicipio: new FormControl('', Validators.required),
       cColonia: new FormControl('', Validators.required),
-      cCodigoPostal: new FormControl('', Validators.required),
+      cCodigoPostal: new FormControl('', [Validators.required, Validators.pattern(this.patterns.zipCode)]),
+      cTelefono: new FormControl('', [Validators.pattern(this.patterns.basicPhone)]),
+      cCelular: new FormControl('', [Validators.pattern(this.patterns.basicPhone)]),
+      cContacto: new FormControl('', [Validators.email]),
       cDiasEntrega: new FormControl('', Validators.required),
       cFormaPago: new FormControl(0, Validators.required),
       nLimiteCredito: new FormControl(0, Validators.required),
@@ -52,6 +54,7 @@ export class ProvidersComponent implements OnInit {
       cImpuestos: new FormControl('', Validators.required),
       nPagoFlete: new FormControl(0, Validators.required),
       bActivo: new FormControl(1),
+
     });
 
 
@@ -138,7 +141,7 @@ export class ProvidersComponent implements OnInit {
     const objProveedor = {
       nProveedor: this.nProveedor,
       cRFC: this.cRFC,
-      bPersonaFisica: 1,
+      bPersonaFisica: this.bPersonaFisica,
       cDescripcion: this.cDescripcion,
       cNombreComercial: this.cNombreComercial,
       cNombre: this.cNombre,
@@ -238,7 +241,7 @@ export class ProvidersComponent implements OnInit {
     });
   }
 
-  cancelar(){
+  cancelar() {
     console.log(this.nProveedor);
     this.util.dialogConfirm('¿Está seguro que desea cancelar al proveedor?').then((result) => {
       if (result.isConfirmed) {
@@ -252,4 +255,22 @@ export class ProvidersComponent implements OnInit {
     });
   }
 
+  validarRFC(): boolean {
+    if (this.cRFC.length > 0 && this.cRFC.length !== 12 && this.cRFC.length !== 13) {
+      this.util.dialogWarning('La longitud del RFC debe ser de 12 o 13 caracteres.');
+      return false;
+    }
+
+    if (this.cRFC.length > 0) {
+      if (this.cRFC.length === 12 && this.bPersonaFisica == 0) { // Persona fisica
+        this.util.dialogWarning('El registro fiscal seleccionado no corresponde con con el RFC proporcionado.');
+        return false;
+      } else if (this.cRFC.length === 13 && this.bPersonaFisica == 1) {
+        this.util.dialogWarning('El registro fiscal seleccionado no corresponde con con el RFC proporcionado.');
+        return false;
+      }
+    }
+
+    return true;
+  }
 }

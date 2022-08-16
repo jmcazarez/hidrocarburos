@@ -28,13 +28,13 @@ export class BusinessComponent implements OnInit {
     this.form = new FormGroup({
       nEmpresa : new FormControl({ value: '', disabled: true }, []),
       nTipo : new FormControl(1, Validators.required),
-      cRazonSocial : new FormControl('', Validators.required),
+      cRazonSocial : new FormControl('', []),
       cRFC : new FormControl('', [Validators.pattern(this.patterns.rfc)]),
       cCodigoPostal : new FormControl('', [Validators.pattern(this.patterns.zipCode), Validators.required]),
       cPais : new FormControl('', Validators.required),
       cEstado : new FormControl('', Validators.required),
       cMunicipio : new FormControl('', Validators.required),
-      cCiudad : new FormControl('', Validators.required),
+      cCiudad : new FormControl('', []),
       cColonia : new FormControl('', Validators.required),
       cDireccion : new FormControl('', Validators.required),
       cNombreRepresentante : new FormControl('', [Validators.required]),
@@ -105,6 +105,8 @@ export class BusinessComponent implements OnInit {
 
   async guardar(): Promise<void> {
 
+    console.log(this.form);
+
     this.util.dialogConfirm('¿Está seguro que desea guardar los datos?').then((result) => {
 
       if (result.isConfirmed) {
@@ -123,7 +125,7 @@ export class BusinessComponent implements OnInit {
           cPais : this.cPais,
           cEstado : this.cEstado,
           cMunicipio : this.cMunicipio,
-          cCiudad : this.cCiudad,
+          cCiudad : '',
           cColonia : this.cColonia,
           cDireccion : this.cDireccion,
           cNombreRepresentante : this.cNombreRepresentante,

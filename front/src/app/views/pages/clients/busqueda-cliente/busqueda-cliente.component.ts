@@ -49,7 +49,7 @@ export class BusquedaClienteComponent implements OnInit {
         (d) =>
           d.nCliente.toString().toLowerCase().indexOf(val) !== -1 ||
           !val ||
-          d.cRazonSocial.toLowerCase().indexOf(val) !== -1 ||
+          d.cNombreCliente.toLowerCase().indexOf(val) !== -1 ||
           !val ||
           d.cRFC.toLowerCase().indexOf(val) !== -1 ||
           !val

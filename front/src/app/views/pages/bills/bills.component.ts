@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConceptosDeGastosService } from 'src/services/concepto_de_gastos.service';
 import { UtilsService } from 'src/services/utils.service';
+import { BusquedaConceptosDeGastosComponent } from './busqueda-conceptos-de-gastos/busqueda-conceptos-de-gastos.component';
 
 @Component({
   selector: 'app-bills',
@@ -12,15 +14,14 @@ import { UtilsService } from 'src/services/utils.service';
 export class BillsComponent implements OnInit {
   conceptos: any = [];
   form: FormGroup;
-  constructor( private util: UtilsService, private conceptosService: ConceptosDeGastosService) {}
+  constructor(private util: UtilsService, public modalService: NgbModal, private conceptosService: ConceptosDeGastosService) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      nConcepto: new FormControl(0),
+      nConcepto: new FormControl({ value: '', disabled: true }, [Validators.required]),
       cDescripcion: new FormControl('', Validators.required)
     });
-
-    this.obtenerConceptos();
+    /* this.obtenerConceptos(); */
   }
 
   get nConcepto(): number {
@@ -34,7 +35,9 @@ export class BillsComponent implements OnInit {
     return this.form.get('cDescripcion')?.value ?? '';
   }
 
-
+  limpiar() {
+    this.form.reset();
+  }
 
 
   async obtenerConceptos(): Promise<void> {
@@ -61,14 +64,12 @@ export class BillsComponent implements OnInit {
       cDescripcion: this.cDescripcion
     }
     await this.conceptosService.guardarConceptoDeGastos(concepto).subscribe(async (resp: any) => {
-      console.log(resp);
       if (resp.error !== '') {
 
         this.util.dialogError('Error al guardar el conceptos de gasto.');
       }
       else {
-        this.form.controls["cDescripcion"].setValue('');
-        this.obtenerConceptos();
+         this.limpiar();
         this.util.dialogSuccess('Concepto de gasto guardado correctamente.');
       }
     }, (err: { error: any; }) => {
@@ -77,13 +78,34 @@ export class BillsComponent implements OnInit {
     });
   }
 
-  seleccionar(concepto:any){
+  openModal() {
+    const modalRef = this.modalService.open(BusquedaConceptosDeGastosComponent, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+      modalDialogClass: 'dialog-formulario-pequeño',
+    });
+
+    modalRef.closed.subscribe(
+      value => {
+        if (value) {
+          if (value.id) {
+            this.form.controls["nConcepto"].setValue(value.id);
+            this.mostrarConcepto();
+          }          
+         
+        }
+      }
+    );
+  }
+
+  seleccionar(concepto: any) {
     console.log(concepto);
     this.form.controls["nConcepto"].setValue(concepto.nConcepto);
     this.form.controls["cDescripcion"].setValue(concepto.cDescripcion);
   }
 
-  cancelar(){
+  cancelar() {
 
     this.util.dialogConfirm('¿Está seguro que desea eliminar el concepto de gasto?').then((result) => {
       if (result.isConfirmed) {
@@ -95,6 +117,22 @@ export class BillsComponent implements OnInit {
           this.util.dialogError('Error el eliminar el concepto de gasto.');
         });
       }
+    });
+  }
+
+
+  mostrarConcepto() {
+    this.conceptosService.obtenerConceptoDeGastos(this.nConcepto).subscribe((resp: any) => {
+      if (resp) {
+        const cuentaBancaria = resp.data[0];
+        if (cuentaBancaria) {
+          this.form.controls["nConcepto"].setValue(cuentaBancaria.nConcepto);
+          this.form.controls["cDescripcion"].setValue(cuentaBancaria.cDescripcion);
+
+        }
+      }
+    }, (error: any) => {
+
     });
   }
 }

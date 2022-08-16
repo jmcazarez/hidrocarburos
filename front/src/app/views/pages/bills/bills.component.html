@@ -17,7 +17,7 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- ---------- Form ---------- -->
 <div class="row">
   <div class="col-md-12 stretch-card">
@@ -27,23 +27,46 @@
           <form name="form" [formGroup]="form">
 
             <div class="row mt-4">
-              <div class="col-md-6 offset-md-3">
-                <div class="mb-3">
-                  <div class="input-group">
-                    <input type="text" class="form-control" formControlName="cDescripcion">
-                    <button class="btn btn-outline-secondary" [disabled]="form.invalid" (click)="guardar()" type="button">Agregar</button>
-                    <button class="btn btn-outline-secondary"[disabled]="this.nConcepto == 0" (click)="cancelar()" type="button">Borrar</button>
+              <div class="col-sm-5">
+                <div class="row">
+                  <label class="form-label col-sm-5 col-form-label text-end">Folio</label>
+                  <div class="col-sm-7">
+                    <div class="input-group">
+                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="nConcepto">
+                      <span class="input-group-text border-start-0 bg-white">
+                        <i class="feather icon-search" (click)="openModal()"></i>
+                      </span>
+                    </div>
+                  </div>  
+                  <label class="form-label col-sm-5 col-form-label text-end">Descripción</label>
+                  <div class="col-sm-7">
+                    <div class="input-group">
+                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="cDescripcion">
+             
+  
+                    </div>
+                    <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cEmpresa')?.hasError('required')">
+                      *Obligatorio.
+                    </p>
                   </div>
+  
+  
                 </div>
-
-
-              <ul class="list-group" *ngFor="let concepto of conceptos">
-                <li class="list-group-item" aria-disabled="true" (click)="seleccionar(concepto)">{{concepto.cDescripcion}}</li>
-              </ul>
               </div>
+  
+              <div class="col-sm-2"></div>
+  
+              <div class="col-sm-5"></div>
             </div>
 
           </form>
+      </div>
+      <div class="d-flex justify-content-end my-4">
+        <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
+        <button type="button" class="btn btn-dark mx-2" *ngIf="this.nConcepto > 0"
+          (click)="cancelar()">Eliminar</button>
+        <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid"
+          (click)="guardar()">Guardar</button>
       </div>
     </div>
   </div>

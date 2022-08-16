@@ -1,0 +1,21 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Búsqueda de conceptos de gastos</h5>
+
+</div>
+<div class="modal-body">
+  <input type='text' matInput placeholder='Buscar conceptos de gastos' (keyup)='filterDatatable($event)'
+    [(ngModel)]="valueBuscador">
+  <ngx-datatable class="material shadow-none" [rows]="data" [loadingIndicator]="loadingIndicator" [columnMode]="'force'"
+    [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [reorderable]="reorderable" [limit]="10"
+    [scrollbarH]="true" (activate)="onClick($event)">
+    <ngx-datatable-column name="Folio" prop="nConcepto" [width]="100"></ngx-datatable-column>
+    <ngx-datatable-column name="Descripción" prop="cDescripcion"></ngx-datatable-column>    
+  </ngx-datatable>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="close()">
+    Cerrar
+  </button>
+  <!--  <button type="button" class="btn btn-primary">Save changes</button> -->
+</div>

@@ -1,18 +1,28 @@
-version: '3.8'
+version: '3'
 services:
-  db:
-    image: mysql:8.0
-    cap_add:
-      - SYS_NICE
-    restart: always
-    environment:
-      - MYSQL_DATABASE=hidrocarburos
-      - MYSQL_ROOT_PASSWORD=123456
-    ports:
-      - '3306:3306'
-    volumes:
-      - db:/var/lib/mysql
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
-volumes:
-  db:
-    driver: local
+    api: #api principal
+        build: ./api
+        #environment:
+        #    DATABASE_HOST: db
+        #    MYSQL_PORT: 3306
+        #    MYSQL_DATABASE: senz
+        #    MYSQL_USER: mysql
+        #    MYSQL_PASSWORD: Adsum123
+        #    TZ: "America/Mazatlan"
+        ports:
+            - "3000:3000"
+        networks:
+            - hidro-net
+        restart: on-failure    
+    front: #front
+        build: ./front
+        environment:
+            TZ: "America/Mazatlan"
+        ports:
+            - "80:80"
+        networks:
+            - hidro-net
+        restart: on-failure
+networks:
+    hidro-net:
+        driver: bridge

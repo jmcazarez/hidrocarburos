@@ -18,12 +18,33 @@ export class BusquedaProvidersComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private modalService: NgbModal, private service: ProveedorService) { }
 
   ngOnInit(): void {
-
+    this.dataTemp = [];
+    this.data = [];
     // Obtener los datos
-    console.log('entro');
-    this.service.obtenerProveedores(0).subscribe( (resp: any) => {
-      this.data = resp.data;
-      this.dataTemp = [...this.data];
+    this.service.obtenerProveedores(0).subscribe((resp: any) => {
+
+      resp.data.forEach((proveedor: {
+        cRFC: any; bPersonaFisica: any; cNombre: string; cApellidoPaterno: string; cApellidoMaterno: string; cRazonSocial: string; nProveedor: any;
+      }) => {
+
+        let cDescripcion = '';
+        if (proveedor.bPersonaFisica) {
+          cDescripcion = proveedor.cNombre ?? '' + ' ' + proveedor.cApellidoPaterno ?? '' + ' ' + proveedor.cApellidoMaterno ?? ''
+
+        }
+        else {
+          cDescripcion = proveedor.cRazonSocial
+        }
+        this.dataTemp.push({
+          nProveedor: proveedor.nProveedor,
+          cRFC: proveedor.cRFC,
+          cDescripcion: cDescripcion,
+          bPersonaFisica: proveedor.bPersonaFisica
+        });
+
+      });
+      this.data = [...this.dataTemp];
+      console.log(this.dataTemp);
     }, (error: any) => {
 
     })

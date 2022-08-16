@@ -37,32 +37,32 @@ async function obtenerProveedores(params) {
 async function guardarProveedor(params) {
 
     try {
+        console.log(params);
         let data = await sequelize.query(
             `
              CALL proc_guardar_proveedor (
                 '${params.nProveedor}',
                 '${params.cRFC}',
                 '${params.bPersonaFisica}',
-                '${params.cDescripcion}',
+                '${params.cRazonSocial}',
                 '${params.cNombreComercial}',
                 '${params.cNombre}',
                 '${params.cApellidoPaterno}',
                 '${params.cApellidoMaterno}',
-                '${params.cCURP}',
                 '${params.cTelefono}',
                 '${params.cCelular}',
-                '${params.cNacionalidad}',
-                '${params.cContacto}',
+                '${params.cCorreoElectronico}',
                 '${params.cEstado}',
                 '${params.cMunicipio}',
                 '${params.cColonia}',
                 '${params.cDireccion}',
                 '${params.nCodigoPostal}',
-                '${params.cDiasEntrega}',
-                '${params.nFormaPago}',
-                '${params.nLimiteCredito}',
-                '${params.nDiasCredito}',
-                '${params.bActivo}'
+                '${params.bActivo}',
+                '${params.cPais}',
+                '${params.cNumeroExterior}',
+                '${params.cNumeroInterior}',
+                '${params.cSexo}'
+
              )
              `,
             {
@@ -110,22 +110,22 @@ async function cancelarProveedor(params) {
 
     } catch (err) {
         // do something
-     
+
         console.log(err);
-        if(err){
+        if (err) {
             return {
                 status: 400,
                 error: err,
                 data: [],
             };
-        }else{
+        } else {
             return {
                 status: 400,
                 error: 'Error al eliminar proveedor.',
                 data: [],
             };
         }
-      
+
     }
 }
 

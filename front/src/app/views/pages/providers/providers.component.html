@@ -102,9 +102,9 @@
                 <div class="col-sm" *ngIf="!this.bPersonaFisica">
                   <div class="mb-3">
                     <label class="form-label">Razón Social</label>
-                    <input type="text" class="form-control form-control-sm" formControlName="cDescripcion"
+                    <input type="text" class="form-control form-control-sm" formControlName="cRazonSocial"
                       maxlength="100" placeholder="">
-                    <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cDescripcion')?.hasError('required')">
+                    <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cRazonSocial')?.hasError('required')">
                       *Obligatorio.
                     </p>
                   </div>

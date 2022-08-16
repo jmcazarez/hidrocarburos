@@ -49,7 +49,7 @@ export class BusquedaBusinessComponent implements OnInit {
         (d) =>
           d.nEmpresa.toString().toLowerCase().indexOf(val) !== -1 ||
           !val ||
-          d.cRazonSocial.toLowerCase().indexOf(val) !== -1 ||
+          d.cNombreEmpresa.toLowerCase().indexOf(val) !== -1 ||
           !val ||
           d.cRFC.toLowerCase().indexOf(val) !== -1 ||
           !val

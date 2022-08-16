@@ -61,10 +61,11 @@ export class ArticlesComponent implements OnInit {
         Swal.fire('Error', resp.error.error, 'error');
       }
       else {
-        this.util.dialogSuccess('Atículo guardado correctamente.');
+        this.limpiar();
+        this.util.dialogSuccess('Artículo guardado correctamente.');
       }
     }, (err: { error: any; }) => {
-      this.util.dialogError('Error al guardar el Atículo.');
+      this.util.dialogError('Error al guardar el Artículo.');
 
     });
   }
@@ -110,14 +111,13 @@ export class ArticlesComponent implements OnInit {
   }
 
   cancelar() {
-    console.log(this.nArticulo);
-    this.util.dialogConfirm('¿Está seguro que desea cancelar el atículo?').then((result) => {
+    this.util.dialogConfirm('¿Está seguro que desea eliminar el artículo?').then((result) => {
       if (result.isConfirmed) {
         this.service.cancelarArticulo(this.nArticulo).subscribe(async (resp: any) => {
-          this.util.dialogSuccess('Atículo cancelado correctamente.');
+          this.util.dialogSuccess('Artículo cancelado correctamente.');
           this.limpiar();
         }, (err: { error: any; }) => {
-          this.util.dialogError('Error al cancelar el atículo.');
+          this.util.dialogError('Error al eliminar el artículo.');
         });
       }
     });

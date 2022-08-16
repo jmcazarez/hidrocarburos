@@ -1,13 +1,13 @@
-import { BancosService } from '../../../../../services/bancos.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EmpresaService } from 'src/services/empresa.service';
 
 @Component({
-  selector: 'app-busqueda-bancos',
-  templateUrl: './busqueda-bancos.component.html',
-  styleUrls: ['./busqueda-bancos.component.scss']
+  selector: 'app-busqueda-business',
+  templateUrl: './busqueda-business.component.html',
+  styleUrls: ['./busqueda-business.component.scss']
 })
-export class BusquedaBancosComponent implements OnInit {
+export class BusquedaBusinessComponent implements OnInit {
 
   data: any[] = [];
   dataTemp: any[] = [];
@@ -15,17 +15,17 @@ export class BusquedaBancosComponent implements OnInit {
   reorderable: boolean;
   valueBuscador = '';
   selectedRow: any;
-  constructor(public activeModal: NgbActiveModal, private modalService: NgbModal, private servicebancos: BancosService) { }
+  constructor(public activeModal: NgbActiveModal, private modalService: NgbModal, private serviceEmpresa: EmpresaService) {
+  }
 
   ngOnInit(): void {
-    // Obtener los datos
 
-    this.servicebancos.obtenerBancos(0).subscribe( (resp: any) => {
+    this.serviceEmpresa.obtenerEmpresas(0).subscribe( (resp: any) => {
       this.data = resp.data;
       this.dataTemp = [...this.data];
     }, (error: any) => {
 
-    })
+    });
 
   }
 
@@ -47,13 +47,16 @@ export class BusquedaBancosComponent implements OnInit {
       const val = value.target.value.toLowerCase();
       const temp = this.data.filter(
         (d) =>
-          d.nBanco.toString().toLowerCase().indexOf(val) !== -1 ||
+          d.nEmpresa.toString().toLowerCase().indexOf(val) !== -1 ||
           !val ||
+          d.cNombreEmpresa.toLowerCase().indexOf(val) !== -1 ||
           d.cRazonSocial.toLowerCase().indexOf(val) !== -1 ||
           !val ||
-          d.cNombreCorto.toLowerCase().indexOf(val) !== -1 ||
+          d.cRFC.toLowerCase().indexOf(val) !== -1 ||
           !val
       );
+
+      
 
       this.data = temp;
     }
@@ -62,9 +65,9 @@ export class BusquedaBancosComponent implements OnInit {
   onClick(event: any) {
     if (event.type == 'click') {
       if (this.selectedRow) {
-        if (this.selectedRow.nBanco == event.row.nBanco) {
-          console.log( event.row);
-          this.activeModal.close({ id: this.selectedRow.nBanco, cNombreCorto:  event.row.cNombreCorto });
+        if (this.selectedRow.nEmpresa == event.row.nEmpresa) {
+          console.log(event.row);
+          this.activeModal.close({ id: this.selectedRow.nEmpresa,  cEmpresa:  event.row.cNombreEmpresa });
         } else {
           this.selectedRow = event.row;
         }

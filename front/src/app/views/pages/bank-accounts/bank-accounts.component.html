@@ -12,7 +12,8 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Cuentas de Banco</h4>
-        <p class="text-muted">Sección dedicada para el registro de nuevas Cuentas de Banco en el sistema, recuerda llenar todos los campos requeridos y asi podras guardar la información.</p>
+        <p class="text-muted">Sección dedicada para el registro de nuevas Cuentas de Banco en el sistema, recuerda
+          llenar todos los campos requeridos y asi podras guardar la información.</p>
       </div>
     </div>
   </div>
@@ -39,37 +40,44 @@
                   </div>
                 </div>
 
+                <label class="form-label col-sm-5 col-form-label text-end">Empresa</label>
+                <div class="col-sm-7">
+                  <div class="input-group">
+                    <input type="text" class="form-control form-control-sm border-end-0" formControlName="cEmpresa">
+                    <span class="input-group-text border-start-0 bg-white">
+                      <i class="feather icon-search" (click)="openModalEmpresas()"></i>
+                    </span>
+
+                  </div>
+                  <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cEmpresa')?.hasError('required')">
+                    *Obligatorio.
+                  </p>
+                </div>
+
                 <label class="form-label col-sm-5 col-form-label text-end">Banco</label>
                 <div class="col-sm-7">
                   <div class="input-group">
-                    <input type="text" class="form-control form-control-sm border-end-0" formControlName="nBanco">
+                    <input type="text" class="form-control form-control-sm border-end-0"
+                      formControlName="cDescripcionBanco">
                     <span class="input-group-text border-start-0 bg-white">
                       <i class="feather icon-search" (click)="openModalBancos()"></i>
                     </span>
 
                   </div>
-                  <p class="error p-0 mt-1 mb-1" *ngIf="form.get('nBanco')?.hasError('required')">
+                  <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cDescripcionBanco')?.hasError('required')">
                     *Obligatorio.
                   </p>
                 </div>
 
                 <label class="form-label col-sm-5 col-form-label text-end">No. Cuenta</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" type="number" formControlName="nNumeroCuenta" placeholder="">
-                  <p class="error p-0 mt-1 mb-1"  *ngIf="form.get('nNumeroCuenta')?.hasError('required')">
+                  <input type="text" class="form-control form-control-sm" type="number" formControlName="nNumeroCuenta"
+                    placeholder="">
+                  <p class="error p-0 mt-1 mb-1" *ngIf="form.get('nNumeroCuenta')?.hasError('required')">
                     *Obligatorio.
                   </p>
                 </div>
-<!--
-                <label class="form-label col-sm-5 col-form-label text-end">Razón Social</label>
-                <div class="col-sm-7">
-                  <div class="input-group">
-                    <input type="text" class="form-control form-control-sm border-end-0">
-                    <span class="input-group-text border-start-0 bg-white">
-                      <i class="feather icon-search"></i>
-                    </span>
-                  </div>
-                </div> -->
+
 
 
               </div>
@@ -83,8 +91,9 @@
         </form>
         <div class="d-flex justify-content-end my-4">
           <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
-            <button type="button" class="btn btn-dark mx-2" *ngIf="this.nCuenta > 0" (click)="cancelar()">Cancelar</button>
-            <button type="button" class="btn btn-primary mx-2"  [disabled]="form.invalid"
+          <button type="button" class="btn btn-dark mx-2" *ngIf="this.nCuenta > 0"
+            (click)="cancelar()">Eliminar</button>
+          <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid"
             (click)="guardar()">Guardar</button>
         </div>
       </div>

@@ -9,6 +9,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BankAccountsComponent } from './bank-accounts.component';
 import { BusquedaBancosComponent } from './busqueda-bancos/busqueda-bancos.component';
 import { BusquedaCuentasComponent } from './busqueda-cuentas/busqueda-cuentas.component';
+import { BusquedaBusinessComponent } from './busqueda-business/busqueda-business.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [BankAccountsComponent,BusquedaBancosComponent,BusquedaCuentasComponent],
+  declarations: [BankAccountsComponent,BusquedaBancosComponent,BusquedaCuentasComponent,BusquedaBusinessComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

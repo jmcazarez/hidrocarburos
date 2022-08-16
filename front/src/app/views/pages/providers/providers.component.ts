@@ -275,13 +275,13 @@ export class ProvidersComponent implements OnInit {
 
   cancelar() {
     console.log(this.nProveedor);
-    this.util.dialogConfirm('¿Está seguro que desea cancelar al proveedor?').then((result) => {
+    this.util.dialogConfirm('¿Está seguro que desea eliminar al proveedor?').then((result) => {
       if (result.isConfirmed) {
         this.service.cancelarProveedor(this.nProveedor).subscribe(async (resp: any) => {
-          this.util.dialogSuccess('Proveedor cancelado correctamente.');
+          this.util.dialogSuccess('Proveedor eliminado correctamente.');
           this.limpiar();
         }, (err: { error: any; }) => {
-          this.util.dialogError('Error al cancelar el proveedor.');
+          this.util.dialogError('Error al eliminar el proveedor.');
         });
       }
     });

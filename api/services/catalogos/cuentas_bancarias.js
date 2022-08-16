@@ -38,7 +38,7 @@ async function guardarCuentaBancaria(params) {
     try {
         let data = await sequelize.query(
             `
-             CALL proc_guardar_cuenta_bancaria(${params.nCuenta},'${params.nBanco}','${params.nNumeroCuenta}')
+             CALL proc_guardar_cuenta_bancaria(${params.nCuenta},'${params.nBanco}','${params.nNumeroCuenta}','${params.nEmpresa}')
              `,
             {
                 type: QueryTypes.INSERT

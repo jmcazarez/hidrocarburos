@@ -85,14 +85,14 @@ export class BillsComponent implements OnInit {
 
   cancelar(){
 
-    this.util.dialogConfirm('¿Está seguro que desea cancelar el concepto de gasto?').then((result) => {
+    this.util.dialogConfirm('¿Está seguro que desea eliminar el concepto de gasto?').then((result) => {
       if (result.isConfirmed) {
         this.conceptosService.cancelarConceptoDeGastos(this.nConcepto).subscribe(async (resp: any) => {
-          this.util.dialogSuccess('Concepto cancelado correctamente.');
+          this.util.dialogSuccess('Concepto de gasto eliminado correctamente.');
           this.form.reset();
           this.obtenerConceptos();
         }, (err: { error: any; }) => {
-          this.util.dialogError('Error  el concepto de gasto.');
+          this.util.dialogError('Error el eliminar el concepto de gasto.');
         });
       }
     });

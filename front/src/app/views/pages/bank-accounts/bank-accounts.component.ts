@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BusquedaCuentasComponent } from './busqueda-cuentas/busqueda-cuentas.component';
 import { UtilsService } from 'src/services/utils.service';
 import { CuentasBancariasService } from 'src/services/cuentas_bancarias.service';
+import { BusquedaBusinessComponent } from './busqueda-business/busqueda-business.component';
 @Component({
   selector: 'app-bank-accounts',
   templateUrl: './bank-accounts.component.html',
@@ -21,7 +22,10 @@ export class BankAccountsComponent implements OnInit {
     this.form = new FormGroup({
       nCuenta: new FormControl({ value: '', disabled: true }, [Validators.required]),
       nBanco: new FormControl({ value: '', disabled: true }, [Validators.required]),
+      cDescripcionBanco: new FormControl({ value: '', disabled: true }, [Validators.required]),
       nNumeroCuenta: new FormControl({ value: '', disabled: false }, [Validators.required]),
+      nEmpresa: new FormControl({ value: '', disabled: true }, [Validators.required]),
+      cEmpresa: new FormControl({ value: '', disabled: true }, [Validators.required]),
     });
   }
 
@@ -36,6 +40,10 @@ export class BankAccountsComponent implements OnInit {
   }
   get nNumeroCuenta(): number {
     return this.form.get('nNumeroCuenta')?.value ?? '';
+  }
+
+  get nEmpresa(): number {
+    return this.form.get('nEmpresa')?.value ?? '';
   }
   limpiar() {
     this.form.reset();
@@ -52,7 +60,8 @@ export class BankAccountsComponent implements OnInit {
         const objCuentaBancaria = {
           nCuenta: this.nCuenta,
           nBanco: this.nBanco,
-          nNumeroCuenta: this.nNumeroCuenta
+          nNumeroCuenta: this.nNumeroCuenta,
+          nEmpresa: this.nEmpresa
         };
 
         this.service.guardarCuenta(objCuentaBancaria).subscribe(async (resp: any) => {
@@ -88,8 +97,10 @@ export class BankAccountsComponent implements OnInit {
       value => {
         console.log('value:', value);
         if (value) {
-          this.form.controls["nBanco"].setValue(value.id);
-
+          if (value.id) {
+            this.form.controls["nBanco"].setValue(value.id);
+            this.form.controls["cDescripcionBanco"].setValue(value.id + '-' + value.cNombreCorto);
+          }
           /*  this.mostrarDatosCliente(); */
 
         }
@@ -118,15 +129,34 @@ export class BankAccountsComponent implements OnInit {
     );
   }
 
+  openModalEmpresas() {
+    const modalRef = this.modalService.open(BusquedaBusinessComponent, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+      modalDialogClass: 'dialog-formulario-grande',
+    });
+
+    modalRef.closed.subscribe(
+      value => {
+        if (value) {
+          if (value.id) {
+            this.form.controls["nEmpresa"].setValue(value.id);
+            this.form.controls["cEmpresa"].setValue(value.cEmpresa);
+          }
+        }
+      }
+    );
+  }
 
   cancelar() {
-    this.util.dialogConfirm('¿Está seguro que desea cancelar la cuenta bancaria?').then((result) => {
+    this.util.dialogConfirm('¿Está seguro que desea eliminar la cuenta bancaria?').then((result) => {
       if (result.isConfirmed) {
         this.service.cancelarCuentas(this.nCuenta).subscribe(async (resp: any) => {
-          this.util.dialogSuccess('Cuenta bancaria cancelado correctamente.');
+          this.util.dialogSuccess('Cuenta bancaria eliminada correctamente.');
           this.limpiar();
         }, (err: { error: any; }) => {
-          this.util.dialogError('Error al cancelar la cuenta bancaria.');
+          this.util.dialogError('Error al eliminar la cuenta bancaria.');
         });
       }
     });
@@ -136,9 +166,13 @@ export class BankAccountsComponent implements OnInit {
     this.service.obtenerCuentas(this.nCuenta).subscribe((resp: any) => {
       if (resp) {
         const cuentaBancaria = resp.data[0];
-
-        this.form.controls["nBanco"].setValue(cuentaBancaria.nBanco);
-        this.form.controls["nNumeroCuenta"].setValue(cuentaBancaria.nNumeroCuenta)
+        if (cuentaBancaria) {
+          this.form.controls["nBanco"].setValue(cuentaBancaria.nBanco);
+          this.form.controls["cDescripcionBanco"].setValue(cuentaBancaria.nBanco + '-' + cuentaBancaria.cNombreCorto);
+          this.form.controls["nNumeroCuenta"].setValue(cuentaBancaria.nNumeroCuenta)
+          this.form.controls["nEmpresa"].setValue(cuentaBancaria.nEmpresa)
+          this.form.controls["cEmpresa"].setValue(cuentaBancaria.cNombreEmpresa); 
+        }
       }
     }, (error: any) => {
 

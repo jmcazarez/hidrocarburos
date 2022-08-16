@@ -5,6 +5,8 @@ const sequelize = require('../../db/config');
 async function obtenerArticulos(params) {
 
     try {
+
+        console.log('articulos',params.nArticulo);
         let data = await sequelize.query(
             `
              CALL proc_obtener_articulos(${params.nArticulo})

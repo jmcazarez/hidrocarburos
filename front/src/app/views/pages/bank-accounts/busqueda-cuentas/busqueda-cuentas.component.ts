@@ -51,7 +51,7 @@ export class BusquedaCuentasComponent implements OnInit {
           !val ||
           d.cNombreCorto.toLowerCase().indexOf(val) !== -1 ||
           !val ||
-          d.nNumeroCuenta.toLowerCase().indexOf(val) !== -1 ||
+          String(d.nNumeroCuenta).toLowerCase().indexOf(val) !== -1 ||
           d.cNombreEmpresa.toLowerCase().indexOf(val) !== -1 ||
           !val
       );

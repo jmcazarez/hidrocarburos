@@ -203,13 +203,14 @@ export const MENU: MenuItem[] = [
             link: '/business'
           },
           {
-            label: 'Sucursales',
-            link: '/branchs'
-          },
-          {
             label: 'Almacenes ',
             link: '/stores'
           },
+          {
+            label: 'Sucursales',
+            link: '/branchs'
+          },
+      
           {
             label: 'Articulos',
             link: '/articles'

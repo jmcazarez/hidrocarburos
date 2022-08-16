@@ -72,6 +72,12 @@ const almacenes = require("./routes/catalogos/almacenes");
 // sucursales
 const sucursales = require("./routes/catalogos/sucursales");
 
+// bancos
+const bancos = require("./routes/catalogos/bancos");
+
+// bancos
+const cuentas_bancarias = require("./routes/catalogos/cuentas_bancarias");
+
 // rutas base
 
 app.use("/api/login", login);
@@ -84,5 +90,6 @@ app.use("/api/catalogos/concepto_de_gastos", conceptoDeGastos);
 app.use("/api/catalogos/articulos", articulos);
 app.use("/api/catalogos/almacenes", almacenes);
 app.use("/api/catalogos/sucursales", sucursales);
-
+app.use("/api/catalogos/bancos", bancos);
+app.use("/api/catalogos/cuentas_bancarias", cuentas_bancarias);
 module.exports = app;

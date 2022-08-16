@@ -81,7 +81,7 @@ export class ArticlesComponent implements OnInit {
       centered: true,
       backdrop: 'static',
       keyboard: false,
-      modalDialogClass: 'dialog-formulario',
+      modalDialogClass: 'dialog-formulario-mediano',
     });
 
     modalRef.closed.subscribe(

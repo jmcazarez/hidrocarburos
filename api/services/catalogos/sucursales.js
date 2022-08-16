@@ -42,7 +42,7 @@ async function guardarSucursal(params) {
              CALL proc_guardar_sucursal (
                 ${params.nSucursal},
                 '${params.cDescripcion}',
-                '${params.cPlaza}',
+                ${params.nPlaza},
                 '${params.cCodigoPostal}',
                 '${params.cPais}',
                 '${params.cEstado}',
@@ -53,7 +53,8 @@ async function guardarSucursal(params) {
                 '${params.cTelefono}',
                 '${params.cCorreoElectronico}',
                 '${params.cEncargado}',
-                '${params.cCliente}'
+                '${params.cCliente}',
+                ${params.nAlmacen}
             )
              `,
             {

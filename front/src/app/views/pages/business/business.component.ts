@@ -27,7 +27,7 @@ export class BusinessComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.form = new FormGroup({
       nEmpresa : new FormControl({ value: '', disabled: true }, []),
-      nTipo : new FormControl('', Validators.required),
+      nTipo : new FormControl(1, Validators.required),
       cRazonSocial : new FormControl('', Validators.required),
       cRFC : new FormControl('', [Validators.pattern(this.patterns.rfc)]),
       cCodigoPostal : new FormControl('', [Validators.pattern(this.patterns.zipCode), Validators.required]),
@@ -37,9 +37,9 @@ export class BusinessComponent implements OnInit {
       cCiudad : new FormControl('', Validators.required),
       cColonia : new FormControl('', Validators.required),
       cDireccion : new FormControl('', Validators.required),
-      cNombreRepresentante : new FormControl('', []),
-      cApellidoPaternoRepresentante : new FormControl('', []),
-      cApellidoMaternoRepresentante : new FormControl('', []),
+      cNombreRepresentante : new FormControl('', [Validators.required]),
+      cApellidoPaternoRepresentante : new FormControl('', [Validators.required]),
+      cApellidoMaternoRepresentante : new FormControl('', [Validators.required]),
     });
     // await this.obtenerPerfiles();
   }
@@ -138,8 +138,7 @@ export class BusinessComponent implements OnInit {
             this.util.dialogError(resp.error.error.type);
           }
           else {
-            console.log(resp);
-            this.form.controls["nEmpresa"].setValue(resp.data.id);
+            this.limpiar();
             this.util.dialogSuccess('Empresa guardada correctamente.');
           }
         }, (err: { error: any; }) => {
@@ -200,6 +199,13 @@ export class BusinessComponent implements OnInit {
       if (resp) {
         const empresa = resp.data[0];
         console.log(empresa);
+
+        if (empresa.nTipo === 1) {
+          this.cambiarPersonaFisica();
+        } else if(empresa.nTipo === 2) {
+          this.cambiarPersonaMoral();
+        }
+
         this.form.controls["nTipo"].setValue(empresa.nTipo);
         this.form.controls["cRazonSocial"].setValue(empresa.cRazonSocial);
         this.form.controls["cRFC"].setValue(empresa.cRFC);
@@ -219,9 +225,48 @@ export class BusinessComponent implements OnInit {
     });
   }
 
+  cambiarPersonaFisica() {
+    this.form.controls["cRazonSocial"].setValue('');
+    this.form.controls["cRazonSocial"].setValidators(null);
+    this.form.controls["cRazonSocial"].updateValueAndValidity();
+
+    // this.form.controls["cNombreRepresentante"].setValue('');
+    // this.form.controls["cNombreRepresentante"].setValidators(Validators.required);
+    // this.form.controls["cNombreRepresentante"].updateValueAndValidity();
+
+    // this.form.controls["cApellidoPaternoRepresentante"].setValue('');
+    // this.form.controls["cApellidoPaternoRepresentante"].setValidators(Validators.required);
+    // this.form.controls["cApellidoPaternoRepresentante"].updateValueAndValidity();
+
+    // this.form.controls["cApellidoMaternoRepresentante"].setValue('');
+    // this.form.controls["cApellidoMaternoRepresentante"].setValidators(Validators.required);
+    // this.form.controls["cApellidoMaternoRepresentante"].updateValueAndValidity();
+
+  }
+
+  cambiarPersonaMoral() {
+    this.form.controls["cRazonSocial"].setValue('');
+    this.form.controls["cRazonSocial"].setValidators([Validators.required]);
+    this.form.controls["cRazonSocial"].updateValueAndValidity();
+
+    // this.form.controls["cNombreRepresentante"].setValue('');
+    // this.form.controls["cNombreRepresentante"].setValidators(null);
+    // this.form.controls["cNombreRepresentante"].updateValueAndValidity();
+
+    // this.form.controls["cApellidoPaternoRepresentante"].setValue('');
+    // this.form.controls["cApellidoPaternoRepresentante"].setValidators(null);
+    // this.form.controls["cApellidoPaternoRepresentante"].updateValueAndValidity();
+
+    // this.form.controls["cApellidoMaternoRepresentante"].setValue('');
+    // this.form.controls["cApellidoMaternoRepresentante"].setValidators(null);
+    // this.form.controls["cApellidoMaternoRepresentante"].updateValueAndValidity();
+
+  }
+
+
   limpiar() {
     this.form.controls["nEmpresa"].setValue('');
-    this.form.controls["nTipo"].setValue('');
+    this.form.controls["nTipo"].setValue(1);
     this.form.controls["cRazonSocial"].setValue('');
     this.form.controls["cRFC"].setValue('');
     this.form.controls["cCodigoPostal"].setValue('');
@@ -234,6 +279,7 @@ export class BusinessComponent implements OnInit {
     this.form.controls["cNombreRepresentante"].setValue('');
     this.form.controls["cApellidoPaternoRepresentante"].setValue('');
     this.form.controls["cApellidoMaternoRepresentante"].setValue('');
+    this.cambiarPersonaFisica();
   }
 
   eliminar() {

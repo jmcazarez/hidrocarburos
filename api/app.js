@@ -72,6 +72,13 @@ const almacenes = require("./routes/catalogos/almacenes");
 // sucursales
 const sucursales = require("./routes/catalogos/sucursales");
 
+// generico
+const generico = require("./routes/catalogos/generico");
+
+
+// plazas
+const plazas = require("./routes/catalogos/plazas");
+
 // rutas base
 
 app.use("/api/login", login);
@@ -84,5 +91,7 @@ app.use("/api/catalogos/concepto_de_gastos", conceptoDeGastos);
 app.use("/api/catalogos/articulos", articulos);
 app.use("/api/catalogos/almacenes", almacenes);
 app.use("/api/catalogos/sucursales", sucursales);
+app.use("/api/catalogos/generico", generico);
+app.use("/api/catalogos/plazas", plazas);
 
 module.exports = app;

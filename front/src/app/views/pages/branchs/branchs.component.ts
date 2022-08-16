@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AlmacenService } from 'src/services/almacen.service';
+import { PlazasService } from 'src/services/plazas.service';
 import { SucursalService } from 'src/services/sucursal.service';
 import { UtilsService } from 'src/services/utils.service';
 import { Patterns } from 'src/utils/patterns';
@@ -16,19 +18,23 @@ import { BusquedaSucursalComponent } from './busqueda-sucursal/busqueda-sucursal
 export class BranchsComponent implements OnInit {
 
   form: FormGroup;
+  almacenes = [] as any[];
+  plazas = [] as any[];
 
   constructor(
     private service: SucursalService,
     private util: UtilsService,
     public modalService: NgbModal,
     private patterns: Patterns,
+    private serviceAlmacenes: AlmacenService,
+    private servicePlazas: PlazasService
   ) {}
 
   async ngOnInit(): Promise<void> {
     this.form = new FormGroup({
       nSucursal : new FormControl({ value: '', disabled: true }, []),
       cDescripcion : new FormControl('', Validators.required),
-      cPlaza : new FormControl('', Validators.required),
+      nPlaza : new FormControl('', Validators.required),
       cCodigoPostal : new FormControl('', [Validators.required, Validators.pattern(this.patterns.zipCode)]),
       cPais : new FormControl('', Validators.required),
       cEstado : new FormControl('', Validators.required),
@@ -39,9 +45,25 @@ export class BranchsComponent implements OnInit {
       cTelefono : new FormControl('', [Validators.pattern(this.patterns.basicPhone)]),
       cCorreoElectronico : new FormControl('', [Validators.email]),
       cEncargado : new FormControl('', [Validators.required]),
-      cCliente : new FormControl('', [Validators.required]),
+      cCliente : new FormControl('', []),
+      nAlmacen : new FormControl('', [Validators.required]),
     });
+    await this.obtenerAlmacenes();
+    await this.obtenerPlazas();
+  }
 
+  obtenerAlmacenes() {
+    this.serviceAlmacenes.obtenerAlmacenes(0).subscribe((resp: any) => {
+      this.almacenes = resp.data;
+      console.log('Almacenes:', this.almacenes);
+    });
+  }
+
+  obtenerPlazas() {
+    this.servicePlazas.obtenerPlazas(0).subscribe((resp: any) => {
+      this.plazas = resp.data;
+      console.log('Plazas:', this.plazas);
+    });
   }
 
   get nSucursal(): number {
@@ -55,8 +77,8 @@ export class BranchsComponent implements OnInit {
     return this.form.get('cDescripcion')?.value ?? '';
   }
 
-  get cPlaza(): string {
-    return this.form.get('cPlaza')?.value ?? '';
+  get nPlaza(): number {
+    return this.form.get('nPlaza')?.value ?? 0;
   }
 
   get cCodigoPostal(): string {
@@ -103,6 +125,10 @@ export class BranchsComponent implements OnInit {
     return this.form.get('cCliente')?.value ?? '';
   }
 
+  get nAlmacen(): number {
+    return this.form.get('nAlmacen')?.value ?? 0;
+  }
+
 
   async guardar(): Promise<void> {
 
@@ -113,7 +139,7 @@ export class BranchsComponent implements OnInit {
         const obj = {
           nSucursal: this.nSucursal,
           cDescripcion: this.cDescripcion,
-          cPlaza : this.cPlaza,
+          cPlaza : '',
           cCodigoPostal : this.cCodigoPostal,
           cPais : this.cPais,
           cEstado : this.cEstado,
@@ -125,6 +151,8 @@ export class BranchsComponent implements OnInit {
           cCorreoElectronico : this.cCorreoElectronico,
           cEncargado : this.cEncargado,
           cCliente : this.cCliente,
+          nAlmacen: this.nAlmacen,
+          nPlaza: this.nPlaza
         };
 
         this.service.guardarSucursal(obj).subscribe(async (resp: any) => {
@@ -134,7 +162,7 @@ export class BranchsComponent implements OnInit {
             this.util.dialogError(resp.error.error.type);
           }
           else {
-            this.form.controls["nSucursal"].setValue(resp.data.id);
+            this.limpiar();
             this.util.dialogSuccess('Sucursal guardada correctamente.');
           }
         }, (err: { error: any; }) => {
@@ -174,7 +202,7 @@ export class BranchsComponent implements OnInit {
         const sucursal = resp.data[0];
         this.form.controls["nSucursal"].setValue(sucursal.nSucursal);
         this.form.controls["cDescripcion"].setValue(sucursal.cDescripcion);
-        this.form.controls["cPlaza"].setValue(sucursal.cPlaza);
+        this.form.controls["nPlaza"].setValue(sucursal.nPlaza);
         this.form.controls["cCodigoPostal"].setValue(sucursal.cCodigoPostal);
         this.form.controls["cPais"].setValue(sucursal.cPais);
         this.form.controls["cEstado"].setValue(sucursal.cEstado);
@@ -186,6 +214,7 @@ export class BranchsComponent implements OnInit {
         this.form.controls["cCorreoElectronico"].setValue(sucursal.cCorreoElectronico);
         this.form.controls["cEncargado"].setValue(sucursal.cEncargado);
         this.form.controls["cCliente"].setValue(sucursal.cCliente);
+        this.form.controls["nAlmacen"].setValue(sucursal.nAlmacen);
       }
     }, (error: any) => {
 
@@ -195,7 +224,7 @@ export class BranchsComponent implements OnInit {
   limpiar() {
     this.form.controls["nSucursal"].setValue('');
     this.form.controls["cDescripcion"].setValue('');
-    this.form.controls["cPlaza"].setValue('');
+    this.form.controls["nPlaza"].setValue('');
     this.form.controls["cCodigoPostal"].setValue('');
     this.form.controls["cPais"].setValue('');
     this.form.controls["cEstado"].setValue('');
@@ -207,6 +236,8 @@ export class BranchsComponent implements OnInit {
     this.form.controls["cCorreoElectronico"].setValue('');
     this.form.controls["cEncargado"].setValue('');
     this.form.controls["cCliente"].setValue('');
+    this.form.controls["nAlmacen"].setValue('');
+
   }
 
   eliminar() {

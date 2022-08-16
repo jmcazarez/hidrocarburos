@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsService } from 'src/services/utils.service';
 import { formatDate } from '@angular/common';
 import { Patterns } from 'src/utils/patterns';
+import { GenericoService } from 'src/services/generico.service';
 
 @Component({
   selector: 'app-clients',
@@ -16,19 +17,22 @@ import { Patterns } from 'src/utils/patterns';
 export class ClientsComponent implements OnInit {
 
   form: FormGroup;
+  regimenes = [] as any[];
+  usos = [] as any[];
 
   constructor(
     private service: ClienteService,
     private util: UtilsService,
     public modalService: NgbModal,
     private patterns: Patterns,
+    private serviceCFDI: GenericoService
   ) {}
 
   async ngOnInit(): Promise<void> {
     this.form = new FormGroup({
       nCliente : new FormControl({ value: '', disabled: true }, []),
-      nTipo : new FormControl('', Validators.required),
-      cRazonSocial : new FormControl('', Validators.required),
+      nTipo : new FormControl(1, Validators.required),
+      cRazonSocial : new FormControl('', []),
       cNombre : new FormControl('', Validators.required),
       cApellidoPaterno : new FormControl('', Validators.required),
       cApellidoMaterno : new FormControl('', Validators.required),
@@ -47,8 +51,18 @@ export class ClientsComponent implements OnInit {
       cTelefono : new FormControl('', [Validators.pattern(this.patterns.basicPhone)]),
       cCelular : new FormControl('', [Validators.pattern(this.patterns.basicPhone)]),
       cCorreoElectronico : new FormControl('', [Validators.email]),
+      cRegimen : new FormControl('', []),
+      cUso : new FormControl('', []),
     });
+    await this.obtenerCatalogosCFDI();
+  }
 
+  obtenerCatalogosCFDI() {
+    this.serviceCFDI.obtenerCatalogosCFDI().subscribe( (resp: any) => {
+      console.log(resp);
+      this.regimenes = resp.data.regimenes;
+      this.usos = resp.data.usos;
+    });
   }
 
   get nTipo(): number {
@@ -138,6 +152,14 @@ export class ClientsComponent implements OnInit {
     return this.form.get('cCorreoElectronico')?.value ?? '';
   }
 
+  get cRegimen(): any {
+    return this.form.get('cRegimen')?.value;
+  }
+
+  get cUso(): any {
+    return this.form.get('cUso')?.value;
+  }
+
 
   async guardar(): Promise<void> {
 
@@ -147,6 +169,16 @@ export class ClientsComponent implements OnInit {
 
         // verificar validación del rfc
         if (!this.validarRFC()) {
+          return;
+        }
+
+        // verificar validación de regimen fiscal
+        if (!this.validarRegimen()) {
+          return;
+        }
+
+        // verificar validación de uso de cfdi
+        if (!this.validarUsoCFDI()) {
           return;
         }
 
@@ -171,7 +203,9 @@ export class ClientsComponent implements OnInit {
           cCodigoPostal : this.cCodigoPostal,
           cTelefono : this.cTelefono,
           cCelular : this.cCelular,
-          cCorreoElectronico : this.cCorreoElectronico
+          cCorreoElectronico : this.cCorreoElectronico,
+          cRegimen: this.cRegimen ? this.cRegimen.nRegimenFiscal : null,
+          cUso: this.cUso ? this.cUso.nUsoCFDI : null
         };
 
         this.service.guardarCliente(objCliente).subscribe(async (resp: any) => {
@@ -182,7 +216,7 @@ export class ClientsComponent implements OnInit {
           }
           else {
             console.log(resp);
-            this.form.controls["nCliente"].setValue(resp.data.id);
+            this.limpiar();
             this.util.dialogSuccess('Cliente guardado correctamente.');
           }
         }, (err: { error: any; }) => {
@@ -214,6 +248,55 @@ export class ClientsComponent implements OnInit {
     return true;
   }
 
+  validarRegimen(): boolean {
+    
+    if (this.nTipo === 1) {
+      console.log('Regimen:', this.cRegimen);
+      if (this.cRegimen) {
+        if (this.cRegimen.cFiscal[0].toLowerCase() === 'n') {
+          this.util.dialogWarning('El regimen fiscal seleccionado no aplica para personas fisicas.');
+          return false;
+        }
+      }      
+    }
+    else if (this.nTipo === 2) {
+      if (this.cRegimen) {
+        if (this.cRegimen.cMoral[0].toLowerCase() === 'n') {
+          this.util.dialogWarning('El regimen fiscal seleccionado no aplica para personas morales.');
+          return false;
+        }
+      }      
+    }
+
+    
+
+    return true;
+  }
+
+  validarUsoCFDI(): boolean {
+    
+    if (this.nTipo === 1) {
+      if (this.cUso) {
+        if (this.cUso.cFisical[0].toLowerCase() === 'n') {
+          this.util.dialogWarning('El uso de cfdi seleccionado no aplica para personas fisicas.');
+          return false;
+        }
+      }      
+    }
+    else if (this.nTipo === 2) {
+      if (this.cUso) {
+        if (this.cUso.cMoral[0].toLowerCase() === 'n') {
+          this.util.dialogWarning('El uso de cfdi seleccionado no aplica para personas morales.');
+          return false;
+        }
+      }      
+    }
+
+    
+
+    return true;
+  }
+
   openModal() {
     const modalRef = this.modalService.open(BusquedaClienteComponent, {
       centered: true,
@@ -239,6 +322,32 @@ export class ClientsComponent implements OnInit {
     this.service.obtenerClientes(this.nCliente).subscribe ( (resp: any) => {
       if (resp) {
         const cliente = resp.data[0];
+
+        const regimen = {
+          nRegimenFiscal: resp.data[0].reg_nRegimenFiscal,
+          cRegimenFiscal: resp.data[0].reg_cRegimenFiscal,
+          cDescripcion: resp.data[0].reg_cDescripcion,
+          cFiscal: resp.data[0].reg_cFiscal,
+          cMoral: resp.data[0].reg_cMoral,
+        };
+        
+        const uso = {
+          nUsoCFDI: resp.data[0].uso_nUsoCFDI,
+          cUsoCFDI: resp.data[0].uso_cUsoCFDI,
+          cDescripcion: resp.data[0].uso_cDescripcion,
+          cFisical: resp.data[0].uso_cFisical,
+          cMoral: resp.data[0].uso_cMoral
+        };
+
+        console.log('Usos:', this.usos);
+        console.log('Uso:', uso);
+
+        if (cliente.nTipo === 1) {
+          this.cambiarPersonaFisica();
+        } else if(cliente.nTipo === 2) {
+          this.cambiarPersonaMoral();
+        }
+
         this.form.controls["nTipo"].setValue(cliente.nTipo);
         this.form.controls["cRazonSocial"].setValue(cliente.cRazonSocial);
         this.form.controls["cNombre"].setValue(cliente.cNombre);
@@ -259,15 +368,74 @@ export class ClientsComponent implements OnInit {
         this.form.controls["cTelefono"].setValue(cliente.cTelefono);
         this.form.controls["cCelular"].setValue(cliente.cCelular);
         this.form.controls["cCorreoElectronico"].setValue(cliente.cCorreoElectronico);
+        this.form.controls["cRegimen"].setValue('');
+        this.form.controls["cUso"].setValue('');
+
+        const regimenItem =  this.regimenes.filter(x=>x.nRegimenFiscal === regimen.nRegimenFiscal);
+        if (regimenItem.length > 0) {
+          this.form.controls["cRegimen"].setValue(regimenItem[0]);
+        }        
+
+        const usoItem =  this.usos.filter(x=>x.nUsoCFDI === uso.nUsoCFDI);
+        if (usoItem.length > 0) {
+          this.form.controls["cUso"].setValue(usoItem[0]);
+        }        
+        
       }
     }, (error: any) => {
 
     });
   }
 
+  cambiarPersonaFisica() {
+    this.form.controls["cRazonSocial"].setValue('');
+    this.form.controls["cRazonSocial"].setValidators(null);
+    this.form.controls["cRazonSocial"].updateValueAndValidity();
+
+    this.form.controls["cNombre"].setValue('');
+    this.form.controls["cNombre"].setValidators(Validators.required);
+    this.form.controls["cNombre"].updateValueAndValidity();
+
+    this.form.controls["cApellidoPaterno"].setValue('');
+    this.form.controls["cApellidoPaterno"].setValidators(Validators.required);
+    this.form.controls["cApellidoPaterno"].updateValueAndValidity();
+
+    this.form.controls["cApellidoMaterno"].setValue('');
+    this.form.controls["cApellidoMaterno"].setValidators(Validators.required);
+    this.form.controls["cApellidoMaterno"].updateValueAndValidity();
+
+    this.form.controls["cSexo"].setValue('');
+    this.form.controls["cSexo"].setValidators(Validators.required);
+    this.form.controls["cSexo"].updateValueAndValidity();
+
+  }
+
+  cambiarPersonaMoral() {
+    this.form.controls["cRazonSocial"].setValue('');
+    this.form.controls["cRazonSocial"].setValidators([Validators.required]);
+    this.form.controls["cRazonSocial"].updateValueAndValidity();
+
+    this.form.controls["cNombre"].setValue('');
+    this.form.controls["cNombre"].setValidators(null);
+    this.form.controls["cNombre"].updateValueAndValidity();
+
+    this.form.controls["cApellidoPaterno"].setValue('');
+    this.form.controls["cApellidoPaterno"].setValidators(null);
+    this.form.controls["cApellidoPaterno"].updateValueAndValidity();
+
+    this.form.controls["cApellidoMaterno"].setValue('');
+    this.form.controls["cApellidoMaterno"].setValidators(null);
+    this.form.controls["cApellidoMaterno"].updateValueAndValidity();
+
+    this.form.controls["cSexo"].setValue('');
+    this.form.controls["cSexo"].setValidators(null);
+    this.form.controls["cSexo"].updateValueAndValidity();
+
+  }
+
   limpiar() {
     this.form.controls["nCliente"].setValue('');
-    this.form.controls["nTipo"].setValue('');
+    this.form.controls["nTipo"].setValue(1);
     this.form.controls["cRazonSocial"].setValue('');
     this.form.controls["cNombre"].setValue('');
     this.form.controls["cApellidoPaterno"].setValue('');
@@ -287,6 +455,9 @@ export class ClientsComponent implements OnInit {
     this.form.controls["cTelefono"].setValue('');
     this.form.controls["cCelular"].setValue('');
     this.form.controls["cCorreoElectronico"].setValue('');
+    this.form.controls["cRegimen"].setValue('');
+    this.form.controls["cUso"].setValue('');
+    this.cambiarPersonaFisica();
   }
 
   eliminar() {

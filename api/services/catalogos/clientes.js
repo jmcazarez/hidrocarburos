@@ -37,6 +37,8 @@ async function guardarCliente(params) {
 
     try {
 
+        console.log('params:', params);
+
         let data = await sequelize.query(
             `
              CALL proc_guardar_cliente (
@@ -60,7 +62,9 @@ async function guardarCliente(params) {
                 '${params.cCodigoPostal}',
                 '${params.cTelefono}',
                 '${params.cCelular}',
-                '${params.cCorreoElectronico}'
+                '${params.cCorreoElectronico}',
+                ${params.cUso},
+                ${params.cRegimen}
             )
              `,
             {

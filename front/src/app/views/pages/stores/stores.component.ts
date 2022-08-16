@@ -65,8 +65,7 @@ export class StoresComponent implements OnInit {
             this.util.dialogError(resp.error.error.type);
           }
           else {
-            console.log(resp);
-            this.form.controls["nAlmacen"].setValue(resp.data.id);
+            this.limpiar();
             this.util.dialogSuccess('Almacén guardado correctamente.');
           }
         }, (err: { error: any; }) => {

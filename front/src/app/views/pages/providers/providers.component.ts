@@ -15,6 +15,7 @@ import { BusquedaProvidersComponent } from './busqueda-providers/busqueda-provid
 })
 export class ProvidersComponent implements OnInit {
   form: FormGroup;
+  aPersonaFisicaRequired: [];
   constructor(private service: ProveedorService,
     private util: UtilsService,
     public modalService: NgbModal,
@@ -25,20 +26,14 @@ export class ProvidersComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       nProveedor: [{ value: '', disabled: true }],
-      bPersonaFisica: new FormControl('', Validators.required),
+      bPersonaFisica: new FormControl(1, Validators.required),
       cDescripcion: new FormControl('', Validators.required),
       cNombreComercial: new FormControl('', Validators.required),
-      cNombre: new FormControl('', Validators.required),
-      cApellidoPaterno: new FormControl('', Validators.required),
+      cNombre: new FormControl(''),
+      cApellidoPaterno: new FormControl(''),
       cApellidoMaterno: new FormControl(''),
-      /*    cCURP: new FormControl('', [Validators.pattern('/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/')]),
-         cTelefono: new FormControl('', [RxwebValidators.mask({ mask: '(999)-999 9999' }), Validators.required]),
-         cCelular: new FormControl('',[RxwebValidators.mask({ mask: '(999)-999 9999' })]),
-         cContacto: new FormControl('', [ Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
-         cRFC: new FormControl('',[Validators.pattern('^[A-Za-zñÑ&]{3,4}\d{6}\w{3}$'),Validators.required]), */
-      cCURP: new FormControl('', [Validators.pattern(this.patterns.curp)]),
       cRFC: new FormControl('', [Validators.pattern(this.patterns.rfc)]),
-      cNacionalidad: new FormControl('', Validators.required),
+      /*   cNacionalidad: new FormControl('', Validators.required), */
       cDireccion: new FormControl('', Validators.required),
       cEstado: new FormControl('', Validators.required),
       cMunicipio: new FormControl('', Validators.required),
@@ -47,14 +42,16 @@ export class ProvidersComponent implements OnInit {
       cTelefono: new FormControl('', [Validators.pattern(this.patterns.basicPhone)]),
       cCelular: new FormControl('', [Validators.pattern(this.patterns.basicPhone)]),
       cContacto: new FormControl('', [Validators.email]),
-      cDiasEntrega: new FormControl('', Validators.required),
-      cFormaPago: new FormControl(0, Validators.required),
-      nLimiteCredito: new FormControl(0, Validators.required),
-      nDiasCredito: new FormControl(0, Validators.required),
-      cImpuestos: new FormControl('', Validators.required),
-      nPagoFlete: new FormControl(0, Validators.required),
+      /*  cDiasEntrega: new FormControl(''),
+       cFormaPago: new FormControl(0),
+       nLimiteCredito: new FormControl(0),
+       nDiasCredito: new FormControl(0),
+       cImpuestos: new FormControl(''),
+       nPagoFlete: new FormControl(0), */
       bActivo: new FormControl(1),
-
+      nNumeroInterior: new FormControl(''),
+      nNumeroExterior: new FormControl('', Validators.required),
+      cPais: new FormControl('', Validators.required),
     });
 
 
@@ -71,6 +68,11 @@ export class ProvidersComponent implements OnInit {
     return this.form.get('nProveedor')?.value;
   }
   get bPersonaFisica(): number {
+    if (this.form.get('bPersonaFisica')?.value)
+      this.validacionPersonaFisica()
+    else
+      this.validacionPersonaMoral()
+
     return this.form.get('bPersonaFisica')?.value ?? 0;
   }
   get cRFC(): string {
@@ -136,6 +138,17 @@ export class ProvidersComponent implements OnInit {
   get nLimiteCredito(): number {
     return this.form.get('nLimiteCredito')?.value ?? 0;
   }
+  get cPais(): number {
+    return this.form.get('cPais')?.value ?? '';
+  }
+
+  get nNumeroInterior(): number {
+    return this.form.get('nNumeroInterior')?.value ?? '';
+  }
+
+  get nNumeroExterior(): number {
+    return this.form.get('nNumeroExterior')?.value ?? '';
+  }
 
   async guardar(): Promise<void> {
     const objProveedor = {
@@ -162,6 +175,9 @@ export class ProvidersComponent implements OnInit {
       nLimiteCredito: this.nLimiteCredito,
       nDiasCredito: this.cCodigoPostal,
       bActivo: this.bActivo,
+      cPais: this.cPais,
+      nNumeroExterior: this.nNumeroExterior,
+      nNumeroInterior: this.nNumeroInterior,
     };
 
     await this.service.guardarProveedor(objProveedor).subscribe(async (resp: any) => {
@@ -171,6 +187,7 @@ export class ProvidersComponent implements OnInit {
         Swal.fire('Error', resp.error.error, 'error');
       }
       else {
+        this.limpiar();
         this.util.dialogSuccess('Proveedor guardado correctamente.');
       }
     }, (err: { error: any; }) => {
@@ -183,6 +200,26 @@ export class ProvidersComponent implements OnInit {
     this.form.reset();
   }
 
+  validacionPersonaFisica() {
+    this.form.get('cNombre')?.clearValidators();
+    this.form.get('cNombre')?.updateValueAndValidity();
+    this.form.get('cApellidoPaterno')?.clearValidators();
+    this.form.get('cApellidoPaterno')?.updateValueAndValidity();
+    this.form.get('cDescripcion')?.setValidators([Validators.required]);
+    this.form.get('cNombreComercial')?.setValidators([Validators.required]);
+    this.form.get('cDescripcion')?.updateValueAndValidity();
+    this.form.get('cNombreComercial')?.updateValueAndValidity();
+  }
+  validacionPersonaMoral() {
+    this.form.get('cDescripcion')?.clearValidators();
+    this.form.get('cDescripcion')?.updateValueAndValidity();
+    this.form.get('cNombreComercial')?.clearValidators();
+    this.form.get('cNombreComercial')?.updateValueAndValidity();
+    this.form.get('cNombre')?.setValidators([Validators.required]);
+    this.form.get('cApellidoPaterno')?.setValidators([Validators.required]);
+    this.form.get('cNombre')?.updateValueAndValidity();
+    this.form.get('cApellidoPaterno')?.updateValueAndValidity();
+  }
 
   openProveedores() {
     console.log('click');

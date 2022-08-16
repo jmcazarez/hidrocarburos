@@ -75,9 +75,14 @@ const sucursales = require("./routes/catalogos/sucursales");
 // generico
 const generico = require("./routes/catalogos/generico");
 
-
 // plazas
 const plazas = require("./routes/catalogos/plazas");
+
+// bancos
+const bancos = require("./routes/catalogos/bancos");
+
+// bancos
+const cuentas_bancarias = require("./routes/catalogos/cuentas_bancarias");
 
 // rutas base
 
@@ -93,5 +98,6 @@ app.use("/api/catalogos/almacenes", almacenes);
 app.use("/api/catalogos/sucursales", sucursales);
 app.use("/api/catalogos/generico", generico);
 app.use("/api/catalogos/plazas", plazas);
-
+app.use("/api/catalogos/bancos", bancos);
+app.use("/api/catalogos/cuentas_bancarias", cuentas_bancarias);
 module.exports = app;

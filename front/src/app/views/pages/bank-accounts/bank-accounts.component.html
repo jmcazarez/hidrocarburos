@@ -24,31 +24,43 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Formulario de Cuentas de Banco</h6>
-        <form>
+        <form [formGroup]="form">
 
           <div class="row mt-4">
             <div class="col-sm-5">
               <div class="row">
                 <label class="form-label col-sm-5 col-form-label text-end">Folio</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-                
-                <label class="form-label col-sm-5 col-form-label text-end">Banco</label>
-                <div class="col-sm-7">
                   <div class="input-group">
-                    <input type="text" class="form-control form-control-sm border-end-0">
+                    <input type="text" class="form-control form-control-sm border-end-0" formControlName="nCuenta">
                     <span class="input-group-text border-start-0 bg-white">
-                      <i class="feather icon-search"></i>
+                      <i class="feather icon-search" (click)="openModalCuentas()"></i>
                     </span>
                   </div>
                 </div>
 
-                <label class="form-label col-sm-5 col-form-label text-end">No. Cuenta</label>
+                <label class="form-label col-sm-5 col-form-label text-end">Banco</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
+                  <div class="input-group">
+                    <input type="text" class="form-control form-control-sm border-end-0" formControlName="nBanco">
+                    <span class="input-group-text border-start-0 bg-white">
+                      <i class="feather icon-search" (click)="openModalBancos()"></i>
+                    </span>
+
+                  </div>
+                  <p class="error p-0 mt-1 mb-1" *ngIf="form.get('nBanco')?.hasError('required')">
+                    *Obligatorio.
+                  </p>
                 </div>
 
+                <label class="form-label col-sm-5 col-form-label text-end">No. Cuenta</label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control form-control-sm" type="number" formControlName="nNumeroCuenta" placeholder="">
+                  <p class="error p-0 mt-1 mb-1"  *ngIf="form.get('nNumeroCuenta')?.hasError('required')">
+                    *Obligatorio.
+                  </p>
+                </div>
+<!--
                 <label class="form-label col-sm-5 col-form-label text-end">Razón Social</label>
                 <div class="col-sm-7">
                   <div class="input-group">
@@ -57,21 +69,23 @@
                       <i class="feather icon-search"></i>
                     </span>
                   </div>
-                </div>
+                </div> -->
 
-          
+
               </div>
             </div>
-          
+
             <div class="col-sm-2"></div>
-          
+
             <div class="col-sm-5"></div>
           </div>
 
         </form>
         <div class="d-flex justify-content-end my-4">
-            <button type="button" class="btn btn-dark mx-2">Cancelar</button>
-            <button type="button" class="btn btn-primary mx-2">Guardar</button>
+          <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
+            <button type="button" class="btn btn-dark mx-2" *ngIf="this.nCuenta > 0" (click)="cancelar()">Cancelar</button>
+            <button type="button" class="btn btn-primary mx-2"  [disabled]="form.invalid"
+            (click)="guardar()">Guardar</button>
         </div>
       </div>
     </div>

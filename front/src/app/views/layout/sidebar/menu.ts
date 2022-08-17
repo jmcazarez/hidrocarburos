@@ -215,7 +215,7 @@ export const MENU: MenuItem[] = [
             label: 'Articulos',
             link: '/articles'
           },
-        /*   {
+          {
             label: 'Choferes',
             link: '/drivers'
           },
@@ -226,7 +226,7 @@ export const MENU: MenuItem[] = [
           {
             label: 'Transp. Fletes',
             link: '/parcel'
-          }, */
+          },
           {
             label: 'Concepto de Gastos',
             link: '/bills'

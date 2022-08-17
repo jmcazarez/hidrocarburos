@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UtilsService } from 'src/services/utils.service';
+import { BusquedaChoferComponent } from './busqueda-chofer/busqueda-chofer.component';
 
 @Component({
   selector: 'app-drivers',
@@ -7,8 +11,60 @@ import { Component, OnInit } from '@angular/core';
   preserveWhitespaces: true
 })
 export class DriversComponent implements OnInit {
+  form: FormGroup;
+  constructor(
+    private util: UtilsService,
+    public modalService: NgbModal,
+  ) {
+    this.form = new FormGroup({
+      nChofer: new FormControl({ value: '', disabled: true }, [Validators.required]),
+      cNombre: new FormControl({ value: '', disabled: false, }, [Validators.required]),
+      cApellidoPaterno: new FormControl({ value: '', disabled: false, }, [Validators.required]),
+      cApellidoMaterno: new FormControl({ value: '', disabled: false, }, [Validators.required]),
+      cLicencia: new FormControl({ value: '', disabled: false, }, [Validators.required]),
+      nAntiguedad: new FormControl({ value: '', disabled: false, }, [Validators.required]),
+      nFletera: new FormControl({ value: '', disabled: false, }, [Validators.required]),
+    });
+  }
 
-  constructor() {}
+  ngOnInit(): void { }
 
-  ngOnInit(): void {}
+
+
+  get nCliente(): number {
+    if (!this.form.get('nChofer')?.value || this.form.get('nChofer')?.value == '') {
+      return 0;
+    }
+    return this.form.get('nChofer')?.value;
+  }
+  get cNombre(): string {
+    return this.form.get('cNombre')?.value ?? '';
+  }
+  openModal() {
+    const modalRef = this.modalService.open(BusquedaChoferComponent, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+      modalDialogClass: 'dialog-formulario-chico',
+    });
+
+    modalRef.closed.subscribe(
+      value => {
+        console.log('value:', value);
+        if(value){
+          this.form.controls["nCliente"].setValue(value.id);
+
+         // this.mostrarDatosCliente();
+
+        }
+      }
+    );
+  }
+
+  onSubmit() {
+    console.log('entrar', this.form);
+    if (this.form.valid) {
+
+    }
+  }
 }

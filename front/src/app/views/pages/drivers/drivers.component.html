@@ -12,7 +12,8 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Registro de Choferes</h4>
-        <p class="text-muted">Sección dedicada para el registro de nuevos choferes en el sistema, recuerda llenar todos los campos requeridos y asi podras guardar la información.</p>
+        <p class="text-muted">Sección dedicada para el registro de nuevos choferes en el sistema, recuerda llenar todos
+          los campos requeridos y asi podras guardar la información.</p>
       </div>
     </div>
   </div>
@@ -24,64 +25,76 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Formulario de Choferes</h6>
-          <form>
+        <form [formGroup]="form">
 
-            <div class="row mt-4">
-              <div class="col-sm-5">
-                <div class="row">
-                  <label class="form-label col-sm-5 col-form-label text-end">Folio</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+          <div class="row mt-4">
+            <div class="col-sm-5">
+              <div class="row">
+                <label class="form-label col-sm-5 col-form-label text-end">Folio</label>
+                <div class="col-sm-7">
+                  <div class="input-group">
+                    <input type="text" class="form-control form-control-sm" placeholder=""   formControlName="nChofer">
+                    <span class="input-group-text border-start-0 bg-white">
+                      <i class="feather icon-search" (click)="openModal()"></i>
+                    </span>
                   </div>
-                  
-                  <label class="form-label col-sm-5 col-form-label text-end">Nombre</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
-                  </div>
-
-                  <label class="form-label col-sm-5 col-form-label text-end">Apellido Paterno</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
-                  </div>
-
-                  <label class="form-label col-sm-5 col-form-label text-end">Apellido Materno</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
-                  </div>
-
-                  <label class="form-label col-sm-5 col-form-label text-end">RFC</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
-                  </div>
-
-                  <label class="form-label col-sm-5 col-form-label text-end">No. Licencia</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
-                  </div>
-
-                  <label class="form-label col-sm-5 col-form-label text-end">Antiguedad</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
-                  </div>
-
-                  <label class="form-label col-sm-5 col-form-label text-end">Vehiculo</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
-                  </div>
-            
                 </div>
+                <label class="form-label col-sm-5 col-form-label text-end">RFC </label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control form-control-sm" placeholder="">
+                </div>
+                <label class="form-label col-sm-5 col-form-label text-end">Nombre <label class="error"
+                    *ngIf="form.get('cNombre')?.hasError('required')">*</label></label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cNombre">
+                </div>
+
+                <label class="form-label col-sm-5 col-form-label text-end">Apellido Paterno <label class="error"
+                    *ngIf="form.get('cNombre')?.hasError('required')">*</label></label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control form-control-sm" placeholder="">
+                </div>
+
+                <label class="form-label col-sm-5 col-form-label text-end">Apellido Materno</label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control form-control-sm" placeholder="">
+                </div>
+
+
+
+                <label class="form-label col-sm-5 col-form-label text-end">No. Licencia <label class="error"
+                    *ngIf="form.get('cNombre')?.hasError('required')">*</label></label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control form-control-sm" placeholder="">
+                </div>
+
+                <label class="form-label col-sm-5 col-form-label text-end">Antiguedad</label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control form-control-sm" placeholder="">
+                </div>
+
+                <label class="form-label col-sm-5 col-form-label text-end">CIA (Fletera)<label class="error"
+                    *ngIf="form.get('cNombre')?.hasError('required')">*</label></label>
+                <div class="col-sm-7">
+                  <select class="form-control form-control-sm" formControlName="nAlmacen">
+                    <option [value]="''">Seleccione ...</option>
+                    <!-- <option *ngFor="let item of this.almacenes" [ngValue]="item.nAlmacen">{{ item.cDescripcion }}</option> -->
+                  </select>
+                </div>
+
               </div>
-            
-              <div class="col-sm-2"></div>
-            
-              <div class="col-sm-5"></div>
             </div>
 
-          </form>
-          <div class="d-flex justify-content-end my-4">
-              <button type="button" class="btn btn-dark mx-2">Cancelar</button>
-              <button type="button" class="btn btn-primary mx-2">Guardar</button>
+            <div class="col-sm-2"></div>
+
+            <div class="col-sm-5"></div>
           </div>
+
+        </form>
+        <div class="d-flex justify-content-end my-4">
+          <button type="button" class="btn btn-dark mx-2">Cancelar</button>
+          <button type="button" class="btn btn-primary mx-2" (click)="onSubmit()">Guardar</button>
+        </div>
       </div>
     </div>
   </div>

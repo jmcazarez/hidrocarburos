@@ -1,6 +1,7 @@
 import { ClienteService } from '../../../../../services/cliente.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ChoferesService } from 'src/services/choferes.service';
 
 @Component({
   selector: 'app-busqueda-chofer',
@@ -15,12 +16,12 @@ export class BusquedaChoferComponent implements OnInit {
   reorderable: boolean;
   valueBuscador = '';
   selectedRow: any;
-  constructor(public activeModal: NgbActiveModal, private modalService: NgbModal, private serviceCliente: ClienteService) { }
+  constructor(public activeModal: NgbActiveModal, private modalService: NgbModal, private service: ChoferesService) { }
 
   ngOnInit(): void {
     // Obtener los datos
 
-    this.serviceCliente.obtenerClientes(0).subscribe( (resp: any) => {
+    this.service.obtenerChoferes(0).subscribe( (resp: any) => {
       this.data = resp.data;
       this.dataTemp = [...this.data];
     }, (error: any) => {
@@ -47,12 +48,12 @@ export class BusquedaChoferComponent implements OnInit {
       const val = value.target.value.toLowerCase();
       const temp = this.data.filter(
         (d) =>
-          d.nCliente.toString().toLowerCase().indexOf(val) !== -1 ||
+          d.nChofer.toString().toLowerCase().indexOf(val) !== -1 ||
           !val ||
-          d.cNombreCliente.toLowerCase().indexOf(val) !== -1 ||
-          !val ||
-          d.cRFC.toLowerCase().indexOf(val) !== -1 ||
-          !val
+          d.cNombre.toLowerCase().indexOf(val) !== -1 || !val ||
+          d.cApellidoPaterno.toLowerCase().indexOf(val) !== -1 || !val ||
+          d.cApellidoMaterno.toLowerCase().indexOf(val) !== -1 || !val ||
+          d.cRFC.toLowerCase().indexOf(val) !== -1 || !val
       );
 
       this.data = temp;
@@ -62,8 +63,8 @@ export class BusquedaChoferComponent implements OnInit {
   onClick(event: any) {
     if (event.type == 'click') {
       if (this.selectedRow) {
-        if (this.selectedRow.nCliente == event.row.nCliente) {
-          this.activeModal.close({ id: this.selectedRow.nCliente });
+        if (this.selectedRow.nChofer == event.row.nChofer) {
+          this.activeModal.close({ id: this.selectedRow.nChofer });
         } else {
           this.selectedRow = event.row;
         }

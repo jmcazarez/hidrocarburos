@@ -33,7 +33,7 @@
                 <label class="form-label col-sm-5 col-form-label text-end">Folio</label>
                 <div class="col-sm-7">
                   <div class="input-group">
-                    <input type="text" class="form-control form-control-sm" placeholder=""   formControlName="nChofer">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nChofer">
                     <span class="input-group-text border-start-0 bg-white">
                       <i class="feather icon-search" (click)="openModal()"></i>
                     </span>
@@ -41,42 +41,44 @@
                 </div>
                 <label class="form-label col-sm-5 col-form-label text-end">RFC </label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
+                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cRFC">
                 </div>
-                <label class="form-label col-sm-5 col-form-label text-end">Nombre <label class="error"
-                    *ngIf="form.get('cNombre')?.hasError('required')">*</label></label>
+                <label class="form-label col-sm-5 col-form-label text-end">Nombre </label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cNombre">
+                  <input type="text" class="form-control form-control-sm"
+                    [ngClass]="{'has-error': form.get('cNombre')?.hasError('required')}" placeholder=""
+                    formControlName="cNombre">
                 </div>
 
-                <label class="form-label col-sm-5 col-form-label text-end">Apellido Paterno <label class="error"
-                    *ngIf="form.get('cNombre')?.hasError('required')">*</label></label>
+                <label class="form-label col-sm-5 col-form-label text-end">Apellido Paterno </label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
+                  <input type="text" class="form-control form-control-sm"
+                    [ngClass]="{'has-error': form.get('cApellidoPaterno')?.hasError('required')}" placeholder=""
+                    formControlName="cApellidoPaterno">
                 </div>
 
                 <label class="form-label col-sm-5 col-form-label text-end">Apellido Materno</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
+                  <input type="text" class="form-control form-control-sm" placeholder=""
+                    formControlName="cApellidoMaterno">
+
                 </div>
 
-
-
-                <label class="form-label col-sm-5 col-form-label text-end">No. Licencia <label class="error"
-                    *ngIf="form.get('cNombre')?.hasError('required')">*</label></label>
+                <label class="form-label col-sm-5 col-form-label text-end">No. Licencia </label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
+                  <input type="text" class="form-control form-control-sm" placeholder=""
+                    formControlName="cLicencia">
                 </div>
 
                 <label class="form-label col-sm-5 col-form-label text-end">Antiguedad</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
+                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nAntiguedad">
                 </div>
 
-                <label class="form-label col-sm-5 col-form-label text-end">CIA (Fletera)<label class="error"
-                    *ngIf="form.get('cNombre')?.hasError('required')">*</label></label>
+                <label class="form-label col-sm-5 col-form-label text-end">CIA (Fletera)</label>
                 <div class="col-sm-7">
-                  <select class="form-control form-control-sm" formControlName="nAlmacen">
+                  <select class="form-control form-control-sm" formControlName="nFletera"
+                    [ngClass]="{'has-error': form.get('nFletera')?.hasError('required')}">
                     <option [value]="''">Seleccione ...</option>
                     <!-- <option *ngFor="let item of this.almacenes" [ngValue]="item.nAlmacen">{{ item.cDescripcion }}</option> -->
                   </select>

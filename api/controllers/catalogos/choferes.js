@@ -5,7 +5,7 @@ async function obtenerchoferes(req, res) {
     let params = req.params;
     params.cLogin = req.user.cLogin;
 
-    let result = await service.obtenerchoferes(params);
+    let result = await service.obtenerChoferes(params);
 
     res.status(result.status).json({
         error: result.error,
@@ -31,7 +31,7 @@ async function eliminarChofer(req, res) {
     let params = req.params;
     params.cLogin = req.user.cLogin;
 
-    let result = await service.eliminarChofer(params);
+    let result = await service.cancelarChofer(params);
 
     res.status(result.status).json({
         error: result.error,

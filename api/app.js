@@ -103,5 +103,5 @@ app.use("/api/catalogos/generico", generico);
 app.use("/api/catalogos/plazas", plazas);
 app.use("/api/catalogos/bancos", bancos);
 app.use("/api/catalogos/cuentas_bancarias", cuentas_bancarias);
-app.use("/api/catalogos/chofer", chofer);
+app.use("/api/catalogos/choferes", chofer);
 module.exports = app;

@@ -1,14 +1,16 @@
 <div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">Búsqueda de clientes</h5>
+  <h5 class="modal-title" id="exampleModalLabel">Búsqueda de choferes</h5>
 
 </div>
 <div class="modal-body">
-  <input type='text' matInput placeholder='Buscar cliente' (keyup)='filterDatatable($event)' [(ngModel)]="valueBuscador">
+  <input type='text' matInput placeholder='Buscar' (keyup)='filterDatatable($event)' [(ngModel)]="valueBuscador">
   <ngx-datatable class="material shadow-none" [rows]="data" [loadingIndicator]="loadingIndicator"
     [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [reorderable]="reorderable"
     [limit]="10" [scrollbarH]="true" (activate)="onClick($event)">
-    <ngx-datatable-column name="Folio" prop="nCliente"></ngx-datatable-column>
-    <ngx-datatable-column name="Cliente" prop="cNombreCliente" ></ngx-datatable-column>
+    <ngx-datatable-column name="Folio" prop="nChofer"></ngx-datatable-column>
+    <ngx-datatable-column name="Nombre" prop="cNombre" ></ngx-datatable-column>
+    <ngx-datatable-column name="Apellido paterno" prop="cApellidoPaterno" ></ngx-datatable-column>
+    <ngx-datatable-column name="Apellido materno" prop="cApellidoPaterno" ></ngx-datatable-column>
     <ngx-datatable-column name="RFC" prop="cRFC" ></ngx-datatable-column>
   </ngx-datatable>
 </div>

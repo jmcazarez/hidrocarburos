@@ -3,7 +3,7 @@ const { QueryTypes } = require("sequelize");
 const sequelize = require('../../db/config');
 
 async function obtenerChoferes(params) {
-
+console.log(params);
     try {
         let data = await sequelize.query(
             `
@@ -47,8 +47,8 @@ async function guardarChofer(params) {
                 '${params.cApellidoPaterno}',
                 '${params.cApellidoMaterno}',
                 '${params.cLicencia}',
-                '${params.nAntiguedad}',
-                '${params.nFletera}',
+                ${params.nAntiguedad},
+                ${params.nFletera}
              )
              `,
             {

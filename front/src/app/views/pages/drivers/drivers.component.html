@@ -80,7 +80,7 @@
                   <select class="form-control form-control-sm" formControlName="nFletera"
                     [ngClass]="{'has-error': form.get('nFletera')?.hasError('required')}">
                     <option [value]="''">Seleccione ...</option>
-                    <!-- <option *ngFor="let item of this.almacenes" [ngValue]="item.nAlmacen">{{ item.cDescripcion }}</option> -->
+                   <option *ngFor="let item of this.fleteras" [ngValue]="item.nFletera">{{ item.cDescripcion }}</option> 
                   </select>
                 </div>
 

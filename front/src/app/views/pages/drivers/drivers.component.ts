@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChoferesService } from 'src/services/choferes.service';
+import { FleterasService } from 'src/services/fleteras.service';
 import { UtilsService } from 'src/services/utils.service';
 import { BusquedaChoferComponent } from './busqueda-chofer/busqueda-chofer.component';
 
@@ -13,9 +14,10 @@ import { BusquedaChoferComponent } from './busqueda-chofer/busqueda-chofer.compo
 })
 export class DriversComponent implements OnInit {
   form: FormGroup;
+  fleteras = [] as any[];
   constructor(
     private util: UtilsService,
-    public modalService: NgbModal, private service: ChoferesService
+    public modalService: NgbModal, private service: ChoferesService, private serviceFletera: FleterasService
   ) {
     this.form = new FormGroup({
       nChofer: new FormControl({ value: '', disabled: true }, [Validators.required]),
@@ -29,7 +31,9 @@ export class DriversComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  async ngOnInit(): Promise<void> {
+    await this.obtenerCatalogosFletera();
+   }
 
 
 
@@ -67,6 +71,13 @@ export class DriversComponent implements OnInit {
     return this.form.get('nFletera')?.value;
   }
 
+  obtenerCatalogosFletera() {
+    this.serviceFletera.obtenerFleteras(0).subscribe( (resp: any) => {
+      console.log(resp.data);
+      this.fleteras = resp.data;
+ 
+    });
+  }
   openModal() {
     const modalRef = this.modalService.open(BusquedaChoferComponent, {
       centered: true,

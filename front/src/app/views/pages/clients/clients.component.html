@@ -40,10 +40,10 @@
                 </label>
               </div>
 
-              <p class="error p-0 mt-1 mb-1"
+              <!-- <p class="error p-0 mt-1 mb-1"
                 *ngIf="form.get('nTipo')?.hasError('required')">
                   *Obligatorio.
-              </p>
+              </p> -->
             </div>
 
             <div class="my-4">
@@ -96,15 +96,14 @@
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">RFC</label>
-                  <input type="text" class="form-control form-control-sm" formControlName="cRFC" maxlength="13">
+                  <input type="text" class="form-control form-control-sm" formControlName="cRFC" maxlength="13"
+                  [ngClass]="{'has-error': form.get('cRFC')?.hasError('required')}"
+                  >
                   <p class="error p-0 mt-1 mb-1"
                       *ngIf="form.get('cRFC')?.hasError('pattern')">
                         El campo no es un RFC válido.
                     </p>
-                  <p class="error p-0 mt-1 mb-1"
-                    *ngIf="form.get('cRFC')?.hasError('required')">
-                      *Obligatorio.
-                  </p>
+               
                 </div>
               </div>
 
@@ -112,11 +111,10 @@
                 
                   <label class="form-label">Nombre / Razon Social</label>
                  
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cRazonSocial" maxlength="100">
-                    <p class="error p-0 mt-1 mb-1"
-                      *ngIf="form.get('cRazonSocial')?.hasError('required')">
-                        *Obligatorio.
-                    </p>
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cRazonSocial" maxlength="100"
+                    [ngClass]="{'has-error': form.get('cRazonSocial')?.hasError('required')}"
+                    >
+                    
                   
                 
               </div>
@@ -126,48 +124,44 @@
               <div class="col" *ngIf="this.nTipo === 1 ">
                 <div class="mb-3">
                   <label class="form-label">Nombre(s)</label>
-                  <input type="text" class="form-control form-control-sm" formControlName="cNombre" maxlength="45">
-                  <p class="error p-0 mt-1 mb-1"
-                      *ngIf="form.get('cNombre')?.hasError('required')">
-                        *Obligatorio.
-                  </p>
+                  <input type="text" class="form-control form-control-sm" formControlName="cNombre" maxlength="45"
+                  [ngClass]="{'has-error': form.get('cNombre')?.hasError('required')}"
+                  >
+                  
                 </div>
               </div>
 
               <div class="col" *ngIf="this.nTipo === 1 ">
                 <div class="mb-3">
                   <label class="form-label">Apellido paterno</label>
-                  <input type="text" class="form-control form-control-sm" formControlName="cApellidoPaterno" maxlength="45">
-                  <p class="error p-0 mt-1 mb-1"
-                      *ngIf="form.get('cApellidoPaterno')?.hasError('required')">
-                        *Obligatorio.
-                  </p>
+                  <input type="text" class="form-control form-control-sm" formControlName="cApellidoPaterno" maxlength="45"
+                  [ngClass]="{'has-error': form.get('cApellidoPaterno')?.hasError('required')}"
+                  >
+                 
                 </div>
               </div>
 
               <div class="col" *ngIf="this.nTipo === 1 ">
                 <div class="mb-3">
                   <label class="form-label">Apellido materno</label>
-                  <input type="text" class="form-control form-control-sm" formControlName="cApellidoMaterno" maxlength="45">
-                  <p class="error p-0 mt-1 mb-1"
-                      *ngIf="form.get('cApellidoMaterno')?.hasError('required')">
-                        *Obligatorio.
-                  </p>
+                  <input type="text" class="form-control form-control-sm" formControlName="cApellidoMaterno" maxlength="45"
+                  [ngClass]="{'has-error': form.get('cApellidoMaterno')?.hasError('required')}"
+                  >
+                  
                 </div>
               </div>
 
               <div class="col" *ngIf="this.nTipo === 1 ">
                 <div class="mb-3">
                   <label class="form-label">Sexo</label>
-                  <select class="form-control form-control-sm" formControlName="cSexo">
+                  <select class="form-control form-control-sm" formControlName="cSexo"
+                  [ngClass]="{'has-error': form.get('cSexo')?.hasError('required')}"
+                  >
                     <option [value]="''">Seleccione ...</option>
                     <option [value]="'M'">Masculino</option>
                     <option [value]="'F'">Femenino</option>
                   </select>
-                  <p class="error p-0 mt-1 mb-1"
-                      *ngIf="form.get('cSexo')?.hasError('required')">
-                        *Obligatorio.
-                  </p>
+                 
                 </div>
               </div>
 
@@ -200,48 +194,43 @@
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">Código postal</label>
-                  <input type="text" class="form-control form-control-sm" formControlName="cCodigoPostal" maxlength="5">
+                  <input type="text" class="form-control form-control-sm" formControlName="cCodigoPostal" maxlength="5"
+                  [ngClass]="{'has-error': form.get('cCodigoPostal')?.hasError('required')}">
                   <p class="error p-0 mt-1 mb-1"
                       *ngIf="form.get('cCodigoPostal')?.hasError('pattern')">
                         El campo no es un código postal válido.
                     </p>
-                  <p class="error p-0 mt-1 mb-1"
-                    *ngIf="form.get('cCodigoPostal')?.hasError('required')">
-                      *Obligatorio.
-                  </p>
+               
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">Municipio</label>
-                  <input type="text" class="form-control form-control-sm" formControlName="cMunicipio" maxlength="45">
-                  <p class="error p-0 mt-1 mb-1"
-                  *ngIf="form.get('cMunicipio')?.hasError('required')">
-                    *Obligatorio.
-                  </p>
+                  <input type="text" class="form-control form-control-sm" formControlName="cMunicipio" maxlength="45"
+                  [ngClass]="{'has-error': form.get('cMunicipio')?.hasError('required')}">
+                  
+
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">Estado</label>
-                  <input type="text" class="form-control form-control-sm" formControlName="cEstado" maxlength="45">
-                  <p class="error p-0 mt-1 mb-1"
-                  *ngIf="form.get('cEstado')?.hasError('required')">
-                    *Obligatorio.
-                  </p>
+                  <input type="text" class="form-control form-control-sm" formControlName="cEstado" maxlength="45"
+                  [ngClass]="{'has-error': form.get('cEstado')?.hasError('required')}">
+                  
+                
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">Pais</label>
-                  <input type="text" class="form-control form-control-sm" formControlName="cPais" maxlength="45">
-                  <p class="error p-0 mt-1 mb-1"
-                  *ngIf="form.get('cPais')?.hasError('required')">
-                    *Obligatorio.
-              </p>
+                  <input type="text" class="form-control form-control-sm" formControlName="cPais" maxlength="45"
+                  [ngClass]="{'has-error': form.get('cPais')?.hasError('required')}"
+                  >
+                
                 </div>
               </div>
 
@@ -258,32 +247,27 @@
                 <div class="mb-3">
                   <label class="form-label">Colonia</label>
                   <input type="text" class="form-control form-control-sm" formControlName="cColonia" maxlength="45">
-                  <p class="error p-0 mt-1 mb-1"
-                  *ngIf="form.get('cColonia')?.hasError('required')">
-                    *Obligatorio.
-                  </p>
+                
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">Dirección</label>
-                  <input type="text" class="form-control form-control-sm" formControlName="cDireccion" maxlength="100">
-                  <p class="error p-0 mt-1 mb-1"
-                  *ngIf="form.get('cDireccion')?.hasError('required')">
-                    *Obligatorio.
-                  </p>
+                  <input type="text" class="form-control form-control-sm" formControlName="cDireccion" maxlength="100"
+                  [ngClass]="{'has-error': form.get('cDireccion')?.hasError('required')}"
+                  >
+                 
                 </div>
               </div>
 
               <div class="col">
                 <div class="mb-3">
                   <label class="form-label">N. Exterior</label>
-                  <input type="text" class="form-control form-control-sm" formControlName="cNumeroExterior" maxlength="45">
-                  <p class="error p-0 mt-1 mb-1"
-                  *ngIf="form.get('cNumeroExterior')?.hasError('required')">
-                    *Obligatorio.
-                  </p>
+                  <input type="text" class="form-control form-control-sm" formControlName="cNumeroExterior" maxlength="45"
+                  [ngClass]="{'has-error': form.get('cNumeroExterior')?.hasError('required')}"
+                  >
+                 
                 </div>
               </div>
 
@@ -291,10 +275,7 @@
                 <div class="mb-3">
                   <label class="form-label">N. Interior</label>
                   <input type="text" class="form-control form-control-sm" formControlName="cNumeroInterior" maxlength="45">
-                  <p class="error p-0 mt-1 mb-1"
-                  *ngIf="form.get('cNumeroInterior')?.hasError('required')">
-                    *Obligatorio.
-                  </p>
+                 
                 </div>
               </div>
             </div>
@@ -319,10 +300,7 @@
                   *ngIf="form.get('cTelefono')?.hasError('pattern')">
                     El campo no es un teléfono válido a 10 dígitos.
                   </p>
-                  <p class="error p-0 mt-1 mb-1"
-                    *ngIf="form.get('cTelefono')?.hasError('required')">
-                      *Obligatorio.
-                  </p>
+                  
                 </div>
               </div>
 
@@ -334,10 +312,7 @@
                   *ngIf="form.get('cCelular')?.hasError('pattern')">
                     El campo no es un celular válido a 10 dígitos.
                   </p>
-                  <p class="error p-0 mt-1 mb-1"
-                    *ngIf="form.get('cCelular')?.hasError('required')">
-                      *Obligatorio.
-                  </p>
+                 
                 </div>
               </div>
 
@@ -349,10 +324,7 @@
                   *ngIf="form.get('cCorreoElectronico')?.hasError('email')">
                     El campo no es un correo electrónico válido.
                   </p>
-                  <p class="error p-0 mt-1 mb-1"
-                    *ngIf="form.get('cCorreoElectronico')?.hasError('required')">
-                      *Obligatorio.
-                  </p>
+                  
                 </div>
               </div>
             </div>
@@ -376,10 +348,7 @@
                     <option [value]="''">Seleccione ...</option>
                     <option *ngFor="let item of this.regimenes" [ngValue]="item">{{ item.cDescripcion }}</option>
                   </select>
-                  <p class="error p-0 mt-1 mb-1"
-                    *ngIf="form.get('cRegimen')?.hasError('required')">
-                      *Obligatorio.
-                  </p>
+                  
                 </div>
               </div>
 
@@ -390,10 +359,7 @@
                     <option [value]="''">Seleccione ...</option>
                     <option *ngFor="let item of this.usos" [ngValue]="item">{{ item.cDescripcion }}</option>
                   </select>
-                  <p class="error p-0 mt-1 mb-1"
-                    *ngIf="form.get('cRegimen')?.hasError('required')">
-                      *Obligatorio.
-                  </p>
+                 
                 </div>
               </div>
 

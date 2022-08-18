@@ -27,7 +27,7 @@
         <form [formGroup]="form">
 
             <div class="row mt-4">
-              <div class="col-sm-4">
+              <div class="col-sm-6">
                 <div class="row">
 
                       <label class="form-label col-sm-3 col-form-label text-end">Folio</label>
@@ -41,68 +41,62 @@
                       </div>
 
 
-                  <label class="form-label col-sm-5 col-form-label text-end">Descripción</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cDescripcion" maxlength="100">
-                    <p class="error p-0 mt-1 mb-1"
-                    *ngIf="form.get('cDescripcion')?.hasError('required')">
-                      *Obligatorio.
-                  </p>
+                  <label class="form-label col-sm-3 col-form-label text-end">Descripción</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cDescripcion" maxlength="100"
+                    [ngClass]="{'has-error': form.get('cDescripcion')?.hasError('required')}"
+                    >
+                    
                   </div>
 
-                  <label class="form-label col-sm-5 col-form-label text-end">Plaza</label>
+                  <label class="form-label col-sm-3 col-form-label text-end">Plaza</label>
 
 
-                  <div class="col-sm-7">
-                    <select class="form-control form-control-sm" formControlName="nPlaza">
+                  <div class="col-sm-9">
+                    <select class="form-control form-control-sm" formControlName="nPlaza"
+                    [ngClass]="{'has-error': form.get('nPlaza')?.hasError('required')}"
+                    >
                       <option [value]="''">Seleccione ...</option>
                       <option *ngFor="let item of this.plazas" [ngValue]="item.nPlaza">{{ item.cDescripcion }}</option>
                     </select>
-                    <p class="error p-0 mt-1 mb-1"
-                      *ngIf="form.get('nPlaza')?.hasError('required')">
-                        *Obligatorio.
-                    </p>
+                   
 
                   </div>
 
-                  <label class="form-label col-sm-5 col-form-label text-end">Código postal</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cCodigoPostal" maxlength="5">
+                  <label class="form-label col-sm-3 col-form-label text-end">Cod. postal</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cCodigoPostal" maxlength="5"
+                    [ngClass]="{'has-error': form.get('cCodigoPostal')?.hasError('required')}"
+                    >
                     <p class="error p-0 mt-1 mb-1"
                     *ngIf="form.get('cCodigoPostal')?.hasError('pattern')">
                       El campo no es un código postal válido.
                   </p>
-                  <p class="error p-0 mt-1 mb-1"
-                    *ngIf="form.get('cCodigoPostal')?.hasError('required')">
-                      *Obligatorio.
-                  </p>
+                
                   </div>
 
-                  <label class="form-label col-sm-5 col-form-label text-end">Pais</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cPais" maxlength="45">
-                    <p class="error p-0 mt-1 mb-1"
-                    *ngIf="form.get('cPais')?.hasError('required')">
-                      *Obligatorio.
-                  </p>
+                  <label class="form-label col-sm-3 col-form-label text-end">Pais</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cPais" maxlength="45"
+                    [ngClass]="{'has-error': form.get('cPais')?.hasError('required')}"
+                    >
+                   
                   </div>
 
-                  <label class="form-label col-sm-5 col-form-label text-end">Estado</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cEstado" maxlength="45">
-                    <p class="error p-0 mt-1 mb-1"
-                    *ngIf="form.get('cEstado')?.hasError('required')">
-                      *Obligatorio.
-                  </p>
+                  <label class="form-label col-sm-3 col-form-label text-end">Estado</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cEstado" maxlength="45"
+                    [ngClass]="{'has-error': form.get('cEstado')?.hasError('required')}"
+                    >
+                   
                   </div>
 
-                  <label class="form-label col-sm-5 col-form-label text-end">Municipio</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cMunicipio" maxlength="45">
-                    <p class="error p-0 mt-1 mb-1"
-                    *ngIf="form.get('cMunicipio')?.hasError('required')">
-                      *Obligatorio.
-                  </p>
+                  <label class="form-label col-sm-3 col-form-label text-end">Municipio</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cMunicipio" maxlength="45"
+                    [ngClass]="{'has-error': form.get('cMunicipio')?.hasError('required')}"
+                    >
+                   
                   </div>
 
                   <!-- <label class="form-label col-sm-5 col-form-label text-end">Ciudad</label>
@@ -114,78 +108,72 @@
                   </p>
                   </div> -->
 
-                  <label class="form-label col-sm-5 col-form-label text-end">Colonia</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cColonia" maxlength="45">
-                    <p class="error p-0 mt-1 mb-1"
-                    *ngIf="form.get('cColonia')?.hasError('required')">
-                      *Obligatorio.
-                  </p>
+                  <label class="form-label col-sm-3 col-form-label text-end">Colonia</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cColonia" maxlength="45"
+                    [ngClass]="{'has-error': form.get('cColonia')?.hasError('required')}"
+                    >
+                  
                   </div>
 
                 </div>
               </div>
 
-              <div class="col-sm-2"></div>
+              <!-- <div class="col-sm-2"></div> -->
 
-              <div class="col-sm-4">
+              <div class="col-sm-6">
                 <div class="row">
 
-                  <label class="form-label col-sm-5 col-form-label text-end">Dirección</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cDireccion" maxlength="100">
-                    <p class="error p-0 mt-1 mb-1"
-                    *ngIf="form.get('cDireccion')?.hasError('required')">
-                      *Obligatorio.
-                  </p>
+                  <label class="form-label col-sm-3 col-form-label text-end">Dirección</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cDireccion" maxlength="100"
+                    [ngClass]="{'has-error': form.get('cDireccion')?.hasError('required')}"
+                    >
+                   
                   </div>
 
-                  <label class="form-label col-sm-5 col-form-label text-end">Teléfono</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cTelefono" maxlength="10">
+                  <label class="form-label col-sm-3 col-form-label text-end">Teléfono</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cTelefono" maxlength="10"
+                    [ngClass]="{'has-error': form.get('cTelefono')?.hasError('required')}"
+                    >
                     <p class="error p-0 mt-1 mb-1"
                     *ngIf="form.get('cTelefono')?.hasError('pattern')">
                       El campo no es un teléfono válido a 10 dígitos.
                     </p>
-                    <p class="error p-0 mt-1 mb-1"
-                      *ngIf="form.get('cTelefono')?.hasError('required')">
-                        *Obligatorio.
-                    </p>
+                    
                   </div>
 
-                  <label class="form-label col-sm-5 col-form-label text-end">Correo electrónico</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cCorreoElectronico">
+                  <label class="form-label col-sm-3 col-form-label text-end">Correo E.</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cCorreoElectronico"
+                    [ngClass]="{'has-error': form.get('cCorreoElectronico')?.hasError('required')}"
+                    >
                     <p class="error p-0 mt-1 mb-1"
                   *ngIf="form.get('cCorreoElectronico')?.hasError('email')">
                     El campo no es un correo electrónico válido.
                   </p>
-                  <p class="error p-0 mt-1 mb-1"
-                    *ngIf="form.get('cCorreoElectronico')?.hasError('required')">
-                      *Obligatorio.
-                  </p>
+                 
                   </div>
 
-                  <label class="form-label col-sm-5 col-form-label text-end">Encargado</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cEncargado" maxlength="100">
-                    <p class="error p-0 mt-1 mb-1"
-                    *ngIf="form.get('cEncargado')?.hasError('required')">
-                      *Obligatorio.
-                  </p>
+                  <label class="form-label col-sm-3 col-form-label text-end">Encargado</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cEncargado" maxlength="100"
+                    [ngClass]="{'has-error': form.get('cEncargado')?.hasError('required')}"
+                    >
+                   
                   </div>
 
-                  <label class="form-label col-sm-5 col-form-label text-end">Almacén</label>
-                  <div class="col-sm-7">
+                  <label class="form-label col-sm-3 col-form-label text-end">Almacén</label>
+                  <div class="col-sm-9">
 
-                  <select class="form-control form-control-sm" formControlName="nAlmacen">
+                  <select class="form-control form-control-sm" formControlName="nAlmacen"
+                  [ngClass]="{'has-error': form.get('nAlmacen')?.hasError('required')}"
+                  >
                     <option [value]="''">Seleccione ...</option>
                     <option *ngFor="let item of this.almacenes" [ngValue]="item.nAlmacen">{{ item.cDescripcion }}</option>
                   </select>
-                  <p class="error p-0 mt-1 mb-1"
-                    *ngIf="form.get('nAlmacen')?.hasError('required')">
-                      *Obligatorio.
-                  </p>
+                
                   </div>
 
                   <!-- <label class="form-label col-sm-5 col-form-label text-end">Cliente</label>

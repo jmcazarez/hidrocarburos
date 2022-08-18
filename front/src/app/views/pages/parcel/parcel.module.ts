@@ -6,6 +6,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 /* ---------- Components ---------- */
 import { ParcelComponent } from './parcel.component';
+import { BusquedaFleteraComponent } from './busqueda-fletera/busqueda-fletera.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 const routes: Routes = [
   {
@@ -15,11 +17,18 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [ParcelComponent],
+  declarations: [ParcelComponent, BusquedaFleteraComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     SharedModule,
+    NgxDatatableModule.forRoot({
+      messages: {
+        emptyMessage: 'No hay datos disponibles', // Message to show when array is presented, but contains no values
+        totalMessage: 'total', // Footer total message
+        selectedMessage: 'selected' // Footer selected message
+      }
+    }),
   ]
 })
 export class ParcelModule { }

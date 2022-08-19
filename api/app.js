@@ -90,6 +90,9 @@ const chofer = require("./routes/catalogos/choferes");
 // fleteras
 const fleteras = require("./routes/catalogos/fleteras");
 
+// compras
+const compras = require("./routes/registros/compras");
+
 // rutas base
 
 app.use("/api/login", login);
@@ -108,5 +111,6 @@ app.use("/api/catalogos/bancos", bancos);
 app.use("/api/catalogos/cuentas_bancarias", cuentas_bancarias);
 app.use("/api/catalogos/choferes", chofer);
 app.use("/api/catalogos/fleteras", fleteras);
+app.use("/api/registros/compras", compras);
 
 module.exports = app;

@@ -90,23 +90,19 @@
                 <div class="col">
                   <div class="mb-3">
                     <label class="form-label">RFC</label>
-                    <input type="text" class="form-control form-control-sm" formControlName="cRFC" maxlength="13">
+                    <input type="text" class="form-control form-control-sm" formControlName="cRFC" maxlength="13"  [ngClass]="{'has-error': form.get('cRFC')?.hasError('required')}">
                     <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cRFC')?.hasError('pattern')">
                       El campo no es un RFC válido.
                     </p>
-                    <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cRFC')?.hasError('required')">
-                      *Obligatorio.
-                    </p>
+                  
                   </div>
                 </div>
                 <div class="col-sm" *ngIf="!this.bPersonaFisica">
                   <div class="mb-3">
                     <label class="form-label">Razón Social</label>
                     <input type="text" class="form-control form-control-sm" formControlName="cRazonSocial"
-                      maxlength="100" placeholder="">
-                    <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cRazonSocial')?.hasError('required')">
-                      *Obligatorio.
-                    </p>
+                      maxlength="100" placeholder=""  [ngClass]="{'has-error': form.get('cRazonSocial')?.hasError('required')}">
+                
                   </div>
                 </div>
                 <div class="col-sm" *ngIf="!this.bPersonaFisica">

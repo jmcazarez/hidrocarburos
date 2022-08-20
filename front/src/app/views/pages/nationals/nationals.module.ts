@@ -9,6 +9,7 @@ import { NationalsComponent } from './nationals.component';
 import { BusinessModule } from '../business/business.module';
 import { BusquedasModule } from '../busquedas/busquedas.module';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { BusquedaCompraComponent } from './busqueda-compra/busqueda-compra.component';
 
 const routes: Routes = [
   
@@ -21,7 +22,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [NationalsComponent],
+  declarations: [NationalsComponent, BusquedaCompraComponent],
   imports: [
     CommonModule,
     SharedModule,

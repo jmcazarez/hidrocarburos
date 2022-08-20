@@ -62,11 +62,12 @@ export class NationalsComponent implements OnInit {
       cSellos2 : new FormControl('', []),  
       nLitrosCompra : new FormControl('', Validators.required),  
       nTipoCambio : new FormControl('', Validators.required),  
-      nCostoTotal : new FormControl({ value: '', disabled: true }, Validators.required),  
+      nCostoTotal : new FormControl({ value: '', disabled: true }, []),  
       // nCostoCruce : new FormControl('', Validators.required),  
-      nCostoFactura : new FormControl('', Validators.required),  
+      nCostoFactura : new FormControl('', []),  
       nCostoFlete : new FormControl('', Validators.required),  
       // dFechaCompra : new FormControl('', Validators.required),  
+      nCostoFinalLitro : new FormControl({ value: '', disabled: true }, []),  
     });
     this.calcularTotalPesos();
   }
@@ -135,11 +136,11 @@ export class NationalsComponent implements OnInit {
   }
 
   get nLitrosCompra(): number {
-    return this.form.get('nLitrosCompra')?.value ?? 0;
+    return this.form.get('nLitrosCompra')?.value !== '' ? this.form.get('nLitrosCompra')?.value : 0;
   }
 
   get nTipoCambio(): number {
-    return this.form.get('nTipoCambio')?.value ?? 0;
+    return this.form.get('nTipoCambio')?.value !== '' ? this.form.get('nTipoCambio')?.value : 0;
   }
 
   get nCostoTotal(): number {
@@ -147,15 +148,15 @@ export class NationalsComponent implements OnInit {
   }
 
   get nCostoFactura(): number {
-    return this.form.get('nCostoFactura')?.value ?? 0;
+    return this.form.get('nCostoFactura')?.value !== '' ? this.form.get('nCostoFactura')?.value : 0;
   }
 
   get nCostoFlete(): number {
-    return this.form.get('nCostoFlete')?.value ?? 0;
+    return this.form.get('nCostoFlete')?.value !== '' ? this.form.get('nCostoFlete')?.value : 0;
   }
 
   get nCostoCruce(): number {
-    return this.form.get('nCostoCruce')?.value ?? 0;
+    return this.form.get('nCostoCruce')?.value !== '' ? this.form.get('nCostoCruce')?.value : 0;
   }
 
   async guardar(): Promise<void> {
@@ -510,8 +511,15 @@ export class NationalsComponent implements OnInit {
   }
 
   calcularTotalPesos() {
-    const total = this.nLitrosCompra * this.nTipoCambio;
+    const total = this.nLitrosCompra  * this.nTipoCambio;
+    let final = (total + this.nCostoFlete) / this.nLitrosCompra;
+
+    if (isNaN(final)) {
+      final = 0;
+    }
+
     this.form.controls["nCostoTotal"].setValue(total);
+    this.form.controls["nCostoFinalLitro"].setValue(final);
   }
 
   limpiar() {

@@ -218,7 +218,7 @@ export class NationalsComponent implements OnInit {
 
 
   openModal() {
-    const modalRef = this.modalService.open(BusquedaFleteraComponent, {
+    const modalRef = this.modalService.open(BusquedaModalComponent, {
       centered: true,
       backdrop: 'static',
       keyboard: false,

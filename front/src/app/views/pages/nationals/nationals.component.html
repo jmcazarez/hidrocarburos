@@ -33,7 +33,7 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Folio</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
-                    <input type="text" class="form-control form-control-sm border-end-0" placeholder="" formControlName="nCompra">                    
+                    <input type="text" class="form-control form-control-sm border-end-0" placeholder="" formControlName="nCompra">
                     <span class="input-group-text bg-white">
                       <i class="feather icon-search" (click)="openModal()"></i>
                     </span>
@@ -44,8 +44,8 @@
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
                       <input type="text" class="form-control form-control-sm" formControlName="cEmpresa"
-                      [ngClass]="{'has-error': form.get('nEmpresa')?.hasError('required')}"                      
-                      >                      
+                      [ngClass]="{'has-error': form.get('nEmpresa')?.hasError('required')}"
+                      >
                       <span class="input-group-text bg-white">
                         <i class="feather icon-search" (click)="openModalEmpresas()"></i>
                       </span>
@@ -107,7 +107,7 @@
                     <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cNumeroTrailer"
                     [ngClass]="{'has-error': form.get('cNumeroTrailer')?.hasError('required')}"
                     >
-                  </div>                  
+                  </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Nombre del chofer</label>
                   <div class="col-sm-7">
@@ -124,22 +124,22 @@
                   <label class="form-label col-sm-4 col-form-label text-end">Fuller 1</label>
                   <div class="col-sm-3">
                     <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cFuller1">
-                  </div> 
+                  </div>
                   <label class="form-label col-sm-2 col-form-label text-end">Sellos 1</label>
                   <div class="col-sm-3">
                     <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cSellos1">
-                  </div>                  
+                  </div>
 
                   <label class="form-label col-sm-4 col-form-label text-end">Fuller 2</label>
                   <div class="col-sm-3">
                     <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cFuller2">
-                  </div> 
+                  </div>
                   <label class="form-label col-sm-2 col-form-label text-end">Sellos 2</label>
                   <div class="col-sm-3">
                     <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cSellos2">
-                  </div>      
-                  
-                  
+                  </div>
+
+
                   <label class="form-label col-sm-5 col-form-label text-end">Producto</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
@@ -155,7 +155,7 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Volúmen en litros</label>
                   <div class="col-sm-7">
                     <input type="text" currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }" class="form-control form-control-sm" placeholder="" formControlName="nLitrosCompra"
-                    (keydown)="calcularTotalPesos()"
+                    (blur)="calcularTotalPesos()"
                     [ngClass]="{'has-error': form.get('nLitrosCompra')?.hasError('required')}"
                     >
                   </div>
@@ -163,7 +163,7 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Costo por litro en pesos</label>
                   <div class="col-sm-7">
                     <input type="text" currencyMask [options]="{ prefix: '$ ', thousands: ',', decimal: '.', precision: 2 }" class="form-control form-control-sm" placeholder="" formControlName="nTipoCambio"
-                    (keydown)="calcularTotalPesos()"
+                    (blur)="calcularTotalPesos()"
                     [ngClass]="{'has-error': form.get('nTipoCambio')?.hasError('required')}"
                     >
                   </div>
@@ -189,12 +189,12 @@
                   <div class="col-sm-7">
                     <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nCostoFlete"
                     currencyMask [options]="{ prefix: '$ ', thousands: ',', decimal: '.', precision: 2 }"
-                    (keydown)="calcularTotalPesos();"
+                    (blur)="calcularTotalPesos();"
                     [ngClass]="{'has-error': form.get('nCostoFlete')?.hasError('required')}"
                     >
                   </div>
 
-                  <hr class="my-3"> 
+                  <hr class="my-3">
 
                   <label class="form-label col-sm-7 col-form-label text-end">Costo final por litro en pesos</label>
                   <div class="col-sm-5">
@@ -208,7 +208,7 @@
           </form>
           <div class="d-flex justify-content-center my-4">
             <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
-              <button *ngIf="this.nCompra > 0"  type="button" class="btn btn-danger mx-2" (click)="eliminar()" >Eliminar</button>
+              <!-- <button *ngIf="this.nCompra > 0"  type="button" class="btn btn-danger mx-2" (click)="eliminar()" >Eliminar</button> -->
               <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid" (click)="guardar()">Guardar</button>
           </div>
       </div>

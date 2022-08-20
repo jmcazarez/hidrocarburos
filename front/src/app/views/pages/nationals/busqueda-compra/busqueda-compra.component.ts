@@ -19,7 +19,7 @@ export class BusquedaCompraComponent implements OnInit {
 
   ngOnInit(): void {
     // Obtener los datos
-
+    console.log('ngOnInit');
     this.service.obtenerCompras(0).subscribe( (resp: any) => {
       this.data = resp.data;
       this.dataTemp = [...this.data];
@@ -49,7 +49,11 @@ export class BusquedaCompraComponent implements OnInit {
         (d) =>
           d.nCompra.toString().toLowerCase().indexOf(val) !== -1 ||
           !val ||
-          d.cDescripcion.toLowerCase().indexOf(val) !== -1 ||
+          d.cEmpresa.toLowerCase().indexOf(val) !== -1 ||
+          !val ||
+          d.cTipoCompraLarga.toLowerCase().indexOf(val) !== -1 ||
+          !val ||
+          d.cArticulo.toLowerCase().indexOf(val) !== -1 ||
           !val
       );
 
@@ -60,8 +64,8 @@ export class BusquedaCompraComponent implements OnInit {
   onClick(event: any) {
     if (event.type == 'click') {
       if (this.selectedRow) {
-        if (this.selectedRow.nFletera == event.row.nFletera) {
-          this.activeModal.close({ id: this.selectedRow.nFletera });
+        if (this.selectedRow.nCompra == event.row.nCompra) {
+          this.activeModal.close({ id: this.selectedRow.nCompra });
         } else {
           this.selectedRow = event.row;
         }

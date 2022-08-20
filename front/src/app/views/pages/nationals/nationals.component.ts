@@ -1,3 +1,4 @@
+import { BusquedaCompraComponent } from './busqueda-compra/busqueda-compra.component';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -40,34 +41,34 @@ export class NationalsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.form = new FormGroup({
       nCompra : new FormControl({ value: '', disabled: true }, []),
-      cTipoCompra : new FormControl('N', Validators.required),  
-      cEmpresa : new FormControl({value: '', disabled: true}, Validators.required), 
-      nEmpresa : new FormControl('', Validators.required),  
-      nAlmacen : new FormControl('', Validators.required),  
-      cAlmacen : new FormControl({ value: '', disabled: true }, Validators.required),  
-      nProveedor : new FormControl('', Validators.required),  
+      cTipoCompra : new FormControl('N', Validators.required),
+      cEmpresa : new FormControl({value: '', disabled: true}, Validators.required),
+      nEmpresa : new FormControl('', Validators.required),
+      nAlmacen : new FormControl('', Validators.required),
+      cAlmacen : new FormControl({ value: '', disabled: true }, Validators.required),
+      nProveedor : new FormControl('', Validators.required),
       cProveedor : new FormControl({ value: '', disabled: true }, Validators.required),
       dFechaFactura : new FormControl('', Validators.required),
-      cFactura : new FormControl('', Validators.required),    
-      nFletera : new FormControl('', Validators.required),  
-      cFletera : new FormControl({ value: '', disabled: true }, Validators.required),  
-      nChofer : new FormControl('', Validators.required),  
-      cChofer : new FormControl({ value: '', disabled: true }, Validators.required),  
-      cNumeroTrailer : new FormControl('', Validators.required),  
+      cFactura : new FormControl('', Validators.required),
+      nFletera : new FormControl('', Validators.required),
+      cFletera : new FormControl({ value: '', disabled: true }, Validators.required),
+      nChofer : new FormControl('', Validators.required),
+      cChofer : new FormControl({ value: '', disabled: true }, Validators.required),
+      cNumeroTrailer : new FormControl('', Validators.required),
       nArticulo : new FormControl('', Validators.required),
-      cArticulo : new FormControl({ value: '', disabled: true }, Validators.required),  
+      cArticulo : new FormControl({ value: '', disabled: true }, Validators.required),
       cFuller1 : new FormControl('', []),
-      cFuller2 : new FormControl('', []),    
-      cSellos1 : new FormControl('', []),  
-      cSellos2 : new FormControl('', []),  
-      nLitrosCompra : new FormControl('', Validators.required),  
-      nTipoCambio : new FormControl('', Validators.required),  
-      nCostoTotal : new FormControl({ value: '', disabled: true }, []),  
-      // nCostoCruce : new FormControl('', Validators.required),  
-      nCostoFactura : new FormControl('', []),  
-      nCostoFlete : new FormControl('', Validators.required),  
-      // dFechaCompra : new FormControl('', Validators.required),  
-      nCostoFinalLitro : new FormControl({ value: '', disabled: true }, []),  
+      cFuller2 : new FormControl('', []),
+      cSellos1 : new FormControl('', []),
+      cSellos2 : new FormControl('', []),
+      nLitrosCompra : new FormControl('', Validators.required),
+      nTipoCambio : new FormControl('', Validators.required),
+      nCostoTotal : new FormControl({ value: '', disabled: true }, []),
+      // nCostoCruce : new FormControl('', Validators.required),
+      nCostoFactura : new FormControl('', []),
+      nCostoFlete : new FormControl('', Validators.required),
+      // dFechaCompra : new FormControl('', Validators.required),
+      nCostoFinalLitro : new FormControl({ value: '', disabled: true }, []),
     });
     this.calcularTotalPesos();
   }
@@ -169,13 +170,13 @@ export class NationalsComponent implements OnInit {
             nCompra : this.nCompra,
             cTipoCompra : 'N', //this.cTipoCompra,
             nEmpresa : this.nEmpresa,
-            nAlmacen : this.nAlmacen, 
+            nAlmacen : this.nAlmacen,
             nProveedor : this.nProveedor,
             dFechaFactura : new Date(this.dFechaFactura).toISOString().split('T')[0],
             cFactura : this.cFactura,
             nFletera : this.nFletera,
             nChofer : this.nChofer,
-            cNumeroTrailer : this.cNumeroTrailer, 
+            cNumeroTrailer : this.cNumeroTrailer,
             nArticulo : this.nArticulo,
             cFuller1 : this.cFuller1,
             cFuller2 : this.cFuller2,
@@ -183,7 +184,7 @@ export class NationalsComponent implements OnInit {
             cSellos2 : this.cSellos2,
             nLitrosCompra : this.nLitrosCompra,
             nTipoCambio : this.nTipoCambio,
-            nCostoTotal : this.nCostoTotal, 
+            nCostoTotal : this.nCostoTotal,
             nCostoCruce: 0,
             nCostoFactura: 0,
             dFechaCompra: new Date().toISOString().split('T')[0],
@@ -218,18 +219,18 @@ export class NationalsComponent implements OnInit {
 
 
   openModal() {
-    const modalRef = this.modalService.open(BusquedaModalComponent, {
+    const modalRef = this.modalService.open(BusquedaCompraComponent, {
       centered: true,
       backdrop: 'static',
       keyboard: false,
-      modalDialogClass: 'dialog-formulario-chico',
+      modalDialogClass: 'dialog-formulario',
     });
 
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
         if(value){
-          this.form.controls["nFletera"].setValue(value.id);
+          this.form.controls["nCompra"].setValue(value.id);
           this.mostrarDatos();
           modalRef.close();
         }
@@ -267,7 +268,7 @@ export class NationalsComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value){
+        if(value && value.id){
           this.asignarEmpresa(value);
           modalRef.close();
         }
@@ -310,7 +311,7 @@ export class NationalsComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value){
+        if(value && value.id){
           this.asignarAlmacen(value);
           modalRef.close();
         }
@@ -353,7 +354,7 @@ export class NationalsComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value){
+        if(value && value.id){
           this.asignarProveedor(value);
           modalRef.close();
         }
@@ -396,7 +397,7 @@ export class NationalsComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value){
+        if(value && value.id){
           this.asignarFleteras(value);
           modalRef.close();
         }
@@ -439,7 +440,7 @@ export class NationalsComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value){
+        if(value && value.id){
           this.asignarChoferes(value);
           modalRef.close();
         }
@@ -482,7 +483,7 @@ export class NationalsComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value){
+        if(value && value.id){
           this.asignarArticulo(value);
           modalRef.close();
         }
@@ -496,14 +497,36 @@ export class NationalsComponent implements OnInit {
   }
 
   mostrarDatos() {
-    this.service.obtenerCompras(this.nFletera).subscribe ( (resp: any) => {
+    this.service.obtenerCompras(this.nCompra).subscribe ( (resp: any) => {
       if (resp) {
-        const fletera = resp.data[0];
-        this.form.controls["nFletera"].setValue(fletera.nFletera);
-        this.form.controls["cDescripcion"].setValue(fletera.cDescripcion);
-        this.form.controls["cTelefono"].setValue(fletera.cTelefono); 
-        this.form.controls["cContacto"].setValue(fletera.cContacto); 
-        this.form.controls["cCorreoElectronico"].setValue(fletera.cCorreoElectronico); 
+        const compra = resp.data[0];
+
+        this.form.controls["nCompra"].setValue(compra.nCompra);
+        this.form.controls["cTipoCompra"].setValue(compra.cTipoCompra);
+        this.form.controls["cEmpresa"].setValue(compra.cEmpresa);
+        this.form.controls["nEmpresa"].setValue(compra.nEmpresa);
+        this.form.controls["nAlmacen"].setValue(compra.nAlmacen);
+        this.form.controls["cAlmacen"].setValue(compra.cAlmacen);
+        this.form.controls["nProveedor"].setValue(compra.nProveedor);
+        this.form.controls["cProveedor"].setValue(compra.cProveedor);
+        this.form.controls["dFechaFactura"].setValue(new Date(compra.dFechaFactura).toISOString().split('T')[0]);
+        this.form.controls["cFactura"].setValue(compra.cFactura);
+        this.form.controls["nFletera"].setValue(compra.nFletera);
+        this.form.controls["cFletera"].setValue(compra.cFletera);
+        this.form.controls["nChofer"].setValue(compra.nChofer);
+        this.form.controls["cChofer"].setValue(compra.cChofer);
+        this.form.controls["cNumeroTrailer"].setValue(compra.cNumeroTrailer);
+        this.form.controls["nArticulo"].setValue(compra.nArticulo);
+        this.form.controls["cArticulo"].setValue(compra.cArticulo);
+        this.form.controls["cFuller1"].setValue(compra.cFuller1);
+        this.form.controls["cFuller2"].setValue(compra.cFuller2);
+        this.form.controls["cSellos1"].setValue(compra.cSellos1);
+        this.form.controls["cSellos2"].setValue(compra.cSellos2);
+        this.form.controls["nLitrosCompra"].setValue(parseFloat(compra.nLitrosCompra));
+        this.form.controls["nTipoCambio"].setValue(parseFloat(compra.nTipoCambio));
+        this.form.controls["nCostoFactura"].setValue(parseFloat(compra.nCostoFactura));
+        this.form.controls["nCostoFlete"].setValue(parseFloat(compra.nCostoFlete));
+        this.calcularTotalPesos();
       }
     }, (error: any) => {
 

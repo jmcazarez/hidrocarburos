@@ -25,7 +25,7 @@ async function obtenerCompras(params) {
         console.log(err);
         return {
             status: 400,
-            error: 'Error al obtener las sucursales.',
+            error: 'Error al obtener las compras.',
             data: [],
         };
     }
@@ -40,30 +40,30 @@ async function guardarCompra(params) {
         let data = await sequelize.query(
             `
              CALL proc_guardar_registro_de_compra (
-                ${nCompra},
-                '${cTipoCompra}',
-                ${nEmpresa},
-                ${nAlmacen},
-                ${nProveedor},
-                '${cFactura}',
-                ${dFechaFactura},
-                '${cTicket}',
-                ${nFletera},
-                ${nChofer},
-                '${cNumeroTrailer}',
-                ${nArticulo},
-                '${cFuller1}',
-                '${cSellos1}',
-                '${cFuller2}',
-                '${cSellos2}',
-                ${nLitrosCompra},
-                ${nTipoCambio},
-                ${nCostoTotal},
-                ${nCostoCruce},
-                ${nCostoFactura},
-                ${nCostoFlete},
-                ${nUsuario},
-                ${nLitrosRecepcion},
+                ${params.nCompra},
+                '${params.cTipoCompra}',
+                ${params.nEmpresa},
+                ${params.nAlmacen},
+                ${params.nProveedor},
+                '${params.cFactura}',
+                '${params.dFechaFactura}',
+                '${params.cTicket}',
+                ${params.nFletera},
+                ${params.nChofer},
+                '${params.cNumeroTrailer}',
+                ${params.nArticulo},
+                '${params.cFuller1}',
+                '${params.cSellos1}',
+                '${params.cFuller2}',
+                '${params.cSellos2}',
+                ${params.nLitrosCompra},
+                ${params.nTipoCambio},
+                ${params.nCostoTotal},
+                ${params.nCostoCruce},
+                ${params.nCostoFactura},
+                ${params.nCostoFlete},
+                ${1},
+                ${params.nLitrosRecepcion}
             )
              `,
             {
@@ -90,7 +90,7 @@ async function guardarCompra(params) {
         } else {
             return {
                 status: 400,
-                error: 'Error al guardar la sucursal.',
+                error: 'Error al guardar la compra.',
                 data: [],
             };
         }
@@ -133,7 +133,7 @@ async function cancelarCompra(params) {
         } else {
             return {
                 status: 400,
-                error: 'Error al eliminar la sucursal.',
+                error: 'Error al eliminar la compra.',
                 data: [],
             };
         }

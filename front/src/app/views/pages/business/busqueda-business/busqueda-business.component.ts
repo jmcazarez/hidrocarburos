@@ -63,7 +63,7 @@ export class BusquedaBusinessComponent implements OnInit {
     if (event.type == 'click') {
       if (this.selectedRow) {
         if (this.selectedRow.nEmpresa == event.row.nEmpresa) {
-          this.activeModal.close({ id: this.selectedRow.nEmpresa });
+          this.activeModal.close({ id: this.selectedRow.nEmpresa, cDescripcion: this.selectedRow.cNombreEmpresa });
         } else {
           this.selectedRow = event.row;
         }

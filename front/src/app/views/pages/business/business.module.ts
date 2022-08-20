@@ -30,6 +30,9 @@ const routes: Routes = [
         selectedMessage: 'selected' // Footer selected message
       }
     }),
+  ],
+  exports: [
+    RouterModule
   ]
 })
 export class BusinessModule { }

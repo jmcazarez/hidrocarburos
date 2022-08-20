@@ -6,20 +6,29 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 /* ---------- Components ---------- */
 import { NationalsComponent } from './nationals.component';
+import { BusinessModule } from '../business/business.module';
+import { BusquedasModule } from '../busquedas/busquedas.module';
 
 const routes: Routes = [
+  
   {
     path: '',
     component: NationalsComponent
-  }
+  },
+  
+  
 ]
 
 @NgModule({
   declarations: [NationalsComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
     SharedModule,
+    RouterModule.forChild(routes),
+    BusquedasModule
+  ],
+  exports: [
+    RouterModule
   ]
 })
 export class NationalsModule { }

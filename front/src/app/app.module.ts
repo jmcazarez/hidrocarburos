@@ -5,6 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { LayoutModule } from './views/layout/layout.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CurrencyMaskModule } from "ng2-currency-mask";
+
 
 /* ---------- Components ---------- */
 import { AppComponent } from './app.component';
@@ -32,6 +34,7 @@ import { Patterns } from 'src/utils/patterns';
     FormsModule,
     HttpClientModule,
     NgxDatatableModule,
+    CurrencyMaskModule
 /*     NgxSpinnerModule */
   ],
   exports: [

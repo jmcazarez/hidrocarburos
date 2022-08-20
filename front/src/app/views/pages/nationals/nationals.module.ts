@@ -8,6 +8,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { NationalsComponent } from './nationals.component';
 import { BusinessModule } from '../business/business.module';
 import { BusquedasModule } from '../busquedas/busquedas.module';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 const routes: Routes = [
   
@@ -25,7 +26,8 @@ const routes: Routes = [
     CommonModule,
     SharedModule,
     RouterModule.forChild(routes),
-    BusquedasModule
+    BusquedasModule,
+    CurrencyMaskModule    
   ],
   exports: [
     RouterModule

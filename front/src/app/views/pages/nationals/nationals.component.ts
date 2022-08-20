@@ -68,6 +68,7 @@ export class NationalsComponent implements OnInit {
       nCostoFlete : new FormControl('', Validators.required),  
       // dFechaCompra : new FormControl('', Validators.required),  
     });
+    this.calcularTotalPesos();
   }
 
   get nCompra(): number {
@@ -506,6 +507,11 @@ export class NationalsComponent implements OnInit {
     }, (error: any) => {
 
     });
+  }
+
+  calcularTotalPesos() {
+    const total = this.nLitrosCompra * this.nTipoCambio;
+    this.form.controls["nCostoTotal"].setValue(total);
   }
 
   limpiar() {

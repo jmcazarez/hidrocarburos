@@ -32,16 +32,21 @@
                 <div class="row mt-4">
                   <label class="form-label col-sm-5 col-form-label text-end">Folio</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nCompra">
+                    <div class="input-group mb-1">
+                    <input type="text" class="form-control form-control-sm border-end-0" placeholder="" formControlName="nCompra">                    
+                    <span class="input-group-text bg-white">
+                      <i class="feather icon-search" (click)="openModal()"></i>
+                    </span>
+                  </div>
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Comprador</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
-                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="cEmpresa"
-                      [ngClass]="{'has-error': form.get('cEmpresa')?.hasError('required')}"
-                      >
-                      <span class="input-group-text border-start-0 bg-white">
+                      <input type="text" class="form-control form-control-sm" formControlName="cEmpresa"
+                      [ngClass]="{'has-error': form.get('nEmpresa')?.hasError('required')}"                      
+                      >                      
+                      <span class="input-group-text bg-white">
                         <i class="feather icon-search" (click)="openModalEmpresas()"></i>
                       </span>
                     </div>
@@ -50,10 +55,10 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Almacen entrada</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
-                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="cAlmacen"
-                      [ngClass]="{'has-error': form.get('cAlmacen')?.hasError('required')}"
+                      <input type="text" class="form-control form-control-sm" formControlName="cAlmacen"
+                      [ngClass]="{'has-error': form.get('nAlmacen')?.hasError('required')}"
                       >
-                      <span class="input-group-text border-start-0 bg-white">
+                      <span class="input-group-text bg-white">
                         <i class="feather icon-search" (click)="openModalAlmacenes()"></i>
                       </span>
                     </div>
@@ -62,10 +67,10 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Proveedor entrada</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
-                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="cProveedor"
-                      [ngClass]="{'has-error': form.get('cProveedor')?.hasError('required')}"
+                      <input type="text" class="form-control form-control-sm" formControlName="cProveedor"
+                      [ngClass]="{'has-error': form.get('nProveedor')?.hasError('required')}"
                       >
-                      <span class="input-group-text border-start-0 bg-white">
+                      <span class="input-group-text bg-white">
                         <i class="feather icon-search" (click)="openModalProveedores()"></i>
                       </span>
                     </div>
@@ -88,10 +93,10 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Compañía transportista</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
-                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="cFletera"
-                      [ngClass]="{'has-error': form.get('cFletera')?.hasError('required')}"
+                      <input type="text" class="form-control form-control-sm" formControlName="cFletera"
+                      [ngClass]="{'has-error': form.get('nFletera')?.hasError('required')}"
                       >
-                      <span class="input-group-text border-start-0 bg-white">
+                      <span class="input-group-text bg-white">
                         <i class="feather icon-search" (click)="openModalFleteras()"></i>
                       </span>
                     </div>
@@ -107,10 +112,10 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Nombre del chofer</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
-                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="cChofer"
-                      [ngClass]="{'has-error': form.get('cChofer')?.hasError('required')}"
+                      <input type="text" class="form-control form-control-sm" formControlName="cChofer"
+                      [ngClass]="{'has-error': form.get('nChofer')?.hasError('required')}"
                       >
-                      <span class="input-group-text border-start-0 bg-white">
+                      <span class="input-group-text bg-white">
                         <i class="feather icon-search" (click)="openModalChoferes()"></i>
                       </span>
                     </div>
@@ -138,10 +143,10 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Producto</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
-                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="cArticulo"
-                      [ngClass]="{'has-error': form.get('cArticulo')?.hasError('required')}"
+                      <input type="text" class="form-control form-control-sm" formControlName="cArticulo"
+                      [ngClass]="{'has-error': form.get('nArticulo')?.hasError('required')}"
                       >
-                      <span class="input-group-text border-start-0 bg-white">
+                      <span class="input-group-text bg-white">
                         <i class="feather icon-search" (click)="openModalArticulos();"></i>
                       </span>
                     </div>
@@ -149,21 +154,23 @@
 
                   <label class="form-label col-sm-5 col-form-label text-end">Volúmen en litros</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nLitrosCompra"
+                    <input type="text" currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }" class="form-control form-control-sm" placeholder="" formControlName="nLitrosCompra"
+                    (change)="calcularTotalPesos()"
                     [ngClass]="{'has-error': form.get('nLitrosCompra')?.hasError('required')}"
                     >
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Costo por litro en pesos</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nTipoCambio"
+                    <input type="text" currencyMask [options]="{ prefix: '$ ', thousands: ',', decimal: '.', precision: 2 }" class="form-control form-control-sm" placeholder="" formControlName="nTipoCambio"
+                    (change)="calcularTotalPesos()"
                     [ngClass]="{'has-error': form.get('nTipoCambio')?.hasError('required')}"
                     >
                   </div>
 
                   <label class="form-label col-sm-5 col-form-label text-end">Costo total en pesos</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nCostoTotal"
+                    <input type="text" currencyMask [options]="{ prefix: '$ ', thousands: ',', decimal: '.', precision: 2 }" class="form-control form-control-sm" placeholder="" formControlName="nCostoTotal"
                     [ngClass]="{'has-error': form.get('nCostoTotal')?.hasError('required')}"
                     >
                   </div>
@@ -197,10 +204,10 @@
             </div>
 
           </form>
-          <div class="d-flex justify-content-end my-4">
+          <div class="d-flex justify-content-center my-4">
             <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
-              <button type="button" class="btn btn-dark mx-2">Cancelar</button>
-              <button type="button" class="btn btn-primary mx-2" (click)="guardar()">Guardar</button>
+              <button *ngIf="this.nCompra > 0"  type="button" class="btn btn-danger mx-2" (click)="eliminar()" >Eliminar</button>
+              <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid" (click)="guardar()">Guardar</button>
           </div>
       </div>
     </div>

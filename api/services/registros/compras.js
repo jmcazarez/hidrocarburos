@@ -63,7 +63,9 @@ async function guardarCompra(params) {
                 ${params.nCostoFactura},
                 ${params.nCostoFlete},
                 ${1},
-                ${params.nLitrosRecepcion}
+                ${params.nLitrosRecepcion},
+                ${params.nGalonesCompra},
+                ${params.nCostoGalon}
             )
              `,
             {

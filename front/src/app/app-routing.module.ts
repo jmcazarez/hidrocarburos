@@ -26,7 +26,7 @@ const routes: Routes = [
 
       /* ---------- Compras ---------- */
       {
-        path: 'nationals',
+        path: 'purchases',
         loadChildren: () => import('./views/pages/nationals/nationals.module').then(m => m.NationalsModule)
       },
       {

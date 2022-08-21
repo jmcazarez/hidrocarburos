@@ -15,6 +15,7 @@ export class ComprasService {
   }
 
   obtenerCompras(nCompra: number): any {
+    console.log('nCompra:', nCompra);
     return this.http.get(this.baseUrl + this.urlCompras + '/' + nCompra);
   }
 

@@ -9,6 +9,8 @@ import { NationalsComponent } from './nationals.component';
 import { BusinessModule } from '../business/business.module';
 import { BusquedasModule } from '../busquedas/busquedas.module';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { BusquedaCompraComponent } from './busqueda-compra/busqueda-compra.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 const routes: Routes = [
   
@@ -21,13 +23,20 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [NationalsComponent],
+  declarations: [NationalsComponent, BusquedaCompraComponent],
   imports: [
     CommonModule,
     SharedModule,
     RouterModule.forChild(routes),
     BusquedasModule,
-    CurrencyMaskModule    
+    CurrencyMaskModule,
+    NgxDatatableModule.forRoot({
+      messages: {
+        emptyMessage: 'No hay datos disponibles', // Message to show when array is presented, but contains no values
+        totalMessage: 'total', // Footer total message
+        selectedMessage: 'selected' // Footer selected message
+      }
+    }),
   ],
   exports: [
     RouterModule

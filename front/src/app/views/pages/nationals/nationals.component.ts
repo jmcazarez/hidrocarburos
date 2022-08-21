@@ -41,7 +41,7 @@ export class NationalsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.form = new FormGroup({
       nCompra : new FormControl({ value: '', disabled: true }, []),
-      cTipoCompra : new FormControl('N', Validators.required),
+      cTipoCompra : new FormControl('', Validators.required),
       cEmpresa : new FormControl({value: '', disabled: true}, Validators.required),
       nEmpresa : new FormControl('', Validators.required),
       nAlmacen : new FormControl('', Validators.required),
@@ -49,6 +49,7 @@ export class NationalsComponent implements OnInit {
       nProveedor : new FormControl('', Validators.required),
       cProveedor : new FormControl({ value: '', disabled: true }, Validators.required),
       dFechaFactura : new FormControl('', Validators.required),
+      cTicket : new FormControl('', []),
       cFactura : new FormControl('', Validators.required),
       nFletera : new FormControl('', Validators.required),
       cFletera : new FormControl({ value: '', disabled: true }, Validators.required),
@@ -64,13 +65,15 @@ export class NationalsComponent implements OnInit {
       nLitrosCompra : new FormControl('', Validators.required),
       nTipoCambio : new FormControl('', Validators.required),
       nCostoTotal : new FormControl({ value: '', disabled: true }, []),
-      // nCostoCruce : new FormControl('', Validators.required),
+      nCostoCruce : new FormControl('', Validators.required),
       nCostoFactura : new FormControl('', []),
       nCostoFlete : new FormControl('', Validators.required),
-      // dFechaCompra : new FormControl('', Validators.required),
+      nGalonesCompra : new FormControl('', []),
+      nCostoGalon : new FormControl('', []),
       nCostoFinalLitro : new FormControl({ value: '', disabled: true }, []),
+      nCostoFinalDolares : new FormControl({ value: '', disabled: true }, []),
     });
-    this.calcularTotalPesos();
+    this.calcularTotales();
   }
 
   get nCompra(): number {
@@ -145,7 +148,7 @@ export class NationalsComponent implements OnInit {
   }
 
   get nCostoTotal(): number {
-    return this.nLitrosCompra ?? 0 * this.nTipoCambio ?? 0;
+    return this.form.get('nCostoTotal')?.value !== '' ? this.form.get('nCostoTotal')?.value : 0;
   }
 
   get nCostoFactura(): number {
@@ -160,6 +163,81 @@ export class NationalsComponent implements OnInit {
     return this.form.get('nCostoCruce')?.value !== '' ? this.form.get('nCostoCruce')?.value : 0;
   }
 
+  get nGalonesCompra(): number {
+    return this.form.get('nGalonesCompra')?.value !== '' ? this.form.get('nGalonesCompra')?.value : 0;
+  }
+
+  get nCostoGalon(): number {
+    return this.form.get('nCostoGalon')?.value !== '' ? this.form.get('nCostoGalon')?.value : 0;
+  }
+
+  get cTicket(): string {
+    return this.form.get('cTicket')?.value !== '' ? this.form.get('cTicket')?.value : 0;
+  }
+
+  cambiarTipoCompra() {
+    if (this.cTipoCompra !== 'I') { // Nacional o vacía
+      this.form.controls["nGalonesCompra"].setValue('');
+      this.form.controls["nGalonesCompra"].setValidators(null);
+      this.form.controls["nGalonesCompra"].updateValueAndValidity();
+
+      this.form.controls["nCostoGalon"].setValue('');
+      this.form.controls["nCostoGalon"].setValidators(null);
+      this.form.controls["nCostoGalon"].updateValueAndValidity();
+
+      this.form.controls["nCostoFinalDolares"].setValue('');
+      this.form.controls["nCostoFinalDolares"].setValidators(null);
+      this.form.controls["nCostoFinalDolares"].updateValueAndValidity();
+
+      this.form.controls["nCostoCruce"].setValue('');
+      this.form.controls["nCostoCruce"].setValidators(null);
+      this.form.controls["nCostoCruce"].updateValueAndValidity();
+
+      this.form.controls["nCostoFactura"].setValue('');
+      this.form.controls["nCostoFactura"].setValidators(null);
+      this.form.controls["nCostoFactura"].updateValueAndValidity();
+
+      this.form.controls["nLitrosCompra"].setValue('');
+      this.form.controls["nLitrosCompra"].enable();
+      this.form.controls["nLitrosCompra"].updateValueAndValidity();
+
+      this.form.controls["cTicket"].setValue('');
+      this.form.controls["cTicket"].setValidators(null);
+      this.form.controls["cTicket"].updateValueAndValidity();
+
+    } else { // Importada
+      this.form.controls["nGalonesCompra"].setValue('');
+      this.form.controls["nGalonesCompra"].setValidators(Validators.required);
+      this.form.controls["nGalonesCompra"].updateValueAndValidity();
+
+      this.form.controls["nCostoGalon"].setValue('');
+      this.form.controls["nCostoGalon"].setValidators(Validators.required);
+      this.form.controls["nCostoGalon"].updateValueAndValidity();
+
+      this.form.controls["nCostoFinalDolares"].setValue('');
+      this.form.controls["nCostoFinalDolares"].setValidators(Validators.required);
+      this.form.controls["nCostoFinalDolares"].updateValueAndValidity();
+
+      this.form.controls["nCostoCruce"].setValue('');
+      this.form.controls["nCostoCruce"].setValidators(Validators.required);
+      this.form.controls["nCostoCruce"].updateValueAndValidity();
+
+      this.form.controls["nCostoFactura"].setValue('');
+      this.form.controls["nCostoFactura"].setValidators(Validators.required);
+      this.form.controls["nCostoFactura"].updateValueAndValidity();
+
+      this.form.controls["nLitrosCompra"].setValue('');
+      this.form.controls["nLitrosCompra"].disable();
+      this.form.controls["nLitrosCompra"].updateValueAndValidity();
+
+      this.form.controls["cTicket"].setValue('');
+      this.form.controls["cTicket"].setValidators(Validators.required);
+      this.form.controls["cTicket"].updateValueAndValidity();
+
+
+    }
+  }
+
   async guardar(): Promise<void> {
 
     this.util.dialogConfirm('¿Está seguro que desea guardar los datos?').then((result) => {
@@ -168,7 +246,7 @@ export class NationalsComponent implements OnInit {
 
         const obj = {
             nCompra : this.nCompra,
-            cTipoCompra : 'N', //this.cTipoCompra,
+            cTipoCompra : this.cTipoCompra,
             nEmpresa : this.nEmpresa,
             nAlmacen : this.nAlmacen,
             nProveedor : this.nProveedor,
@@ -185,12 +263,14 @@ export class NationalsComponent implements OnInit {
             nLitrosCompra : this.nLitrosCompra,
             nTipoCambio : this.nTipoCambio,
             nCostoTotal : this.nCostoTotal,
-            nCostoCruce: 0,
-            nCostoFactura: 0,
+            nCostoCruce: this.cTipoCompra === 'I' ? this.nCostoCruce : null,
+            nCostoFactura: this.cTipoCompra === 'I' ? this.nCostoFactura : null,
             dFechaCompra: new Date().toISOString().split('T')[0],
             nCostoFlete : this.nCostoFlete,
-            cTicket: '',
-            nLitrosRecepcion: this.nLitrosCompra
+            cTicket: this.cTipoCompra === 'I' ? this.cTicket : null,
+            nLitrosRecepcion: this.nLitrosCompra,
+            nGalonesCompra: this.cTipoCompra === 'I' ? this.nGalonesCompra : null,
+            nCostoGalon: this.cTipoCompra === 'I' ? this.nCostoGalon : null,
         };
 
         this.service.guardarCompra(obj).subscribe(async (resp: any) => {
@@ -229,7 +309,7 @@ export class NationalsComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value){
+        if(value && value.id){
           this.form.controls["nCompra"].setValue(value.id);
           this.mostrarDatos();
           modalRef.close();
@@ -526,23 +606,51 @@ export class NationalsComponent implements OnInit {
         this.form.controls["nTipoCambio"].setValue(parseFloat(compra.nTipoCambio));
         this.form.controls["nCostoFactura"].setValue(parseFloat(compra.nCostoFactura));
         this.form.controls["nCostoFlete"].setValue(parseFloat(compra.nCostoFlete));
-        this.calcularTotalPesos();
+        this.form.controls["nCostoCruce"].setValue(parseFloat(compra.nCostoCruce));
+        this.form.controls["nGalonesCompra"].setValue(parseFloat(compra.nGalonesCompra));
+        this.form.controls["nCostoGalon"].setValue(parseFloat(compra.nCostoGalon));
+
+        this.form.controls["cTipoCompra"].disable();
+
+        this.calcularTotales();
       }
     }, (error: any) => {
 
     });
   }
 
-  calcularTotalPesos() {
-    const total = this.nLitrosCompra  * this.nTipoCambio;
-    let final = (total + this.nCostoFlete) / this.nLitrosCompra;
+  calcularTotales() {
 
-    if (isNaN(final)) {
-      final = 0;
+    if (this.cTipoCompra !== 'I') {
+      const total = this.nLitrosCompra  * this.nTipoCambio;
+      let final = (total + this.nCostoFlete) / this.nLitrosCompra;
+
+      if (isNaN(final)) {
+        final = 0;
+      }
+
+      this.form.controls["nCostoTotal"].setValue(total);
+      this.form.controls["nCostoFinalLitro"].setValue(final);
+
+    } else {
+
+      const nValorGalon = 3.785;
+
+      const litrosGalones = this.nGalonesCompra * nValorGalon;
+      this.form.controls["nLitrosCompra"].setValue(litrosGalones);
+
+      const totalDolares = this.nCostoGalon * this.nGalonesCompra;
+      this.form.controls["nCostoFinalDolares"].setValue(totalDolares);
+
+      const totalPesos = litrosGalones * this.nTipoCambio;
+      this.form.controls["nCostoTotal"].setValue(totalPesos);
+
+      const totales = totalPesos + this.nCostoCruce + this.nCostoFactura + this.nCostoFlete;
+
+      let final = totales / this.nLitrosCompra;
+      this.form.controls["nCostoFinalLitro"].setValue(final);
+
     }
-
-    this.form.controls["nCostoTotal"].setValue(total);
-    this.form.controls["nCostoFinalLitro"].setValue(final);
   }
 
   limpiar() {
@@ -571,9 +679,10 @@ export class NationalsComponent implements OnInit {
     this.form.controls["nLitrosCompra"].setValue('');
     this.form.controls["nTipoCambio"].setValue('');
     this.form.controls["nCostoTotal"].setValue('');
-    // this.form.controls["nCostoCruce"].setValue('');
     this.form.controls["nCostoFactura"].setValue('');
     this.form.controls["nCostoFlete"].setValue('');
+
+    this.form.controls["cTipoCompra"].enable();
 
   }
 

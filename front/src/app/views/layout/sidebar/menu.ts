@@ -21,16 +21,17 @@ export const MENU: MenuItem[] = [
     subItems: [
       {
         label: 'Registro de compra',
-        subItems: [
-          {
-            label: 'Nacionales',
-            link: '/nationals'
-          },
-          {
-            label: 'Importadas',
-            link: '/imported'
-          },
-        ]
+        link: '/purchases',
+        // subItems: [
+        //   {
+        //     label: 'Nacionales',
+        //     link: '/nationals'
+        //   },
+        //   {
+        //     label: 'Importadas',
+        //     link: '/imported'
+        //   },
+        // ]
       },
       {
         label: 'Consultas de compras',
@@ -210,7 +211,7 @@ export const MENU: MenuItem[] = [
             label: 'Sucursales',
             link: '/branchs'
           },
-      
+
           {
             label: 'Articulos',
             link: '/articles'

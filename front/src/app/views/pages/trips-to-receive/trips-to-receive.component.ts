@@ -14,7 +14,7 @@ export class TripsToReceiveComponent implements OnInit {
   reorderable = false;
   loadingIndicator = false;
   data: any[] = [];
-  dataTemp: any[]= [];
+  dataTemp: any[] = [];
   constructor(private service: ComprasService, private datePipe: DatePipe) { }
 
   async ngOnInit(): Promise<void> {
@@ -26,9 +26,14 @@ export class TripsToReceiveComponent implements OnInit {
   obtenerCatalogosFletera() {
     const comprasTemp: any[] = [];
     this.service.obtenerCompras(0).subscribe((resp: any) => {
-    
+
       console.log(this.dataTemp);
       for (const compra of resp.data) {
+        let nCostoxLitro = 0;
+        if (compra.nLitrosCompra > 0 && compra.nCostoTotal > 0) {
+          nCostoxLitro = compra.nCostoTotal   /  compra.nLitrosCompra
+        }
+
         comprasTemp.push({
           nCompra: compra.nCompra,
           cTipoCompraLarga: compra.cTipoCompraLarga,
@@ -37,8 +42,11 @@ export class TripsToReceiveComponent implements OnInit {
           cProveedor: compra.cProveedor,
           cFactura: compra.cFactura,
           nlitrosComprados: compra.nLitrosCompra,
+          nCostoxLitro: nCostoxLitro,
           dFechaCompra: compra.dFechaCompra,
-          nCostoTotal: compra.nCostoTotal
+          nCostoTotal: compra.nCostoTotal,
+          nLitrosRecibidos: 0,
+          nEstatus: compra.nEstatus,
         })
 
 

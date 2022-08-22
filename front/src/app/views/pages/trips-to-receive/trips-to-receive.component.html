@@ -27,7 +27,7 @@
           <div class="col-7">
             <h6 class="card-title">Tablero de Viajes por Recibir</h6>
           </div>
-          <div class="col-5">
+          <!-- <div class="col-5">
             <div class="row">
               <label class="form-label col-sm-5 col-form-label text-end">Fecha de Recepción</label>
               <div class="col-sm-7">
@@ -35,7 +35,7 @@
               </div>
             </div>
 
-          </div>
+          </div> -->
         </div>
 
         <div class="table-responsive my-5">
@@ -64,8 +64,8 @@
             [scrollbarH]="true">
             <ngx-datatable-column name="Folio" prop="nCompra" [width]="80"></ngx-datatable-column>
             <ngx-datatable-column name="Mercado" prop="cTipoCompraLarga" [width]="110"></ngx-datatable-column>
-            <ngx-datatable-column name="Empresa" prop="cEmpresa"></ngx-datatable-column>
-            <ngx-datatable-column name="Almacen" prop="cAlmacen"></ngx-datatable-column>
+            <ngx-datatable-column name="Comprador" prop="cEmpresa"></ngx-datatable-column>
+            <ngx-datatable-column name="Almacén destino" prop="cAlmacen"></ngx-datatable-column>
             <ngx-datatable-column name="Proveedor" prop="cProveedor"></ngx-datatable-column>
             <ngx-datatable-column name="Nro.Factura" prop="cFactura" [width]="110"></ngx-datatable-column>
             <ngx-datatable-column name="Fecha de compra" prop="dFechaCompra" [width]="120">
@@ -73,7 +73,7 @@
                 {{value | date: 'dd/MM/yyyy'}}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Costo total" prop="nCostoTotal"[width]="120">
+            <ngx-datatable-column name="Costo x lt" prop="nCostoxLitro"[width]="100">
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 {{value | currency}}
               </ng-template>
@@ -83,7 +83,32 @@
                 {{value | number : '1.2-2'}}
               </ng-template>
             </ngx-datatable-column>
-
+          
+            <ngx-datatable-column name="Litros recibidos" prop="nLitrosRecibidos" [width]="120">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                {{value | number : '1.2-2'}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Costo total" prop="nCostoTotal"[width]="120">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                {{value | currency}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Costo total" prop="nCostoTotal"[width]="120">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                {{value | currency}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Estatus" prop="nEstatus"[width]="150">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template >                          
+              <select class="form-control form-control-sm" style="z-index:1000"  [(ngModel)]="row.nEstatus" [disabled]="row.nEstatus === 3">
+              <option [value]="'1'">En Tránsito</option>
+              <option [value]="'2'">En Aduana</option>
+              <option [value]="'3'">Recibido</option>
+              <option [value]="'4'">Cancelado</option>
+              </select>
+            </ng-template>
+          </ngx-datatable-column>
             <!--  <ngx-datatable-column name="Persona física" prop="bPersonaFisica" ></ngx-datatable-column>
 -->
 

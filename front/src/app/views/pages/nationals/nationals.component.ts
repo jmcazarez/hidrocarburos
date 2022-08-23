@@ -297,6 +297,13 @@ export class NationalsComponent implements OnInit {
 
   }
 
+  limpiarCampo(campo: any) {
+    console.log('value:', campo.value);
+    if (campo.value === '') {
+      campo.setValue(null);
+    }
+  }
+
 
   openModal() {
     const modalRef = this.modalService.open(BusquedaCompraComponent, {

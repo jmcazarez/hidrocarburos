@@ -65,7 +65,8 @@ async function guardarCompra(params) {
                 ${1},
                 ${params.nLitrosRecepcion},
                 ${params.nGalonesCompra},
-                ${params.nCostoGalon}
+                ${params.nCostoGalon},
+                '${params.dFechaCompra}'
             )
              `,
             {
@@ -143,8 +144,47 @@ async function cancelarCompra(params) {
     }
 }
 
+async function obtenerConsultaCompras(params) {
+
+    try {
+        let data = await sequelize.query(
+            `
+             CALL proc_consulta_compras(
+                 '${params.dFechaInicio}',
+                 '${params.dFechaFin}',
+                 ${params.nCompra},
+                 ${params.nEmpresa},
+                 ${params.nProveedor},
+                 ${params.nAlmacen},
+                 ${params.nArticulo}
+            )
+             `,
+            {
+                type: QueryTypes.RAW
+            }
+        );
+
+        return {
+            status: 200,
+            error: '',
+            data: data,
+        }
+
+    } catch (err) {
+        // do something
+        console.log(err);
+        return {
+            status: 400,
+            error: 'Error al obtener las compras.',
+            data: [],
+        };
+    }
+}
+
+
 module.exports = {
     obtenerCompras,
     guardarCompra,
-    cancelarCompra
+    cancelarCompra,
+    obtenerConsultaCompras
 };

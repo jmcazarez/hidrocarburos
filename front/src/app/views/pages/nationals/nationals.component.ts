@@ -42,6 +42,7 @@ export class NationalsComponent implements OnInit {
     this.form = new FormGroup({
       nCompra : new FormControl({ value: '', disabled: true }, []),
       cTipoCompra : new FormControl('', Validators.required),
+      dFechaCompra : new FormControl('', [Validators.required]),
       cEmpresa : new FormControl({value: '', disabled: true}, Validators.required),
       nEmpresa : new FormControl('', Validators.required),
       nAlmacen : new FormControl('', Validators.required),
@@ -101,6 +102,10 @@ export class NationalsComponent implements OnInit {
 
   get dFechaFactura(): any {
     return this.form.get('dFechaFactura')?.value;
+  }
+
+  get dFechaCompra(): any {
+    return this.form.get('dFechaCompra')?.value;
   }
 
   get cFactura(): string {
@@ -242,6 +247,26 @@ export class NationalsComponent implements OnInit {
 
     this.util.dialogConfirm('¿Está seguro que desea guardar los datos?').then((result) => {
 
+      // validar la fecha de compra
+
+      let fechaCompra = new Date(this.dFechaCompra).toISOString().split('T')[0];
+      // fechaCompra.setHours(0,0,0,0);
+
+      let fechaActual = new Date().toISOString().split('T')[0];
+
+      console.log('Fecha compra:', fechaCompra);
+      console.log('Fecha actual:', fechaActual);
+      
+      
+      return;
+
+
+
+      // if (fechaCompra > fechaActual) {
+      //   this.util.dialogWarning('La fecha de compra no debe ser mayor a la fecha actual');
+      //   return;
+      // }
+
       if (result.isConfirmed) {
 
         const obj = {
@@ -265,7 +290,7 @@ export class NationalsComponent implements OnInit {
             nCostoTotal : this.nCostoTotal,
             nCostoCruce: this.cTipoCompra === 'I' ? this.nCostoCruce : null,
             nCostoFactura: this.cTipoCompra === 'I' ? this.nCostoFactura : null,
-            dFechaCompra: new Date().toISOString().split('T')[0],
+            dFechaCompra: new Date(this.dFechaCompra).toISOString().split('T')[0],
             nCostoFlete : this.nCostoFlete,
             cTicket: this.cTipoCompra === 'I' ? this.cTicket : null,
             nLitrosRecepcion: this.nLitrosCompra,
@@ -597,6 +622,7 @@ export class NationalsComponent implements OnInit {
         this.form.controls["nProveedor"].setValue(compra.nProveedor);
         this.form.controls["cProveedor"].setValue(compra.cProveedor);
         this.form.controls["dFechaFactura"].setValue(new Date(compra.dFechaFactura).toISOString().split('T')[0]);
+        this.form.controls["dFechaCompra"].setValue(new Date(compra.dFechaCompra).toISOString().split('T')[0]);
         this.form.controls["cFactura"].setValue(compra.cFactura);
         this.form.controls["nFletera"].setValue(compra.nFletera);
         this.form.controls["cFletera"].setValue(compra.cFletera);
@@ -671,6 +697,7 @@ export class NationalsComponent implements OnInit {
     this.form.controls["nProveedor"].setValue('');
     this.form.controls["cProveedor"].setValue('');
     this.form.controls["dFechaFactura"].setValue('');
+    this.form.controls["dFechaCompra"].setValue('');
     this.form.controls["cFactura"].setValue('');
     this.form.controls["nFletera"].setValue('');
     this.form.controls["cFletera"].setValue('');

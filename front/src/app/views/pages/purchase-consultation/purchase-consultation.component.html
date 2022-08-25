@@ -23,20 +23,20 @@
   <div class="col-md-12 stretch-card">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title">Formulario de Consultas de compras</h6>
-          <form>
+        <h6 class="card-title">Formulario de consultas de compras</h6>
+          <form [formGroup]="form">
 
             <div class="my-4">
               <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" name="radioInline" id="radioInline" checked>
-                <label class="form-check-label" for="radioInline">
+                <input type="radio" class="form-check-input"  id="radioNacional" [value]="'N'" formControlName="cTipoCompra">
+                <label class="form-check-label" for="radioNacional">
                   Nacionales
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" name="radioInline" id="radioInline1">
-                <label class="form-check-label" for="radioInline1">
-                  Imoportados
+                <input type="radio" class="form-check-input" id="radioImportada" [value]="'I'" formControlName="cTipoCompra">
+                <label class="form-check-label" for="radioImportada">
+                  Importadas
                 </label>
               </div>
             </div>
@@ -49,9 +49,18 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Folio</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
-                      <input type="text" class="form-control form-control-sm border-end-0">
+                      <input type="number" 
+                      
+                      class="form-control form-control-sm" formControlName="nCompra">                      
+                    </div>
+                  </div>
+
+                  <label class="form-label col-sm-5 col-form-label text-end">Empresa</label>
+                  <div class="col-sm-7">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="cEmpresa">
                       <span class="input-group-text border-start-0 bg-white">
-                        <i class="feather icon-search"></i>
+                        <i class="feather icon-search" (click)="openModalEmpresas()"></i>
                       </span>
                     </div>
                   </div>
@@ -59,9 +68,9 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Proveedor</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
-                      <input type="text" class="form-control form-control-sm border-end-0">
+                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="cProveedor">
                       <span class="input-group-text border-start-0 bg-white">
-                        <i class="feather icon-search"></i>
+                        <i class="feather icon-search" (click)="openModalProveedores()"></i>
                       </span>
                     </div>
                   </div>
@@ -69,9 +78,9 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Almacen</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
-                      <input type="text" class="form-control form-control-sm border-end-0">
+                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="cAlmacen">
                       <span class="input-group-text border-start-0 bg-white">
-                        <i class="feather icon-search"></i>
+                        <i class="feather icon-search" (click)="openModalAlmacenes()"></i>
                       </span>
                     </div>
                   </div>
@@ -79,9 +88,9 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Articulo</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
-                      <input type="text" class="form-control form-control-sm border-end-0">
+                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="cArticulo">
                       <span class="input-group-text border-start-0 bg-white">
-                        <i class="feather icon-search"></i>
+                        <i class="feather icon-search" (click)="openModalArticulos()"></i>
                       </span>
                     </div>
                   </div>
@@ -93,13 +102,13 @@
               <div class="col-sm-5">
 
                 <div class="row mt-4">
-                  <label class="form-label col-sm-5 col-form-label text-end">Fecha de Registro</label>
+                  <label class="form-label col-sm-5 col-form-label text-end">Desde</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="date" class="form-control form-control-sm" placeholder="" formControlName="dFechaInicio">
                   </div>
-                  <label class="form-label col-sm-5 col-form-label text-end">Fecha de Recepción</label>
+                  <label class="form-label col-sm-5 col-form-label text-end">Hasta</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" placeholder="">
+                    <input type="date" class="form-control form-control-sm" placeholder="" formControlName="dFechaFin">
                   </div>
 
                 </div>
@@ -107,10 +116,45 @@
             </div>
 
           </form>
+
+          <div class="table-responsive my-5" *ngIf="compras.length > 0">
+            <table class="table table-bordered">
+              <thead>
+                <tr >
+                  <th>Folio</th>
+                  <th>Tipo</th>
+                  <th>Fecha de compra</th>
+                  <th>Empresa</th>
+                  <th>Proveedor</th>
+                  <th>Almacén</th>
+                  <th>Artículo</th>
+                  <th>Litros</th>
+                  <th>Costo cruce</th>
+                  <th>Costo factura</th>
+                  <th>Costo flete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of compras">
+                  <td>{{ item.nCompra }}</td>
+                  <td>{{ item.cTipoCompra === 'N' ? 'Nacional' : 'Importada' }}</td>
+                  <td>{{ item.dFechaCompra | date: 'dd/MM/yyyy'}}</td>
+                  <td>{{ item.cEmpresa }}</td>
+                  <td>{{ item.cProveedor }}</td>
+                  <td>{{ item.cAlmacen }}</td>
+                  <td>{{ item.nLitrosComprados }}</td>
+                  <td>{{ item.nCostoCruce }}</td>
+                  <td>{{ item.nCostoFactua }}</td>
+                  <td>{{ item.nCostoFlete }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
           <div class="d-flex justify-content-end my-4">
-            <button type="button" class="btn btn-warning mx-2">Limpiar</button>
-              <button type="button" class="btn btn-dark mx-2">Cancelar</button>
-              <button type="button" class="btn btn-primary mx-2">Consultar</button>
+            <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
+
+              <button type="button" class="btn btn-primary mx-2" (click)="consultar()">Consultar</button>
       </div>
     </div>
   </div>

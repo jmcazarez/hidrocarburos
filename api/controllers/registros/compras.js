@@ -39,8 +39,21 @@ async function cancelarCompra(req, res) {
     });
 }
 
+async function obtenerConsultaCompras(req, res) {
+    let params = req.params;
+    params.cLogin = req.user.cLogin;
+
+    let result = await service.obtenerConsultaCompras(params);
+
+    res.status(result.status).json({
+        error: result.error,
+        data: result.data
+    });
+}
+
 module.exports = {
     obtenerCompras,
     guardarCompra,
-    cancelarCompra
+    cancelarCompra,
+    obtenerConsultaCompras
 };

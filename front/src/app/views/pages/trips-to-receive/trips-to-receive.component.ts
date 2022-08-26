@@ -28,9 +28,9 @@ export class TripsToReceiveComponent implements OnInit {
 
   filterDatatable(filtro: any) { }
 
-  obtenerCatalogosFletera() {
+  async obtenerCatalogosFletera() {
     const comprasTemp: any[] = [];
-    this.service.obtenerCompras(0).subscribe((resp: any) => {
+   await this.service.obtenerCompras(0).subscribe((resp: any) => {
 
 
       for (const compra of resp.data) {

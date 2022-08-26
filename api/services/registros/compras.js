@@ -189,7 +189,8 @@ async function confirmarCompra(params) {
             `
              CALL proc_confirmacion_compra(
                  ${params.nCompra},
-                 ${params.nLitrosRecepcion}
+                 ${params.nLitrosRecepcion},
+                 '${params.dFechaRecepcion}'
             )
              `,
             {

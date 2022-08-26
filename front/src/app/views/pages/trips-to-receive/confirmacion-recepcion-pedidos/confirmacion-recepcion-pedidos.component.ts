@@ -29,13 +29,14 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
     this.dataTemp = [];
     this.data = [];
 
-    console.log();
+    let today = new Date().toISOString().split('T')[0];
     this.form = this.formBuilder.group({
       nLitrosComprados: [{ value: this.compra.nlitrosComprados, disabled: true }, Validators.required],
       nLitrosRecibidos: [0.00, [Validators.required, Validators.min(0.01)]],
+      dFechaRecepcion : [today],
     });
+    console.log(this.form);
   }
-
 
   get nLitrosComprados(): number {
     return this.form.get('nLitrosComprados')?.value ?? 0.00;
@@ -44,6 +45,10 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
   get nLitrosRecibidos(): number {
     return this.form.get('nLitrosRecibidos')?.value ?? 0.00;
   }
+
+  get dFechaRecepcion(): any {
+    return this.form.get('dFechaRecepcion')?.value;
+  }
   close(vm: any = this) {
     vm.activeModal.close({});
   }
@@ -51,14 +56,17 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
     if (this.nLitrosRecibidos > this.nLitrosComprados) {
       this.util.dialogError('La cantidad de litros recibidos no puede ser mayor a los litros comprados.');
     } else {
+      console.log(this.dFechaRecepcion);
         await this.service.confirmarCompra({
           nCompra : this.compra.nCompra,
           nLitrosRecepcion : this.nLitrosRecibidos,
+          dFechaRecepcion : new Date(this.dFechaRecepcion).toISOString().split('T')[0]
         }).subscribe ( async (resp: any) => {
           if (resp) {
             this.util.dialogSuccess('Compra guardada correctamente.');
             this.compra.nLitrosRecibidos = this.nLitrosRecibidos;
             this.compra.nEstatus = 3;
+
             this.activeModal.close(this.compra);
           }
         }, (error: any) => {

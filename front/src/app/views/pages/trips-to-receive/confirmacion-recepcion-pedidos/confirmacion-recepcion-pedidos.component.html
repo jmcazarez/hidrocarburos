@@ -9,7 +9,7 @@
               <div class="col-sm-12">
                 <div class="row">
                   <label class="form-label col-sm-6 col-form-label text-end">Litros comprados</label>
-                  <div class="col-sm-3">
+                  <div class="col-sm-4">
                     <div class="input-group">
                       <input type="text" class="form-control form-control-sm border-end-0" currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"  id="nLitrosComprados"
                       formControlName="nLitrosComprados">
@@ -19,8 +19,19 @@
               </div>
               <div class="col-sm-12">
                 <div class="row">
+                  <label class="form-label col-sm-6 col-form-label text-end">Fecha recepción</label>
+                  <div class="col-sm-4">
+                    <div class="input-group">
+                      <input type="date" class="form-control form-control-sm border-end-0"  id="dFechaRecepcion"
+                      onfocus="this.select()" formControlName="dFechaRecepcion">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="row">
                   <label class="form-label col-sm-6 col-form-label text-end">Litros recibidos</label>
-                  <div class="col-sm-3">
+                  <div class="col-sm-4">
                     <div class="input-group">
                       <input type="text" class="form-control form-control-sm border-end-0" currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"  id="nLitrosRecibidos"
                       onfocus="this.select()"
@@ -31,6 +42,7 @@
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </form>

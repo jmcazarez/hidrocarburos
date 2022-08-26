@@ -44,7 +44,6 @@ export class BusquedaProvidersComponent implements OnInit {
 
       });
       this.data = [...this.dataTemp];
-      console.log(this.dataTemp);
     }, (error: any) => {
 
     })

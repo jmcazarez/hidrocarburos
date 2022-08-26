@@ -9,7 +9,6 @@ export class ComprasService {
 
   private baseUrl: string;
   private urlCompras = "registros/compras";
-
   constructor(private http: HttpClient) {
     this.baseUrl = environment.api;
   }
@@ -29,9 +28,19 @@ export class ComprasService {
     return this.http.delete(this.baseUrl + this.urlCompras + '/' +  nCompra);
   }
 
-  obtenerConsultaCompras(dFechaInicio: string, dFechaFin: string, nCompra: number, nEmpresa: number, nProveedor: number, nAlmacen: number, nArticulo: number): any {  
+  obtenerConsultaCompras(dFechaInicio: string, dFechaFin: string, nCompra: number, nEmpresa: number, nProveedor: number, nAlmacen: number, nArticulo: number): any {
     return this.http.get(this.baseUrl + this.urlCompras + '/consulta/' + dFechaInicio + '/' + dFechaFin + '/' + nCompra + '/' + nEmpresa + '/' + nProveedor + '/' + nAlmacen + '/' + nArticulo);
   }
+  confirmarCompra(item: any): any {
+
+    return this.http.post(this.baseUrl + this.urlCompras + '/confirmar/', item);
+  }
+
+  actualizarEstatusCompra(item: any): any {
+
+    return this.http.post(this.baseUrl + this.urlCompras + '/actualizarEstatus/', item);
+  }
+
 
 }
 

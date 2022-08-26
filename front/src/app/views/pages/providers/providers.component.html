@@ -26,7 +26,6 @@
       <div class="card-body">
         <h6 class="card-title">Formulario de Proveedor</h6>
         <form name="form" [formGroup]="form">
-
           <div class="col-sm-3">
             <label class="form-label">Folio</label>
             <div class="input-group">
@@ -94,7 +93,7 @@
                     <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cRFC')?.hasError('pattern')">
                       El campo no es un RFC válido.
                     </p>
-                  
+
                   </div>
                 </div>
                 <div class="col-sm" *ngIf="!this.bPersonaFisica">
@@ -102,7 +101,7 @@
                     <label class="form-label">Razón Social</label>
                     <input type="text" class="form-control form-control-sm" formControlName="cRazonSocial"
                       maxlength="100" placeholder=""  [ngClass]="{'has-error': form.get('cRazonSocial')?.hasError('required')}">
-                
+
                   </div>
                 </div>
                 <div class="col-sm" *ngIf="!this.bPersonaFisica">

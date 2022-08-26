@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
-/* import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators'; // <-- #2 import module
- */import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 /* ---------- Components ---------- */
 import { ProvidersComponent } from './providers.component';

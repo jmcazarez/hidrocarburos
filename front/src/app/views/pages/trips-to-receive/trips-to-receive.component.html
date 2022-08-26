@@ -54,19 +54,20 @@
                 <th>C. Recibida</th>
               </tr>
             </thead>
-            
+
           </table> -->
 
           <input type='text' matInput placeholder='Buscar' (keyup)='filterDatatable($event)'
             [(ngModel)]="valueBuscador">
           <ngx-datatable class="material shadow-none striped table table-bordered" [rows]="data" [loadingIndicator]="loadingIndicator"
             [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10"
-            [scrollbarH]="true">
-            <ngx-datatable-column name="Folio" prop="nCompra" [width]="80"></ngx-datatable-column>
+            [scrollbarH]="true"
+            [sorts]="[{prop: 'dFechaCompra', dir: 'asc'},{prop: 'cEmpresa', dir: 'asc'},{prop: 'cProveedor', dir: 'asc'},{prop: 'cArticulo', dir: 'asc'}]">
             <ngx-datatable-column name="Mercado" prop="cTipoCompraLarga" [width]="110"></ngx-datatable-column>
             <ngx-datatable-column name="Comprador" prop="cEmpresa"></ngx-datatable-column>
             <ngx-datatable-column name="Almacén destino" prop="cAlmacen"></ngx-datatable-column>
             <ngx-datatable-column name="Proveedor" prop="cProveedor"></ngx-datatable-column>
+            <ngx-datatable-column name="Artículo" prop="cArticulo" [width]="110"></ngx-datatable-column>
             <ngx-datatable-column name="Nro.Factura" prop="cFactura" [width]="110"></ngx-datatable-column>
             <ngx-datatable-column name="Fecha de compra" prop="dFechaCompra" [width]="120">
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
@@ -83,7 +84,7 @@
                 {{value | number : '1.2-2'}}
               </ng-template>
             </ngx-datatable-column>
-          
+
             <ngx-datatable-column name="Litros recibidos" prop="nLitrosRecibidos" [width]="120">
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 {{value | number : '1.2-2'}}
@@ -94,14 +95,10 @@
                 {{value | currency}}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Costo total" prop="nCostoTotal"[width]="120">
-              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                {{value | currency}}
-              </ng-template>
-            </ngx-datatable-column>
+
             <ngx-datatable-column name="Estatus" prop="nEstatus"[width]="150">
-            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template >                          
-              <select class="form-control form-control-sm" style="z-index:1000"  [(ngModel)]="row.nEstatus" [disabled]="row.nEstatus === 3">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template >
+              <select class="form-control form-control-sm" style="z-index:1000"  [(ngModel)]="row.nEstatus" [disabled]="row.nEstatus === 3 || row.nEstatus === 4" (change)="onChange(row)">
               <option [value]="'1'">En Tránsito</option>
               <option [value]="'2'">En Aduana</option>
               <option [value]="'3'">Recibido</option>
@@ -111,14 +108,13 @@
           </ngx-datatable-column>
             <!--  <ngx-datatable-column name="Persona física" prop="bPersonaFisica" ></ngx-datatable-column>
 -->
-
           </ngx-datatable>
         </div>
 
-        <div class="d-flex justify-content-end my-4">
+        <!-- <div class="d-flex justify-content-end my-4">
           <button type="button" class="btn btn-dark mx-2">Cancelar</button>
           <button type="button" class="btn btn-primary mx-2">Registrar</button>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

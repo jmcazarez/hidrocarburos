@@ -7,6 +7,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 /* ---------- Components ---------- */
 import { TripsToReceiveComponent } from './trips-to-receive.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { ConfirmacionRecepcionPedidosComponent } from './confirmacion-recepcion-pedidos/confirmacion-recepcion-pedidos.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [TripsToReceiveComponent],
+  declarations: [TripsToReceiveComponent,ConfirmacionRecepcionPedidosComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

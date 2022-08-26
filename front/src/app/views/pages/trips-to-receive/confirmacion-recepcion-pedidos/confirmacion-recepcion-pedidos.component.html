@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Confirmación de recepción</h6>
+        <form name="form" [formGroup]="form">
+          <div class="my-4">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="row">
+                  <label class="form-label col-sm-6 col-form-label text-end">Litros comprados</label>
+                  <div class="col-sm-3">
+                    <div class="input-group">
+                      <input type="text" class="form-control form-control-sm border-end-0" currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"  id="nLitrosComprados"
+                      formControlName="nLitrosComprados">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="row">
+                  <label class="form-label col-sm-6 col-form-label text-end">Litros recibidos</label>
+                  <div class="col-sm-3">
+                    <div class="input-group">
+                      <input type="text" class="form-control form-control-sm border-end-0" currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"  id="nLitrosRecibidos"
+                      onfocus="this.select()"
+                      [ngClass]="{'has-error': form.get('nLitrosRecibidos')?.hasError('required')}"
+                      [ngClass]="{'has-error': form.get('nLitrosRecibidos')?.hasError('min')}"
+                      formControlName="nLitrosRecibidos">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center my-4">
+    <button type="button"  class="btn btn-dark mx-2"
+      (click)="close()">Cerrar</button>
+    <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid"
+      (click)="guardar()">Guardar</button>
+  </div>
+</div>
+

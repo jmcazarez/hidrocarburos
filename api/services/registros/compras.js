@@ -182,9 +182,73 @@ async function obtenerConsultaCompras(params) {
 }
 
 
+async function confirmarCompra(params) {
+
+    try {
+        let data = await sequelize.query(
+            `
+             CALL proc_confirmacion_compra(
+                 ${params.nCompra},
+                 ${params.nLitrosRecepcion}
+            )
+             `,
+            {
+                type: QueryTypes.RAW
+            }
+        );
+
+        return {
+            status: 200,
+            error: '',
+            data: data,
+        }
+
+    } catch (err) {
+        // do something
+        console.log(err);
+        return {
+            status: 400,
+            error: 'Error al obtener las compras.',
+            data: [],
+        };
+    }
+}
+async function actualizarEstatusCompra(params) {
+
+    try {
+        let data = await sequelize.query(
+            `
+             CALL proc_actualizar_estatus_compra(
+                 ${params.nCompra},
+                 ${params.nEstatus}
+            )
+             `,
+            {
+                type: QueryTypes.RAW
+            }
+        );
+
+        return {
+            status: 200,
+            error: '',
+            data: data,
+        }
+
+    } catch (err) {
+        // do something
+        console.log(err);
+        return {
+            status: 400,
+            error: 'Error al obtener las compras.',
+            data: [],
+        };
+    }
+}
 module.exports = {
     obtenerCompras,
     guardarCompra,
     cancelarCompra,
-    obtenerConsultaCompras
+    obtenerConsultaCompras,
+    confirmarCompra,
+    actualizarEstatusCompra
 };

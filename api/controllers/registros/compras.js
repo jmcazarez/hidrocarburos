@@ -51,9 +51,36 @@ async function obtenerConsultaCompras(req, res) {
     });
 }
 
+
+async function confirmarCompra(req, res) {
+    let params = req.body;
+    params.cLogin = req.user.cLogin;
+
+    let result = await service.confirmarCompra(params);
+
+    res.status(result.status).json({
+        error: result.error,
+        data: result.data
+    });
+}
+
+async function actualizarEstatusCompra(req, res) {
+    let params = req.body;
+    params.cLogin = req.user.cLogin;
+
+    let result = await service.actualizarEstatusCompra(params);
+
+    res.status(result.status).json({
+        error: result.error,
+        data: result.data
+    });
+}
+
 module.exports = {
     obtenerCompras,
     guardarCompra,
     cancelarCompra,
-    obtenerConsultaCompras
+    obtenerConsultaCompras,
+    confirmarCompra,
+    actualizarEstatusCompra
 };

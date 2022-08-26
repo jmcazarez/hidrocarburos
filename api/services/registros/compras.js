@@ -150,6 +150,7 @@ async function obtenerConsultaCompras(params) {
         let data = await sequelize.query(
             `
              CALL proc_consulta_compras(
+                '${params.cTipoCompra}',
                  '${params.dFechaInicio}',
                  '${params.dFechaFin}',
                  ${params.nCompra},

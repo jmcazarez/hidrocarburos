@@ -20,7 +20,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AuthInterceptor } from 'src/interceptors/authInterceptor';
 import { Patterns } from 'src/utils/patterns';
-/* import { NgxSpinnerModule } from 'ngx-spinner'; */
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,8 +34,8 @@ import { Patterns } from 'src/utils/patterns';
     FormsModule,
     HttpClientModule,
     NgxDatatableModule,
-    CurrencyMaskModule
-/*     NgxSpinnerModule */
+    CurrencyMaskModule,
+    NgxSpinnerModule
   ],
   exports: [
     SharedModule

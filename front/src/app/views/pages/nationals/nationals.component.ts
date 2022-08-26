@@ -14,6 +14,7 @@ import { UtilsService } from 'src/services/utils.service';
 import { Patterns } from 'src/utils/patterns';
 import { BusquedaModalComponent } from '../busquedas/busqueda-modal/busqueda-modal.component';
 import { BusquedaFleteraComponent } from '../parcel/busqueda-fletera/busqueda-fletera.component';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-nationals',
@@ -249,23 +250,15 @@ export class NationalsComponent implements OnInit {
 
       // validar la fecha de compra
 
-      let fechaCompra = new Date(this.dFechaCompra).toISOString().split('T')[0];
+      let fechaCompra = dayjs(this.dFechaCompra);
       // fechaCompra.setHours(0,0,0,0);
 
-      let fechaActual = new Date().toISOString().split('T')[0];
+      let fechaActual = dayjs();
 
-      console.log('Fecha compra:', fechaCompra);
-      console.log('Fecha actual:', fechaActual);
-      
-      
-      return;
-
-
-
-      // if (fechaCompra > fechaActual) {
-      //   this.util.dialogWarning('La fecha de compra no debe ser mayor a la fecha actual');
-      //   return;
-      // }
+      if (fechaCompra > fechaActual) {
+        this.util.dialogWarning('La fecha de compra no debe ser mayor a la fecha actual.');
+        return;
+      }
 
       if (result.isConfirmed) {
 

@@ -9,6 +9,8 @@ import { ProveedorService } from 'src/services/proveedor.service';
 import { UtilsService } from 'src/services/utils.service';
 import { Patterns } from 'src/utils/patterns';
 import { BusquedaModalComponent } from '../busquedas/busqueda-modal/busqueda-modal.component';
+import * as dayjs from 'dayjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-purchase-consultation',
@@ -29,7 +31,8 @@ export class PurchaseConsultationComponent implements OnInit {
     private serviceEmpresa: EmpresaService,
     private serviceAlmacen: AlmacenService,
     private serviceProveedor: ProveedorService,
-    private serviceArticulo: ArticulosService
+    private serviceArticulo: ArticulosService,
+    private spinner: NgxSpinnerService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -44,8 +47,8 @@ export class PurchaseConsultationComponent implements OnInit {
       cProveedor : new FormControl({ value: '', disabled: true }, []),
       nArticulo : new FormControl('', Validators.required),
       cArticulo : new FormControl({ value: '', disabled: true }, []),
-      dFechaInicio : new FormControl(new Date(), []),
-      dFechaFin : new FormControl(new Date(), []),
+      dFechaInicio : new FormControl(dayjs().format('YYYY-MM-DD'), []),
+      dFechaFin : new FormControl(dayjs().format('YYYY-MM-DD'), []),
     });
   }
 
@@ -270,9 +273,11 @@ export class PurchaseConsultationComponent implements OnInit {
   }
 
   consultar() {
+    this.spinner.show();
     this.service.obtenerConsultaCompras(
+      this.cTipoCompra,
       new Date(this.dFechaInicio).toISOString().split('T')[0],
-      new Date(this.dFechaInicio).toISOString().split('T')[0],
+      new Date(this.dFechaFin).toISOString().split('T')[0],
       this.nCompra ?? 0,
       this.nEmpresa ?? 0,
       this.nProveedor ?? 0,
@@ -285,8 +290,9 @@ export class PurchaseConsultationComponent implements OnInit {
         console.log('Compras:', resp);
 
       }
+      this.spinner.hide();
     }, (error: any) => {
-
+      this.spinner.hide();
     });
   }
 
@@ -299,10 +305,11 @@ export class PurchaseConsultationComponent implements OnInit {
     this.form.controls["cAlmacen"].setValue('');
     this.form.controls["nProveedor"].setValue('');
     this.form.controls["cProveedor"].setValue('');
-    this.form.controls["dFechaInicio"].setValue(new Date());
-    this.form.controls["dFechaFin"].setValue(new Date());
+    this.form.controls["dFechaInicio"].setValue(dayjs().format('YYYY-MM-DD'));
+    this.form.controls["dFechaFin"].setValue(dayjs().format('YYYY-MM-DD'));
     this.form.controls["nArticulo"].setValue('');
-    this.form.controls["cArticulo"].setValue('');    
+    this.form.controls["cArticulo"].setValue('');
+    this.compras = [];    
   }
 
 

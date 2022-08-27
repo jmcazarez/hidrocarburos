@@ -282,7 +282,8 @@ export class PurchaseConsultationComponent implements OnInit {
       this.nEmpresa ?? 0,
       this.nProveedor ?? 0,
       this.nAlmacen ?? 0,
-      this.nArticulo ?? 0
+      this.nArticulo ?? 0,
+      ''
     ).subscribe ( (resp: any) => {
       if (resp) {
         

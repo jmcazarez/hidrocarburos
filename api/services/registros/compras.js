@@ -157,7 +157,8 @@ async function obtenerConsultaCompras(params) {
                  ${params.nEmpresa},
                  ${params.nProveedor},
                  ${params.nAlmacen},
-                 ${params.nArticulo}
+                 ${params.nArticulo},
+                 '${params.cFactura || '' }'
             )
              `,
             {

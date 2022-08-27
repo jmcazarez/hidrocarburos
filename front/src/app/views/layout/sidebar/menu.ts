@@ -6,7 +6,7 @@ export const MENU: MenuItem[] = [
     isTitle: true
   },
   {
-    label: 'Talero Indicadores',
+    label: 'Tablero Indicadores',
     icon: 'pie-chart',
     link: '/dashboard'
   },

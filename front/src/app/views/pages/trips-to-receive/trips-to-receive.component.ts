@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmacionRecepcionPedidosComponent } from './confirmacion-recepcion-pedidos/confirmacion-recepcion-pedidos.component';
 import { UtilsService } from 'src/services/utils.service';
 
+
 @Component({
   selector: 'app-trips-to-receive',
   templateUrl: './trips-to-receive.component.html',
@@ -18,27 +19,44 @@ export class TripsToReceiveComponent implements OnInit {
   loadingIndicator = false;
   data: any[] = [];
   dataTemp: any[] = [];
+  estatus = [
+    {
+      nEstatus: 1,
+      cEstatus: 'En Tránsito',
+      status: true
+    },
+    {
+      nEstatus: 2,
+      cEstatus: 'En Aduana',
+      status: true
+    },
+    {
+      nEstatus: 3,
+      cEstatus: 'Recibido',
+      status: false
+    },
+    {
+      nEstatus: 4,
+      cEstatus: 'Cancelado',
+      status: false
+    }
+  ]
   constructor(private service: ComprasService, private datePipe: DatePipe, public modalService: NgbModal,
-
     private util: UtilsService,) { }
-
   async ngOnInit(): Promise<void> {
     await this.obtenerCatalogosFletera();
   }
 
-  filterDatatable(filtro: any) { }
+
 
   async obtenerCatalogosFletera() {
     const comprasTemp: any[] = [];
-   await this.service.obtenerCompras(0).subscribe((resp: any) => {
-
-
+    await this.service.obtenerCompras(0).subscribe((resp: any) => {
       for (const compra of resp.data) {
         let nCostoxLitro = 0;
         if (compra.nLitrosCompra > 0 && compra.nCostoTotal > 0) {
           nCostoxLitro = compra.nCostoTotal / compra.nLitrosCompra
         }
-        console.log(compra);
         comprasTemp.push({
           nCompra: compra.nCompra,
           cTipoCompraLarga: compra.cTipoCompraLarga,
@@ -54,14 +72,40 @@ export class TripsToReceiveComponent implements OnInit {
           nEstatus: compra.nEstatus,
           cArticulo: compra.cArticulo
         })
-
-
       }
 
-      this.data = [...comprasTemp];
+
       this.dataTemp = [...comprasTemp];
+      const temp = this.dataTemp.filter((d) =>
+        String(d.nEstatus).toLowerCase().indexOf('1') !== - 1
+        || String(d.nEstatus).toLowerCase().indexOf('2') !== - 1
+      );
+      this.data = [...temp];
       /*  this.datePipe.transform(vigencia, 'dd-MM-yyyy'), */
     });
+  }
+  filterDatatable(value: any): void {
+    // Filtramos tabla
+    this.data = this.dataTemp;
+    if (value.target.value === '') {
+      this.data = this.dataTemp;
+    } else {
+      const val = value.target.value.toLowerCase();
+      const temp = this.data.filter((d) =>
+        d.cTipoCompraLarga.toLowerCase().indexOf(val) !== - 1
+        || d.cEmpresa.toLowerCase().indexOf(val) !== - 1
+        || d.cAlmacen.toLowerCase().indexOf(val) !== - 1
+        || d.cProveedor.toLowerCase().indexOf(val) !== - 1
+        || d.cFactura.toLowerCase().indexOf(val) !== - 1
+        || d.nlitrosComprados.toLowerCase().indexOf(val) !== - 1
+        || String(d.nCostoxLitro).toLowerCase().indexOf(val) !== - 1
+        || d.dFechaCompra.toLowerCase().indexOf(val) !== - 1
+        || String(d.nCostoTotal).toLowerCase().indexOf(val) !== - 1
+        || String(d.nLitrosRecibidos).toLowerCase().indexOf(val) !== - 1
+        || d.cArticulo.toLowerCase().indexOf(val) !== - 1
+      );
+      this.data = temp;
+    }
   }
   async onChange(row: any) {
     if (row.nEstatus == 3) {
@@ -113,4 +157,16 @@ export class TripsToReceiveComponent implements OnInit {
     }
 
   }
+
+  changeStatus(nEstatus: any, event: any) {
+    console.log(this.estatus);
+    const temp = this.dataTemp.filter((d) =>
+    String(d.nEstatus).toLowerCase().indexOf('1') !== - 1
+    || String(d.nEstatus).toLowerCase().indexOf('2') !== - 1
+  );
+  this.data = [...temp];
+  }
+
+
+
 }

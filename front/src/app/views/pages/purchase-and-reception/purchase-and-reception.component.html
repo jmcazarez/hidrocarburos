@@ -24,27 +24,24 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Formulario de Compra vs Recepción</h6>
-          <form>
+        <form [formGroup]="form">
             <div class="row mt-4">
               <div class="col-sm-5">            
                 <div class="row">
             
-                  <label class="form-label col-sm-3 col-form-label text-end">Folio Compra</label>
+                  <label class="form-label col-sm-3 col-form-label text-end">Folio compra</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
-                      <input type="text" class="form-control form-control-sm border-end-0" value="525821">
-                      <span class="input-group-text border-start-0 bg-white">
-                        <i class="feather icon-search"></i>
-                      </span>
+                      <input type="text" class="form-control form-control-sm" formControlName="nCompra">
                     </div>
                   </div>
 
-                  <label class="form-label col-sm-3 col-form-label text-end">Almacen</label>
+                  <label class="form-label col-sm-3 col-form-label text-end">Almacén</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
-                      <input type="text" class="form-control form-control-sm border-end-0" value="CEDIS">
+                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="cAlmacen">
                       <span class="input-group-text border-start-0 bg-white">
-                        <i class="feather icon-search"></i>
+                        <i class="feather icon-search" (click)="openModalAlmacenes()"></i>
                       </span>
                     </div>
                   </div>
@@ -52,9 +49,9 @@
                   <label class="form-label col-sm-3 col-form-label text-end">Articulo</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
-                      <input type="text" class="form-control form-control-sm border-end-0" value="UN 1202 DIESEL DUEL">
+                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="cArticulo">
                       <span class="input-group-text border-start-0 bg-white">
-                        <i class="feather icon-search"></i>
+                        <i class="feather icon-search" (click)="openModalArticulos()"></i>
                       </span>
                     </div>
                   </div>
@@ -62,10 +59,7 @@
                   <label class="form-label col-sm-3 col-form-label text-end">Factura</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
-                      <input type="text" class="form-control form-control-sm border-end-0" value="A-1770">
-                      <span class="input-group-text border-start-0 bg-white">
-                        <i class="feather icon-search"></i>
-                      </span>
+                      <input type="text" class="form-control form-control-sm" formControlName="cFactura">      
                     </div>
                   </div>
                 </div>
@@ -75,14 +69,14 @@
             
               <div class="col-sm-5">
                 <div class="row">
-                  <label class="form-label col-sm-5 col-form-label text-end">Fecha de Inicio</label>
+                  <label class="form-label col-sm-5 col-form-label text-end">Desde</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" value="01 - Ene - 2022">
+                    <input type="date" class="form-control form-control-sm" formControlName="dFechaInicio">
                   </div>
 
-                  <label class="form-label col-sm-5 col-form-label text-end">Fecha de Fin</label>
+                  <label class="form-label col-sm-5 col-form-label text-end">Hasta</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" value="15 - Ene - 2022">
+                    <input type="date" class="form-control form-control-sm" formControlName="dFechaFin">
                   </div>
             
                 </div>
@@ -90,66 +84,43 @@
             </div>
           </form>
 
+          <div class="d-flex justify-content-end my-4">
+            <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
+              <button type="button" class="btn btn-primary mx-2" (click)="consultar()">Consultar</button>
+          </div>
           
         <div class="table-responsive my-5">
           <table class="table table-bordered">
             <thead>
               <tr >
                 <th>Folio</th>
-                <th>Folio Venta</th>
                 <th>Factura</th>
+                <th>F. Compra</th>
                 <th>F. Recepción</th>
-                <th>Codigo</th>
                 <th>Articulo</th>
                 <th>Unidad</th>
                 <th>C. Enviada</th>
-                <th>Recibida</th>
+                <th>Recibida</th> 
               </tr>
             </thead>
-            <tbody>
+            <tbody *ngFor="let item of compras">
               <tr>
-                <td>1</td>
-                <td>145122</td>
-                <td>a-25120</td>
-                <td>10/01/2022</td>
-                <td>1200202</td>
-                <td>Gasolina</td>
+                <td>{{ item.nCompra }}</td>
+                <td>{{ item.cFactura }}</td>
+                <td>{{ formatoFecha(item.dFechaCompra) }}</td>
+                <td>{{ formatoFecha(item.dFechaRecepcion) }}</td>
+                <td>{{ item.cArticulo }}</td>
                 <td>Litros</td>
-                <td>5000</td>
-                <td>5000</td>
+                <td>{{ item.nLitrosCompra | number : '1.2-2' }}</td>
+                <td>{{ item.nLitrosRecepcion | number : '1.2-2' }}</td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>145202</td>
-                <td>a-25120</td>
-                <td>10/01/2022</td>
-                <td>5800202</td>
-                <td>Diesel</td>
-                <td>Litros</td>
-                <td>5000</td>
-                <td class="text-danger">4800</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>145203</td>
-                <td>a-25120</td>
-                <td>10/01/2022</td>
-                <td>5900202</td>
-                <td>Diesel</td>
-                <td>Litros</td>
-                <td>25000</td>
-                <td class="text-danger">24900</td>
-              </tr>
+        
               
             </tbody>
           </table>
         </div>
 
-        <div class="d-flex justify-content-end my-4">
-          <button type="button" class="btn btn-warning mx-2">Limpiar</button>
-            <button type="button" class="btn btn-dark mx-2">Cancelar</button>
-            <button type="button" class="btn btn-primary mx-2">Consultar</button>
-        </div>
+       
       </div>
     </div>
   </div>

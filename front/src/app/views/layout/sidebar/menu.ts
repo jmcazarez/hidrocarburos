@@ -6,7 +6,7 @@ export const MENU: MenuItem[] = [
     isTitle: true
   },
   {
-    label: 'Talero Indicadores',
+    label: 'Tablero indicadores',
     icon: 'pie-chart',
     link: '/dashboard'
   },
@@ -82,7 +82,7 @@ export const MENU: MenuItem[] = [
     icon: 'tag',
     subItems: [
       {
-        label: 'Ticket de Entrega de producto',
+        label: 'Ticket de entrega de producto',
         link: '/product-delivery-ticket'
       },
     ]
@@ -102,11 +102,11 @@ export const MENU: MenuItem[] = [
     ]
   },
   {
-    label: 'Control de Flujos',
+    label: 'Control de flujos',
     icon: 'filter',
     subItems: [
       {
-        label: 'Registro de Egresos',
+        label: 'Registro de egresos',
         link: '/expense-record'
       },
       {
@@ -121,7 +121,7 @@ export const MENU: MenuItem[] = [
     isTitle: true
   },
   {
-    label: 'Pagos Diversos',
+    label: 'Pagos diversos',
     icon: 'dollar-sign',
     subItems: [
       {
@@ -153,11 +153,11 @@ export const MENU: MenuItem[] = [
     ]
   },
   {
-    label: 'Reportes Directivos',
+    label: 'Reportes directivos',
     icon: 'book-open',
     subItems: [
       {
-        label: 'Existencias Globales',
+        label: 'Existencias globales',
         link: '/global-stocks'
       },
       {
@@ -177,7 +177,7 @@ export const MENU: MenuItem[] = [
     isTitle: true
   },
   {
-    label: 'Configuración General',
+    label: 'Configuración general',
     icon: 'settings',
     subItems: [
       {
@@ -225,15 +225,15 @@ export const MENU: MenuItem[] = [
             link: '/vehicles'
           },
           {
-            label: 'Transp. Fletes',
+            label: 'Transp. fletes',
             link: '/parcel'
           },
           {
-            label: 'Concepto de Gastos',
+            label: 'Concepto de gastos',
             link: '/bills'
           },
           {
-            label: 'Cuentas de Banco',
+            label: 'Cuentas de banco',
             link: '/bank-accounts'
           },
         ]

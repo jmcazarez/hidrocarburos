@@ -26,26 +26,24 @@
         <h6 class="card-title">Formulario de consultas de compras</h6>
           <form [formGroup]="form">
 
-            <div class="my-4">
-              <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input"  id="radioNacional" [value]="'N'" formControlName="cTipoCompra">
-                <label class="form-check-label" for="radioNacional">
-                  Nacionales
-                </label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="radioImportada" [value]="'I'" formControlName="cTipoCompra">
-                <label class="form-check-label" for="radioImportada">
-                  Importadas
-                </label>
-              </div>
-            </div>
+           
 
             <div class="row mt-4">
               <div class="col-sm-5">
 
                 <div class="row">
                   
+                  <label class="form-label col-sm-5 col-form-label text-end">Tipo de compra</label>
+                  <div class="col-sm-7">
+                    <div class="input-group mb-1">
+                      <select class="form-control form-control-sm" formControlName="cTipoCompra">
+                        <option value="">Todas</option>
+                        <option value="N">Nacional</option>
+                        <option value="I">Importada</option>
+                      </select>                    
+                    </div>
+                  </div>
+
                   <label class="form-label col-sm-5 col-form-label text-end">Folio</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
@@ -148,10 +146,11 @@
                   <td>{{ item.cEmpresa }}</td>
                   <td>{{ item.cProveedor }}</td>
                   <td>{{ item.cAlmacen }}</td>
-                  <td>{{ item.nLitrosComprados }}</td>
-                  <td>{{ item.nCostoCruce }}</td>
-                  <td>{{ item.nCostoFactua }}</td>
-                  <td>{{ item.nCostoFlete }}</td>
+                  <td>{{ item.cArticulo }}</td>
+                  <td>{{ item.nLitrosCompra | number : '1.2-2' }}</td>
+                  <td>{{ item.nCostoCruce | currency  }}</td>
+                  <td>{{ item.nCostoFactura | currency }}</td>
+                  <td>{{ item.nCostoFlete | currency }}</td>
                 </tr>
               </tbody>
             </table>

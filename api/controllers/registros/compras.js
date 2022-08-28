@@ -40,7 +40,7 @@ async function cancelarCompra(req, res) {
 }
 
 async function obtenerConsultaCompras(req, res) {
-    let params = req.params;
+    let params = req.body;
     params.cLogin = req.user.cLogin;
 
     let result = await service.obtenerConsultaCompras(params);

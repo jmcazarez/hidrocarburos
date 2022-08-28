@@ -74,6 +74,7 @@ export class NationalsComponent implements OnInit {
       nCostoGalon : new FormControl('', []),
       nCostoFinalLitro : new FormControl({ value: '', disabled: true }, []),
       nCostoFinalDolares : new FormControl({ value: '', disabled: true }, []),
+      nCostoLitro : new FormControl('', [Validators.required]),
     });
     this.calcularTotales();
   }
@@ -181,6 +182,10 @@ export class NationalsComponent implements OnInit {
     return this.form.get('cTicket')?.value !== '' ? this.form.get('cTicket')?.value : 0;
   }
 
+  get nCostoLitro(): number {
+    return this.form.get('nCostoLitro')?.value !== '' ? this.form.get('nCostoLitro')?.value : 0;
+  }
+
   cambiarTipoCompra() {
     if (this.cTipoCompra !== 'I') { // Nacional o vacía
       this.form.controls["nGalonesCompra"].setValue('');
@@ -211,6 +216,11 @@ export class NationalsComponent implements OnInit {
       this.form.controls["cTicket"].setValidators(null);
       this.form.controls["cTicket"].updateValueAndValidity();
 
+      this.form.controls["nCostoLitro"].setValue('');
+      this.form.controls["nCostoLitro"].enable();
+
+      this.form.controls["nTipoCambio"].setValue(0);
+
     } else { // Importada
       this.form.controls["nGalonesCompra"].setValue('');
       this.form.controls["nGalonesCompra"].setValidators(Validators.required);
@@ -239,6 +249,11 @@ export class NationalsComponent implements OnInit {
       this.form.controls["cTicket"].setValue('');
       this.form.controls["cTicket"].setValidators(Validators.required);
       this.form.controls["cTicket"].updateValueAndValidity();
+
+      this.form.controls["nCostoLitro"].setValue('');
+      this.form.controls["nCostoLitro"].disable();
+
+      this.form.controls["nTipoCambio"].setValue('');
 
 
     }
@@ -286,9 +301,9 @@ export class NationalsComponent implements OnInit {
             dFechaCompra: new Date(this.dFechaCompra).toISOString().split('T')[0],
             nCostoFlete : this.nCostoFlete,
             cTicket: this.cTipoCompra === 'I' ? this.cTicket : null,
-            nLitrosRecepcion: this.nLitrosCompra,
             nGalonesCompra: this.cTipoCompra === 'I' ? this.nGalonesCompra : null,
             nCostoGalon: this.cTipoCompra === 'I' ? this.nCostoGalon : null,
+            nCostoLitro: this.nCostoLitro
         };
 
         this.service.guardarCompra(obj).subscribe(async (resp: any) => {
@@ -635,8 +650,17 @@ export class NationalsComponent implements OnInit {
         this.form.controls["nCostoCruce"].setValue(parseFloat(compra.nCostoCruce));
         this.form.controls["nGalonesCompra"].setValue(parseFloat(compra.nGalonesCompra));
         this.form.controls["nCostoGalon"].setValue(parseFloat(compra.nCostoGalon));
+        this.form.controls["nCostoLitro"].setValue(parseFloat(compra.nCostoLitro));
 
         this.form.controls["cTipoCompra"].disable();
+
+        if(compra.cTipoCompra !== 'I') {
+          this.form.controls["nCostoLitro"].enable();
+          this.form.controls["nLitrosCompra"].enable();
+        } else {
+          this.form.controls["nCostoLitro"].disable();
+          this.form.controls["nLitrosCompra"].enable();
+        }
 
         this.calcularTotales();
       }
@@ -648,7 +672,7 @@ export class NationalsComponent implements OnInit {
   calcularTotales() {
 
     if (this.cTipoCompra !== 'I') {
-      const total = this.nLitrosCompra  * this.nTipoCambio;
+      const total = this.nLitrosCompra  * this.nCostoLitro;
       let final = (total + this.nCostoFlete) / this.nLitrosCompra;
 
       if (isNaN(final)) {
@@ -668,12 +692,16 @@ export class NationalsComponent implements OnInit {
       const totalDolares = this.nCostoGalon * this.nGalonesCompra;
       this.form.controls["nCostoFinalDolares"].setValue(totalDolares);
 
-      const totalPesos = litrosGalones * this.nTipoCambio;
+      const totalPesos = totalDolares * this.nTipoCambio;
       this.form.controls["nCostoTotal"].setValue(totalPesos);
 
-      const totales = totalPesos + this.nCostoCruce + this.nCostoFactura + this.nCostoFlete;
+      const costoLitro = totalPesos / litrosGalones;
 
+      this.form.controls["nCostoLitro"].setValue(costoLitro);
+
+      const totales = totalPesos + this.nCostoCruce + this.nCostoFactura + this.nCostoFlete;
       let final = totales / this.nLitrosCompra;
+
       this.form.controls["nCostoFinalLitro"].setValue(final);
 
     }
@@ -708,6 +736,9 @@ export class NationalsComponent implements OnInit {
     this.form.controls["nCostoTotal"].setValue('');
     this.form.controls["nCostoFactura"].setValue('');
     this.form.controls["nCostoFlete"].setValue('');
+    this.form.controls["nCostoLitro"].setValue('');
+    this.form.controls["nCostoFinalLitro"].setValue('');
+    this.form.controls["nCostoFinalDolares"].setValue('');
 
     this.form.controls["cTipoCompra"].enable();
 

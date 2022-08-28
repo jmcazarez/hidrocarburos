@@ -28,8 +28,18 @@ export class ComprasService {
     return this.http.delete(this.baseUrl + this.urlCompras + '/' +  nCompra);
   }
 
-  obtenerConsultaCompras(cTipoCompra: string, dFechaInicio: string, dFechaFin: string, nCompra: number, nEmpresa: number, nProveedor: number, nAlmacen: number, nArticulo: number): any {
-    return this.http.get(this.baseUrl + this.urlCompras + '/consulta/' + cTipoCompra + '/' + dFechaInicio + '/' + dFechaFin + '/' + nCompra + '/' + nEmpresa + '/' + nProveedor + '/' + nAlmacen + '/' + nArticulo);
+  obtenerConsultaCompras(cTipoCompra: string, dFechaInicio: string, dFechaFin: string, nCompra: number, nEmpresa: number, nProveedor: number, nAlmacen: number, nArticulo: number, cFactura: string): any {
+    return this.http.post(this.baseUrl + this.urlCompras + '/consulta/', {
+      cTipoCompra,
+      dFechaInicio,
+      dFechaFin,
+      nCompra,
+      nEmpresa,
+      nProveedor,
+      nAlmacen,
+      nArticulo,
+      cFactura
+    });
   }
   confirmarCompra(item: any): any {
 

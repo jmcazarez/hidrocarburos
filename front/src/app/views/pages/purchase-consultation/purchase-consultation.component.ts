@@ -38,7 +38,7 @@ export class PurchaseConsultationComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.form = new FormGroup({
       nCompra : new FormControl('', []),
-      cTipoCompra : new FormControl('N', []),
+      cTipoCompra : new FormControl('', []),
       cEmpresa : new FormControl({value: '', disabled: true}, []),
       nEmpresa : new FormControl('', []),
       nAlmacen : new FormControl('', []),
@@ -47,8 +47,8 @@ export class PurchaseConsultationComponent implements OnInit {
       cProveedor : new FormControl({ value: '', disabled: true }, []),
       nArticulo : new FormControl('', Validators.required),
       cArticulo : new FormControl({ value: '', disabled: true }, []),
-      dFechaInicio : new FormControl(dayjs().format('YYYY-MM-DD'), []),
-      dFechaFin : new FormControl(dayjs().format('YYYY-MM-DD'), []),
+      dFechaInicio : new FormControl('', []),
+      dFechaFin : new FormControl('', []),
     });
   }
 
@@ -276,13 +276,14 @@ export class PurchaseConsultationComponent implements OnInit {
     this.spinner.show();
     this.service.obtenerConsultaCompras(
       this.cTipoCompra,
-      new Date(this.dFechaInicio).toISOString().split('T')[0],
-      new Date(this.dFechaFin).toISOString().split('T')[0],
+      this.dFechaInicio ? new Date(this.dFechaInicio).toISOString().split('T')[0] : '',
+      this.dFechaFin ? new Date(this.dFechaFin).toISOString().split('T')[0] : '',
       this.nCompra ?? 0,
       this.nEmpresa ?? 0,
       this.nProveedor ?? 0,
       this.nAlmacen ?? 0,
-      this.nArticulo ?? 0
+      this.nArticulo ?? 0,
+      ''
     ).subscribe ( (resp: any) => {
       if (resp) {
         
@@ -298,15 +299,15 @@ export class PurchaseConsultationComponent implements OnInit {
 
   limpiar() {
     this.form.controls["nCompra"].setValue('');
-    this.form.controls["cTipoCompra"].setValue('N');
+    this.form.controls["cTipoCompra"].setValue('');
     this.form.controls["cEmpresa"].setValue('');
     this.form.controls["nEmpresa"].setValue('');
     this.form.controls["nAlmacen"].setValue('');
     this.form.controls["cAlmacen"].setValue('');
     this.form.controls["nProveedor"].setValue('');
     this.form.controls["cProveedor"].setValue('');
-    this.form.controls["dFechaInicio"].setValue(dayjs().format('YYYY-MM-DD'));
-    this.form.controls["dFechaFin"].setValue(dayjs().format('YYYY-MM-DD'));
+    this.form.controls["dFechaInicio"].setValue('');
+    this.form.controls["dFechaFin"].setValue('');
     this.form.controls["nArticulo"].setValue('');
     this.form.controls["cArticulo"].setValue('');
     this.compras = [];    

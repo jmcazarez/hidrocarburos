@@ -133,6 +133,7 @@
                   <th>Almacén</th>
                   <th>Artículo</th>
                   <th>Litros</th>
+                  <th>Costo por litro</th>
                   <th>Costo cruce</th>
                   <th>Costo factura</th>
                   <th>Costo flete</th>
@@ -148,6 +149,7 @@
                   <td>{{ item.cAlmacen }}</td>
                   <td>{{ item.cArticulo }}</td>
                   <td>{{ item.nLitrosCompra | number : '1.2-2' }}</td>
+                  <td>{{ item.nCostoLitro | currency }}</td>
                   <td>{{ item.nCostoCruce | currency  }}</td>
                   <td>{{ item.nCostoFactura | currency }}</td>
                   <td>{{ item.nCostoFlete | currency }}</td>

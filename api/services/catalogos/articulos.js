@@ -45,14 +45,14 @@ async function guardarArticulo(params) {
              CALL proc_guardar_articulo (
                 ${params.nArticulo},
                 '${params.cDescripcionCorta}',
-                '${params.cDescripcionLarga}'
+                '${params.cDescripcionLarga}',
+                '${params.nStockMinimo}'
             )
              `,
             {
                 type: QueryTypes.INSERT
             }
         );
-        console.log(data[0]);
 
         return {
             status: 200,

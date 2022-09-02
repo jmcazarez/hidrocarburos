@@ -44,13 +44,19 @@
                 <label class="form-label col-sm-5 col-form-label text-end">Descripción corta</label>
                 <div class="col-sm-7">
                   <input type="text" class="form-control form-control-sm" placeholder=""
-                    formControlName="cDescripcionCorta">
+                    formControlName="cDescripcionCorta" onfocus="this.select()">
                 </div>
 
                 <label class="form-label col-sm-5 col-form-label text-end">Descripción larga</label>
                 <div class="col-sm-7">
                   <input type="text" class="form-control form-control-sm" placeholder=""
-                    formControlName="cDescripcionLarga">
+                    formControlName="cDescripcionLarga" onfocus="this.select()">
+                </div>
+
+                <label class="form-label col-sm-5 col-form-label text-end">Stock mínimo</label>
+                <div class="col-sm-7">
+                  <input type="text"  class="form-control form-control-sm" currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }" placeholder=""
+                    formControlName="nStockMinimo" onfocus="this.select()">
                 </div>
               </div>
             </div>

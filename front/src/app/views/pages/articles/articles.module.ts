@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 /* import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators'; // <-- #2 import module
  */import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-
+ import { CurrencyMaskModule } from 'ng2-currency-mask';
 /* ---------- Components ---------- */
 import { ArticlesComponent } from './articles.component';
 import { BusquedaArticlesComponent } from './busqueda-articles/busqueda-articles.component';
@@ -23,6 +23,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     SharedModule,
+    CurrencyMaskModule,
    /*  RxReactiveFormsModule, */
     NgxDatatableModule.forRoot({
       messages: {

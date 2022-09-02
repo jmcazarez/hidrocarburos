@@ -24,6 +24,7 @@ export class ArticlesComponent implements OnInit {
       nArticulo: [{ value: '', disabled: true }],
       cDescripcionLarga: new FormControl('', Validators.required),
       cDescripcionCorta: new FormControl('', Validators.required),
+      nStockMinimo: new FormControl(0, Validators.required),
       bActivo: new FormControl(1),
     });
   }
@@ -45,13 +46,17 @@ export class ArticlesComponent implements OnInit {
     return this.form.get('cDescripcionCorta')?.value ?? '';
   }
 
+  get nStockMinimo(): string {
+    return this.form.get('nStockMinimo')?.value ?? '';
+  }
+
+
   async guardar(): Promise<void> {
     const objArticulo = {
       nArticulo: this.nArticulo,
       cDescripcionLarga: this.cDescripcionLarga,
       cDescripcionCorta: this.cDescripcionCorta,
-      bPersonaFisica: 1,
-
+      nStockMinimo: this.nStockMinimo
     };
 
     await this.service.guardarArticulo(objArticulo).subscribe(async (resp: any) => {
@@ -104,6 +109,7 @@ export class ArticlesComponent implements OnInit {
         const articulo = resp.data[0];
         this.form.controls["cDescripcionLarga"].setValue(articulo.cDescripcionLarga);
         this.form.controls["cDescripcionCorta"].setValue(articulo.cDescripcionCorta);
+        this.form.controls["nStockMinimo"].setValue(articulo.nStockMinimo);
       }
     }, (error: any) => {
 

@@ -93,6 +93,12 @@ const fleteras = require("./routes/catalogos/fleteras");
 // compras
 const compras = require("./routes/registros/compras");
 
+// empleados
+const empleados = require("./routes/catalogos/empleados");
+
+// ventas
+const ventas = require("./routes/registros/ventas");
+
 // rutas base
 
 app.use("/api/login", login);
@@ -112,5 +118,7 @@ app.use("/api/catalogos/cuentas_bancarias", cuentas_bancarias);
 app.use("/api/catalogos/choferes", chofer);
 app.use("/api/catalogos/fleteras", fleteras);
 app.use("/api/registros/compras", compras);
+app.use("/api/catalogos/empleados", empleados);
+app.use("/api/registros/ventas", ventas);
 
 module.exports = app;

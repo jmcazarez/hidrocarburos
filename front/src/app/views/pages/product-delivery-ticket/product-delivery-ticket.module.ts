@@ -6,6 +6,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 /* ---------- Components ---------- */
 import { ProductDeliveryTicketComponent } from './product-delivery-ticket.component';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     SharedModule,
+    CurrencyMaskModule,
   ]
 })
 export class ProductDeliveryTicketModule { }

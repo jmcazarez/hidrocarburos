@@ -25,111 +25,119 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Formulario de Ticket de Entrega de Producto</h6>
-        <form>
+        <form [formGroup]="form">
 
-          <div class="row  mt-4">
-            <div class="col-md">
+          <div class="row">
+            <div class="col-sm-6">
               <div class="row mb-3">
-                <label class="form-label col-sm-5 col-form-label text-end">Folio</label>
-                <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
+                <label class="form-label col-sm-3 col-form-label text-end">Folio</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nVenta">
                 </div>
               </div>
             </div>
-            <div class="col-md">
+
+            <!-- <div class="col-sm-5">
               <div class="row mb-3">
-                <label class="form-label col-sm-5 col-form-label text-end">Folio Venta</label>
+                <label class="form-label col-sm-5 col-form-label text-end">Folio venta</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
+                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cFolioExterno">
                 </div>
               </div>
-            </div>
-            <div class="col-md">
+            </div> -->
+            
+            <div class="col-sm-6">
               <div class="row mb-3">
-                <label class="form-label col-sm-5 col-form-label text-end">Factura</label>
-                <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
-                </div>
-              </div>
-            </div>
-            <div class="col-md">
-              <div class="row mb-3">
-                <label class="form-label col-sm-5 col-form-label text-end">Fecha</label>
-                <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
+                <label class="form-label col-sm-3 col-form-label text-end">Fecha</label>
+                <div class="col-sm-9">
+                  <input type="date" class="form-control form-control-sm" placeholder="" formControlName="dFechaVenta"
+                  [ngClass]="{'has-error': form.get('dFechaVenta')?.hasError('required')}"
+                  >
                 </div>
               </div>
             </div>
           </div>
 
           <div class="row">
-            <div class="col-sm-5">
+            <div class="col-sm-6">
 
               <div class="row">
 
-                <label class="form-label col-sm-5 col-form-label text-end">Origen</label>
-                <div class="col-sm-7">
+                <label class="form-label col-sm-3 col-form-label text-end">Origen</label>
+                <div class="col-sm-9">
                   <div class="input-group mb-1">
-                    <input type="text" class="form-control form-control-sm border-end-0">
+                    <input type="text" class="form-control form-control-sm" formControlName="cOrigen"
+                    [ngClass]="{'has-error': form.get('nOrigen')?.hasError('required')}"
+                    >
                     <span class="input-group-text border-start-0 bg-white">
-                      <i class="feather icon-search"></i>
+                      <i class="feather icon-search" (click)="openModalEmpresas(1)"></i>
                     </span>
                   </div>
                 </div>
-                <label class="form-label col-sm-5 col-form-label text-end">Vendedor</label>
-                <div class="col-sm-7">
+                <label class="form-label col-sm-3 col-form-label text-end">Vendedor</label>
+                <div class="col-sm-9">
                   <div class="input-group mb-1">
-                    <input type="text" class="form-control form-control-sm border-end-0">
+                    <input type="text" class="form-control form-control-sm" formControlName="cVendedor"
+                    [ngClass]="{'has-error': form.get('nVendedor')?.hasError('required')}"
+                    >
                     <span class="input-group-text border-start-0 bg-white">
-                      <i class="feather icon-search"></i>
+                      <i class="feather icon-search" (click)="openModalVendedores()"></i>
                     </span>
                   </div>
                 </div>
-                <label class="form-label col-sm-5 col-form-label text-end">Chofer</label>
-                <div class="col-sm-7">
+                <label class="form-label col-sm-3 col-form-label text-end">Chofer</label>
+                <div class="col-sm-9">
                   <div class="input-group mb-1">
-                    <input type="text" class="form-control form-control-sm border-end-0">
+                    <input type="text" class="form-control form-control-sm" formControlName="cChofer"
+                    [ngClass]="{'has-error': form.get('nChofer')?.hasError('required')}"
+                    >
                     <span class="input-group-text border-start-0 bg-white">
-                      <i class="feather icon-search"></i>
+                      <i class="feather icon-search" (click)="openModalChoferes()"></i>
                     </span>
                   </div>
                 </div>
-                <label class="form-label col-sm-5 col-form-label text-end">Equipo</label>
-                <div class="col-sm-7">
+                <label class="form-label col-sm-3 col-form-label text-end">Equipo</label>
+                <div class="col-sm-9">
                   <div class="input-group mb-1">
-                    <input type="text" class="form-control form-control-sm border-end-0">
-                    <span class="input-group-text border-start-0 bg-white">
+                    <input type="text" class="form-control form-control-sm" formControlName="cEquipo"
+                    [ngClass]="{'has-error': form.get('cEquipo')?.hasError('required')}"
+                    >
+                    <!-- <span class="input-group-text border-start-0 bg-white">
                       <i class="feather icon-search"></i>
-                    </span>
+                    </span> -->
                   </div>
                 </div>
 
 
-                <label class="form-label col-sm-5 col-form-label text-end">Placas</label>
-                <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
+                <label class="form-label col-sm-3 col-form-label text-end">Placa</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cPlaca"
+                  [ngClass]="{'has-error': form.get('cPlaca')?.hasError('required')}"
+                  >
                 </div>
               </div>
             </div>
 
-            <div class="col-sm-2"></div>
-
-            <div class="col-sm-5">
+            <div class="col-sm-6">
               <div class="row">
 
-                <label class="form-label col-sm-5 col-form-label text-end">Destino</label>
-                <div class="col-sm-7">
+                <label class="form-label col-sm-3 col-form-label text-end">Destino</label>
+                <div class="col-sm-9">
                   <div class="input-group mb-1">
-                    <input type="text" class="form-control form-control-sm border-end-0">
+                    <input type="text" class="form-control form-control-sm" formControlName="cDestino"
+                    [ngClass]="{'has-error': form.get('nDestino')?.hasError('required')}"
+                    >
                     <span class="input-group-text border-start-0 bg-white">
-                      <i class="feather icon-search"></i>
+                      <i class="feather icon-search" (click)="openModalClientes()"></i>
                     </span>
                   </div>
                 </div>
 
-                <label class="form-label col-sm-5 col-form-label text-end">Encargado</label>
-                <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
+                <label class="form-label col-sm-3 col-form-label text-end">Encargado</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="cEncargado"
+                  [ngClass]="{'has-error': form.get('cEncargado')?.hasError('required')}"
+                  >
                 </div>
 
               </div>
@@ -137,46 +145,75 @@
           </div>
 
           <div class="row mt-4">
-            <div class="col-sm-5">
+            <div class="col-sm-6">
 
               <div class="row">
 
-                <label class="form-label col-sm-5 col-form-label text-end">Producto</label>
-                <div class="col-sm-7">
+                <label class="form-label col-sm-3 col-form-label text-end">Producto</label>
+                <div class="col-sm-9">
                   <div class="input-group mb-1">
-                    <input type="text" class="form-control form-control-sm border-end-0">
+                    <input type="text" class="form-control form-control-sm" formControlName="cArticulo"
+                    [ngClass]="{'has-error': form.get('nArticulo')?.hasError('required')}"
+                    >
                     <span class="input-group-text border-start-0 bg-white">
-                      <i class="feather icon-search"></i>
+                      <i class="feather icon-search" (click)="openModalArticulos()"></i>
                     </span>
                   </div>
                 </div>
 
-                <label class="form-label col-sm-5 col-form-label text-end">Cantidada Env (Lts)</label>
-                <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
+                <label class="form-label col-sm-3 col-form-label text-end">Cantidad Env (lts)</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nCantidadEnviada" 
+                  currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"
+                  onfocus="this.select()"
+                  (blur)="calcularTotal()"
+                  [ngClass]="{'has-error': form.get('nCantidadEnviada')?.hasError('required')}"
+                >
                 </div>
 
-                <label class="form-label col-sm-5 col-form-label text-end">Cantidada Rec (Lts)</label>
-                <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
+                <label class="form-label col-sm-3 col-form-label text-end">Cantidad Rec (lts)</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nCantidadRecibida"
+                  currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"
+                  onfocus="this.select()"
+                  [ngClass]="{'has-error': form.get('nCantidadRecibida')?.hasError('required')}"
+                  >
                 </div>
 
-                <label class="form-label col-sm-5 col-form-label text-end">Total a Pagar</label>
-                <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
+                <label class="form-label col-sm-3 col-form-label text-end">Costo litro</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nCostoLitro" 
+                  currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"
+                  onfocus="this.select()"
+                  (blur)="calcularTotal()"
+                  [ngClass]="{'has-error': form.get('nCostoLitro')?.hasError('required')}"
+                  >
                 </div>
 
-                <label class="form-label col-sm-5 col-form-label text-end">Anticipo</label>
-                <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
+                <label class="form-label col-sm-3 col-form-label text-end">Total a pagar</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nTotal"
+                  currencyMask [options]="{ prefix: '$', thousands: ',', decimal: '.', precision: 2 }"
+                  >
                 </div>
 
-                <label class="form-label col-sm-5 col-form-label text-end">Forma de Pago</label>
-                <div class="col-sm-7">
+                <label class="form-label col-sm-3 col-form-label text-end">Anticipo</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nAnticipo"
+                  currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"
+                  onfocus="this.select()"
+                  [ngClass]="{'has-error': form.get('nAnticipo')?.hasError('required')}"
+                  >
+                </div>
+
+                <label class="form-label col-sm-3 col-form-label text-end">Forma de pago</label>
+                <div class="col-sm-9">
                   <div class="input-group mb-1">
-                    <input type="text" class="form-control form-control-sm border-end-0">
+                    <input type="text" class="form-control form-control-sm" formControlName="cFormaPago"
+                    [ngClass]="{'has-error': form.get('nFormaPago')?.hasError('required')}"
+                    >
                     <span class="input-group-text border-start-0 bg-white">
-                      <i class="feather icon-search"></i>
+                      <i class="feather icon-search" (click)="openModalFormasPago()"></i>
                     </span>
                   </div>
                 </div>
@@ -184,13 +221,13 @@
               </div>
             </div>
 
-            <div class="col-sm-2"></div>
-
-            <div class="col-sm-5">
+            <div class="col-sm-6">
               <div class="row">
-                <label class="form-label col-sm-5 col-form-label text-end">Observaciones</label>
-                <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" placeholder="">
+                <label class="form-label col-sm-3 col-form-label text-end">Observaciones</label>
+                <div class="col-sm-9">
+                  <textarea class="form-control form-control-sm" formControlName="cObservaciones" [rows]="5" [maxLength]="1000">
+
+                  </textarea>
                 </div>
 
               </div>
@@ -204,33 +241,41 @@
             <thead>
               <tr>
                 <th>Folio</th>
-                <th>Folio Venta</th>
-                <th>No. Factura</th>
-                <th>Fecha Envío</th>
-                <th>Código</th>
-                <th>Artículo</th>
-                <th>Descripción</th>
-                <th>Unidad</th>
-                <th>C. Enviada</th>
-                <th>C. Recibida</th>
-                <th>Pagado</th>
-                <th>Forma Pago</th>
+                <th>Fecha</th>
+                <th>Valor</th>
+                <th>Origen</th>
+                <th>Destino</th>
+                <th>Vendedor</th>
+                <th>Chofer</th>
+                <th>Equipo</th>
+                <th>Placa</th>
+                <th>Producto</th>
+                <th>Cant. enviada</th>
+                <th>Cant. recibida</th>
+                <th>Costo litro</th>
+                <th>Forma de pago</th>
+                <th>Anticipo</th>
                 <th>Saldo</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <tr *ngFor="let item of ventas">
+                <td>{{ item.nVenta }}</td>
+                <td>{{ item.cFechaVenta }}</td>
+                <td>{{ item.nTotal | currency }}</td>
+                <td>{{ item.cOrigen }}</td>
+                <td>{{ item.cDestino }}</td>
+                <td>{{ item.cVendedor }}</td>
+                <td>{{ item.cChofer }}</td>
+                <td>{{ item.cEquipo }}</td>
+                <td>{{ item.cPlaca }}</td>
+                <td>{{ item.cArticulo }}</td>
+                <td>{{ item.nCantidadEnviada | number : '1.2-2' }}</td>
+                <td>{{ item.nCantidadRecibida | number : '1.2-2' }}</td>
+                <td>{{ item.nCostoLitro | currency }}</td>
+                <td>{{ item.cFormaPago }}</td>
+                <td>{{ item.nAnticipo | currency }}</td>
+                <td>{{ item.nTotal - item.nAnticipo | currency }}</td>
               </tr>
 
             </tbody>
@@ -238,9 +283,9 @@
         </div>
 
         <div class="d-flex justify-content-end my-4">
-          <button type="button" class="btn btn-warning mx-2">Limpiar</button>
-          <button type="button" class="btn btn-dark mx-2">Cancelar</button>
-          <button type="button" class="btn btn-primary mx-2">Guardar</button>
+          <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
+          <!-- <button type="button" class="btn btn-dark mx-2">Cancelar</button> -->
+          <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid"  (click)="guardar()">Guardar</button>
         </div>
       </div>
     </div>

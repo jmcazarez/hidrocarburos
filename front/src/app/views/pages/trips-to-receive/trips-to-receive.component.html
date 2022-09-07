@@ -7,7 +7,7 @@
 </nav>
 
 <!-- ---------- Section description ---------- -->
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
@@ -16,7 +16,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- ---------- Form ---------- -->
 <div class="row">
@@ -56,20 +56,21 @@
             </thead>
 
           </table> -->
-<!--
+
           <input type='text' matInput placeholder='Buscar' (keyup)='filterDatatable($event)'
             [(ngModel)]="valueBuscador">
-          <label *ngFor="let m of estatus;let i=index">
-            {{m.cEstatus}}
+          
+          <label *ngFor="let m of estatus;let i=index">           
+           <b> {{m.cEstatus}}</b>
             <input type="checkbox" [checked]="m.status" [(ngModel)]="m.status"
               (change)="changeStatus(m.nEstatus,$event)">
-          </label> -->
+          </label> 
 
           <ngx-datatable class="material shadow-none striped table table-bordered" [rows]="data"
             [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
             [rowHeight]="'auto'" [limit]="10" [scrollbarH]="true"
             [sorts]="[{prop: 'dFechaCompra', dir: 'asc'},{prop: 'cEmpresa', dir: 'asc'},{prop: 'cProveedor', dir: 'asc'},{prop: 'cArticulo', dir: 'asc'}]">
-            <ngx-datatable-column name="Mercado" prop="cTipoCompraLarga" [width]="110"></ngx-datatable-column>
+            <ngx-datatable-column name="Mercado" prop="cTipoCompraLarga" [width]="120"></ngx-datatable-column>
             <ngx-datatable-column name="Comprador" prop="cEmpresa"></ngx-datatable-column>
             <ngx-datatable-column name="Almacén destino" prop="cAlmacen"></ngx-datatable-column>
             <ngx-datatable-column name="Proveedor" prop="cProveedor"></ngx-datatable-column>
@@ -96,7 +97,7 @@
                 {{value | number : '1.2-2'}}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Costo total" prop="nCostoTotal" [width]="120">
+            <ngx-datatable-column name="Costo total" prop="nCostoTotal" [width]="150">
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 {{value | currency}}
               </ng-template>

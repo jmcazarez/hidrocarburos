@@ -108,25 +108,21 @@ export class TripsToReceiveComponent implements OnInit {
     }
   }
   async onChange(row: any) {
+    let estatusAnterior = row.nEstatus;
     if (row.nEstatus == 3) {
-
       const modalRef = this.modalService.open(ConfirmacionRecepcionPedidosComponent, {
         centered: true,
         backdrop: 'static',
         keyboard: false,
         modalDialogClass: 'dialog-formulario-chico',
-
       });
-
       modalRef.componentInstance.compra = row;
-
       modalRef.closed.subscribe(
         value => {
           if (value) {
             row = value;
           }
           // this.enfocarBotonNuevaVenta()
-
         }
       );
     } else if (row.nEstatus == 4) {
@@ -142,31 +138,39 @@ export class TripsToReceiveComponent implements OnInit {
           }, (error: any) => {
             this.util.dialogError('Error al actualizar la compra.');
           });
+        } else {
+          row.nEstatus = estatusAnterior
         }
       });
     } else {
-      await this.service.actualizarEstatusCompra({
-        nCompra: row.nCompra,
-        nEstatus: row.nEstatus,
-      }).subscribe(async (resp: any) => {
-        if (resp) {
+      this.util.dialogConfirm('¿Está seguro que desea actualizar la compra?').then(async (result) => {
+        if (result.isConfirmed) {
+          await this.service.actualizarEstatusCompra({
+            nCompra: row.nCompra,
+            nEstatus: row.nEstatus,
+          }).subscribe(async (resp: any) => {
+            if (resp) {
+            }
+          }, (error: any) => {
+            this.util.dialogError('Error al actualizar la compra.');
+          });
         }
-      }, (error: any) => {
-        this.util.dialogError('Error al actualizar la compra.');
       });
     }
 
   }
 
   changeStatus(nEstatus: any, event: any) {
-    console.log(this.estatus);
-    const temp = this.dataTemp.filter((d) =>
-    String(d.nEstatus).toLowerCase().indexOf('1') !== - 1
-    || String(d.nEstatus).toLowerCase().indexOf('2') !== - 1
-  );
-  this.data = [...temp];
+    let arraFiltrado: any = [];
+    for (const key of this.estatus) {
+      if (key.status) {
+        let lea: any = this.dataTemp.filter((d) => {    
+         return String(d.nEstatus).toLowerCase().indexOf(String(key.nEstatus)) !== - 1    
+        });
+        console.log(lea);
+        arraFiltrado = [ ...arraFiltrado, ...lea];
+      }
+    }
+    this.data = arraFiltrado;
   }
-
-
-
 }

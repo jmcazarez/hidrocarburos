@@ -187,6 +187,7 @@ async function obtenerConsultaCompras(params) {
 async function confirmarCompra(params) {
 
     try {
+        console.log(params.dFechaRecepcion);
         let data = await sequelize.query(
             `
              CALL proc_confirmacion_compra(
@@ -211,7 +212,7 @@ async function confirmarCompra(params) {
         console.log(err);
         return {
             status: 400,
-            error: 'Error al obtener las compras.',
+            error: 'Error al confirmar la compra.',
             data: [],
         };
     }

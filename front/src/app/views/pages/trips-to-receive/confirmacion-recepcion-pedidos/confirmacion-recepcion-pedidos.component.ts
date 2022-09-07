@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ComprasService } from 'src/services/compras.service';
 import { UtilsService } from 'src/services/utils.service';
+import * as dayjs from 'dayjs';
 @Component({
   selector: 'app-confirmacion-recepcion-pedidos',
   templateUrl: './confirmacion-recepcion-pedidos.component.html',
@@ -17,6 +18,7 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
   valueBuscador = '';
   selectedRow: any;
   form: FormGroup;
+  maxDate = new Date();
   @Input() public compra: any;
   constructor(public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
@@ -28,14 +30,15 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
   ngOnInit(): void {
     this.dataTemp = [];
     this.data = [];
-
-    let today = new Date().toISOString().split('T')[0];
+    
+    let today = dayjs(new Date().toISOString().split('T')[0]).format('YYYY-MM-DD') //new Date().toISOString().split('T')[0];
+ 
+    console.log(today);
     this.form = this.formBuilder.group({
       nLitrosComprados: [{ value: this.compra.nlitrosComprados, disabled: true }, Validators.required],
       nLitrosRecibidos: [0.00, [Validators.required, Validators.min(0.01)]],
       dFechaRecepcion : [today],
     });
-    console.log(this.form);
   }
 
   get nLitrosComprados(): number {
@@ -56,17 +59,15 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
     if (this.nLitrosRecibidos > this.nLitrosComprados) {
       this.util.dialogError('La cantidad de litros recibidos no puede ser mayor a los litros comprados.');
     } else {
-      console.log(this.dFechaRecepcion);
         await this.service.confirmarCompra({
           nCompra : this.compra.nCompra,
-          nLitrosRecepcion : this.nLitrosRecibidos,
+          nLitrosRecepcion : this.nLitrosRecibidos, 
           dFechaRecepcion : new Date(this.dFechaRecepcion).toISOString().split('T')[0]
         }).subscribe ( async (resp: any) => {
           if (resp) {
             this.util.dialogSuccess('Compra guardada correctamente.');
             this.compra.nLitrosRecibidos = this.nLitrosRecibidos;
             this.compra.nEstatus = 3;
-
             this.activeModal.close(this.compra);
           }
         }, (error: any) => {

@@ -38,7 +38,8 @@
                   <div class="col-sm-4">
                     <div class="input-group">
                       <input type="date" class="form-control form-control-sm  justify-content-center"  id="dFechaRecepcion"
-                      onfocus="this.select()" formControlName="dFechaRecepcion">
+                      onfocus="this.select()" formControlName="dFechaRecepcion" max="{{maxDate | date:'yyyy-MM-dd'}}">
+                      
                     </div>
                   </div>
                 </div>

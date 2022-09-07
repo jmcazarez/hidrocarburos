@@ -32,7 +32,7 @@
                 </div>
               </div>
             </div> -->
-            
+
             <div class="col-sm-6">
               <div class="row mb-3">
                 <label class="form-label col-sm-3 col-form-label text-end">Fecha</label>
@@ -150,7 +150,7 @@
 
                 <label class="form-label col-sm-3 col-form-label text-end">Cantidad Env (lts)</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nCantidadEnviada" 
+                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nCantidadEnviada"
                   currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"
                   onfocus="this.select()"
                   (blur)="calcularTotal(); this.form.get('nCantidadRecibida')?.setValue(this.form.get('nCantidadEnviada')?.value);"
@@ -169,7 +169,7 @@
 
                 <label class="form-label col-sm-3 col-form-label text-end">Costo litro</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nCostoLitro" 
+                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nCostoLitro"
                   currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"
                   onfocus="this.select()"
                   (blur)="calcularTotal()"
@@ -256,12 +256,12 @@
                 <td>{{ item.cEquipo }}</td>
                 <td>{{ item.cPlaca }}</td>
                 <td>{{ item.cArticulo }}</td>
-                <td>{{ item.nCantidadEnviada | number : '1.2-2' }}</td>
-                <td>{{ item.nCantidadRecibida | number : '1.2-2' }}</td>
-                <td>{{ item.nCostoLitro | currency }}</td>
-                <td>{{ item.nTotal | currency }}</td>
-                <td>{{ item.nAnticipo | currency }}</td>
-                <td>{{ item.nTotal - item.nAnticipo | currency }}</td>
+                <td class="text-end">{{ item.nCantidadEnviada | number : '1.2-2' }}</td>
+                <td class="text-end">{{ item.nCantidadRecibida | number : '1.2-2' }}</td>
+                <td class="text-end">{{ item.nCostoLitro | currency }}</td>
+                <td class="text-end">{{ item.nTotal | currency }}</td>
+                <td class="text-end">{{ item.nAnticipo | currency }}</td>
+                <td class="text-end">{{ item.nTotal - item.nAnticipo | currency }}</td>
                 <td>{{ item.cFormaPago }}</td>
               </tr>
 

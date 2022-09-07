@@ -14,9 +14,9 @@
         <h6 class="card-title">Formulario de Compra vs Recepción</h6>
         <form [formGroup]="form">
             <div class="row mt-4">
-              <div class="col-sm-5">            
+              <div class="col-sm-5">
                 <div class="row">
-            
+
                   <label class="form-label col-sm-3 col-form-label text-end">Folio compra</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
@@ -47,14 +47,14 @@
                   <label class="form-label col-sm-3 col-form-label text-end">Factura</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
-                      <input type="text" class="form-control form-control-sm" formControlName="cFactura">      
+                      <input type="text" class="form-control form-control-sm" formControlName="cFactura">
                     </div>
                   </div>
                 </div>
               </div>
-            
+
               <div class="col-sm-2"></div>
-            
+
               <div class="col-sm-5">
                 <div class="row">
                   <label class="form-label col-sm-5 col-form-label text-end">Desde</label>
@@ -66,7 +66,7 @@
                   <div class="col-sm-7">
                     <input type="date" class="form-control form-control-sm" formControlName="dFechaFin">
                   </div>
-            
+
                 </div>
               </div>
             </div>
@@ -76,7 +76,7 @@
             <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
               <button type="button" class="btn btn-primary mx-2" (click)="consultar()">Consultar</button>
           </div>
-          
+
         <div class="table-responsive my-5">
           <table class="table table-bordered">
             <thead>
@@ -88,8 +88,8 @@
                 <th>Articulo</th>
                 <th>Unidad</th>
                 <th>C. Enviada</th>
-                <th>Recibida</th> 
-                <th>Diferencia</th> 
+                <th>Recibida</th>
+                <th>Diferencia</th>
               </tr>
             </thead>
             <tbody *ngFor="let item of compras">
@@ -100,17 +100,17 @@
                 <td>{{ formatoFecha(item.dFechaRecepcion) }}</td>
                 <td>{{ item.cArticulo }}</td>
                 <td>Litros</td>
-                <td>{{ item.nLitrosCompra | number : '1.2-2' }}</td>
-                <td>{{ item.nLitrosRecepcion | number : '1.2-2' }}</td>
-                <td>{{ item.nLitrosCompra - item.nLitrosRecepcion | number : '1.2-2' }}</td>
+                <td class="text-end">{{ item.nLitrosCompra | number : '1.2-2' }}</td>
+                <td class="text-end">{{ item.nLitrosRecepcion | number : '1.2-2' }}</td>
+                <td class="text-end">{{ item.nLitrosCompra - item.nLitrosRecepcion | number : '1.2-2' }}</td>
               </tr>
-        
-              
+
+
             </tbody>
           </table>
         </div>
 
-       
+
       </div>
     </div>
   </div>

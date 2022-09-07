@@ -6,18 +6,6 @@
   </ol>
 </nav>
 
-<!-- ---------- Section description ---------- -->
-<div class="row">
-  <div class="col-md-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Cantidad Comprada vs Cantidad Recibida</h4>
-        <p class="text-muted">Sección dedicada para Cantidad Comprada vs Cantidad Recibida en el sistema, recuerda llenar todos los campos requeridos y asi podras guardar la información.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- ---------- Form ---------- -->
 <div class="row">
   <div class="col-md-12 stretch-card">
@@ -101,6 +89,7 @@
                 <th>Unidad</th>
                 <th>C. Enviada</th>
                 <th>Recibida</th> 
+                <th>Diferencia</th> 
               </tr>
             </thead>
             <tbody *ngFor="let item of compras">
@@ -113,6 +102,7 @@
                 <td>Litros</td>
                 <td>{{ item.nLitrosCompra | number : '1.2-2' }}</td>
                 <td>{{ item.nLitrosRecepcion | number : '1.2-2' }}</td>
+                <td>{{ item.nLitrosCompra - item.nLitrosRecepcion | number : '1.2-2' }}</td>
               </tr>
         
               

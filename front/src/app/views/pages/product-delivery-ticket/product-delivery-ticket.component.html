@@ -6,19 +6,6 @@
   </ol>
 </nav>
 
-<!-- ---------- Section description ---------- -->
-<div class="row">
-  <div class="col-md-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Ticket de Entrega de Producto</h4>
-        <p class="text-muted">Sección dedicada para Ticket de Entrega de Producto en el sistema, recuerda llenar todos
-          los campos requeridos y asi podras guardar la información.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- ---------- Form ---------- -->
 <div class="row">
   <div class="col-md-12 stretch-card">
@@ -166,7 +153,7 @@
                   <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nCantidadEnviada" 
                   currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"
                   onfocus="this.select()"
-                  (blur)="calcularTotal()"
+                  (blur)="calcularTotal(); this.form.get('nCantidadRecibida')?.setValue(this.form.get('nCantidadEnviada')?.value);"
                   [ngClass]="{'has-error': form.get('nCantidadEnviada')?.hasError('required')}"
                 >
                 </div>
@@ -242,7 +229,6 @@
               <tr>
                 <th>Folio</th>
                 <th>Fecha</th>
-                <th>Valor</th>
                 <th>Origen</th>
                 <th>Destino</th>
                 <th>Vendedor</th>
@@ -253,16 +239,16 @@
                 <th>Cant. enviada</th>
                 <th>Cant. recibida</th>
                 <th>Costo litro</th>
-                <th>Forma de pago</th>
+                <th>Valor</th>
                 <th>Anticipo</th>
                 <th>Saldo</th>
+                <th>Forma de pago</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of ventas">
                 <td>{{ item.nVenta }}</td>
                 <td>{{ item.cFechaVenta }}</td>
-                <td>{{ item.nTotal | currency }}</td>
                 <td>{{ item.cOrigen }}</td>
                 <td>{{ item.cDestino }}</td>
                 <td>{{ item.cVendedor }}</td>
@@ -273,9 +259,10 @@
                 <td>{{ item.nCantidadEnviada | number : '1.2-2' }}</td>
                 <td>{{ item.nCantidadRecibida | number : '1.2-2' }}</td>
                 <td>{{ item.nCostoLitro | currency }}</td>
-                <td>{{ item.cFormaPago }}</td>
+                <td>{{ item.nTotal | currency }}</td>
                 <td>{{ item.nAnticipo | currency }}</td>
                 <td>{{ item.nTotal - item.nAnticipo | currency }}</td>
+                <td>{{ item.cFormaPago }}</td>
               </tr>
 
             </tbody>

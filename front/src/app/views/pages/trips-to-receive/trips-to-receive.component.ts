@@ -70,10 +70,10 @@ export class TripsToReceiveComponent implements OnInit {
           nCostoTotal: compra.nCostoTotal,
           nLitrosRecibidos: compra.nLitrosRecepcion,
           nEstatus: compra.nEstatus,
-          cArticulo: compra.cArticulo
+          cArticulo: compra.cArticulo,
+          nEstatusOriginal :  compra.nEstatus
         })
       }
-
 
       this.dataTemp = [...comprasTemp];
       const temp = this.dataTemp.filter((d) =>
@@ -108,7 +108,6 @@ export class TripsToReceiveComponent implements OnInit {
     }
   }
   async onChange(row: any) {
-    let estatusAnterior = row.nEstatus;
     if (row.nEstatus == 3) {
       const modalRef = this.modalService.open(ConfirmacionRecepcionPedidosComponent, {
         centered: true,
@@ -118,9 +117,11 @@ export class TripsToReceiveComponent implements OnInit {
       });
       modalRef.componentInstance.compra = row;
       modalRef.closed.subscribe(
-        value => {
-          if (value) {
+        value => {       
+          if (value.nEstatus) {
             row = value;
+          }  else {
+            row.nEstatus = row.nEstatusOriginal;
           }
           // this.enfocarBotonNuevaVenta()
         }
@@ -139,7 +140,7 @@ export class TripsToReceiveComponent implements OnInit {
             this.util.dialogError('Error al actualizar la compra.');
           });
         } else {
-          row.nEstatus = estatusAnterior
+          row.nEstatus = row.nEstatusOriginal;
         }
       });
     } else {
@@ -154,20 +155,25 @@ export class TripsToReceiveComponent implements OnInit {
           }, (error: any) => {
             this.util.dialogError('Error al actualizar la compra.');
           });
+        }  else {
+          row.nEstatus = row.nEstatusOriginal;          
         }
       });
     }
-
+    this.filerWithStatus();
   }
 
   changeStatus(nEstatus: any, event: any) {
+    this.filerWithStatus();
+  }
+
+  filerWithStatus(){
     let arraFiltrado: any = [];
     for (const key of this.estatus) {
       if (key.status) {
         let lea: any = this.dataTemp.filter((d) => {    
          return String(d.nEstatus).toLowerCase().indexOf(String(key.nEstatus)) !== - 1    
         });
-        console.log(lea);
         arraFiltrado = [ ...arraFiltrado, ...lea];
       }
     }

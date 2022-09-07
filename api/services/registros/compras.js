@@ -158,7 +158,7 @@ async function obtenerConsultaCompras(params) {
                  ${params.nProveedor},
                  ${params.nAlmacen},
                  ${params.nArticulo},
-                 '${params.cFactura || '' }'
+                 '${params.cFactura || ''}'
             )
              `,
             {
@@ -187,7 +187,14 @@ async function obtenerConsultaCompras(params) {
 async function confirmarCompra(params) {
 
     try {
-        console.log(params.dFechaRecepcion);
+        console.log(`
+        CALL proc_confirmacion_compra(
+            ${params.nCompra},
+            ${params.nLitrosRecepcion},
+            '${params.dFechaRecepcion}'
+       )
+        `);
+
         let data = await sequelize.query(
             `
              CALL proc_confirmacion_compra(
@@ -200,7 +207,14 @@ async function confirmarCompra(params) {
                 type: QueryTypes.RAW
             }
         );
-
+        if (!data) {
+            return {
+                status: 300,
+                error: 'Error al confirmar la recepción de la compra',
+                data: [],
+            }
+        }
+        console.log(data);
         return {
             status: 200,
             error: '',

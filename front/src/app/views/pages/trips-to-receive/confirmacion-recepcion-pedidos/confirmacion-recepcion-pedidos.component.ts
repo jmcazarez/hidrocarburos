@@ -36,7 +36,7 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
     console.log(today);
     this.form = this.formBuilder.group({
       nLitrosComprados: [{ value: this.compra.nlitrosComprados, disabled: true }, Validators.required],
-      nLitrosRecibidos: [0.00, [Validators.required, Validators.min(0.01)]],
+      nLitrosRecibidos: [this.compra.nlitrosComprados, [Validators.required, Validators.min(0.01)]],
       dFechaRecepcion : [today],
     });
   }

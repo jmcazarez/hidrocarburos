@@ -59,12 +59,12 @@
 
           <input type='text' matInput placeholder='Buscar' (keyup)='filterDatatable($event)'
             [(ngModel)]="valueBuscador">
-          
-          <label *ngFor="let m of estatus;let i=index">           
-           <b> {{m.cEstatus}}</b>
+
+          <label *ngFor="let m of estatus;let i=index" style="padding: 10px;">
+            <b> {{ m.cEstatus }} </b>
             <input type="checkbox" [checked]="m.status" [(ngModel)]="m.status"
               (change)="changeStatus(m.nEstatus,$event)">
-          </label> 
+          </label>
 
           <ngx-datatable class="material shadow-none striped table table-bordered" [rows]="data"
             [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
@@ -107,10 +107,9 @@
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 <select class="form-control form-control-sm" style="z-index:1000" [(ngModel)]="row.nEstatus"
                   [disabled]="row.nEstatus === 3 || row.nEstatus === 4" (change)="onChange(row)">
-                  <option [value]="'1'">En Tránsito</option>
-                  <option [value]="'2'">En Aduana</option>
-                  <option [value]="'3'">Recibido</option>
-                  <option [value]="'4'">Cancelado</option>
+                  <option *ngFor="let banco of estatus" value="{{ banco.nEstatus }}"> {{ banco.cEstatus }}
+                  </option>
+
                 </select>
               </ng-template>
             </ngx-datatable-column>

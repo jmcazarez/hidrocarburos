@@ -61,7 +61,8 @@ async function guardarProveedor(params) {
                 '${params.cPais}',
                 '${params.cNumeroExterior}',
                 '${params.cNumeroInterior}',
-                '${params.cSexo}'
+                '${params.cSexo}',
+                '${params.bNacional}'
 
              )
              `,

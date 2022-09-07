@@ -27,6 +27,7 @@ export class ProvidersComponent implements OnInit {
     this.form = this.formBuilder.group({
       nProveedor: new FormControl({ value: '', disabled: true }, []),
       bPersonaFisica: new FormControl(1, Validators.required),
+      bNacional: new FormControl(1, Validators.required),
       cNombreComercial: new FormControl('', Validators.required),
       cRazonSocial: new FormControl('', Validators.required),
       cNombre: new FormControl('', Validators.required),
@@ -69,7 +70,9 @@ export class ProvidersComponent implements OnInit {
     return this.form.get('bPersonaFisica')?.value ?? 0;
   }
 
-
+  get bNacional(): number {  
+    return this.form.get('bNacional')?.value ?? 1;
+  }
   get cRazonSocial(): string {
     return this.form.get('cRazonSocial')?.value ?? '';
   }
@@ -171,7 +174,8 @@ export class ProvidersComponent implements OnInit {
         cPais: this.cPais,
         cNumeroExterior: this.cNumeroExterior,
         cNumeroInterior: this.cNumeroInterior,
-        cSexo: this.cSexo
+        cSexo: this.cSexo,
+        bNacional: this.bNacional
     };
 
     await this.service.guardarProveedor(objProveedor).subscribe(async (resp: any) => {
@@ -267,6 +271,8 @@ export class ProvidersComponent implements OnInit {
         this.form.controls["cNumeroExterior"].setValue(proveedor.cNumeroExterior);
         this.form.controls["cNumeroInterior"].setValue(proveedor.cNumeroInterior);
         this.form.controls["cCorreoElectronico"].setValue(proveedor.cCorreoElectronico);
+        this.form.controls["bNacional"].setValue(proveedor.bNacional);
+        
       }
     }, (error: any) => {
 

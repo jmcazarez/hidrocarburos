@@ -46,7 +46,8 @@ async function guardarArticulo(params) {
                 ${params.nArticulo},
                 '${params.cDescripcionCorta}',
                 '${params.cDescripcionLarga}',
-                '${params.nStockMinimo}'
+                '${params.nStockMinimo}',
+                '${params.bNacional}'
             )
              `,
             {

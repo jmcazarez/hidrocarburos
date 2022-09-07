@@ -36,7 +36,7 @@
               </span>
             </div>
           </div>
-          <div class="my-4">
+          <div class="my-5">
             <div class="form-check form-check-inline">
               <input type="radio" class="form-check-input" id="nTipoFisica" checked formControlName="bPersonaFisica"
                 [value]="1">
@@ -44,18 +44,37 @@
                 Fisica
               </label>
             </div>
-            <div class="form-check form-check-inline">
+            
+            <div class="form-check form-check-inline">             
               <input type="radio" class="form-check-input" id="nTipoMoral" formControlName="bPersonaFisica" [value]="0">
               <label class="form-check-label" for="radioInline1">
                 Moral
+              </label>
+            </div>
+            <label class="form-label col-sm-1 col-form-label text-end"></label>
+            <div class="form-check form-check-inline">            
+              <input type="radio" class="form-check-input" checked formControlName="bNacional" [value]="1">
+              <label class="form-check-label" for="radioInline">
+                Nacional
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" formControlName="bNacional" [value]="0">
+              <label class="form-check-label" for="radioInline1">
+                Extranajero
               </label>
             </div>
 
             <p class="error p-0 mt-1 mb-1" *ngIf="form.get('nTipo')?.hasError('required')">
               *Obligatorio.
             </p>
+                       
+
           </div>
 
+          <div class="my-2">
+
+          </div>
           <div class="row">
 
 
@@ -86,10 +105,12 @@
                 </div>
               </div> -->
 
+
                 <div class="col">
                   <div class="mb-3">
                     <label class="form-label">RFC</label>
-                    <input type="text" class="form-control form-control-sm" formControlName="cRFC" maxlength="13"  [ngClass]="{'has-error': form.get('cRFC')?.hasError('required')}">
+                    <input type="text" class="form-control form-control-sm" formControlName="cRFC" maxlength="13"
+                      [ngClass]="{'has-error': form.get('cRFC')?.hasError('required')}">
                     <p class="error p-0 mt-1 mb-1" *ngIf="form.get('cRFC')?.hasError('pattern')">
                       El campo no es un RFC válido.
                     </p>
@@ -100,7 +121,8 @@
                   <div class="mb-3">
                     <label class="form-label">Razón Social</label>
                     <input type="text" class="form-control form-control-sm" formControlName="cRazonSocial"
-                      maxlength="100" placeholder=""  [ngClass]="{'has-error': form.get('cRazonSocial')?.hasError('required')}">
+                      maxlength="100" placeholder=""
+                      [ngClass]="{'has-error': form.get('cRazonSocial')?.hasError('required')}">
 
                   </div>
                 </div>
@@ -160,6 +182,7 @@
                     </p>
                   </div>
                 </div>
+
 
                 <!-- <div class="col">
                 <div class="mb-3">

@@ -55,9 +55,21 @@
 
                 <label class="form-label col-sm-5 col-form-label text-end">Stock mínimo</label>
                 <div class="col-sm-7">
-                  <input type="text"  class="form-control form-control-sm" currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }" placeholder=""
+                  <input type="text" class="form-control form-control-sm" currencyMask
+                    [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }" placeholder=""
                     formControlName="nStockMinimo" onfocus="this.select()">
                 </div>
+                <label class="form-label col-sm-5 col-form-label text-end">Origen:</label>
+                <div class="col-sm-7">
+                  <input type="radio" class="form-check-input" checked formControlName="bNacional" [value]="1">
+                  <label class="form-check-label" for="radioInline">
+                    Nacional
+                  </label>
+                  <input type="radio" class="form-check-input" formControlName="bNacional" [value]="0">
+                  <label class="form-check-label" for="radioInline1">
+                    Importado
+                  </label>
+                </div>                               
               </div>
             </div>
           </div>

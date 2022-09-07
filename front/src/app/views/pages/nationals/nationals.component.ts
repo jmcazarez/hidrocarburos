@@ -25,6 +25,7 @@ import * as dayjs from 'dayjs';
 export class NationalsComponent implements OnInit {
 
   form: FormGroup;
+  maxDate = new Date();
 
   constructor(
     private service: ComprasService,

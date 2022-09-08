@@ -44,7 +44,9 @@ export class PurchaseAndReceptionComponent implements OnInit {
       cArticulo : new FormControl({ value: '', disabled: true }, []),
       dFechaInicio : new FormControl('', []),
       dFechaFin : new FormControl('', []),
-      cFactura : new FormControl({ value: '', disabled: true }, []),
+      cFactura : new FormControl('', []),
+      nProveedor : new FormControl('', Validators.required),
+      cProveedor : new FormControl({ value: '', disabled: true }, []),
     });
   }
 
@@ -81,6 +83,12 @@ export class PurchaseAndReceptionComponent implements OnInit {
     return this.form.get('nArticulo')?.value;
   }
 
+  get nProveedor(): number {
+    if (!this.form.get('nProveedor')?.value ||  this.form.get('nProveedor')?.value == ''){
+      return 0;
+    }
+    return this.form.get('nProveedor')?.value;
+  }
 
   async openModalEmpresas() {
     const modalRef = this.modalService.open(BusquedaModalComponent, {
@@ -254,6 +262,8 @@ export class PurchaseAndReceptionComponent implements OnInit {
     this.form.controls["nArticulo"].setValue(value.id);
   }
 
+  
+
   consultar() {
     this.spinner.show();
     this.service.obtenerConsultaCompras(
@@ -262,7 +272,7 @@ export class PurchaseAndReceptionComponent implements OnInit {
       this.dFechaFin ? new Date(this.dFechaFin).toISOString().split('T')[0] : '',
       this.nCompra ?? 0,
       0,
-      0,
+      this.nProveedor ?? 0,
       this.nAlmacen ?? 0,
       this.nArticulo ?? 0,
       this.cFactura ?? ''
@@ -292,6 +302,8 @@ export class PurchaseAndReceptionComponent implements OnInit {
     this.form.controls["nArticulo"].setValue('');
     this.form.controls["cArticulo"].setValue('');
     this.form.controls["cFactura"].setValue('');
+    this.form.controls["cProveedor"].setValue('');
+    this.form.controls["nProveedor"].setValue('');
     this.compras = [];
   }
 

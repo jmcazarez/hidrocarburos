@@ -24,6 +24,16 @@
                     </div>
                   </div>
 
+                  <label class="form-label col-sm-3 col-form-label text-end">Proveedor</label>
+                  <div class="col-sm-7">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="cProveedor">
+                      <span class="input-group-text border-start-0 bg-white">
+                        <i class="feather icon-search" (click)="openModalProveedores()"></i>
+                      </span>
+                    </div>
+                  </div>
+
                   <label class="form-label col-sm-3 col-form-label text-end">Almacén</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
@@ -83,13 +93,15 @@
               <tr >
                 <th>Folio</th>
                 <th>Factura</th>
-                <th>F. Compra</th>
-                <th>F. Recepción</th>
+                <th>F. compra</th>
+                <th>F. recepción</th>
+                <th>Proveedor</th>
+                <th>Almacén recepción</th>
                 <th>Articulo</th>
                 <th>Unidad</th>
-                <th>C. Enviada</th>
-                <th>Recibida</th>
-                <th>Diferencia</th>
+                <th>C. comprada</th>
+                <th>C. recibida</th>
+                <th>Diferencia LTS</th>
               </tr>
             </thead>
             <tbody *ngFor="let item of compras">
@@ -98,6 +110,8 @@
                 <td>{{ item.cFactura }}</td>
                 <td>{{ formatoFecha(item.dFechaCompra) }}</td>
                 <td>{{ formatoFecha(item.dFechaRecepcion) }}</td>
+                <td>{{ item.cProveedor }}</td>
+                <td>{{ item.cAlmacen }}</td>
                 <td>{{ item.cArticulo }}</td>
                 <td>Litros</td>
                 <td class="text-end">{{ item.nLitrosCompra | number : '1.2-2' }}</td>

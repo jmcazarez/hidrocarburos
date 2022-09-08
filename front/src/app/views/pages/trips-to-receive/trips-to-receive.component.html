@@ -78,12 +78,12 @@
             <ngx-datatable-column name="Nro.Factura" prop="cFactura" [width]="110"></ngx-datatable-column>
             <ngx-datatable-column name="Fecha de compra" prop="dFechaCompra" [width]="120">
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                {{value | date: 'dd/MM/yyyy'}}
+                {{value }}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Fecha de recepción" prop="dFechaRecepcion" [width]="120">
+            <ngx-datatable-column name="Fecha de recepción" prop="dFechaRecepcion" [width]="130">
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                {{value | date: 'dd/MM/yyyy'}}
+                {{value }}
               </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Costo x lt" prop="nCostoxLitro" [width]="100">

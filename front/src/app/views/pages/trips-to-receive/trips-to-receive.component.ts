@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmacionRecepcionPedidosComponent } from './confirmacion-recepcion-pedidos/confirmacion-recepcion-pedidos.component';
 import { UtilsService } from 'src/services/utils.service';
 import { CancelacionRecepcionPedidosComponent } from './cancelacion-recepcion-pedidos/cancelacion-recepcion-pedidos.component';
+import * as dayjs from 'dayjs';
 
 
 @Component({
@@ -52,6 +53,7 @@ export class TripsToReceiveComponent implements OnInit {
 
   async obtenerCatalogosFletera() {
     const comprasTemp: any[] = [];
+    let cFechaRecepcion = '';
     await this.service.obtenerCompras(0).subscribe((resp: any) => {
       for (const compra of resp.data) {
         let nCostoxLitro = 0;
@@ -59,6 +61,28 @@ export class TripsToReceiveComponent implements OnInit {
           nCostoxLitro = compra.nCostoTotal / compra.nLitrosCompra
         }
         console.log(resp);
+        if (!compra.dFechaRecepcion) {
+          compra.dFechaRecepcion = '';
+
+        } else {
+
+          compra.dFechaRecepcion = dayjs(new Date(compra.dFechaRecepcion).toISOString().split('T')[0]).format('DD/MM/YYYY')
+        }
+        if (!compra.dFechaCompra) {
+          compra.dFechaCompra = '';
+
+        } else {
+          compra.dFechaCompra = dayjs(new Date(compra.dFechaCompra).toISOString().split('T')[0]).format('DD/MM/YYYY')
+        }
+
+
+        if (!compra.cMotivoCancelacion) {
+          compra.cMotivoCancelacion = '';
+        }
+
+        if (!compra.cFactura) {
+          compra.cFactura = '';
+        }
         comprasTemp.push({
           nCompra: compra.nCompra,
           cTipoCompraLarga: compra.cTipoCompraLarga,
@@ -66,7 +90,7 @@ export class TripsToReceiveComponent implements OnInit {
           cAlmacen: compra.cAlmacen,
           cProveedor: compra.cProveedor,
           cFactura: compra.cFactura,
-          nlitrosComprados: compra.nLitrosCompra,
+          nlitrosComprados:  parseFloat(compra.nLitrosCompra).toFixed(2),
           nCostoxLitro: nCostoxLitro,
           dFechaCompra: compra.dFechaCompra,
           nCostoTotal: compra.nCostoTotal,
@@ -75,11 +99,13 @@ export class TripsToReceiveComponent implements OnInit {
           cArticulo: compra.cArticulo,
           nEstatusOriginal: compra.nEstatus,
           dFechaRecepcion: compra.dFechaRecepcion,
-          cMotivoCancelacion:compra.cMotivoCancelacion
+          cMotivoCancelacion: compra.cMotivoCancelacion
         })
       }
 
+
       this.dataTemp = [...comprasTemp];
+      console.log(this.dataTemp);
       const temp = this.dataTemp.filter((d) =>
         String(d.nEstatus).toLowerCase().indexOf('1') !== - 1
         || String(d.nEstatus).toLowerCase().indexOf('2') !== - 1
@@ -90,9 +116,18 @@ export class TripsToReceiveComponent implements OnInit {
   }
   filterDatatable(value: any): void {
     // Filtramos tabla
-    this.data = this.dataTemp;
+    let arraFiltrado: any = [];
+    for (const key of this.estatus) {
+      if (key.status) {
+        let lea: any = this.dataTemp.filter((d) => {
+          return String(d.nEstatus).toLowerCase().indexOf(String(key.nEstatus)) !== - 1
+        });
+        arraFiltrado = [...arraFiltrado, ...lea];
+      }
+    }
+    this.data = arraFiltrado;
     if (value.target.value === '') {
-      this.data = this.dataTemp;
+      this.data = arraFiltrado;
     } else {
       const val = value.target.value.toLowerCase();
       const temp = this.data.filter((d) =>
@@ -111,6 +146,7 @@ export class TripsToReceiveComponent implements OnInit {
         || d.cMotivoCancelacion.toLowerCase().indexOf(val) !== - 1
       );
       this.data = temp;
+
     }
   }
   async onChange(row: any) {

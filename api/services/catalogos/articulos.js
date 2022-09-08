@@ -9,7 +9,7 @@ async function obtenerArticulos(params) {
         console.log('articulos',params.nArticulo);
         let data = await sequelize.query(
             `
-             CALL proc_obtener_articulos(${params.nArticulo})
+             CALL proc_obtener_articulos(${params.nArticulo}, ${ params.bNacional || null })
              `,
             {
                 type: QueryTypes.RAW

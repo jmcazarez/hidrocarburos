@@ -7,7 +7,7 @@ async function obtenerProveedores(params) {
     try {
         let data = await sequelize.query(
             `
-             CALL proc_obtener_proveedores(${params.nProveedor})
+             CALL proc_obtener_proveedores(${params.nProveedor}, ${ params.bNacional || null })
              `,
             {
                 type: QueryTypes.RAW

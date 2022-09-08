@@ -102,6 +102,9 @@ const ventas = require("./routes/registros/ventas");
 // movimientos_inveitario
 const movimientos_inventario = require("./routes/registros/movimientos_almacen");
 
+// movimientos_inveitario
+const inv_tipo_de_movimientos = require("./routes/catalogos/inv_tipo_de_movimientos");
+
 // rutas base
 
 app.use("/api/login", login);
@@ -124,4 +127,5 @@ app.use("/api/registros/compras", compras);
 app.use("/api/catalogos/empleados", empleados);
 app.use("/api/registros/ventas", ventas);
 app.use("/api/registros/movimientos_inventario", movimientos_inventario);
+app.use("/api/registros/inv_tipo_de_movimientos", inv_tipo_de_movimientos);
 module.exports = app;

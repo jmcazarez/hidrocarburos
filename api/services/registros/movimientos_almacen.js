@@ -25,7 +25,7 @@ async function obtenerMovimientoAlmacen(params) {
         console.log(err);
         return {
             status: 400,
-            error: 'Error al obtener las compras.',
+            error: 'Error al obtener el movimiento de almacen.',
             data: [],
         };
     }
@@ -93,7 +93,7 @@ async function guardarMovimientoAlmacen(params) {
         } else {
             return {
                 status: 400,
-                error: 'Error al guardar la compra.',
+                error: 'Error al guardar el movimiento de almacen.',
                 data: [],
             };
         }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { InventariosService } from 'src/services/inventarios.service';
+import { UtilsService } from 'src/services/utils.service';
 
 @Component({
   selector: 'app-inventory-movements',
@@ -8,7 +11,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InventoryMovementsComponent implements OnInit {
 
-  constructor() {}
+  constructor(private util: UtilsService,
+    private formBuilder: FormBuilder, private inventario: InventariosService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

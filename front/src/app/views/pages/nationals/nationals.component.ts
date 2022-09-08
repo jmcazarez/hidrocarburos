@@ -276,6 +276,15 @@ export class NationalsComponent implements OnInit {
         return;
       }
 
+      if (this.dFechaFactura) {
+        let fechaFactura = dayjs(this.dFechaFactura);
+        if (fechaFactura > fechaActual) {
+          this.util.dialogWarning('La fecha de factura no debe ser mayor a la fecha actual.');
+          return;
+        }
+      }
+
+
       if (result.isConfirmed) {
 
         const obj = {

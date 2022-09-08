@@ -14,8 +14,8 @@ export class ProveedorService {
     this.baseUrl = environment.api;
   }
 
-  obtenerProveedores(nProveedor: number): any {
-    return this.http.get(this.baseUrl + this.urlProveedores + '/' + nProveedor);
+  obtenerProveedores(nProveedor: number, bNacional: number): any {
+    return this.http.get(this.baseUrl + this.urlProveedores + '/' + nProveedor + '/' + bNacional);
   }
 
   guardarProveedor(item: any): any {

@@ -26,7 +26,7 @@ export class ArticlesComponent implements OnInit {
       cDescripcionCorta: new FormControl('', Validators.required),
       nStockMinimo: new FormControl(0, Validators.required),
       bActivo: new FormControl(1),
-      bNacional: new FormControl(1, Validators.required), 
+      bNacional: new FormControl(1, Validators.required),
     });
   }
 
@@ -50,7 +50,7 @@ export class ArticlesComponent implements OnInit {
   get nStockMinimo(): string {
     return this.form.get('nStockMinimo')?.value ?? '';
   }
-  get bNacional(): number {  
+  get bNacional(): number {
     return this.form.get('bNacional')?.value ?? 1;
   }
 
@@ -108,7 +108,7 @@ export class ArticlesComponent implements OnInit {
   }
 
   mostrarDatosArticulo() {
-    this.service.obtenerArticulos(this.nArticulo).subscribe((resp: any) => {
+    this.service.obtenerArticulos(this.nArticulo, -1).subscribe((resp: any) => {
       if (resp) {
         const articulo = resp.data[0];
         this.form.controls["cDescripcionLarga"].setValue(articulo.cDescripcionLarga);

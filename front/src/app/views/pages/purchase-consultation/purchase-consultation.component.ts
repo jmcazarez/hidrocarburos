@@ -206,7 +206,7 @@ export class PurchaseConsultationComponent implements OnInit {
     }
     ];
 
-    const proveedorResp = await this.serviceProveedor.obtenerProveedores(0).toPromise();
+    const proveedorResp = await this.serviceProveedor.obtenerProveedores(0, -1).toPromise();
 
     const data = proveedorResp.data.map( (item: any) => { return {nProveedor: item.nProveedor, cDescripcion: item.cNombreProveedor} });
 
@@ -249,7 +249,7 @@ export class PurchaseConsultationComponent implements OnInit {
     }
     ];
 
-    const articuloResp = await this.serviceArticulo.obtenerArticulos(0).toPromise();
+    const articuloResp = await this.serviceArticulo.obtenerArticulos(0, -1).toPromise();
 
     const data = articuloResp.data.map( (item: any) => { return {nArticulo: item.nArticulo, cDescripcion: item.cDescripcionLarga} });
 
@@ -286,7 +286,7 @@ export class PurchaseConsultationComponent implements OnInit {
       ''
     ).subscribe ( (resp: any) => {
       if (resp) {
-        
+
         this.compras = resp.data;
         console.log('Compras:', resp);
 
@@ -310,7 +310,7 @@ export class PurchaseConsultationComponent implements OnInit {
     this.form.controls["dFechaFin"].setValue('');
     this.form.controls["nArticulo"].setValue('');
     this.form.controls["cArticulo"].setValue('');
-    this.compras = [];    
+    this.compras = [];
   }
 
 

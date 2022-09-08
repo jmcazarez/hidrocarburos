@@ -4,7 +4,7 @@ const api = express.Router();
 var Controller = require("../../controllers/catalogos/articulos");
 const { validateToken } = require('../../middlewares/authenticated');
 
-api.get("/:nArticulo", validateToken, Controller.obtenerArticulos);
+api.get("/:nArticulo/:bNacional?", validateToken, Controller.obtenerArticulos);
 api.post("/", validateToken, Controller.guardarArticulo);
 api.delete("/:nArticulo", validateToken, Controller.eliminarArticulo);
 

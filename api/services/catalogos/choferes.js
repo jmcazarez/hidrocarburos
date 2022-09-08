@@ -7,7 +7,7 @@ console.log(params);
     try {
         let data = await sequelize.query(
             `
-             CALL proc_obtener_choferes(${params.nChofer})
+             CALL proc_obtener_choferes(${params.nChofer},  ${ params.nFletera || null })
              `,
             {
                 type: QueryTypes.RAW

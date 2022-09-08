@@ -70,7 +70,7 @@ export class ProvidersComponent implements OnInit {
     return this.form.get('bPersonaFisica')?.value ?? 0;
   }
 
-  get bNacional(): number {  
+  get bNacional(): number {
     return this.form.get('bNacional')?.value ?? 1;
   }
   get cRazonSocial(): string {
@@ -247,7 +247,7 @@ export class ProvidersComponent implements OnInit {
   }
 
   mostrarDatosProveedor() {
-    this.service.obtenerProveedores(this.nProveedor).subscribe((resp: any) => {
+    this.service.obtenerProveedores(this.nProveedor, -1).subscribe((resp: any) => {
       if (resp) {
         const proveedor = resp.data[0];
         console.log(proveedor);
@@ -272,7 +272,7 @@ export class ProvidersComponent implements OnInit {
         this.form.controls["cNumeroInterior"].setValue(proveedor.cNumeroInterior);
         this.form.controls["cCorreoElectronico"].setValue(proveedor.cCorreoElectronico);
         this.form.controls["bNacional"].setValue(proveedor.bNacional);
-        
+
       }
     }, (error: any) => {
 

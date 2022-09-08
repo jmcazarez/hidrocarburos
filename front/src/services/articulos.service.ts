@@ -14,8 +14,8 @@ export class ArticulosService {
     this.baseUrl = environment.api;
   }
 
-  obtenerArticulos(nArticulo: number): any {
-    return this.http.get(this.baseUrl + this.urlArticulos + '/' + nArticulo);
+  obtenerArticulos(nArticulo: number, bNacional: number): any {
+    return this.http.get(this.baseUrl + this.urlArticulos + '/' + nArticulo + '/' + bNacional);
   }
 
   guardarArticulo(item: any): any {

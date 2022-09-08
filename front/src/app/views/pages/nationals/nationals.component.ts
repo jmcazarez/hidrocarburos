@@ -51,9 +51,9 @@ export class NationalsComponent implements OnInit {
       cAlmacen : new FormControl({ value: '', disabled: true }, Validators.required),
       nProveedor : new FormControl('', Validators.required),
       cProveedor : new FormControl({ value: '', disabled: true }, Validators.required),
-      dFechaFactura : new FormControl('', Validators.required),
+      dFechaFactura : new FormControl('', []),
       cTicket : new FormControl('', []),
-      cFactura : new FormControl('', Validators.required),
+      cFactura : new FormControl('', []),
       nFletera : new FormControl('', Validators.required),
       cFletera : new FormControl({ value: '', disabled: true }, Validators.required),
       nChofer : new FormControl('', Validators.required),
@@ -284,8 +284,8 @@ export class NationalsComponent implements OnInit {
             nEmpresa : this.nEmpresa,
             nAlmacen : this.nAlmacen,
             nProveedor : this.nProveedor,
-            dFechaFactura : new Date(this.dFechaFactura).toISOString().split('T')[0],
-            cFactura : this.cFactura,
+            dFechaFactura : this.dFechaFactura ? new Date(this.dFechaFactura).toISOString().split('T')[0] : null,
+            cFactura : this.cFactura ? this.cFactura : null,
             nFletera : this.nFletera,
             nChofer : this.nChofer,
             cNumeroTrailer : this.cNumeroTrailer,
@@ -465,7 +465,9 @@ export class NationalsComponent implements OnInit {
     }
     ];
 
-    const proveedorResp = await this.serviceProveedor.obtenerProveedores(0).toPromise();
+    const tipo = this.cTipoCompra !== 'I' ? 1 : 0;
+
+    const proveedorResp = await this.serviceProveedor.obtenerProveedores(0, tipo).toPromise();
 
     const data = proveedorResp.data.map( (item: any) => { return {nProveedor: item.nProveedor, cDescripcion: item.cNombreProveedor} });
 
@@ -551,7 +553,9 @@ export class NationalsComponent implements OnInit {
     }
     ];
 
-    const choferResp = await this.serviceChofer.obtenerChoferes(0).toPromise();
+    const fletera = this.nFletera > 0 ? this.nFletera : 0;
+
+    const choferResp = await this.serviceChofer.obtenerChoferes(0, fletera).toPromise();
 
     const data = choferResp.data.map( (item: any) => { return {nChofer: item.nChofer, cDescripcion: item.cNombreChofer} });
 
@@ -594,7 +598,9 @@ export class NationalsComponent implements OnInit {
     }
     ];
 
-    const articuloResp = await this.serviceArticulo.obtenerArticulos(0).toPromise();
+    const tipo = this.cTipoCompra !== 'I' ? 1 : 0;
+
+    const articuloResp = await this.serviceArticulo.obtenerArticulos(0, tipo).toPromise();
 
     const data = articuloResp.data.map( (item: any) => { return {nArticulo: item.nArticulo, cDescripcion: item.cDescripcionLarga} });
 

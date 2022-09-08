@@ -21,7 +21,7 @@ export class BusquedaArticlesComponent implements OnInit {
 
     // Obtener los datos
     console.log('entro');
-    this.service.obtenerArticulos(0).subscribe( (resp: any) => {
+    this.service.obtenerArticulos(0, -1).subscribe( (resp: any) => {
       this.data = resp.data;
       this.dataTemp = [...this.data];
     }, (error: any) => {

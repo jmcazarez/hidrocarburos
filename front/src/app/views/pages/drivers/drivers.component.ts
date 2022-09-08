@@ -75,7 +75,7 @@ export class DriversComponent implements OnInit {
     this.serviceFletera.obtenerFleteras(0).subscribe( (resp: any) => {
       console.log(resp.data);
       this.fleteras = resp.data;
- 
+
     });
   }
   openModal() {
@@ -100,7 +100,7 @@ export class DriversComponent implements OnInit {
   }
 
   mostrarDatosChofer(){
-    this.service.obtenerChoferes(this.nChofer).subscribe ( (resp: any) => {
+    this.service.obtenerChoferes(this.nChofer, -1).subscribe ( (resp: any) => {
       if (resp) {
         const chofer = resp.data[0];
         this.form.controls["cRFC"].setValue(chofer.cRFC);

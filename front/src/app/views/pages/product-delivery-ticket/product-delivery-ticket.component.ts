@@ -22,7 +22,7 @@ import { BusquedaModalComponent } from '../busquedas/busqueda-modal/busqueda-mod
 export class ProductDeliveryTicketComponent implements OnInit {
 
   form: FormGroup;
-  ventas: any[] = []; 
+  ventas: any[] = [];
 
   constructor(
     private service: VentasService,
@@ -299,7 +299,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
     }
     ];
 
-    const choferResp = await this.serviceChofer.obtenerChoferes(0).toPromise();
+    const choferResp = await this.serviceChofer.obtenerChoferes(0, -1).toPromise();
 
     const data = choferResp.data.map( (item: any) => { return {nChofer: item.nChofer, cDescripcion: item.cNombreChofer} });
 
@@ -342,7 +342,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
     }
     ];
 
-    const articuloResp = await this.serviceArticulo.obtenerArticulos(0).toPromise();
+    const articuloResp = await this.serviceArticulo.obtenerArticulos(0, -1).toPromise();
 
     const data = articuloResp.data.map( (item: any) => { return {nArticulo: item.nArticulo, cDescripcion: item.cDescripcionLarga} });
 

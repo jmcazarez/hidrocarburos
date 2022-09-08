@@ -21,7 +21,7 @@ export class BusquedaProvidersComponent implements OnInit {
     this.dataTemp = [];
     this.data = [];
     // Obtener los datos
-    this.service.obtenerProveedores(0).subscribe((resp: any) => {
+    this.service.obtenerProveedores(0, -1).subscribe((resp: any) => {
 
       resp.data.forEach((proveedor: {
         cRFC: any; bPersonaFisica: any; cNombre: string; cApellidoPaterno: string; cApellidoMaterno: string; cRazonSocial: string; nProveedor: any;

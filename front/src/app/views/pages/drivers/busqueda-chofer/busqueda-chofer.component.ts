@@ -21,7 +21,7 @@ export class BusquedaChoferComponent implements OnInit {
   ngOnInit(): void {
     // Obtener los datos
 
-    this.service.obtenerChoferes(0).subscribe( (resp: any) => {
+    this.service.obtenerChoferes(0, -1).subscribe( (resp: any) => {
       this.data = resp.data;
       this.dataTemp = [...this.data];
     }, (error: any) => {

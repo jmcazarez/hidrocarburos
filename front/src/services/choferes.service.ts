@@ -14,8 +14,8 @@ export class ChoferesService {
     this.baseUrl = environment.api;
   }
 
-  obtenerChoferes(nChofer: number): any {
-    return this.http.get(this.baseUrl + this.urlChoferes + '/' + nChofer);
+  obtenerChoferes(nChofer: number, nFletera: number): any {
+    return this.http.get(this.baseUrl + this.urlChoferes + '/' + nChofer + '/' + nFletera);
   }
 
   guardarChofer(item: any): any {

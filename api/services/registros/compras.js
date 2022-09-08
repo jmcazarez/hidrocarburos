@@ -187,14 +187,8 @@ async function obtenerConsultaCompras(params) {
 async function confirmarCompra(params) {
 
     try {
-        console.log(`
-        CALL proc_confirmacion_compra(
-            ${params.nCompra},
-            ${params.nLitrosRecepcion},
-            '${params.dFechaRecepcion}'
-       )
-        `);
-
+   
+        console.log('entro');
         let data = await sequelize.query(
             `
              CALL proc_confirmacion_compra(
@@ -238,7 +232,8 @@ async function actualizarEstatusCompra(params) {
             `
              CALL proc_actualizar_estatus_compra(
                  ${params.nCompra},
-                 ${params.nEstatus}
+                 ${params.nEstatus},
+                 '${params.cMotivoCancelacion}'
             )
              `,
             {
@@ -257,7 +252,7 @@ async function actualizarEstatusCompra(params) {
         console.log(err);
         return {
             status: 400,
-            error: 'Error al obtener las compras.',
+            error: 'Error al actualizar el estatus de la compra.',
             data: [],
         };
     }

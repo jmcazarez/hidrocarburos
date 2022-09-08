@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmacionRecepcionPedidosComponent } from './confirmacion-recepcion-pedidos/confirmacion-recepcion-pedidos.component';
 import { UtilsService } from 'src/services/utils.service';
+import { CancelacionRecepcionPedidosComponent } from './cancelacion-recepcion-pedidos/cancelacion-recepcion-pedidos.component';
 
 
 @Component({
@@ -57,6 +58,7 @@ export class TripsToReceiveComponent implements OnInit {
         if (compra.nLitrosCompra > 0 && compra.nCostoTotal > 0) {
           nCostoxLitro = compra.nCostoTotal / compra.nLitrosCompra
         }
+        console.log(resp);
         comprasTemp.push({
           nCompra: compra.nCompra,
           cTipoCompraLarga: compra.cTipoCompraLarga,
@@ -71,7 +73,9 @@ export class TripsToReceiveComponent implements OnInit {
           nLitrosRecibidos: compra.nLitrosRecepcion,
           nEstatus: compra.nEstatus,
           cArticulo: compra.cArticulo,
-          nEstatusOriginal :  compra.nEstatus
+          nEstatusOriginal: compra.nEstatus,
+          dFechaRecepcion: compra.dFechaRecepcion,
+          cMotivoCancelacion:compra.cMotivoCancelacion
         })
       }
 
@@ -100,9 +104,11 @@ export class TripsToReceiveComponent implements OnInit {
         || d.nlitrosComprados.toLowerCase().indexOf(val) !== - 1
         || String(d.nCostoxLitro).toLowerCase().indexOf(val) !== - 1
         || d.dFechaCompra.toLowerCase().indexOf(val) !== - 1
+        || d.dFechaRecepcion.toLowerCase().indexOf(val) !== - 1
         || String(d.nCostoTotal).toLowerCase().indexOf(val) !== - 1
         || String(d.nLitrosRecibidos).toLowerCase().indexOf(val) !== - 1
         || d.cArticulo.toLowerCase().indexOf(val) !== - 1
+        || d.cMotivoCancelacion.toLowerCase().indexOf(val) !== - 1
       );
       this.data = temp;
     }
@@ -117,64 +123,72 @@ export class TripsToReceiveComponent implements OnInit {
       });
       modalRef.componentInstance.compra = row;
       modalRef.closed.subscribe(
-        value => {       
+        value => {
           if (value.nEstatus) {
             row = value;
-          }  else {
+            row.nEstatusOriginal = value.nEstatus;
+          } else {
             row.nEstatus = row.nEstatusOriginal;
           }
+          this.filerWithStatus();
           // this.enfocarBotonNuevaVenta()
         }
       );
     } else if (row.nEstatus == 4) {
-      this.util.dialogConfirm('¿Está seguro que desea cancelar esta compra?').then(async (result) => {
+      const modalRef = this.modalService.open(CancelacionRecepcionPedidosComponent, {
+        centered: true,
+        backdrop: 'static',
+        keyboard: false,
+        modalDialogClass: 'dialog-formulario-mediano',
+      });
+      modalRef.componentInstance.compra = row;
+      modalRef.closed.subscribe(
+        value => {
+          if (value.nEstatus) {
+            row = value;
+            row.nEstatusOriginal = value.nEstatus;
+          } else {
+            row.nEstatus = row.nEstatusOriginal;
+          }
+          this.filerWithStatus();
+          // this.enfocarBotonNuevaVenta()
+        }
+      );
+    } else {
+      this.util.dialogConfirm('¿Está seguro que desea actualizar el estatus de la compra?').then(async (result) => {
         if (result.isConfirmed) {
-          row.nEstatus = 4
           await this.service.actualizarEstatusCompra({
             nCompra: row.nCompra,
             nEstatus: row.nEstatus,
+            cMotivoCancelacion: ''
           }).subscribe(async (resp: any) => {
             if (resp) {
+              row.nEstatusOriginal = row.nEstatus;
+              this.filerWithStatus();
             }
           }, (error: any) => {
-            this.util.dialogError('Error al actualizar la compra.');
+            this.util.dialogError('Error al actualizar el estatus de la compra.');
           });
         } else {
           row.nEstatus = row.nEstatusOriginal;
-        }
-      });
-    } else {
-      this.util.dialogConfirm('¿Está seguro que desea actualizar la compra?').then(async (result) => {
-        if (result.isConfirmed) {
-          await this.service.actualizarEstatusCompra({
-            nCompra: row.nCompra,
-            nEstatus: row.nEstatus,
-          }).subscribe(async (resp: any) => {
-            if (resp) {
-            }
-          }, (error: any) => {
-            this.util.dialogError('Error al actualizar la compra.');
-          });
-        }  else {
-          row.nEstatus = row.nEstatusOriginal;          
+          this.filerWithStatus();
         }
       });
     }
-    this.filerWithStatus();
   }
 
   changeStatus(nEstatus: any, event: any) {
     this.filerWithStatus();
   }
 
-  filerWithStatus(){
+  filerWithStatus() {
     let arraFiltrado: any = [];
     for (const key of this.estatus) {
       if (key.status) {
-        let lea: any = this.dataTemp.filter((d) => {    
-         return String(d.nEstatus).toLowerCase().indexOf(String(key.nEstatus)) !== - 1    
+        let lea: any = this.dataTemp.filter((d) => {
+          return String(d.nEstatus).toLowerCase().indexOf(String(key.nEstatus)) !== - 1
         });
-        arraFiltrado = [ ...arraFiltrado, ...lea];
+        arraFiltrado = [...arraFiltrado, ...lea];
       }
     }
     this.data = arraFiltrado;

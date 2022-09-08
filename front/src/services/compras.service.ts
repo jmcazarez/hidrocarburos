@@ -41,7 +41,6 @@ export class ComprasService {
     });
   }
   confirmarCompra(item: any): any {
-
     return this.http.post(this.baseUrl + this.urlCompras + '/confirmar/', item);
   }
 

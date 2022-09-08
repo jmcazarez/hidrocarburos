@@ -81,12 +81,17 @@
                 {{value | date: 'dd/MM/yyyy'}}
               </ng-template>
             </ngx-datatable-column>
+            <ngx-datatable-column name="Fecha de recepción" prop="dFechaRecepcion" [width]="120">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                {{value | date: 'dd/MM/yyyy'}}
+              </ng-template>
+            </ngx-datatable-column>
             <ngx-datatable-column name="Costo x lt" prop="nCostoxLitro" [width]="100">
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 {{value | currency}}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Litros comprados" prop="nlitrosComprados" [width]="120">
+            <ngx-datatable-column name="Litros comprados" prop="nlitrosComprados" [width]="130">
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 {{value | number : '1.2-2'}}
               </ng-template>
@@ -109,10 +114,10 @@
                   [disabled]="row.nEstatus === 3 || row.nEstatus === 4" (change)="onChange(row)">
                   <option *ngFor="let banco of estatus" value="{{ banco.nEstatus }}"> {{ banco.cEstatus }}
                   </option>
-
                 </select>
               </ng-template>
             </ngx-datatable-column>
+            <ngx-datatable-column name="Motivo de cancelación" prop="cMotivoCancelacion"></ngx-datatable-column>
             <!--  <ngx-datatable-column name="Persona física" prop="bPersonaFisica" ></ngx-datatable-column>
 -->
           </ngx-datatable>

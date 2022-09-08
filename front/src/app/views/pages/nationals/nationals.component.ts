@@ -636,7 +636,7 @@ export class NationalsComponent implements OnInit {
         this.form.controls["cAlmacen"].setValue(compra.cAlmacen);
         this.form.controls["nProveedor"].setValue(compra.nProveedor);
         this.form.controls["cProveedor"].setValue(compra.cProveedor);
-        this.form.controls["dFechaFactura"].setValue(new Date(compra.dFechaFactura).toISOString().split('T')[0]);
+        this.form.controls["dFechaFactura"].setValue( compra.dFechaFactura ? new Date(compra.dFechaFactura).toISOString().split('T')[0] : '');
         this.form.controls["dFechaCompra"].setValue(new Date(compra.dFechaCompra).toISOString().split('T')[0]);
         this.form.controls["cFactura"].setValue(compra.cFactura);
         this.form.controls["nFletera"].setValue(compra.nFletera);

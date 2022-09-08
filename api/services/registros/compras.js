@@ -47,7 +47,7 @@ async function guardarCompra(params) {
                 ${params.nProveedor},
                 ${ params.cFactura ? "'" + params.cFactura + "'" : null },
                 ${ params.dFechaFactura ? "'" + params.dFechaFactura + "'" : null },
-                '${params.cTicket}',
+                ${ params.cTicket ? "'" + params.cTicket + "'" : null },
                 ${params.nFletera},
                 ${params.nChofer},
                 '${params.cNumeroTrailer}',

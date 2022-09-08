@@ -284,7 +284,6 @@ export class NationalsComponent implements OnInit {
         }
       }
 
-
       if (result.isConfirmed) {
 
         const obj = {

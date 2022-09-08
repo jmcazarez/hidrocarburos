@@ -99,6 +99,9 @@ const empleados = require("./routes/catalogos/empleados");
 // ventas
 const ventas = require("./routes/registros/ventas");
 
+// movimientos_inveitario
+const movimientos_inventario = require("./routes/registros/movimientos_almacen");
+
 // rutas base
 
 app.use("/api/login", login);
@@ -120,5 +123,5 @@ app.use("/api/catalogos/fleteras", fleteras);
 app.use("/api/registros/compras", compras);
 app.use("/api/catalogos/empleados", empleados);
 app.use("/api/registros/ventas", ventas);
-
+app.use("/api/registros/movimientos_inventario", movimientos_inventario);
 module.exports = app;

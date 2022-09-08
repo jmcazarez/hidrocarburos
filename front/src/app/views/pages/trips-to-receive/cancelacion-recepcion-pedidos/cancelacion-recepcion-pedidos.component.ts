@@ -56,6 +56,7 @@ export class CancelacionRecepcionPedidosComponent implements OnInit {
       if (resp) {
         this.util.dialogSuccess('Recepción de compra cancelada correctamente.');
         this.compra.nEstatus = 4;
+        this.compra.MotivoCancelacion = this.cMotivoCancelacion,
         this.activeModal.close(this.compra);
       }
     }, (error: any) => {

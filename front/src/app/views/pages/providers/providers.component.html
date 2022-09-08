@@ -44,15 +44,15 @@
                 Fisica
               </label>
             </div>
-            
-            <div class="form-check form-check-inline">             
+
+            <div class="form-check form-check-inline">
               <input type="radio" class="form-check-input" id="nTipoMoral" formControlName="bPersonaFisica" [value]="0">
               <label class="form-check-label" for="radioInline1">
                 Moral
               </label>
             </div>
             <label class="form-label col-sm-1 col-form-label text-end"></label>
-            <div class="form-check form-check-inline">            
+            <div class="form-check form-check-inline">
               <input type="radio" class="form-check-input" checked formControlName="bNacional" [value]="1">
               <label class="form-check-label" for="radioInline">
                 Nacional
@@ -61,14 +61,14 @@
             <div class="form-check form-check-inline">
               <input type="radio" class="form-check-input" formControlName="bNacional" [value]="0">
               <label class="form-check-label" for="radioInline1">
-                Extranajero
+                Extranjero
               </label>
             </div>
 
             <p class="error p-0 mt-1 mb-1" *ngIf="form.get('nTipo')?.hasError('required')">
               *Obligatorio.
             </p>
-                       
+
 
           </div>
 

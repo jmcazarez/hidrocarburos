@@ -66,6 +66,10 @@ const routes: Routes = [
         path: 'product-delivery-ticket',
         loadChildren: () => import('./views/pages/product-delivery-ticket/product-delivery-ticket.module').then(m => m.ProductDeliveryTicketModule)
       },
+      {
+        path: 'sales-report',
+        loadChildren: () => import('./views/pages/sales-report/sales-report.module').then(m => m.SalesReportModule)
+      },
 
 
       /* ---------- Cobranza ---------- */

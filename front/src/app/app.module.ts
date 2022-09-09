@@ -21,6 +21,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AuthInterceptor } from 'src/interceptors/authInterceptor';
 import { Patterns } from 'src/utils/patterns';
 import { NgxSpinnerModule } from 'ngx-spinner';
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -1,0 +1,146 @@
+<!-- ---------- Breadcrumb ---------- -->
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink=".">Ventas</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Reportes</li>
+    </ol>
+  </nav>
+  
+  <!-- ---------- Form ---------- -->
+  <div class="row">
+    <div class="col-md-12 stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">Reporte de ventas</h6>
+          <form [formGroup]="form">
+              <div class="row mt-4">
+                <div class="col-sm-5">
+                  <div class="row">
+  
+                    <label class="form-label col-sm-3 col-form-label text-end">Folio venta</label>
+                    <div class="col-sm-7">
+                      <div class="input-group mb-1">
+                        <input type="text" class="form-control form-control-sm" formControlName="nVenta">
+                      </div>
+                    </div>
+  
+                    <label class="form-label col-sm-3 col-form-label text-end">Origen</label>
+                    <div class="col-sm-7">
+                      <div class="input-group mb-1">
+                        <input type="text" class="form-control form-control-sm border-end-0" formControlName="cOrigen">
+                        <span class="input-group-text border-start-0 bg-white">
+                          <i class="feather icon-search" (click)="openModalEmpresas()"></i>
+                        </span>
+                      </div>
+                    </div>
+  
+                    <label class="form-label col-sm-3 col-form-label text-end">Destino</label>
+                    <div class="col-sm-7">
+                      <div class="input-group mb-1">
+                        <input type="text" class="form-control form-control-sm border-end-0" formControlName="cDestino">
+                        <span class="input-group-text border-start-0 bg-white">
+                          <i class="feather icon-search" (click)="openModalClientes()"></i>
+                        </span>
+                      </div>
+                    </div>
+  
+                    <label class="form-label col-sm-3 col-form-label text-end">Vendedor</label>
+                    <div class="col-sm-7">
+                      <div class="input-group mb-1">
+                        <input type="text" class="form-control form-control-sm border-end-0" formControlName="cVendedor">
+                        <span class="input-group-text border-start-0 bg-white">
+                          <i class="feather icon-search" (click)="openModalVendedores()"></i>
+                        </span>
+                      </div>
+                    </div>
+
+                    <label class="form-label col-sm-3 col-form-label text-end">Producto</label>
+                    <div class="col-sm-7">
+                      <div class="input-group mb-1">
+                        <input type="text" class="form-control form-control-sm border-end-0" formControlName="cArticulo">
+                        <span class="input-group-text border-start-0 bg-white">
+                          <i class="feather icon-search" (click)="openModalArticulos()"></i>
+                        </span>
+                      </div>
+                    </div>
+  
+                    
+                  </div>
+                </div>
+  
+                <div class="col-sm-2"></div>
+  
+                <div class="col-sm-5">
+                  <div class="row">
+                    <label class="form-label col-sm-5 col-form-label text-end">Desde</label>
+                    <div class="col-sm-7">
+                      <input type="date" class="form-control form-control-sm" formControlName="dFechaInicio">
+                    </div>
+  
+                    <label class="form-label col-sm-5 col-form-label text-end">Hasta</label>
+                    <div class="col-sm-7">
+                      <input type="date" class="form-control form-control-sm" formControlName="dFechaFin">
+                    </div>
+  
+                  </div>
+                </div>
+              </div>
+            </form>
+  
+            <div class="d-flex justify-content-end my-4">
+              <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
+                <button type="button" class="btn btn-primary mx-2" (click)="consultar()">Consultar</button>
+            </div>
+  
+          <div class="table-responsive my-5">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                      <th>Folio</th>
+                      <th>Fecha</th>
+                      <th>Origen</th>
+                      <th>Destino</th>
+                      <th>Vendedor</th>
+                      <th>Chofer</th>
+                      <th>Equipo</th>
+                      <th>Placa</th>
+                      <th>Producto</th>
+                      <th>Cant. enviada</th>
+                      <th>Cant. recibida</th>
+                      <th>Costo litro</th>
+                      <th>Valor</th>
+                      <th>Anticipo</th>
+                      <th>Saldo</th>
+                      <th>Forma de pago</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of ventas">
+                      <td>{{ item.nVenta }}</td>
+                      <td>{{ item.cFechaVenta }}</td>
+                      <td>{{ item.cOrigen }}</td>
+                      <td>{{ item.cDestino }}</td>
+                      <td>{{ item.cVendedor }}</td>
+                      <td>{{ item.cChofer }}</td>
+                      <td>{{ item.cEquipo }}</td>
+                      <td>{{ item.cPlaca }}</td>
+                      <td>{{ item.cArticulo }}</td>
+                      <td class="text-end">{{ item.nCantidadEnviada | number : '1.2-2' }}</td>
+                      <td class="text-end">{{ item.nCantidadRecibida | number : '1.2-2' }}</td>
+                      <td class="text-end">{{ item.nCostoLitro | currency }}</td>
+                      <td class="text-end">{{ item.nTotal | currency }}</td>
+                      <td class="text-end">{{ item.nAnticipo | currency }}</td>
+                      <td class="text-end">{{ item.nTotal - item.nAnticipo | currency }}</td>
+                      <td>{{ item.cFormaPago }}</td>
+                    </tr>
+      
+                  </tbody>
+            </table>
+          </div>
+  
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -6,5 +6,6 @@ const { validateToken } = require('../../middlewares/authenticated');
 
 api.get("/:nVenta", validateToken, Controller.obtenerVentas);
 api.post("/", validateToken, Controller.guardarVenta);
+api.post("/consulta/", validateToken, Controller.obtenerConsultaVentas);
 
 module.exports = api;

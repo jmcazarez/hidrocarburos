@@ -90,7 +90,46 @@ async function guardarVenta(params) {
     }
 }
 
+async function obtenerConsultaVentas(params) {
+
+    try {
+        let data = await sequelize.query(
+            `
+             CALL proc_consulta_ventas(
+                 '${params.dFechaInicio}',
+                 '${params.dFechaFin}',
+                 ${params.nVenta},
+                 ${params.nOrigen},
+                 ${params.nDestino},
+                 ${params.nVendedor},
+                 ${params.nArticulo}
+            )
+             `,
+            {
+                type: QueryTypes.RAW
+            }
+        );
+
+        return {
+            status: 200,
+            error: '',
+            data: data,
+        }
+
+    } catch (err) {
+        // do something
+        console.log(err);
+        return {
+            status: 400,
+            error: 'Error al obtener las ventas.',
+            data: [],
+        };
+    }
+}
+
+
 module.exports = {
     obtenerVentas,
-    guardarVenta
+    guardarVenta,
+    obtenerConsultaVentas
 };

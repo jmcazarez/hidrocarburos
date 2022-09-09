@@ -21,6 +21,18 @@ export class VentasService {
   }
 
 
+  obtenerConsultaVentas(dFechaInicio: string, dFechaFin: string, nVenta: number, nOrigen: number, nDestino: number, nVendedor: number, nArticulo: number): any {
+    return this.http.post(this.baseUrl + this.urlVentas + '/consulta/', {
+      dFechaInicio,
+      dFechaFin,
+      nVenta,
+      nOrigen,
+      nDestino,
+      nVendedor,
+      nArticulo
+    });
+  }
+
 }
 
 

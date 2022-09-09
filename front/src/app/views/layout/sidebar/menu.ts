@@ -85,6 +85,10 @@ export const MENU: MenuItem[] = [
         label: 'Ticket de entrega de producto',
         link: '/product-delivery-ticket'
       },
+      {
+        label: 'Reporte de ventas',
+        link: '/sales-report'
+      },
     ]
   },
   {

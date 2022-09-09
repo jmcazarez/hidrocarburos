@@ -70,9 +70,11 @@ export class TripsToReceiveComponent implements OnInit {
         }
         if (!compra.dFechaCompra) {
           compra.dFechaCompra = '';
-
+          compra.dFechaCompraOrigen = '';
         } else {
+          compra.dFechaCompraOrigen = compra.dFechaCompra;
           compra.dFechaCompra = dayjs(new Date(compra.dFechaCompra).toISOString().split('T')[0]).format('DD/MM/YYYY')
+
         }
 
 
@@ -83,6 +85,7 @@ export class TripsToReceiveComponent implements OnInit {
         if (!compra.cFactura) {
           compra.cFactura = '';
         }
+        console.log(compra.dFechaCompra);
         comprasTemp.push({
           nCompra: compra.nCompra,
           cTipoCompraLarga: compra.cTipoCompraLarga,
@@ -99,7 +102,8 @@ export class TripsToReceiveComponent implements OnInit {
           cArticulo: compra.cArticulo,
           nEstatusOriginal: compra.nEstatus,
           dFechaRecepcion: compra.dFechaRecepcion,
-          cMotivoCancelacion: compra.cMotivoCancelacion
+          cMotivoCancelacion: compra.cMotivoCancelacion,
+          dFechaCompraOrigen: compra.dFechaCompraOrigen
         })
       }
 

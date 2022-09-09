@@ -4,10 +4,12 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ComprasService } from 'src/services/compras.service';
 import { UtilsService } from 'src/services/utils.service';
 import * as dayjs from 'dayjs';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-confirmacion-recepcion-pedidos',
   templateUrl: './confirmacion-recepcion-pedidos.component.html',
-  styleUrls: ['./confirmacion-recepcion-pedidos.component.scss']
+  styleUrls: ['./confirmacion-recepcion-pedidos.component.scss'],
+  providers: [DatePipe]
 })
 export class ConfirmacionRecepcionPedidosComponent implements OnInit {
 
@@ -19,25 +21,30 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
   selectedRow: any;
   form: FormGroup;
   maxDate = new Date();
+  minDate = new Date();
   @Input() public compra: any;
   constructor(public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private util: UtilsService,
     private service: ComprasService,
+    private datePipe: DatePipe
   ) {
   }
 
   ngOnInit(): void {
     this.dataTemp = [];
     this.data = [];
-
+    this.minDate = new Date(this.compra.dFechaCompraOrigen);
+    console.log(this.minDate);
+    console.log(this.maxDate);
     let today = dayjs(new Date().toISOString().split('T')[0]).format('YYYY-MM-DD') //new Date().toISOString().split('T')[0];
 
-    console.log(today);
+    console.log(this.datePipe.transform(new Date(), 'yyyy-MM-dd'));
+
     this.form = this.formBuilder.group({
       nLitrosComprados: [{ value: this.compra.nlitrosComprados, disabled: true }, Validators.required],
       nLitrosRecibidos: [this.compra.nlitrosComprados, [Validators.required, Validators.min(0.01)]],
-      dFechaRecepcion : [today],
+      dFechaRecepcion : [this.datePipe.transform(new Date(), 'yyyy-MM-dd')],
     });
   }
 

@@ -34,46 +34,25 @@ async function obtenerMovimientoAlmacen(params) {
 
 
 async function guardarMovimientoAlmacen(params) {
-
+    const t = await sequelize.transaction();
     try {
-
+ 
         let data = await sequelize.query(
             `
-             CALL proc_guardar_registro_de_compra (
-                ${params.nCompra},
-                '${params.cTipoCompra}',
-                ${params.nEmpresa},
-                ${params.nAlmacen},
-                ${params.nProveedor},
-                '${params.cFactura}',
-                ${ params.dFechaFactura ? "'" + params.dFechaCompra + "'" : null },
-                '${params.cTicket}',
-                ${params.nFletera},
-                ${params.nChofer},
-                '${params.cNumeroTrailer}',
-                ${params.nArticulo},
-                '${params.cFuller1}',
-                '${params.cSellos1}',
-                '${params.cFuller2}',
-                '${params.cSellos2}',
-                ${params.nLitrosCompra},
-                ${params.nTipoCambio},
-                ${params.nCostoTotal},
-                ${params.nCostoCruce},
-                ${params.nCostoFactura},
-                ${params.nCostoFlete},
-                ${1},
-                ${params.nGalonesCompra},
-                ${params.nCostoGalon},
-                '${params.dFechaCompra}',
-                ${params.nCostoLitro}
+             CALL proc_registra_movimiento_de_inventario (
+                ${params.nTipoMovimiento},
+                ${params.nAlmacenRegistro},
+                ${params.nAlmacenMovimiento},
+                ${params.dFechaMovimiento},
+                '${params.cUsuario}',
+                '${params.cReferencia}'
             )
              `,
             {
                 type: QueryTypes.INSERT
             }
         );
-
+        await t.commit();
         return {
             status: 200,
             error: '',
@@ -82,7 +61,7 @@ async function guardarMovimientoAlmacen(params) {
 
     } catch (err) {
         // do something
-
+        await t.rollback();
         console.log(err);
         if (err) {
             return {
@@ -104,5 +83,5 @@ async function guardarMovimientoAlmacen(params) {
 module.exports = {
     obtenerMovimientoAlmacen,
     guardarMovimientoAlmacen,
-    
+
 };

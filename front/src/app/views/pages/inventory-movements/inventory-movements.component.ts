@@ -72,9 +72,7 @@ export class InventoryMovementsComponent implements OnInit {
     }
     ];
 
-    const tipo = 1;
-
-    const articuloResp = await this.serviceArticulo.obtenerArticulos(0, tipo).toPromise();
+    const articuloResp = await this.serviceArticulo.obtenerArticulos(0, -1).toPromise();
 
     const data = articuloResp.data.map( (item: any) => { return {nArticulo: item.nArticulo, cDescripcion: item.cDescripcionLarga} });
 

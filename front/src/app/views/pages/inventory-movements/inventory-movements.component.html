@@ -69,12 +69,15 @@
 
                 <label class="form-label col-sm-5 col-form-label text-end">Cantidad</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" formControlName="nCantidadMovimiento">
+                  <input type="text" class="form-control form-control-sm" formControlName="nCantidadMovimiento"
+                  currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"
+                  onfocus="this.select()"
+                  maxlength="20">
                 </div>
 
                 <label class="form-label col-sm-5 col-form-label text-end">Observaciones</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm" onfocus="this.select()">
+                  <input type="text" class="form-control form-control-sm" onfocus="this.select()" maxlength="200">
                 </div>
 
               </div>

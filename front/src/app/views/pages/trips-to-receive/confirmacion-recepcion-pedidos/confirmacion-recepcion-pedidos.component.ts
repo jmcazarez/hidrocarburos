@@ -30,9 +30,9 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
   ngOnInit(): void {
     this.dataTemp = [];
     this.data = [];
-    
+
     let today = dayjs(new Date().toISOString().split('T')[0]).format('YYYY-MM-DD') //new Date().toISOString().split('T')[0];
- 
+
     console.log(today);
     this.form = this.formBuilder.group({
       nLitrosComprados: [{ value: this.compra.nlitrosComprados, disabled: true }, Validators.required],
@@ -56,12 +56,15 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
     vm.activeModal.close({});
   }
   async guardar() {
+    console.log(this.nLitrosRecibidos);
+    console.log(this.nLitrosComprados);
+
     if (this.nLitrosRecibidos > this.nLitrosComprados) {
       this.util.dialogError('La cantidad de litros recibidos no puede ser mayor a los litros comprados.');
     } else {
         await this.service.confirmarCompra({
           nCompra : this.compra.nCompra,
-          nLitrosRecepcion : this.nLitrosRecibidos, 
+          nLitrosRecepcion : this.nLitrosRecibidos,
           dFechaRecepcion : new Date(this.dFechaRecepcion).toISOString().split('T')[0]
         }).subscribe ( async (resp: any) => {
           if (resp) {

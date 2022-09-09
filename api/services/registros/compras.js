@@ -36,7 +36,7 @@ async function obtenerCompras(params) {
 async function guardarCompra(params) {
 
     try {
-
+        const t = await sequelize.transaction();
         let data = await sequelize.query(
             `
              CALL proc_guardar_registro_de_compra (
@@ -48,6 +48,9 @@ async function guardarCompra(params) {
                 ${ params.cFactura ? "'" + params.cFactura + "'" : null },
                 ${ params.dFechaFactura ? "'" + params.dFechaFactura + "'" : null },
                 ${ params.cTicket ? "'" + params.cTicket + "'" : null },
+                ${params.cFactura ? "'" + params.cFactura + "'" : null},
+                ${params.dFechaFactura ? "'" + params.dFechaFactura + "'" : null},
+                '${params.cTicket}',
                 ${params.nFletera},
                 ${params.nChofer},
                 '${params.cNumeroTrailer}',
@@ -74,6 +77,8 @@ async function guardarCompra(params) {
             }
         );
 
+        await t.commit();
+
         return {
             status: 200,
             error: '',
@@ -82,7 +87,7 @@ async function guardarCompra(params) {
 
     } catch (err) {
         // do something
-
+        await t.rollback();
         console.log(err);
         if (err) {
             return {
@@ -187,7 +192,7 @@ async function obtenerConsultaCompras(params) {
 async function confirmarCompra(params) {
 
     try {
-   
+
         console.log('entro');
         let data = await sequelize.query(
             `

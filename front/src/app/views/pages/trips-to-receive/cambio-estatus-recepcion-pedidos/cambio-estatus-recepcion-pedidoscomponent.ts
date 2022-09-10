@@ -5,11 +5,11 @@ import { ComprasService } from 'src/services/compras.service';
 import { UtilsService } from 'src/services/utils.service';
 import * as dayjs from 'dayjs';
 @Component({
-  selector: 'app-cancelacion-recepcion-pedidos',
-  templateUrl: './cancelacion-recepcion-pedidos.component.html',
-  styleUrls: ['./cancelacion-recepcion-pedidos.component.scss']
+  selector: 'app-cambio-estatus-recepcion-pedidos',
+  templateUrl: './cambio-estatus-recepcion-pedidos.component.html',
+  styleUrls: ['./cambio-estatus-recepcion-pedidos.component.scss']
 })
-export class CancelacionRecepcionPedidosComponent implements OnInit {
+export class CambioEstatusRecepcionPedidosComponent implements OnInit {
 
   data: any[] = [];
   dataTemp: any[] = [];
@@ -49,18 +49,29 @@ export class CancelacionRecepcionPedidosComponent implements OnInit {
   }
   async guardar() {
     await this.service.actualizarEstatusCompra({
-      nCompra : this.compra.nCompra,
-      cMotivoCancelacion : this.cMotivoCancelacion,
-      nEstatus: 4
-    }).subscribe ( async (resp: any) => {
+      nCompra: this.compra.nCompra,
+      cMotivoCancelacion: this.cMotivoCancelacion,
+      nEstatus: this.compra.nEstatus
+    }).subscribe(async (resp: any) => {
       if (resp) {
-        this.util.dialogSuccess('Recepción de compra cancelada correctamente.');
-        this.compra.nEstatus = 4;
-        this.compra.MotivoCancelacion = this.cMotivoCancelacion,
+        if (this.compra.nEstatus == 4) {
+          this.util.dialogSuccess('Recepción de compra cancelada correctamente.');
+
+        } else {
+          this.util.dialogSuccess('Cambio de estatus de recepción de compra  correctamente.');
+        }
+
+        this.compra.cMotivoCancelacion = this.cMotivoCancelacion;
         this.activeModal.close(this.compra);
+
       }
     }, (error: any) => {
-      this.util.dialogError('Error al cancelar la recepción de la compra.');
+      if (this.compra.nEstatus == 4) {
+        this.util.dialogError('Error al cancelar la recepción de la compra.');
+      } else {
+        this.util.dialogError('Error al cambiar el estatus de la recepción de compra.');
+      }
+
     });
   }
 

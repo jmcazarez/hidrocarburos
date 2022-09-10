@@ -7,6 +7,7 @@ import { ArticulosService } from 'src/services/articulos.service';
 import { InventariosService } from 'src/services/inventarios.service';
 import { UtilsService } from 'src/services/utils.service';
 import { BusquedaModalComponent } from '../busquedas/busqueda-modal/busqueda-modal.component';
+import { BusquedaInventoryMovementsComponent } from './busqueda-inventory-movements/busqueda-inventory-movements.component';
 
 @Component({
   selector: 'app-inventory-movements',
@@ -90,6 +91,29 @@ export class InventoryMovementsComponent implements OnInit {
     );
   }
 
+
+  openMovimiento() {
+    console.log('click');
+    const modalRef = this.modalService.open(BusquedaInventoryMovementsComponent, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+      modalDialogClass: 'dialog-formulario',
+    });
+
+    modalRef.closed.subscribe(
+      value => {
+        if (value) {
+          this.form.controls["nMovimientoAlmacen"].setValue(value.id);
+          if (value.id != 0) {
+            //this.mostrarDatosProveedor()
+          }
+        }
+        // this.enfocarBotonNuevaVenta()
+
+      }
+    );
+  }
   async openModalAlmacenes() {
     const modalRef = this.modalService.open(BusquedaModalComponent, {
       centered: true,
@@ -135,5 +159,15 @@ export class InventoryMovementsComponent implements OnInit {
   asignarAlmacen(value: any) {
     this.form.controls["cAlmacen"].setValue(value.cDescripcion);
     this.form.controls["nAlmacen"].setValue(value.id);
+  }
+
+  guardar(){
+
+  }
+  limpiar(){
+
+  }
+  cancelar(){
+
   }
 }

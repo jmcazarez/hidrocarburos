@@ -8,7 +8,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TripsToReceiveComponent } from './trips-to-receive.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { ConfirmacionRecepcionPedidosComponent } from './confirmacion-recepcion-pedidos/confirmacion-recepcion-pedidos.component';
-import { CancelacionRecepcionPedidosComponent } from './cancelacion-recepcion-pedidos/cancelacion-recepcion-pedidos.component';
+import { CambioEstatusRecepcionPedidosComponent } from './cambio-estatus-recepcion-pedidos/cambio-estatus-recepcion-pedidoscomponent';
 
 const routes: Routes = [
   {
@@ -18,7 +18,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [TripsToReceiveComponent,ConfirmacionRecepcionPedidosComponent,CancelacionRecepcionPedidosComponent],
+  declarations: [TripsToReceiveComponent,ConfirmacionRecepcionPedidosComponent,CambioEstatusRecepcionPedidosComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

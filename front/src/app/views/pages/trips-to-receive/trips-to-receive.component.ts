@@ -4,7 +4,7 @@ import { DatePipe } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmacionRecepcionPedidosComponent } from './confirmacion-recepcion-pedidos/confirmacion-recepcion-pedidos.component';
 import { UtilsService } from 'src/services/utils.service';
-import { CancelacionRecepcionPedidosComponent } from './cancelacion-recepcion-pedidos/cancelacion-recepcion-pedidos.component';
+import { CambioEstatusRecepcionPedidosComponent } from './cambio-estatus-recepcion-pedidos/cambio-estatus-recepcion-pedidoscomponent';
 import * as dayjs from 'dayjs';
 
 
@@ -93,7 +93,7 @@ export class TripsToReceiveComponent implements OnInit {
           cAlmacen: compra.cAlmacen,
           cProveedor: compra.cProveedor,
           cFactura: compra.cFactura,
-          nlitrosComprados:  parseFloat(compra.nLitrosCompra).toFixed(2),
+          nlitrosComprados:  parseFloat(compra.nLitrosCompra).toFixed(4),
           nCostoxLitro: nCostoxLitro,
           dFechaCompra: compra.dFechaCompra,
           nCostoTotal: compra.nCostoTotal,
@@ -159,26 +159,6 @@ export class TripsToReceiveComponent implements OnInit {
         centered: true,
         backdrop: 'static',
         keyboard: false,
-        modalDialogClass: 'dialog-formulario-chico',
-      });
-      modalRef.componentInstance.compra = row;
-      modalRef.closed.subscribe(
-        value => {
-          if (value.nEstatus) {
-            row = value;
-            row.nEstatusOriginal = value.nEstatus;
-          } else {
-            row.nEstatus = row.nEstatusOriginal;
-          }
-          this.filerWithStatus();
-          // this.enfocarBotonNuevaVenta()
-        }
-      );
-    } else if (row.nEstatus == 4) {
-      const modalRef = this.modalService.open(CancelacionRecepcionPedidosComponent, {
-        centered: true,
-        backdrop: 'static',
-        keyboard: false,
         modalDialogClass: 'dialog-formulario-mediano',
       });
       modalRef.componentInstance.compra = row;
@@ -194,7 +174,31 @@ export class TripsToReceiveComponent implements OnInit {
           // this.enfocarBotonNuevaVenta()
         }
       );
-    } else {
+    } else  {
+      const modalRef = this.modalService.open(CambioEstatusRecepcionPedidosComponent, {
+        centered: true,
+        backdrop: 'static',
+        keyboard: false,
+        modalDialogClass: 'dialog-formulario-mediano',
+      });
+
+      modalRef.componentInstance.compra = row;
+      modalRef.closed.subscribe(
+        value => {
+          if (value.nEstatus) {
+            console.log(value);
+            row = value;
+            row.nEstatusOriginal = value.nEstatus;
+            row.cMotivoCancelacion = value.cMotivoCancelacion;
+            console.log(value.cMotivoCancelacion);
+          } else {
+            row.nEstatus = row.nEstatusOriginal;
+          }
+          this.filerWithStatus();
+          // this.enfocarBotonNuevaVenta()
+        }
+      );
+   /*  } else {
       this.util.dialogConfirm('¿Está seguro que desea actualizar el estatus de la compra?').then(async (result) => {
         if (result.isConfirmed) {
           await this.service.actualizarEstatusCompra({
@@ -213,7 +217,7 @@ export class TripsToReceiveComponent implements OnInit {
           row.nEstatus = row.nEstatusOriginal;
           this.filerWithStatus();
         }
-      });
+      }); */
     }
   }
 

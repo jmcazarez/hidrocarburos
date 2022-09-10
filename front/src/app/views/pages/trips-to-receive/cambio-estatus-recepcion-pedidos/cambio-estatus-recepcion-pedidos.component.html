@@ -2,7 +2,7 @@
   <div class="col-md-12 stretch-card">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title">Cancelación de recepción de compra</h6>
+        <h6 class="card-title"> {{ this.compra.nEstatus == 4 ? 'Cancelación' : 'Cambio de estatus' }} de recepción de compra</h6>
         <form name="form" [formGroup]="form">
           <div class="my-4">
             <div class="col-sm-12">

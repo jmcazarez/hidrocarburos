@@ -192,13 +192,14 @@ async function confirmarCompra(params) {
 
     try {
 
-        console.log('entro');
+        console.log(params);
         let data = await sequelize.query(
             `
              CALL proc_confirmacion_compra(
                  ${params.nCompra},
                  ${params.nLitrosRecepcion},
-                 '${params.dFechaRecepcion}'
+                 '${params.dFechaRecepcion}',
+                 '${params.cObervaciones}'
             )
              `,
             {

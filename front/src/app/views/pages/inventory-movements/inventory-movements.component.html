@@ -29,10 +29,18 @@
           <div class="row mt-4">
             <div class="col-sm-5">
               <div class="row">
+
                 <label class="form-label col-sm-5 col-form-label text-end">Folio</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control form-control-sm">
+                  <div class="input-group mb-1">
+                    <input type="text" class="form-control form-control-sm border-end-0"  [disabled]="true" formControlName="cAlmacen"
+                  >
+                    <span class="input-group-text border-start-0 bg-white">
+                      <i class="feather icon-search" (click)="openMovimiento();"></i>
+                    </span>
+                  </div>
                 </div>
+
 
                 <label class="form-label col-sm-5 col-form-label text-end">Tipo de Movimiento</label>
                 <div class="col-sm-7 mb-1">
@@ -99,9 +107,11 @@
 
         </form>
         <div class="d-flex justify-content-end my-4">
-          <button type="button" class="btn btn-warning mx-2">Limpiar</button>
-          <button type="button" class="btn btn-dark mx-2">Cancelar</button>
-          <button type="button" class="btn btn-primary mx-2">Guardar</button>
+          <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
+          <button type="button" *ngIf="this.nMovimientoAlmacen > 0" class="btn btn-dark mx-2"
+            (click)="cancelar()">Eliminar</button>
+          <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid"
+            (click)="guardar()">Guardar</button>
         </div>
       </div>
     </div>

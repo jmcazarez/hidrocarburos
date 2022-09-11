@@ -23,6 +23,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
 
   form: FormGroup;
   ventas: any[] = [];
+  maxDate = new Date();
 
   constructor(
     private service: VentasService,
@@ -41,7 +42,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
     this.form = new FormGroup({
       nVenta : new FormControl({ value: '', disabled: true }, []),
       // cFolioExterno : new FormControl('', [Validators.required]),
-      dFechaVenta : new FormControl('', [Validators.required]),
+      dFechaVenta : new FormControl(dayjs().format('YYYY-MM-DD'), [Validators.required]),
       cOrigen : new FormControl({value: '', disabled: true}, Validators.required),
       nOrigen : new FormControl('', Validators.required),
       nDestino : new FormControl('', Validators.required),

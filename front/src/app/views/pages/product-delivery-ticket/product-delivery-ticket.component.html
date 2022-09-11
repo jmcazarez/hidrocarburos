@@ -37,7 +37,7 @@
               <div class="row mb-3">
                 <label class="form-label col-sm-3 col-form-label text-end">Fecha</label>
                 <div class="col-sm-9">
-                  <input type="date" class="form-control form-control-sm" placeholder="" formControlName="dFechaVenta"
+                  <input type="date" class="form-control form-control-sm" placeholder="" formControlName="dFechaVenta" max="{{maxDate | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'has-error': form.get('dFechaVenta')?.hasError('required')}"
                   >
                 </div>

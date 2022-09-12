@@ -330,7 +330,7 @@ export class NationalsComponent implements OnInit {
             nTipoCambio : this.nTipoCambio,
             nCostoTotal : this.nCostoTotal,
             nCostoCruce: this.cTipoCompra === 'I' ? this.nCostoCruce : null,
-            nCostoFactura: this.cTipoCompra === 'I' ? this.nCostoFactura : null,
+            nCostoFactura: this.nCostoFactura,
             dFechaCompra: new Date(this.dFechaCompra).toISOString().split('T')[0],
             nCostoFlete : this.nCostoFlete,
             cTicket: this.cTipoCompra === 'I' ? this.cTicket : null,
@@ -698,11 +698,11 @@ export class NationalsComponent implements OnInit {
         this.form.controls["cTipoCompra"].disable();
 
         this.form.controls["nLitrosCompra"].disable();
-       
-        
+
+
         if(compra.cTipoCompra !== 'I') {
           this.form.controls["nCostoTotal"].enable();
-         
+
         } else {
           this.form.controls["nCostoTotal"].disable();
         }
@@ -721,7 +721,7 @@ export class NationalsComponent implements OnInit {
     let costoLitro = this.nCostoTotal  / this.nLitrosCompra;
     const costoFactura = this.costoLitroFactura * this.nLitrosCompra;
     const costoFlete = this.nCostoFlete;
-    
+
     if (!costoLitro) {
       costoLitro = 0;
     }
@@ -730,7 +730,7 @@ export class NationalsComponent implements OnInit {
     this.form.controls["nCostoFactura"].setValue(costoFactura);
 
     if (this.cTipoCompra !== 'I') { // Nacional
-    
+
       const costoFinalCompra = this.nCostoTotal + costoFactura + costoFlete;
       let costoFinalLitro = costoFinalCompra / this.nLitrosCompra;
 
@@ -764,7 +764,7 @@ export class NationalsComponent implements OnInit {
 
     }
 
-    
+
 
   }
 

@@ -6,6 +6,7 @@ import { AlmacenService } from 'src/services/almacen.service';
 import { ArticulosService } from 'src/services/articulos.service';
 import { InventariosService } from 'src/services/inventarios.service';
 import { UtilsService } from 'src/services/utils.service';
+import Swal from 'sweetalert2';
 import { BusquedaModalComponent } from '../busquedas/busqueda-modal/busqueda-modal.component';
 import { BusquedaInventoryMovementsComponent } from './busqueda-inventory-movements/busqueda-inventory-movements.component';
 
@@ -18,40 +19,86 @@ import { BusquedaInventoryMovementsComponent } from './busqueda-inventory-moveme
 export class InventoryMovementsComponent implements OnInit {
   form: FormGroup;
   maxDate = new Date();
+  tiposDeMovimientos: any = [];
+  bTraspaso: boolean = false;
   constructor(private util: UtilsService,
     private formBuilder: FormBuilder, private inventario: InventariosService,
     private serviceArticulo: ArticulosService,
     public modalService: NgbModal,
-    private serviceAlmacen: AlmacenService,) { }
+    private serviceAlmacen: AlmacenService,
+    private serviceInventario: InventariosService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
 
     let today = dayjs(new Date().toISOString().split('T')[0]).format('YYYY-MM-DD')
     this.form = new FormGroup({
-      nMovimientoAlmacen : new FormControl({ value: '', disabled: true }, []),
-      nArticulo : new FormControl('', Validators.required),
-      cArticulo : new FormControl({ value: '', disabled: true }, Validators.required),
-      nAlmacen : new FormControl('', Validators.required),
-      cAlmacen : new FormControl({ value: '', disabled: true }, Validators.required),
-      nCantidadMovimiento : new FormControl(0, Validators.required),
-      dFechaMovimiento : new FormControl(today, [Validators.required]),
+      nMovimientoAlmacen: new FormControl({ value: '', disabled: true }, []),
+      nArticulo: new FormControl('', Validators.required),
+      nTipoMovimiento: new FormControl('', Validators.required),
+      cArticulo: new FormControl({ value: '', disabled: true }, Validators.required),
+      nAlmacenOrigen: new FormControl(''),
+      cAlmacenOrigen: new FormControl({ value: '', disabled: true }),
+      nAlmacenDestino: new FormControl('', Validators.required),
+      cAlmacenDestino: new FormControl({ value: '', disabled: true }),
+      nCantidadMovimiento: new FormControl(0, Validators.required),
+      dFechaMovimiento: new FormControl(today, [Validators.required]),
+      nCosto: new FormControl(0, Validators.required),
+      cObservaciones: new FormControl(''),
+
+    });
+
+    let tiposDeMovimientosTemp = await this.serviceInventario.obtenerTiposDeMovimientos(0).toPromise();
+    if (tiposDeMovimientosTemp.data) {
+      this.tiposDeMovimientos = tiposDeMovimientosTemp.data;
+    } else {
+      this.tiposDeMovimientos = [];
+    }
+
+    this.form.get('nTipoMovimiento')?.valueChanges.subscribe(val => {
+      if (val.bTraspaso == 0) {
+        this.bTraspaso = false;
+        this.form.get('nAlmacenOrigen')?.clearValidators();
+        this.form.get('nAlmacenOrigen')?.updateValueAndValidity();
+      } else {
+        this.bTraspaso = true;
+        this.form.get('nAlmacenOrigen')?.setValidators([Validators.required]);
+        this.form.get('nAlmacenOrigen')?.updateValueAndValidity();
+      }
     });
   }
   get nMovimientoAlmacen(): number {
-    if (!this.form.get('nMovimientoAlmacen')?.value ||  this.form.get('nMovimientoAlmacen')?.value == ''){
+    if (!this.form.get('nMovimientoAlmacen')?.value || this.form.get('nMovimientoAlmacen')?.value == '') {
       return 0;
     }
-    return this.form.get('nCompra')?.value;
+    return this.form.get('nMovimientoAlmacen')?.value;
   }
   get nArticulo(): number {
     return this.form.get('nArticulo')?.value ?? 0;
   }
-  get nAlmacen(): number {
-    return this.form.get('nAlmacen')?.value ?? 0;
+  get nAlmacenOrigen(): number {
+    return this.form.get('nAlmacenOrigen')?.value ?? 0;
+  }
+  get nAlmacenDestino(): number {
+    return this.form.get('nAlmacenDestino')?.value ?? 0;
   }
   get nCantidadMovimiento(): number {
     return this.form.get('nCantidadMovimiento')?.value ?? 0;
   }
+  get nCosto(): number {
+    return this.form.get('nCosto')?.value ?? 0;
+  }
+  get nTipoMovimiento(): any {
+    return this.form.get('nTipoMovimiento')?.value ?? {};
+  }
+
+  get dFechaMovimiento(): any {
+    return this.form.get('dFechaMovimiento')?.value;
+  }
+
+  get cObservaciones(): string {
+    return this.form.get('cObservaciones')?.value ?? '';
+  }
+
 
   async openModalArticulos() {
     const modalRef = this.modalService.open(BusquedaModalComponent, {
@@ -75,7 +122,7 @@ export class InventoryMovementsComponent implements OnInit {
 
     const articuloResp = await this.serviceArticulo.obtenerArticulos(0, -1).toPromise();
 
-    const data = articuloResp.data.map( (item: any) => { return {nArticulo: item.nArticulo, cDescripcion: item.cDescripcionLarga} });
+    const data = articuloResp.data.map((item: any) => { return { nArticulo: item.nArticulo, cDescripcion: item.cDescripcionLarga } });
 
     modalRef.componentInstance.data = data;
     modalRef.componentInstance.dataTemp = data;
@@ -83,7 +130,7 @@ export class InventoryMovementsComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value && value.id){
+        if (value && value.id) {
           this.asignarArticulo(value);
           modalRef.close();
         }
@@ -93,7 +140,6 @@ export class InventoryMovementsComponent implements OnInit {
 
 
   openMovimiento() {
-    console.log('click');
     const modalRef = this.modalService.open(BusquedaInventoryMovementsComponent, {
       centered: true,
       backdrop: 'static',
@@ -104,9 +150,10 @@ export class InventoryMovementsComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         if (value) {
+          console.log(value.id);
           this.form.controls["nMovimientoAlmacen"].setValue(value.id);
           if (value.id != 0) {
-            //this.mostrarDatosProveedor()
+            this.mostrarDatos()
           }
         }
         // this.enfocarBotonNuevaVenta()
@@ -114,7 +161,7 @@ export class InventoryMovementsComponent implements OnInit {
       }
     );
   }
-  async openModalAlmacenes() {
+  async openModalAlmacenesOrigen() {
     const modalRef = this.modalService.open(BusquedaModalComponent, {
       centered: true,
       backdrop: 'static',
@@ -136,7 +183,7 @@ export class InventoryMovementsComponent implements OnInit {
 
     const almacenResp = await this.serviceAlmacen.obtenerAlmacenes(0).toPromise();
 
-    const data = almacenResp.data.map( (item: any) => { return {nAlmacen: item.nAlmacen, cDescripcion: item.cDescripcion} });
+    const data = almacenResp.data.map((item: any) => { return { nAlmacen: item.nAlmacen, cDescripcion: item.cDescripcion } });
 
     modalRef.componentInstance.data = data;
     modalRef.componentInstance.dataTemp = data;
@@ -144,8 +191,46 @@ export class InventoryMovementsComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value && value.id){
-          this.asignarAlmacen(value);
+        if (value && value.id) {
+          this.asignarAlmacenOrigen(value);
+          modalRef.close();
+        }
+      }
+    );
+  }
+
+  async openModalAlmacenesDestino() {
+    const modalRef = this.modalService.open(BusquedaModalComponent, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+      modalDialogClass: 'dialog-formulario-chico',
+    });
+
+    modalRef.componentInstance.titulo = 'Búsqueda de almacenes';
+
+    modalRef.componentInstance.props = [{
+      cNombre: 'Folio',
+      cPropiedad: 'nAlmacen'
+    },
+    {
+      cNombre: 'Almacén',
+      cPropiedad: 'cDescripcion'
+    }
+    ];
+
+    const almacenResp = await this.serviceAlmacen.obtenerAlmacenes(0).toPromise();
+
+    const data = almacenResp.data.map((item: any) => { return { nAlmacen: item.nAlmacen, cDescripcion: item.cDescripcion } });
+
+    modalRef.componentInstance.data = data;
+    modalRef.componentInstance.dataTemp = data;
+
+    modalRef.closed.subscribe(
+      value => {
+        console.log('value:', value);
+        if (value && value.id) {
+          this.asignarAlmacenDestino(value);
           modalRef.close();
         }
       }
@@ -156,18 +241,81 @@ export class InventoryMovementsComponent implements OnInit {
     this.form.controls["nArticulo"].setValue(value.id);
   }
 
-  asignarAlmacen(value: any) {
-    this.form.controls["cAlmacen"].setValue(value.cDescripcion);
-    this.form.controls["nAlmacen"].setValue(value.id);
+  asignarAlmacenOrigen(value: any) {
+    this.form.controls["cAlmacenOrigen"].setValue(value.cDescripcion);
+    this.form.controls["nAlmacenOrigen"].setValue(value.id);
   }
 
-  guardar(){
+  asignarAlmacenDestino(value: any) {
+    this.form.controls["cAlmacenDestino"].setValue(value.cDescripcion);
+    this.form.controls["nAlmacenDestino"].setValue(value.id);
+  }
+
+
+  async guardar() {
+
+    let tempAlmacenOrigen;
+    if (this.nAlmacenOrigen == 0) {
+      tempAlmacenOrigen = this.nAlmacenDestino;
+    } else {
+      tempAlmacenOrigen = this.nAlmacenOrigen;
+    }
+    const objEncabezado = {
+      nTipoMovimiento: this.nTipoMovimiento.nTipoMovimiento,
+      nAlmacenRegistro: tempAlmacenOrigen,
+      nAlmacenMovimiento: this.nAlmacenDestino,
+      dFechaMovimiento: new Date(this.dFechaMovimiento).toISOString().split('T')[0],
+      cReferencia: this.cObservaciones,
+      detalle: [
+        {
+          nTipoMovimiento: this.nTipoMovimiento.nTipoMovimiento,
+          nRenglon: 1,
+          nArticulo: this.nArticulo,
+          nCantidadMovimiento: this.nCantidadMovimiento,
+          nCosto: this.nCosto,
+          nPrecio: this.nCosto
+        }
+      ]
+    };
+    await this.serviceInventario.guardarMovimientoAlmacen(objEncabezado).subscribe(async (resp: any) => {
+
+      if (resp.error !== '') {
+
+        Swal.fire('Error', resp.error.error, 'error');
+      }
+      else {
+        this.limpiar();
+        this.util.dialogSuccess('Movimiento de inventario guardado correctamente.');
+      }
+    }, (err: { error: any; }) => {
+      if (err.error.error.original.sqlMessage) {
+        this.util.dialogError('Error al guardar el movimiento de inventario.' + err.error.error.original.sqlMessage);
+      } else {
+        this.util.dialogError('Error al guardar el movimiento de inventario.');
+      }
+
+    });
+  }
+
+  mostrarDatos() {
+    console.log(this.nMovimientoAlmacen);
+    console.log(this.tiposDeMovimientos);
+    this.serviceInventario.obtenerMovimientoDeAlmacen(this.nMovimientoAlmacen).subscribe((resp: any) => {
+      if (resp) {
+        const movimiento = resp.data[0];     
+        let tipoMov = this.tiposDeMovimientos.filter((mov: { nTipoMovimiento: any; }) => mov.nTipoMovimiento == movimiento.nTipoMovimiento)    
+        if (tipoMov.length) {
+          this.form.controls["nTipoMovimiento"].setValue(tipoMov[0]);
+        }
+      }
+    }, (error: any) => {
+
+    });
+  }
+  limpiar() {
 
   }
-  limpiar(){
-
-  }
-  cancelar(){
+  cancelar() {
 
   }
 }

@@ -7,9 +7,11 @@
   <ngx-datatable class="material shadow-none" [rows]="data" [loadingIndicator]="loadingIndicator"
     [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [reorderable]="reorderable"
     [limit]="10" [scrollbarH]="true" (activate)="onClick($event)">
-    <ngx-datatable-column name="Id. Proveedor" prop="nProveedor" [width]="80"></ngx-datatable-column>
-    <ngx-datatable-column name="Razon Social/Nombre" prop="cDescripcion" ></ngx-datatable-column>
-    <ngx-datatable-column name="RFC" prop="cRFC" ></ngx-datatable-column>
+    <ngx-datatable-column name="Id. movimiento" prop="nMovimientoAlmacen" [width]="80"></ngx-datatable-column>
+    <ngx-datatable-column name="Tipo de movimiento" prop="cDescripcionMovimiento" ></ngx-datatable-column>
+    <ngx-datatable-column name="Fecha de movimiento" prop="dFechaMovimiento" ></ngx-datatable-column>
+    <ngx-datatable-column name="Producto" prop="cDescripcionCorta" ></ngx-datatable-column>
+    
    <!--  <ngx-datatable-column name="Persona física" prop="bPersonaFisica" ></ngx-datatable-column>
  -->
   </ngx-datatable>

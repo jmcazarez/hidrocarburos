@@ -5,6 +5,7 @@ const sequelize = require('../../db/config');
 async function obtenerMovimientoAlmacen(params) {
 
     try {
+        console.log('entro',params);
         let data = await sequelize.query(
             `
              CALL proc_obtener_movimientos_almacen(${params.nMovimientoAlmacen})
@@ -13,7 +14,7 @@ async function obtenerMovimientoAlmacen(params) {
                 type: QueryTypes.RAW
             }
         );
-
+console.log(data);
         return {
             status: 200,
             error: '',
@@ -36,22 +37,46 @@ async function obtenerMovimientoAlmacen(params) {
 async function guardarMovimientoAlmacen(params) {
     const t = await sequelize.transaction();
     try {
- 
+        let nMovimientoAlmacen = 0;
+        console.log(params)
         let data = await sequelize.query(
             `
              CALL proc_registra_movimiento_de_inventario (
                 ${params.nTipoMovimiento},
                 ${params.nAlmacenRegistro},
                 ${params.nAlmacenMovimiento},
-                ${params.dFechaMovimiento},
-                '${params.cUsuario}',
-                '${params.cReferencia}'
+                '${params.dFechaMovimiento}',
+                '${params.cLogin}',
+                '${params.cReferencia}',
+                @rank
             )
              `,
             {
                 type: QueryTypes.INSERT
             }
         );
+
+        await params.detalle.forEach(async detalle => {
+            let det = await sequelize.query(
+                `
+                 CALL proc_registra_movimiento_de_inventario_detalle (
+                    ${data[0].ID},
+                    ${detalle.nTipoMovimiento},
+                    ${detalle.nRenglon},
+                    ${detalle.nArticulo},
+                    ${detalle.nCantidadMovimiento},
+                    ${detalle.nCosto},
+                    ${detalle.nPrecio}
+                )
+                 `,
+                {
+                    type: QueryTypes.INSERT
+                }
+            );
+        });
+
+
+
         await t.commit();
         return {
             status: 200,
@@ -62,7 +87,7 @@ async function guardarMovimientoAlmacen(params) {
     } catch (err) {
         // do something
         await t.rollback();
-        console.log(err);
+        console.log('err',err);
         if (err) {
             return {
                 status: 400,

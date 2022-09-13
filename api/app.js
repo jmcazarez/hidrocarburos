@@ -127,5 +127,5 @@ app.use("/api/registros/compras", compras);
 app.use("/api/catalogos/empleados", empleados);
 app.use("/api/registros/ventas", ventas);
 app.use("/api/registros/movimientos_almacen", movimientos_almacen);
-app.use("/api/registros/inv_tipo_de_movimientos", inv_tipo_de_movimientos);
+app.use("/api/catalogos/inv_tipo_de_movimientos", inv_tipo_de_movimientos);
 module.exports = app;

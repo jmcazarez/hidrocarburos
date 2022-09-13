@@ -1,4 +1,4 @@
-const service = require("../../services/registros/compras");
+const service = require("../../services/registros/movimientos_almacen");
 const path = require('path');
 
 async function obtenerMovimientoAlmacen(req, res) {

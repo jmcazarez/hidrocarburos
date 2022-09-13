@@ -23,28 +23,8 @@ export class BusquedaInventoryMovementsComponent implements OnInit {
     this.data = [];
     // Obtener los datos
     this.service.obtenerMovimientoDeAlmacen(0).subscribe((resp: any) => {
-
-      resp.data.forEach((proveedor: {
-        cRFC: any; bPersonaFisica: any; cNombre: string; cApellidoPaterno: string; cApellidoMaterno: string; cRazonSocial: string; nProveedor: any;
-      }) => {
-
-        let cDescripcion = '';
-        if (proveedor.bPersonaFisica) {
-          cDescripcion = proveedor.cNombre ?? '' + ' ' + proveedor.cApellidoPaterno ?? '' + ' ' + proveedor.cApellidoMaterno ?? ''
-
-        }
-        else {
-          cDescripcion = proveedor.cRazonSocial
-        }
-        this.dataTemp.push({
-          nProveedor: proveedor.nProveedor,
-          cRFC: proveedor.cRFC,
-          cDescripcion: cDescripcion,
-          bPersonaFisica: proveedor.bPersonaFisica
-        });
-
-      });
-      this.data = [...this.dataTemp];
+      this.data = [...resp.data];
+      console.log(this.data);
     }, (error: any) => {
 
     })
@@ -63,12 +43,15 @@ export class BusquedaInventoryMovementsComponent implements OnInit {
       const val = value.target.value.toLowerCase();
       const temp = this.data.filter(
         (d) =>
-          d.nProveedor.toString().toLowerCase().indexOf(val) !== -1 ||
+          d.nMovimientoAlmacen.toString().toLowerCase().indexOf(val) !== -1 ||
           !val ||
-          d.cDescripcion.toLowerCase().indexOf(val) !== -1 ||
+          d.cDescripcionMovimiento.toLowerCase().indexOf(val) !== -1 ||
           !val ||
-          d.cRFC.toLowerCase().indexOf(val) !== -1 ||
+          d.dFechaMovimiento.toLowerCase().indexOf(val) !== -1 ||
+          !val ||
+          d.cDescripcionCorta.toLowerCase().indexOf(val) !== -1 ||
           !val
+          
       );
 
       this.data = temp;
@@ -78,8 +61,8 @@ export class BusquedaInventoryMovementsComponent implements OnInit {
   onClick(event: any) {
     if (event.type == 'click') {
       if (this.selectedRow) {
-        if (this.selectedRow.nProveedor == event.row.nProveedor) {
-          this.activeModal.close({ id: this.selectedRow.nProveedor });
+        if (this.selectedRow.nMovimientoAlmacen == event.row.nMovimientoAlmacen) {
+          this.activeModal.close({ id: this.selectedRow.nMovimientoAlmacen });
         } else {
           this.selectedRow = event.row;
         }

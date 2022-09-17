@@ -69,7 +69,11 @@ async function guardarCompra(params) {
                 ${params.nCostoGalon},
                 '${params.dFechaCompra}',
                 ${params.nCostoLitro},
-                ${params.nCostoLogistico}
+                ${params.nCostoLogistico},
+                '${params.cNumeroPatona}',
+                '${params.cSellos}',
+                ${params.nKilometrosRecorridos},
+                ${params.nTipoCambioLocal}
             )
              `,
             {

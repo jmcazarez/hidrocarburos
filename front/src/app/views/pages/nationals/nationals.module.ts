@@ -11,6 +11,11 @@ import { BusquedasModule } from '../busquedas/busquedas.module';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BusquedaCompraComponent } from './busqueda-compra/busqueda-compra.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 const routes: Routes = [
   
@@ -30,6 +35,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     BusquedasModule,
     CurrencyMaskModule,
+    NgxMaskModule.forRoot(maskConfig),
     NgxDatatableModule.forRoot({
       messages: {
         emptyMessage: 'No hay datos disponibles', // Message to show when array is presented, but contains no values

@@ -5,7 +5,7 @@ const sequelize = require('../../db/config');
 async function obtenerMovimientoAlmacen(params) {
 
     try {
-        console.log('entro',params);
+        console.log('entro', params);
         let data = await sequelize.query(
             `
              CALL proc_obtener_movimientos_almacen(${params.nMovimientoAlmacen})
@@ -14,7 +14,7 @@ async function obtenerMovimientoAlmacen(params) {
                 type: QueryTypes.RAW
             }
         );
-console.log(data);
+        console.log(data);
         return {
             status: 200,
             error: '',
@@ -37,8 +37,7 @@ console.log(data);
 async function guardarMovimientoAlmacen(params) {
     const t = await sequelize.transaction();
     try {
-        let nMovimientoAlmacen = 0;
-        console.log(params)
+
         let data = await sequelize.query(
             `
              CALL proc_registra_movimiento_de_inventario (
@@ -52,31 +51,77 @@ async function guardarMovimientoAlmacen(params) {
             )
              `,
             {
-                type: QueryTypes.INSERT
+                type: QueryTypes.INSERT,
+                transaction: t
             }
-        );
-
-        await params.detalle.forEach(async detalle => {
-            let det = await sequelize.query(
-                `
-                 CALL proc_registra_movimiento_de_inventario_detalle (
-                    ${data[0].ID},
-                    ${detalle.nTipoMovimiento},
-                    ${detalle.nRenglon},
-                    ${detalle.nArticulo},
-                    ${detalle.nCantidadMovimiento},
-                    ${detalle.nCosto},
-                    ${detalle.nPrecio}
-                )
-                 `,
-                {
-                    type: QueryTypes.INSERT
-                }
-            );
+        ).then((res) => {
+            if (res.length === 0) {
+                return null;
+            }
+            return res;
+        }).catch(async (error) => {
+            await t.rollback();
+            throw error;
         });
 
 
+        /* await params.detalle.forEach(async detalle => {
+          let det =  
 
+           
+        }); */
+
+        await sequelize.query(
+            `
+             CALL proc_registra_movimiento_de_inventario_detalle (
+                ${data[0].ID},
+                ${params.detalle[0].nTipoMovimiento},
+                ${params.detalle[0].nRenglon},
+                ${params.detalle[0].nArticulo},
+                ${params.detalle[0].nCantidadMovimiento},
+                ${params.detalle[0].nCosto},
+                ${params.detalle[0].nPrecio}
+            )
+             `,
+            {
+                type: QueryTypes.INSERT,
+                transaction: t
+            }
+        ).then((res) => {
+            console.log(res);
+            if (res.length === 0) {
+                return null;
+            }
+            return res;
+        }).catch(async (error) => {
+            await t.rollback();
+            throw error;
+        });
+        ;
+
+
+        let aplica = await sequelize.query(
+            `
+             CALL proc_aplica_movimiento_almacen (
+                ${data[0].ID}
+            )
+             `,
+            {
+                type: QueryTypes.INSERT,
+                transaction: t
+            }
+        ).then((res) => {
+            if (res.length === 0) {
+                return null;
+            }
+            return res;
+        }).catch(async (error) => {
+            await t.rollback();
+            throw error;
+        });
+        ;
+
+        console.log(aplica);
         await t.commit();
         return {
             status: 200,
@@ -86,8 +131,9 @@ async function guardarMovimientoAlmacen(params) {
 
     } catch (err) {
         // do something
-        await t.rollback();
-        console.log('err',err);
+
+
+        console.log('err', err);
         if (err) {
             return {
                 status: 400,

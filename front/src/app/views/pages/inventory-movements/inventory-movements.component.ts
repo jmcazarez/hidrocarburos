@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -14,7 +15,8 @@ import { BusquedaInventoryMovementsComponent } from './busqueda-inventory-moveme
   selector: 'app-inventory-movements',
   templateUrl: './inventory-movements.component.html',
   styleUrls: ['./inventory-movements.component.scss'],
-  preserveWhitespaces: true
+  preserveWhitespaces: true,
+  providers: [DatePipe]
 })
 export class InventoryMovementsComponent implements OnInit {
   form: FormGroup;
@@ -26,11 +28,11 @@ export class InventoryMovementsComponent implements OnInit {
     private serviceArticulo: ArticulosService,
     public modalService: NgbModal,
     private serviceAlmacen: AlmacenService,
-    private serviceInventario: InventariosService) { }
+    private serviceInventario: InventariosService,
+    private datePipe: DatePipe) { }
 
   async ngOnInit(): Promise<void> {
 
-    let today = dayjs(new Date().toISOString().split('T')[0]).format('YYYY-MM-DD')
     this.form = new FormGroup({
       nMovimientoAlmacen: new FormControl({ value: '', disabled: true }, []),
       nArticulo: new FormControl('', Validators.required),
@@ -41,7 +43,7 @@ export class InventoryMovementsComponent implements OnInit {
       nAlmacenDestino: new FormControl('', Validators.required),
       cAlmacenDestino: new FormControl({ value: '', disabled: true }),
       nCantidadMovimiento: new FormControl(0, Validators.required),
-      dFechaMovimiento: new FormControl(today, [Validators.required]),
+      dFechaMovimiento: new FormControl(this.datePipe.transform(new Date(), 'yyyy-MM-dd'), [Validators.required]),
       nCosto: new FormControl(0, Validators.required),
       cObservaciones: new FormControl(''),
 
@@ -302,10 +304,21 @@ export class InventoryMovementsComponent implements OnInit {
     console.log(this.tiposDeMovimientos);
     this.serviceInventario.obtenerMovimientoDeAlmacen(this.nMovimientoAlmacen).subscribe((resp: any) => {
       if (resp) {
-        const movimiento = resp.data[0];     
-        let tipoMov = this.tiposDeMovimientos.filter((mov: { nTipoMovimiento: any; }) => mov.nTipoMovimiento == movimiento.nTipoMovimiento)    
+        const movimiento = resp.data[0];
+        console.log(movimiento);
+        let tipoMov = this.tiposDeMovimientos.filter((mov: { nTipoMovimiento: any; }) => mov.nTipoMovimiento == movimiento.nTipoMovimiento)
         if (tipoMov.length) {
           this.form.controls["nTipoMovimiento"].setValue(tipoMov[0]);
+          this.form.controls["nArticulo"].setValue(movimiento.nArticulo);
+          this.form.controls["cArticulo"].setValue(movimiento.cDescripcionCorta);
+          this.form.controls["nCantidadMovimiento"].setValue(movimiento.nCantidadMovimiento);
+          this.form.controls["dFechaMovimiento"].setValue(dayjs(new Date(movimiento.dFechaMovimiento).toISOString().split('T')[0]).format('YYYY-MM-DD'));
+          this.form.controls["nAlmacenOrigen"].setValue(movimiento.nAlmacenRegistro);
+          this.form.controls["cAlmacenOrigen"].setValue(movimiento.cDescripcionAlmacenRegistro);
+          this.form.controls["cAlmacenDestino"].setValue(movimiento.cDescripcionAlmacen);
+          this.form.controls["nAlmacenDestino"].setValue(movimiento.nAlmacen);
+          this.form.controls["nCosto"].setValue(movimiento.nCostoUnitario);
+          this.form.controls["cObservaciones"].setValue(movimiento.cReferencia);
         }
       }
     }, (error: any) => {
@@ -314,6 +327,20 @@ export class InventoryMovementsComponent implements OnInit {
   }
   limpiar() {
 
+
+    this.form.controls["nMovimientoAlmacen"].setValue('');
+    this.form.controls["nArticulo"].setValue('');
+    this.form.controls["nTipoMovimiento"].setValue('');
+    this.form.controls["cArticulo"].setValue('');
+    this.form.controls["nAlmacenOrigen"].setValue('');
+    this.form.controls["cAlmacenOrigen"].setValue('');
+    this.form.controls["cAlmacenDestino"].setValue('');
+    this.form.controls["nAlmacenDestino"].setValue('');
+    this.form.controls["nCantidadMovimiento"].setValue(0);
+    this.form.controls["dFechaMovimiento"].setValue(this.datePipe.transform(new Date(), 'yyyy-MM-dd'));
+    this.form.controls["nCosto"].setValue(0);
+    this.form.controls["cObservaciones"].setValue('');
+    this.bTraspaso = false;
   }
   cancelar() {
 

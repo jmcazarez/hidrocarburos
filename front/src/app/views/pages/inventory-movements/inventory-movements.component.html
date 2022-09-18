@@ -61,7 +61,7 @@
                       <i class="feather icon-search" (click)="openModalAlmacenesOrigen();"></i>
                     </span>
                   </div>
-                </div>        
+                </div>
                 <label class="form-label col-sm-5 col-form-label text-end">Almacen destino</label>
                 <div class="col-sm-7">
                   <div class="input-group mb-1">
@@ -73,7 +73,7 @@
                       <i class="feather icon-search" (click)="openModalAlmacenesDestino();"></i>
                     </span>
                   </div>
-                </div>          
+                </div>
                 <label class="form-label col-sm-5 col-form-label text-end">Producto</label>
                 <div class="col-sm-7">
                   <div class="input-group mb-1">
@@ -92,7 +92,7 @@
                     onfocus="this.select()" maxlength="20">
                 </div>
 
-                
+
                 <label class="form-label col-sm-5 col-form-label text-end">Costo</label>
                 <div class="col-sm-7">
                   <input type="text" class="form-control form-control-sm" formControlName="nCosto"
@@ -128,7 +128,7 @@
           <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
           <button type="button" *ngIf="this.nMovimientoAlmacen > 0" class="btn btn-dark mx-2"
             (click)="cancelar()">Eliminar</button>
-          <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid"
+          <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid || this.nMovimientoAlmacen > 0"
             (click)="guardar()">Guardar</button>
         </div>
       </div>

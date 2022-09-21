@@ -12,6 +12,7 @@ export class InventariosService {
 
   private urlMovimientosAlmacen = "registros/movimientos_almacen";
 
+  private urlAplicarMovimientosAlmacen = "registros/movimientos_almacen/aplicarMovimiento";
   constructor(private http: HttpClient) {
     this.baseUrl = environment.api;
   }
@@ -27,5 +28,9 @@ export class InventariosService {
   guardarMovimientoAlmacen(movimiento: any): any {
 
     return this.http.post(this.baseUrl + this.urlMovimientosAlmacen, movimiento);
+  }
+  aplicarMovimientoAlmacen(movimiento: any): any {
+
+    return this.http.post(this.baseUrl + this.urlAplicarMovimientosAlmacen, movimiento);
   }
 }

@@ -257,6 +257,11 @@ export class InventoryMovementsComponent implements OnInit {
   async guardar() {
 
     let tempAlmacenOrigen;
+
+    if (this.nAlmacenDestino === this.nAlmacenOrigen) {
+      Swal.fire('Error', 'No es posible realizar un traspaso a un mismo almacén.', 'error');
+      return;
+    }
     if (this.nAlmacenOrigen == 0) {
       tempAlmacenOrigen = this.nAlmacenDestino;
     } else {
@@ -288,6 +293,24 @@ export class InventoryMovementsComponent implements OnInit {
       else {
         this.limpiar();
         this.util.dialogSuccess('Movimiento de inventario guardado correctamente.');
+        /*  await this.serviceInventario.aplicarMovimientoAlmacen(resp.data).subscribe(async (resp: any) => {
+           if (resp.error !== '') {
+
+             Swal.fire('Error', resp.error.error, 'error');
+           } else {
+             this.limpiar();
+             this.util.dialogSuccess('Movimiento de inventario guardado correctamente.');
+           }
+
+         }, (err: { error: any; }) => {
+           if (err.error.error.original.sqlMessage) {
+             this.util.dialogError('Error al aplicar el movimiento de inventario.' + err.error.error.original.sqlMessage);
+           } else {
+             this.util.dialogError('Error al aplicar el movimiento de inventario.');
+           }
+
+         }); */
+
       }
     }, (err: { error: any; }) => {
       if (err.error.error.original.sqlMessage) {
@@ -306,6 +329,7 @@ export class InventoryMovementsComponent implements OnInit {
       if (resp) {
         const movimiento = resp.data[0];
         console.log(movimiento);
+
         let tipoMov = this.tiposDeMovimientos.filter((mov: { nTipoMovimiento: any; }) => mov.nTipoMovimiento == movimiento.nTipoMovimiento)
         if (tipoMov.length) {
           this.form.controls["nTipoMovimiento"].setValue(tipoMov[0]);

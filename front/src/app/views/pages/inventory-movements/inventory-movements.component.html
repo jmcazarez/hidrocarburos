@@ -126,8 +126,8 @@
         </form>
         <div class="d-flex justify-content-end my-4">
           <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
-          <button type="button" *ngIf="this.nMovimientoAlmacen > 0" class="btn btn-dark mx-2"
-            (click)="cancelar()">Eliminar</button>
+          <!-- <button type="button" *ngIf="this.nMovimientoAlmacen > 0" class="btn btn-dark mx-2"
+            (click)="cancelar()">Eliminar</button> -->
           <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid || this.nMovimientoAlmacen > 0"
             (click)="guardar()">Guardar</button>
         </div>

@@ -6,5 +6,6 @@ const { validateToken } = require('../../middlewares/authenticated');
 
 api.get("/:nMovimientoAlmacen", validateToken, Controller.obtenerMovimientoAlmacen);
 api.post("/", validateToken, Controller.guardarMovimientoAlmacen);
+api.post("/aplicarMovimiento/", validateToken, Controller.aplicarMovimientoAlmacen);
 
 module.exports = api;

@@ -26,9 +26,23 @@ async function guardarMovimientoAlmacen(req, res) {
     });
 }
 
+async function aplicarMovimientoAlmacen(req, res) {
+
+    let params = req.body;
+    params.cLogin = req.user.cLogin;
+
+    let result = await service.aplicarMovimientoAlmacen(params);
+
+    res.status(result.status).json({
+        error: result.error,
+        data: result.data
+    });
+}
+
 
 
 module.exports = {
     obtenerMovimientoAlmacen,
-    guardarMovimientoAlmacen
+    guardarMovimientoAlmacen,
+    aplicarMovimientoAlmacen
 };

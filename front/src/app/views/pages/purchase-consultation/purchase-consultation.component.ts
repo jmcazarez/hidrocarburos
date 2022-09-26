@@ -286,10 +286,8 @@ export class PurchaseConsultationComponent implements OnInit {
       ''
     ).subscribe ( (resp: any) => {
       if (resp) {
-
         this.compras = resp.data;
         console.log('Compras:', resp);
-
       }
       this.spinner.hide();
     }, (error: any) => {
@@ -310,6 +308,7 @@ export class PurchaseConsultationComponent implements OnInit {
     this.form.controls["dFechaFin"].setValue('');
     this.form.controls["nArticulo"].setValue('');
     this.form.controls["cArticulo"].setValue('');
+
     this.compras = [];
   }
 

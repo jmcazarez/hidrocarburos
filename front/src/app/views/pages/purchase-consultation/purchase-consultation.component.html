@@ -128,7 +128,7 @@
                   <th>Costo flete</th>
                   <th>Costo cruce</th>
                   <th>Costo logístico</th>
-                  
+
                   <th>Gran total compra</th>
                 </tr>
               </thead>
@@ -144,13 +144,13 @@
                   <td class="text-end">{{ item.nLitrosCompra | number : '1.2-4' }}</td>
                   <td class="text-end">{{ item.cTipoCompra === 'N' ? '' : (item.nCostoLitro | currency:'CAD':'symbol-narrow':'1.2-4' )  }}</td>
                   <td class="text-end">{{ item.cTipoCompra === 'N' ? (item.nCostoLitro | currency:'CAD':'symbol-narrow':'1.2-4') : ''  }}</td>
-                  
+
                   <td class="text-end">{{ item.nCostoTotal | currency:'CAD':'symbol-narrow':'1.2-4' }}</td>
                   <td class="text-end">{{ item.nCostoFactura | currency:'CAD':'symbol-narrow':'1.2-4' }}</td>
                   <td class="text-end">{{ item.nCostoFlete | currency:'CAD':'symbol-narrow':'1.2-4' }}</td>
                   <td class="text-end">{{ item.nCostoCruce | currency:'CAD':'symbol-narrow':'1.2-4'  }}</td>
                   <td class="text-end">{{ item.nCostoLogistico | currency:'CAD':'symbol-narrow':'1.2-4'  }}</td>
-                 
+
                   <td class="text-end">{{ item.nCostoTotalFinal | currency:'CAD':'symbol-narrow':'1.2-4' }}</td>
                 </tr>
               </tbody>

@@ -11,18 +11,18 @@ export class InventariosService {
   private urlTiposDeMovimientos = "catalogos/inv_tipo_de_movimientos";
 
   private urlMovimientosAlmacen = "registros/movimientos_almacen";
-
+  private urlConsultarKardex = "registros/movimientos_almacen/consulta-kardex";
   private urlAplicarMovimientosAlmacen = "registros/movimientos_almacen/aplicarMovimiento";
   constructor(private http: HttpClient) {
     this.baseUrl = environment.api;
   }
 
   obtenerTiposDeMovimientos(nTipoMovimiento: number): any {
-    return this.http.get(this.baseUrl + this.urlTiposDeMovimientos + '/' + nTipoMovimiento );
+    return this.http.get(this.baseUrl + this.urlTiposDeMovimientos + '/' + nTipoMovimiento);
   }
 
   obtenerMovimientoDeAlmacen(nMovimientoAlmacen: number): any {
-    return this.http.get(this.baseUrl + this.urlMovimientosAlmacen + '/' + nMovimientoAlmacen );
+    return this.http.get(this.baseUrl + this.urlMovimientosAlmacen + '/' + nMovimientoAlmacen);
   }
 
   guardarMovimientoAlmacen(movimiento: any): any {
@@ -32,5 +32,9 @@ export class InventariosService {
   aplicarMovimientoAlmacen(movimiento: any): any {
 
     return this.http.post(this.baseUrl + this.urlAplicarMovimientosAlmacen, movimiento);
+  }
+
+  obtenerKardex(consulta: any): any {
+    return this.http.post(this.baseUrl + this.urlConsultarKardex, consulta);
   }
 }

@@ -39,10 +39,24 @@ async function aplicarMovimientoAlmacen(req, res) {
     });
 }
 
+async function obtenerKardex(req, res) {
+
+    let params = req.body;
+    params.cLogin = req.user.cLogin;
+
+    let result = await service.obtenerKardex(params);
+
+    res.status(result.status).json({
+        error: result.error,
+        data: result.data
+    });
+}
+
 
 
 module.exports = {
     obtenerMovimientoAlmacen,
     guardarMovimientoAlmacen,
-    aplicarMovimientoAlmacen
+    aplicarMovimientoAlmacen,
+    obtenerKardex
 };

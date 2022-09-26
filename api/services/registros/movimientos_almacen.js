@@ -122,7 +122,7 @@ async function guardarMovimientoAlmacen(params) {
         }
 
         if (data[0].IDContraMovimiento) {
-        
+
             await sequelize.query(
                 `
              CALL proc_registra_movimiento_de_inventario_detalle (
@@ -246,10 +246,92 @@ async function aplicarMovimientoAlmacen(params) {
 }
 
 
+async function obtenerKardex(params) {
+
+    try {
+
+        let nTotalEntradas = 0;
+        let nTotalSalidas = 0;
+        let nExistenciaInicial = 0;
+        let nExistenciaFinal = 0;
+        let existencia = [];
+        if (params.dFechaInicio != '') {
+            console.log(params.dFechaInicio);
+            existencia = await sequelize.query(
+                `
+                 CALL proc_consulta_existencia(
+                     ${params.nAlmacen},
+                     ${params.nArticulo},                 
+                     '${params.dFechaInicio}')
+                 `,
+                {
+                    type: QueryTypes.RAW
+                }
+            );
+            console.log(existencia);
+            if (existencia.length > 0) {
+                nExistenciaInicial = existencia[0].nExistencia
+            }
+
+        }
+
+
+
+        let data = await sequelize.query(
+            `
+             CALL proc_consulta_kardex(
+                 ${params.nAlmacen},
+                 ${params.nArticulo},
+                 ${params.nTipoMovimiento},
+                 '${params.dFechaInicio}',
+                 '${params.dFechaFin}'
+            )
+             `,
+            {
+                type: QueryTypes.RAW
+            }
+        );
+        await data.forEach(element => {
+           
+            if (element.nEfecto === 1) {
+                nTotalEntradas = nTotalEntradas + Number(element.nCantidadMovimientoOrigen);
+            } else {              
+                nTotalSalidas = nTotalSalidas + Number(element.nCantidadMovimientoOrigen);
+           
+            }
+        });
+        
+        nExistenciaFinal = (nExistenciaInicial + nTotalEntradas) - nTotalSalidas;
+
+        console.log(nExistenciaFinal);
+
+        return {
+            status: 200,
+            error: '',
+            data: {
+                movimientos: data,
+                nExistenciaInicial,
+                nTotalEntradas,
+                nTotalSalidas,
+                nExistenciaFinal
+            },
+        }
+
+    } catch (err) {
+        // do something
+        console.log(err);
+        return {
+            status: 400,
+            error: 'Error al obtener el kardex de movimientos.',
+            data: [],
+        };
+    }
+}
 
 module.exports = {
     obtenerMovimientoAlmacen,
     guardarMovimientoAlmacen,
-    aplicarMovimientoAlmacen
+    aplicarMovimientoAlmacen,
+    obtenerKardex
 
 };

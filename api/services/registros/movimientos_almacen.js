@@ -301,9 +301,7 @@ async function obtenerKardex(params) {
             }
         });
         
-        nExistenciaFinal = (nExistenciaInicial + nTotalEntradas) - nTotalSalidas;
-
-        console.log(nExistenciaFinal);
+        nExistenciaFinal = (Number(nExistenciaInicial) + Number(nTotalEntradas)) - Number(nTotalSalidas);
 
         return {
             status: 200,

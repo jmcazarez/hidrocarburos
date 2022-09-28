@@ -74,7 +74,7 @@
                     <input type="text" class="form-control form-control-sm captura-derecha"
                       formControlName="nLitrosRecibidos"
                       onfocus="this.select()"
-                      mask="separator.4" thousandSeparator=",">
+                      mask="separator.4" thousandSeparator="," [min]="0.01">
 
                   </div>
                 </div>
@@ -182,11 +182,11 @@
                 {{value | currency}}
               </ng-template>
             </ngx-datatable-column>
-
-            <ngx-datatable-column name="Estatus" prop="nEstatus" [width]="150">
-              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            this.bNacional
+            <ngx-datatable-column name="Estatus" prop="nEstatus" [width]="150" >
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template >
                 <select class="form-control form-control-sm" style="z-index:1000" [(ngModel)]="row.nEstatus"
-                  [disabled]="row.nEstatus === 3 || row.nEstatus === 4" (change)="onChange(row)">
+                  [disabled]="row.nEstatus === 3 || row.nEstatus === 4" (change)="onChange(row)" [disabled]="this.bNacional !== 1">
                   <option *ngFor="let banco of estatus" value="{{ banco.nEstatus }}"> {{ banco.cEstatus }}
                   </option>
                 </select>
@@ -202,6 +202,7 @@
           <button type="button" class="btn btn-dark mx-2">Cancelar</button>
           <button type="button" class="btn btn-primary mx-2">Registrar</button>
         </div> -->
+   
       </div>
     </div>
   </div>

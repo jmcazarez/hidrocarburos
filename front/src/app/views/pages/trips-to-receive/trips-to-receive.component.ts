@@ -56,13 +56,13 @@ export class TripsToReceiveComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.form = new FormGroup({
 
-      nProveedor : new FormControl('', Validators.required),
-      cProveedor : new FormControl({ value: '', disabled: true }, []),
-      nArticulo : new FormControl('', Validators.required),
-      cArticulo : new FormControl({ value: '', disabled: true }, []),
-      nLitrosRecibidos : new FormControl( 0, []),
-      cFuller : new FormControl('', []),
-      bNacional : new FormControl(1, []),
+      nProveedor: new FormControl('', Validators.required),
+      cProveedor: new FormControl({ value: '', disabled: true }, []),
+      nArticulo: new FormControl('', Validators.required),
+      cArticulo: new FormControl({ value: '', disabled: true }, []),
+      nLitrosRecibidos: new FormControl(0, []),
+      cFuller: new FormControl('', []),
+      bNacional: new FormControl(1, []),
     });
 
     await this.obtenerCatalogosFletera();
@@ -71,17 +71,24 @@ export class TripsToReceiveComponent implements OnInit {
   }
 
   get nProveedor(): number {
-    if (!this.form.get('nProveedor')?.value ||  this.form.get('nProveedor')?.value == ''){
+    if (!this.form.get('nProveedor')?.value || this.form.get('nProveedor')?.value == '') {
       return 0;
     }
     return this.form.get('nProveedor')?.value;
   }
+  get cProveedor(): string {
 
+    return this.form.get('cProveedor')?.value ?? '';
+  }
   get nArticulo(): number {
-    if (!this.form.get('nArticulo')?.value ||  this.form.get('nArticulo')?.value == ''){
+    if (!this.form.get('nArticulo')?.value || this.form.get('nArticulo')?.value == '') {
       return 0;
     }
     return this.form.get('nArticulo')?.value;
+  }
+  get cArticulo(): string {
+
+    return this.form.get('cArticulo')?.value ?? '';
   }
 
   get nLitrosRecibidos(): number {
@@ -142,7 +149,7 @@ export class TripsToReceiveComponent implements OnInit {
           cAlmacen: compra.cAlmacen,
           cProveedor: compra.cProveedor,
           cFactura: compra.cFactura,
-          nlitrosComprados:  parseFloat(compra.nLitrosCompra).toFixed(4),
+          nlitrosComprados: parseFloat(compra.nLitrosCompra).toFixed(4),
           nCostoxLitro: nCostoxLitro,
           dFechaCompra: compra.dFechaCompra,
           nCostoTotal: compra.nCostoTotal,
@@ -171,6 +178,7 @@ export class TripsToReceiveComponent implements OnInit {
   filterDatatable(value: any): void {
     // Filtramos tabla
     let arraFiltrado: any = [];
+    let temporal =[];
     for (const key of this.estatus) {
       if (key.status) {
         let lea: any = this.dataTemp.filter((d) => {
@@ -180,6 +188,27 @@ export class TripsToReceiveComponent implements OnInit {
       }
     }
     this.data = arraFiltrado;
+    if (this.cProveedor.toLowerCase() !== '' && this.cArticulo.toLowerCase() !== '') {
+      console.log('1');
+      temporal = this.data.filter((d) =>
+        d.cProveedor.toLowerCase().indexOf(this.cProveedor.toLowerCase()) !== - 1
+        && d.cArticulo.toLowerCase().indexOf(this.cArticulo.toLowerCase()) !== - 1
+      );
+    } else if (this.cProveedor.toLowerCase() !== '' && this.cArticulo.toLowerCase() === '') {
+      console.log('2');
+      temporal = this.data.filter((d) =>
+        d.cProveedor.toLowerCase().indexOf(this.cProveedor.toLowerCase()) !== - 1
+      );
+    } else if (this.cProveedor.toLowerCase() === '' && this.cArticulo.toLowerCase() !== '') {
+      console.log('3');
+      temporal = this.data.filter((d) =>
+        d.cArticulo.toLowerCase().indexOf(this.cArticulo.toLowerCase()) !== - 1
+      );
+    }else{
+      temporal = this.dataTemp;
+    }
+    console.log(temporal);
+    this.data = temporal;
     if (value.target.value === '') {
       this.data = arraFiltrado;
     } else {
@@ -204,7 +233,7 @@ export class TripsToReceiveComponent implements OnInit {
     }
   }
 
-  filterDatatableByVal(value: String): void {
+  filterDatatableProveedorArticulo(): void {
     // Filtramos tabla
     let arraFiltrado: any = [];
     for (const key of this.estatus) {
@@ -215,29 +244,29 @@ export class TripsToReceiveComponent implements OnInit {
         arraFiltrado = [...arraFiltrado, ...lea];
       }
     }
+    let temporal = [];
     this.data = arraFiltrado;
-    if (value === '') {
-      this.data = arraFiltrado;
-    } else {
-      const val = value.toLowerCase();
-      const temp = this.data.filter((d) =>
-        d.cTipoCompraLarga.toLowerCase().indexOf(val) !== - 1
-        || d.cEmpresa.toLowerCase().indexOf(val) !== - 1
-        || d.cAlmacen.toLowerCase().indexOf(val) !== - 1
-        || d.cProveedor.toLowerCase().indexOf(val) !== - 1
-        || d.cFactura.toLowerCase().indexOf(val) !== - 1
-        || d.nlitrosComprados.toLowerCase().indexOf(val) !== - 1
-        || String(d.nCostoxLitro).toLowerCase().indexOf(val) !== - 1
-        || d.dFechaCompra.toLowerCase().indexOf(val) !== - 1
-        || d.dFechaRecepcion.toLowerCase().indexOf(val) !== - 1
-        || String(d.nCostoTotal).toLowerCase().indexOf(val) !== - 1
-        || String(d.nLitrosRecibidos).toLowerCase().indexOf(val) !== - 1
-        || d.cArticulo.toLowerCase().indexOf(val) !== - 1
-        || d.cMotivoCancelacion.toLowerCase().indexOf(val) !== - 1
-      );
-      this.data = temp;
 
+    if (this.cProveedor.toLowerCase() !== '' && this.cArticulo.toLowerCase() !== '') {
+      console.log('1');
+      temporal = this.data.filter((d) =>
+        d.cProveedor.toLowerCase().indexOf(this.cProveedor.toLowerCase()) !== - 1
+        && d.cArticulo.toLowerCase().indexOf(this.cArticulo.toLowerCase()) !== - 1
+      );
+    } else if (this.cProveedor.toLowerCase() !== '' && this.cArticulo.toLowerCase() === '') {
+      console.log('2');
+      temporal = this.data.filter((d) =>
+        d.cProveedor.toLowerCase().indexOf(this.cProveedor.toLowerCase()) !== - 1
+      );
+    } else if (this.cProveedor.toLowerCase() === '' && this.cArticulo.toLowerCase() !== '') {
+      console.log('3');
+      temporal = this.data.filter((d) =>
+        d.cArticulo.toLowerCase().indexOf(this.cArticulo.toLowerCase()) !== - 1
+      );
+    }else{
+      temporal = this.dataTemp;
     }
+    this.data = temporal;
   }
   async onChange(row: any) {
     if (row.nEstatus == 3) {
@@ -260,7 +289,7 @@ export class TripsToReceiveComponent implements OnInit {
           // this.enfocarBotonNuevaVenta()
         }
       );
-    } else  {
+    } else {
       const modalRef = this.modalService.open(CambioEstatusRecepcionPedidosComponent, {
         centered: true,
         backdrop: 'static',
@@ -284,26 +313,26 @@ export class TripsToReceiveComponent implements OnInit {
           // this.enfocarBotonNuevaVenta()
         }
       );
-   /*  } else {
-      this.util.dialogConfirm('¿Está seguro que desea actualizar el estatus de la compra?').then(async (result) => {
-        if (result.isConfirmed) {
-          await this.service.actualizarEstatusCompra({
-            nCompra: row.nCompra,
-            nEstatus: row.nEstatus,
-            cMotivoCancelacion: ''
-          }).subscribe(async (resp: any) => {
-            if (resp) {
-              row.nEstatusOriginal = row.nEstatus;
-              this.filerWithStatus();
-            }
-          }, (error: any) => {
-            this.util.dialogError('Error al actualizar el estatus de la compra.');
-          });
-        } else {
-          row.nEstatus = row.nEstatusOriginal;
-          this.filerWithStatus();
-        }
-      }); */
+      /*  } else {
+         this.util.dialogConfirm('¿Está seguro que desea actualizar el estatus de la compra?').then(async (result) => {
+           if (result.isConfirmed) {
+             await this.service.actualizarEstatusCompra({
+               nCompra: row.nCompra,
+               nEstatus: row.nEstatus,
+               cMotivoCancelacion: ''
+             }).subscribe(async (resp: any) => {
+               if (resp) {
+                 row.nEstatusOriginal = row.nEstatus;
+                 this.filerWithStatus();
+               }
+             }, (error: any) => {
+               this.util.dialogError('Error al actualizar el estatus de la compra.');
+             });
+           } else {
+             row.nEstatus = row.nEstatusOriginal;
+             this.filerWithStatus();
+           }
+         }); */
     }
   }
 
@@ -313,9 +342,32 @@ export class TripsToReceiveComponent implements OnInit {
 
   filerWithStatus() {
     let arraFiltrado: any = [];
+    let temporal = [];
+   
+
+    if (this.cProveedor.toLowerCase() !== '' && this.cArticulo.toLowerCase() !== '') {
+      console.log('1');
+      temporal = this.dataTemp.filter((d) =>
+        d.cProveedor.toLowerCase().indexOf(this.cProveedor.toLowerCase()) !== - 1
+        && d.cArticulo.toLowerCase().indexOf(this.cArticulo.toLowerCase()) !== - 1
+      );
+    } else if (this.cProveedor.toLowerCase() !== '' && this.cArticulo.toLowerCase() === '') {
+      console.log('2');
+      temporal = this.dataTemp.filter((d) =>
+        d.cProveedor.toLowerCase().indexOf(this.cProveedor.toLowerCase()) !== - 1
+      );
+    } else if (this.cProveedor.toLowerCase() === '' && this.cArticulo.toLowerCase() !== '') {
+      console.log('3');
+      temporal = this.dataTemp.filter((d) =>
+        d.cArticulo.toLowerCase().indexOf(this.cArticulo.toLowerCase()) !== - 1
+      );
+    }else{
+      temporal = this.dataTemp;
+    }
+
     for (const key of this.estatus) {
       if (key.status) {
-        let lea: any = this.dataTemp.filter((d) => {
+        let lea: any = temporal.filter((d) => {
           return String(d.nEstatus).toLowerCase().indexOf(String(key.nEstatus)) !== - 1
         });
         arraFiltrado = [...arraFiltrado, ...lea];
@@ -346,7 +398,7 @@ export class TripsToReceiveComponent implements OnInit {
 
     const articuloResp = await this.serviceArticulo.obtenerArticulos(0, -1).toPromise();
 
-    const data = articuloResp.data.map( (item: any) => { return {nArticulo: item.nArticulo, cDescripcion: item.cDescripcionLarga} });
+    const data = articuloResp.data.map((item: any) => { return { nArticulo: item.nArticulo, cDescripcion: item.cDescripcionLarga } });
 
     modalRef.componentInstance.data = data;
     modalRef.componentInstance.dataTemp = data;
@@ -354,7 +406,7 @@ export class TripsToReceiveComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value && value.id){
+        if (value && value.id) {
           this.asignarArticulo(value);
           modalRef.close();
         }
@@ -385,7 +437,7 @@ export class TripsToReceiveComponent implements OnInit {
     const proveedorResp = await this.serviceProveedor.obtenerProveedores(0, -1).toPromise();
 
 
-    const data = proveedorResp.data.map( (item: any) => { return {nProveedor: item.nProveedor, cDescripcion: item.cNombreProveedor} });
+    const data = proveedorResp.data.map((item: any) => { return { nProveedor: item.nProveedor, cDescripcion: item.cNombreProveedor } });
 
     modalRef.componentInstance.data = data;
     modalRef.componentInstance.dataTemp = data;
@@ -393,7 +445,7 @@ export class TripsToReceiveComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value && value.id){
+        if (value && value.id) {
           this.asignarProveedor(value);
           modalRef.close();
         }
@@ -403,16 +455,17 @@ export class TripsToReceiveComponent implements OnInit {
   }
   async asignarProveedor(value: any) {
     const proveedorResp = await this.serviceProveedor.obtenerProveedores(value.id, -1).toPromise();
-    console.log('proveedor',proveedorResp.data[0].bNacional);
+    console.log('proveedor', proveedorResp.data[0].bNacional);
     this.form.controls["cProveedor"].setValue(value.cDescripcion);
     this.form.controls["nProveedor"].setValue(value.id);
     this.form.controls["bNacional"].setValue(proveedorResp.data[0].bNacional);
-    this.filterDatatableByVal(value.cDescripcion);
+    this.filterDatatableProveedorArticulo();
 
   }
 
   asignarArticulo(value: any) {
     this.form.controls["cArticulo"].setValue(value.cDescripcion);
     this.form.controls["nArticulo"].setValue(value.id);
+    this.filterDatatableProveedorArticulo();
   }
 }

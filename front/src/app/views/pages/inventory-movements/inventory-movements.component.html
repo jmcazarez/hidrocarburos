@@ -89,7 +89,7 @@
                 <div class="col-sm-7">
                   <input type="text" class="form-control form-control-sm" formControlName="nCantidadMovimiento"
                     currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"
-                    onfocus="this.select()" maxlength="20">
+                    onfocus="this.select()" maxlength="20" [min]=".01">
                 </div>
 
 

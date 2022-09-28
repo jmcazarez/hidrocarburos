@@ -9,7 +9,6 @@ export class InventariosService {
 
   private baseUrl: string;
   private urlTiposDeMovimientos = "catalogos/inv_tipo_de_movimientos";
-
   private urlMovimientosAlmacen = "registros/movimientos_almacen";
   private urlConsultarKardex = "registros/movimientos_almacen/consulta-kardex";
   private urlAplicarMovimientosAlmacen = "registros/movimientos_almacen/aplicarMovimiento";

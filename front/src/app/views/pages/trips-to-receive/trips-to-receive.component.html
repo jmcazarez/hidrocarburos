@@ -17,79 +17,7 @@
     </div>
   </div>
 </div> -->
-<div class="row mt-4">
-  <div class="col-sm-5">
 
-    <div class="row">
-
-      <label class="form-label col-sm-5 col-form-label text-end">Folio</label>
-      <div class="col-sm-7">
-        <div class="input-group mb-1">
-          <input type="number"
-
-          class="form-control form-control-sm" formControlName="nCompra">
-        </div>
-      </div>
-
-      <label class="form-label col-sm-5 col-form-label text-end">Empresa</label>
-      <div class="col-sm-7">
-        <div class="input-group mb-1">
-          <input type="text" class="form-control form-control-sm border-end-0" formControlName="cEmpresa">
-          <span class="input-group-text border-start-0 bg-white">
-            <i class="feather icon-search" ></i>
-          </span>
-        </div>
-      </div>
-
-      <label class="form-label col-sm-5 col-form-label text-end">Proveedor</label>
-      <div class="col-sm-7">
-        <div class="input-group mb-1">
-          <input type="text" class="form-control form-control-sm border-end-0" formControlName="cProveedor">
-          <span class="input-group-text border-start-0 bg-white">
-            <i class="feather icon-search"></i>
-          </span>
-        </div>
-      </div>
-
-      <label class="form-label col-sm-5 col-form-label text-end">Almacen</label>
-      <div class="col-sm-7">
-        <div class="input-group mb-1">
-          <input type="text" class="form-control form-control-sm border-end-0" formControlName="cAlmacen">
-          <span class="input-group-text border-start-0 bg-white">
-            <i class="feather icon-search" ></i>
-          </span>
-        </div>
-      </div>
-
-      <label class="form-label col-sm-5 col-form-label text-end">Articulo</label>
-      <div class="col-sm-7">
-        <div class="input-group mb-1">
-          <input type="text" class="form-control form-control-sm border-end-0" formControlName="cArticulo">
-          <span class="input-group-text border-start-0 bg-white">
-            <i class="feather icon-search"></i>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-sm-2"></div>
-
-  <div class="col-sm-5">
-
-    <div class="row mt-4">
-      <label class="form-label col-sm-5 col-form-label text-end">Desde</label>
-      <div class="col-sm-7">
-        <input type="date" class="form-control form-control-sm" placeholder="" formControlName="dFechaInicio">
-      </div>
-      <label class="form-label col-sm-5 col-form-label text-end">Hasta</label>
-      <div class="col-sm-7">
-        <input type="date" class="form-control form-control-sm" placeholder="" formControlName="dFechaFin">
-      </div>
-
-    </div>
-  </div>
-</div>
 
 
 <!-- ---------- Form ---------- -->
@@ -111,7 +39,75 @@
 
           </div> -->
         </div>
+        <form name="form" [formGroup]="form">
 
+          <div class="row mt-4">
+            <div class="col-sm-5">
+
+              <div class="row">
+                <label class="form-label col-sm-5 col-form-label text-end">Proveedor</label>
+                <div class="col-sm-7">
+                  <div class="input-group mb-1">
+                    <input type="text" class="form-control form-control-sm border-end-0" formControlName="cProveedor"
+                    onfocus="this.select()">
+                    <span class="input-group-text border-start-0 bg-white">
+                      <i class="feather icon-search" (click)="openModalProveedores()"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <label class="form-label col-sm-5 col-form-label text-end">Producto</label>
+                <div class="col-sm-7">
+                  <div class="input-group mb-1">
+                    <input type="text" class="form-control form-control-sm border-end-0" formControlName="cArticulo"
+                    onfocus="this.select()" [disabled]="this.nProveedor ===0">
+                    <span class="input-group-text border-start-0 bg-white">
+                      <i class="feather icon-search" (click)="openModalArticulos()" ></i>
+                    </span>
+                  </div>
+                </div>
+
+              <ng-container *ngIf="this.bNacional === 0" >
+                <label class="form-label col-sm-5 col-form-label text-end" >Litros recibidos</label>
+                <div class="col-sm-7" >
+                  <div class="input-group mb-1">
+                    <input type="text" class="form-control form-control-sm captura-derecha"
+                      formControlName="nLitrosRecibidos"
+                      onfocus="this.select()"
+                      mask="separator.4" thousandSeparator=",">
+
+                  </div>
+                </div>
+
+                <label class="form-label col-sm-5 col-form-label text-end">Fuller</label>
+                <div class="col-sm-7">
+                  <div class="input-group mb-1">
+                    <input type="text" class="form-control form-control-sm captura-derecha"  formControlName="cFuller"
+                    onfocus="this.select()">
+                  </div>
+                </div>
+              </ng-container>
+              </div>
+            </div>
+
+            <div class="col-sm-2"></div>
+
+            <!-- <div class="col-sm-5">
+
+            <div class="row mt-4">
+              <label class="form-label col-sm-5 col-form-label text-end">Desde</label>
+              <div class="col-sm-7">
+                <input type="date" class="form-control form-control-sm" placeholder="" formControlName="dFechaInicio">
+              </div>
+              <label class="form-label col-sm-5 col-form-label text-end">Hasta</label>
+              <div class="col-sm-7">
+                <input type="date" class="form-control form-control-sm" placeholder="" formControlName="dFechaFin">
+              </div>
+
+            </div>
+          </div> -->
+          </div>
+        </form>
         <div class="table-responsive my-5">
           <!--         <table class="table table-bordered">
             <thead>
@@ -148,7 +144,7 @@
             <ngx-datatable-column name="Comprador" prop="cEmpresa" [width]="300"></ngx-datatable-column>
             <ngx-datatable-column name="Almacén destino" prop="cAlmacen" [width]="180"></ngx-datatable-column>
             <ngx-datatable-column name="Proveedor" prop="cProveedor" [width]="300"></ngx-datatable-column>
-            <ngx-datatable-column name="Artículo" prop="cArticulo" [width]="300"></ngx-datatable-column>
+            <ngx-datatable-column name="Producto" prop="cArticulo" [width]="300"></ngx-datatable-column>
             <ngx-datatable-column name="Nro.Factura" prop="cFactura" [width]="110"></ngx-datatable-column>
             <ngx-datatable-column name="Fecha de compra" prop="dFechaCompra" [width]="120">
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
@@ -172,6 +168,11 @@
             </ngx-datatable-column>
 
             <ngx-datatable-column name="Litros recibidos" prop="nLitrosRecibidos" [width]="120">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                {{value | number : '1.4-4'}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Litros pendientes" prop="nLitrosPendientes" [width]="120">
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 {{value | number : '1.4-4'}}
               </ng-template>

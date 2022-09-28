@@ -6,6 +6,10 @@ import { ConfirmacionRecepcionPedidosComponent } from './confirmacion-recepcion-
 import { UtilsService } from 'src/services/utils.service';
 import { CambioEstatusRecepcionPedidosComponent } from './cambio-estatus-recepcion-pedidos/cambio-estatus-recepcion-pedidoscomponent';
 import * as dayjs from 'dayjs';
+import { BusquedaModalComponent } from '../busquedas/busqueda-modal/busqueda-modal.component';
+import { ProveedorService } from 'src/services/proveedor.service';
+import { ArticulosService } from 'src/services/articulos.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -21,6 +25,7 @@ export class TripsToReceiveComponent implements OnInit {
   loadingIndicator = false;
   data: any[] = [];
   dataTemp: any[] = [];
+
   estatus = [
     {
       nEstatus: 1,
@@ -43,12 +48,56 @@ export class TripsToReceiveComponent implements OnInit {
       status: false
     }
   ]
+  form: FormGroup;
   constructor(private service: ComprasService, private datePipe: DatePipe, public modalService: NgbModal,
-    private util: UtilsService,) { }
+    private util: UtilsService,
+    private serviceProveedor: ProveedorService,
+    private serviceArticulo: ArticulosService,) { }
   async ngOnInit(): Promise<void> {
+    this.form = new FormGroup({
+
+      nProveedor : new FormControl('', Validators.required),
+      cProveedor : new FormControl({ value: '', disabled: true }, []),
+      nArticulo : new FormControl('', Validators.required),
+      cArticulo : new FormControl({ value: '', disabled: true }, []),
+      nLitrosRecibidos : new FormControl( 0, []),
+      cFuller : new FormControl('', []),
+      bNacional : new FormControl(1, []),
+    });
+
     await this.obtenerCatalogosFletera();
+
+
   }
 
+  get nProveedor(): number {
+    if (!this.form.get('nProveedor')?.value ||  this.form.get('nProveedor')?.value == ''){
+      return 0;
+    }
+    return this.form.get('nProveedor')?.value;
+  }
+
+  get nArticulo(): number {
+    if (!this.form.get('nArticulo')?.value ||  this.form.get('nArticulo')?.value == ''){
+      return 0;
+    }
+    return this.form.get('nArticulo')?.value;
+  }
+
+  get nLitrosRecibidos(): number {
+
+    return this.form.get('nLitrosRecibidos')?.value ?? 0;
+  }
+
+  get cFuller(): string {
+
+    return this.form.get('cFuller')?.value ?? '';
+  }
+
+  get bNacional(): number {
+
+    return this.form.get('bNacional')?.value ?? 1;
+  }
 
 
   async obtenerCatalogosFletera() {
@@ -103,7 +152,8 @@ export class TripsToReceiveComponent implements OnInit {
           nEstatusOriginal: compra.nEstatus,
           dFechaRecepcion: compra.dFechaRecepcion,
           cMotivoCancelacion: compra.cMotivoCancelacion,
-          dFechaCompraOrigen: compra.dFechaCompraOrigen
+          dFechaCompraOrigen: compra.dFechaCompraOrigen,
+          nLitrosPendientes: 0
         })
       }
 
@@ -134,6 +184,42 @@ export class TripsToReceiveComponent implements OnInit {
       this.data = arraFiltrado;
     } else {
       const val = value.target.value.toLowerCase();
+      const temp = this.data.filter((d) =>
+        d.cTipoCompraLarga.toLowerCase().indexOf(val) !== - 1
+        || d.cEmpresa.toLowerCase().indexOf(val) !== - 1
+        || d.cAlmacen.toLowerCase().indexOf(val) !== - 1
+        || d.cProveedor.toLowerCase().indexOf(val) !== - 1
+        || d.cFactura.toLowerCase().indexOf(val) !== - 1
+        || d.nlitrosComprados.toLowerCase().indexOf(val) !== - 1
+        || String(d.nCostoxLitro).toLowerCase().indexOf(val) !== - 1
+        || d.dFechaCompra.toLowerCase().indexOf(val) !== - 1
+        || d.dFechaRecepcion.toLowerCase().indexOf(val) !== - 1
+        || String(d.nCostoTotal).toLowerCase().indexOf(val) !== - 1
+        || String(d.nLitrosRecibidos).toLowerCase().indexOf(val) !== - 1
+        || d.cArticulo.toLowerCase().indexOf(val) !== - 1
+        || d.cMotivoCancelacion.toLowerCase().indexOf(val) !== - 1
+      );
+      this.data = temp;
+
+    }
+  }
+
+  filterDatatableByVal(value: String): void {
+    // Filtramos tabla
+    let arraFiltrado: any = [];
+    for (const key of this.estatus) {
+      if (key.status) {
+        let lea: any = this.dataTemp.filter((d) => {
+          return String(d.nEstatus).toLowerCase().indexOf(String(key.nEstatus)) !== - 1
+        });
+        arraFiltrado = [...arraFiltrado, ...lea];
+      }
+    }
+    this.data = arraFiltrado;
+    if (value === '') {
+      this.data = arraFiltrado;
+    } else {
+      const val = value.toLowerCase();
       const temp = this.data.filter((d) =>
         d.cTipoCompraLarga.toLowerCase().indexOf(val) !== - 1
         || d.cEmpresa.toLowerCase().indexOf(val) !== - 1
@@ -236,5 +322,97 @@ export class TripsToReceiveComponent implements OnInit {
       }
     }
     this.data = arraFiltrado;
+  }
+
+  async openModalArticulos() {
+    const modalRef = this.modalService.open(BusquedaModalComponent, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+      modalDialogClass: 'dialog-formulario-chico',
+    });
+
+    modalRef.componentInstance.titulo = 'Búsqueda de artículos';
+
+    modalRef.componentInstance.props = [{
+      cNombre: 'Folio',
+      cPropiedad: 'nArticulo'
+    },
+    {
+      cNombre: 'Artículo',
+      cPropiedad: 'cDescripcion'
+    }
+    ];
+
+    const articuloResp = await this.serviceArticulo.obtenerArticulos(0, -1).toPromise();
+
+    const data = articuloResp.data.map( (item: any) => { return {nArticulo: item.nArticulo, cDescripcion: item.cDescripcionLarga} });
+
+    modalRef.componentInstance.data = data;
+    modalRef.componentInstance.dataTemp = data;
+
+    modalRef.closed.subscribe(
+      value => {
+        console.log('value:', value);
+        if(value && value.id){
+          this.asignarArticulo(value);
+          modalRef.close();
+        }
+      }
+    );
+  }
+
+  async openModalProveedores() {
+    const modalRef = this.modalService.open(BusquedaModalComponent, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+      modalDialogClass: 'dialog-formulario-chico',
+    });
+
+    modalRef.componentInstance.titulo = 'Búsqueda de proveedores';
+
+    modalRef.componentInstance.props = [{
+      cNombre: 'Folio',
+      cPropiedad: 'nProveedor'
+    },
+    {
+      cNombre: 'Proveedor',
+      cPropiedad: 'cDescripcion'
+    }
+    ];
+
+    const proveedorResp = await this.serviceProveedor.obtenerProveedores(0, -1).toPromise();
+
+
+    const data = proveedorResp.data.map( (item: any) => { return {nProveedor: item.nProveedor, cDescripcion: item.cNombreProveedor} });
+
+    modalRef.componentInstance.data = data;
+    modalRef.componentInstance.dataTemp = data;
+
+    modalRef.closed.subscribe(
+      value => {
+        console.log('value:', value);
+        if(value && value.id){
+          this.asignarProveedor(value);
+          modalRef.close();
+        }
+      }
+    );
+
+  }
+  async asignarProveedor(value: any) {
+    const proveedorResp = await this.serviceProveedor.obtenerProveedores(value.id, -1).toPromise();
+    console.log('proveedor',proveedorResp.data[0].bNacional);
+    this.form.controls["cProveedor"].setValue(value.cDescripcion);
+    this.form.controls["nProveedor"].setValue(value.id);
+    this.form.controls["bNacional"].setValue(proveedorResp.data[0].bNacional);
+    this.filterDatatableByVal(value.cDescripcion);
+
+  }
+
+  asignarArticulo(value: any) {
+    this.form.controls["cArticulo"].setValue(value.cDescripcion);
+    this.form.controls["nArticulo"].setValue(value.id);
   }
 }

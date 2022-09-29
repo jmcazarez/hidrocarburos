@@ -204,7 +204,8 @@ async function confirmarCompra(params) {
                  ${params.nCompra},
                  ${params.nLitrosRecepcion},
                  '${params.dFechaRecepcion}',
-                 '${params.cObervaciones}'
+                 '${params.cObervaciones}',
+                 '${params.nEstatus}'
             )
              `,
             {

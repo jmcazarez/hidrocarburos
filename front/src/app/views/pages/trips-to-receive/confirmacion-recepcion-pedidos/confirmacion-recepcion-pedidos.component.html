@@ -24,7 +24,7 @@
                   <label class="form-label col-sm-4 col-form-label text-end">Litros recibidos</label>
                   <div class="col-sm-4">
                     <div class="input-group">
-                      <input type="text" class="form-control form-control-sm  " currencyMask
+                      <input type="text" class="form-control form-control-sm  " currencyMask 
                         [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }" id="nLitrosRecibidos"
                         onfocus="this.select()"
                         [ngClass]="{'has-error': form.get('nLitrosRecibidos')?.hasError('required')}"
@@ -51,7 +51,7 @@
                   <label class="form-label col-sm-4 col-form-label text-end">Observaciones</label>
                   <div class="col-sm-6">
                     <div class="input-group">
-                      <input type="text" class="form-control form-control-lg " formControlName="cObservaciones "
+                      <input type="text" class="form-control form-control-lg " formControlName="cObservaciones"
                         maxlength="200">
                     </div>
                   </div>
@@ -68,6 +68,7 @@
               <th class=" th-border">Fecha de movimiento</th>
               <th class=" th-border">Almacen destino</th>
               <th class=" th-border">Litros pendientes</th>
+              <th class=" th-border">Litros restantes</th>
             </tr>
           </thead>
           <tbody>
@@ -76,6 +77,7 @@
               <td class="th-border">{{ item.dFechaCompra }}</td>
               <th class="th-border">{{ item.cAlmacen }}</th>
               <td class="th-border">{{ item.nLitrosPendientes | number : '1.2-2' }}</td>
+              <td class="th-border">{{ item.nLitrosRestantes | number : '1.2-2' }}</td>
             </tr>
           </tbody>
 

@@ -12,6 +12,7 @@ import { ArticulosService } from 'src/services/articulos.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
+
 @Component({
   selector: 'app-trips-to-receive',
   templateUrl: './trips-to-receive.component.html',
@@ -35,6 +36,12 @@ export class TripsToReceiveComponent implements OnInit {
     {
       nEstatus: 2,
       cEstatus: 'En Aduana',
+      status: true
+    },
+
+    {
+      nEstatus: 5,
+      cEstatus: 'Parcial',
       status: true
     },
     {
@@ -113,15 +120,14 @@ export class TripsToReceiveComponent implements OnInit {
     await this.service.obtenerCompras(0).subscribe((resp: any) => {
       for (const compra of resp.data) {
         let nCostoxLitro = 0;
+        let dFechaCompraDate = new Date(compra.dFechaCompra);
         if (compra.nLitrosCompra > 0 && compra.nCostoTotal > 0) {
           nCostoxLitro = compra.nCostoTotal / compra.nLitrosCompra
         }
-        console.log(resp);
+
         if (!compra.dFechaRecepcion) {
           compra.dFechaRecepcion = '';
-
         } else {
-
           compra.dFechaRecepcion = dayjs(new Date(compra.dFechaRecepcion).toISOString().split('T')[0]).format('DD/MM/YYYY')
         }
         if (!compra.dFechaCompra) {
@@ -130,10 +136,7 @@ export class TripsToReceiveComponent implements OnInit {
         } else {
           compra.dFechaCompraOrigen = compra.dFechaCompra;
           compra.dFechaCompra = dayjs(new Date(compra.dFechaCompra).toISOString().split('T')[0]).format('DD/MM/YYYY')
-
         }
-
-
         if (!compra.cMotivoCancelacion) {
           compra.cMotivoCancelacion = '';
         }
@@ -141,7 +144,7 @@ export class TripsToReceiveComponent implements OnInit {
         if (!compra.cFactura) {
           compra.cFactura = '';
         }
-        console.log(compra.dFechaCompra);
+
         comprasTemp.push({
           nCompra: compra.nCompra,
           cTipoCompraLarga: compra.cTipoCompraLarga,
@@ -153,25 +156,28 @@ export class TripsToReceiveComponent implements OnInit {
           nCostoxLitro: nCostoxLitro,
           dFechaCompra: compra.dFechaCompra,
           nCostoTotal: compra.nCostoTotal,
-          nLitrosRecibidos: compra.nLitrosRecepcion,
+          nLitrosRecibidos: Number(compra.nLitrosRecepcion),
           nEstatus: compra.nEstatus,
           cArticulo: compra.cArticulo,
           nEstatusOriginal: compra.nEstatus,
           dFechaRecepcion: compra.dFechaRecepcion,
           cMotivoCancelacion: compra.cMotivoCancelacion,
           dFechaCompraOrigen: compra.dFechaCompraOrigen,
-          nLitrosPendientes: (compra.nLitrosCompra - compra.nLitrosRecepcion)
+          nLitrosPendientes: (Number(compra.nLitrosCompra) - Number(compra.nLitrosRecepcion)),
+          bRecibir: 0,
+          dFechaCompraDate
         })
       }
 
-
+      console.log(comprasTemp);
       this.dataTemp = [...comprasTemp];
-      console.log(this.dataTemp);
       const temp = this.dataTemp.filter((d) =>
         String(d.nEstatus).toLowerCase().indexOf('1') !== - 1
         || String(d.nEstatus).toLowerCase().indexOf('2') !== - 1
+        || String(d.nEstatus).toLowerCase().indexOf('5') !== - 1
       );
       this.data = [...temp];
+      console.log(this.data);
       /*  this.datePipe.transform(vigencia, 'dd-MM-yyyy'), */
     });
   }
@@ -189,25 +195,21 @@ export class TripsToReceiveComponent implements OnInit {
     }
     this.data = arraFiltrado;
     if (this.cProveedor.toLowerCase() !== '' && this.cArticulo.toLowerCase() !== '') {
-      console.log('1');
       temporal = this.data.filter((d) =>
         d.cProveedor.toLowerCase().indexOf(this.cProveedor.toLowerCase()) !== - 1
         && d.cArticulo.toLowerCase().indexOf(this.cArticulo.toLowerCase()) !== - 1
       );
     } else if (this.cProveedor.toLowerCase() !== '' && this.cArticulo.toLowerCase() === '') {
-      console.log('2');
       temporal = this.data.filter((d) =>
         d.cProveedor.toLowerCase().indexOf(this.cProveedor.toLowerCase()) !== - 1
       );
     } else if (this.cProveedor.toLowerCase() === '' && this.cArticulo.toLowerCase() !== '') {
-      console.log('3');
       temporal = this.data.filter((d) =>
         d.cArticulo.toLowerCase().indexOf(this.cArticulo.toLowerCase()) !== - 1
       );
     } else {
       temporal = this.dataTemp;
     }
-    console.log(temporal);
     this.data = temporal;
     if (value.target.value === '') {
       this.data = arraFiltrado;
@@ -248,18 +250,15 @@ export class TripsToReceiveComponent implements OnInit {
     this.data = arraFiltrado;
 
     if (this.cProveedor.toLowerCase() !== '' && this.cArticulo.toLowerCase() !== '') {
-      console.log('1');
       temporal = this.data.filter((d) =>
         d.cProveedor.toLowerCase().indexOf(this.cProveedor.toLowerCase()) !== - 1
         && d.cArticulo.toLowerCase().indexOf(this.cArticulo.toLowerCase()) !== - 1
       );
     } else if (this.cProveedor.toLowerCase() !== '' && this.cArticulo.toLowerCase() === '') {
-      console.log('2');
       temporal = this.data.filter((d) =>
         d.cProveedor.toLowerCase().indexOf(this.cProveedor.toLowerCase()) !== - 1
       );
     } else if (this.cProveedor.toLowerCase() === '' && this.cArticulo.toLowerCase() !== '') {
-      console.log('3');
       temporal = this.data.filter((d) =>
         d.cArticulo.toLowerCase().indexOf(this.cArticulo.toLowerCase()) !== - 1
       );
@@ -301,11 +300,9 @@ export class TripsToReceiveComponent implements OnInit {
       modalRef.closed.subscribe(
         value => {
           if (value.nEstatus) {
-            console.log(value);
             row = value;
             row.nEstatusOriginal = value.nEstatus;
             row.cMotivoCancelacion = value.cMotivoCancelacion;
-            console.log(value.cMotivoCancelacion);
           } else {
             row.nEstatus = row.nEstatusOriginal;
           }
@@ -344,20 +341,16 @@ export class TripsToReceiveComponent implements OnInit {
     let arraFiltrado: any = [];
     let temporal = [];
 
-
     if (this.cProveedor.toLowerCase() !== '' && this.cArticulo.toLowerCase() !== '') {
-      console.log('1');
       temporal = this.dataTemp.filter((d) =>
         d.cProveedor.toLowerCase().indexOf(this.cProveedor.toLowerCase()) !== - 1
         && d.cArticulo.toLowerCase().indexOf(this.cArticulo.toLowerCase()) !== - 1
       );
     } else if (this.cProveedor.toLowerCase() !== '' && this.cArticulo.toLowerCase() === '') {
-      console.log('2');
       temporal = this.dataTemp.filter((d) =>
         d.cProveedor.toLowerCase().indexOf(this.cProveedor.toLowerCase()) !== - 1
       );
     } else if (this.cProveedor.toLowerCase() === '' && this.cArticulo.toLowerCase() !== '') {
-      console.log('3');
       temporal = this.dataTemp.filter((d) =>
         d.cArticulo.toLowerCase().indexOf(this.cArticulo.toLowerCase()) !== - 1
       );
@@ -470,12 +463,7 @@ export class TripsToReceiveComponent implements OnInit {
   }
 
   guardar(): void {
-    const modalRef = this.modalService.open(ConfirmacionRecepcionPedidosComponent, {
-      centered: true,
-      backdrop: 'static',
-      keyboard: false,
-      modalDialogClass: 'dialog-formulario-mediano',
-    });
+
     console.log(this.data);
     const sum = this.data.reduce((accumulator, object) => {
       return accumulator + object.nLitrosPendientes;
@@ -484,29 +472,88 @@ export class TripsToReceiveComponent implements OnInit {
       this.util.dialogWarning('La cantidad de litros recibidos no puede ser mayor a los litros pendientes por recibir.');
 
     } else {
-      modalRef.componentInstance.compra = {
-        nlitrosComprados: this.nLitrosRecibidos,
-        dFechaCompraOrigen: dayjs(new Date().toISOString().split('T')[0]).format('DD/MM/YYYY')
-      }
-      let compras =  this.data;
 
-      compras.forEach(element => {
+      let compras = this.data.filter(
+        (d) =>
+          d.bRecibir === true
+      )
 
-      });
 
-      modalRef.componentInstance.compras = compras;
-      modalRef.closed.subscribe(
-        value => {
-          /*  if (value.nEstatus) {
-             row = value;
-             row.nEstatusOriginal = value.nEstatus;
-           } else {
-             row.nEstatus = row.nEstatusOriginal;
-           }
-           this.filerWithStatus(); */
-          // this.enfocarBotonNuevaVenta()
+      if (compras.length === 0) {
+        this.util.dialogWarning('Es necesario seleccionar almenos un pedido para realizar la recepción.');
+      } else {
+
+        compras = compras.sort((a, b) => a.dFechaCompraDate.getTime() - b.dFechaCompraDate.getTime())
+        const modalRef = this.modalService.open(ConfirmacionRecepcionPedidosComponent, {
+          centered: true,
+          backdrop: 'static',
+          keyboard: false,
+          modalDialogClass: 'dialog-formulario-mediano',
+        });
+        modalRef.componentInstance.compra = {
+          nlitrosComprados: this.nLitrosRecibidos,
+          dFechaCompraOrigen: compras[0].dFechaCompraOrigen
         }
-      );
+        let litrosPorRecibirTemp = this.nLitrosRecibidos
+        let comprasTemp: any = [];
+     
+        compras.forEach(element => {
+          let litrosPendientes = 0;
+          litrosPendientes = element.nLitrosPendientes;
+
+          if (litrosPorRecibirTemp < litrosPendientes) {
+            litrosPendientes = litrosPendientes - litrosPorRecibirTemp
+            litrosPorRecibirTemp = 0;
+          } else {
+            litrosPorRecibirTemp = litrosPorRecibirTemp - litrosPendientes;
+            litrosPendientes = 0;
+          }
+
+          comprasTemp.push({
+            nCompra: element.nCompra,
+            cTipoCompraLarga: element.cTipoCompraLarga,
+            cEmpresa: element.cEmpresa,
+            cAlmacen: element.cAlmacen,
+            cProveedor: element.cProveedor,
+            cFactura: element.cFactura,
+            nlitrosComprados: parseFloat(element.nLitrosCompra).toFixed(4),
+            nCostoxLitro: element.nCostoxLitro,
+            dFechaCompra: element.dFechaCompra,
+            nCostoTotal: element.nCostoTotal,
+            nLitrosRecibidos: element.nLitrosRecepcion,
+            nEstatus: element.nEstatus,
+            cArticulo: element.cArticulo,
+            nEstatusOriginal: element.nEstatus,
+            dFechaRecepcion: element.dFechaRecepcion,
+            cMotivoCancelacion: element.cMotivoCancelacion,
+            dFechaCompraOrigen: element.dFechaCompraOrigen,
+            nLitrosPendientes: element.nLitrosPendientes,
+            nLitrosRestantes: litrosPendientes,
+            bRecibir: 1
+          })
+        });
+
+
+
+        modalRef.componentInstance.compras = comprasTemp;
+        modalRef.closed.subscribe(
+          async value => {
+            console.log(value);
+            if(value.nlitrosComprados){
+              this.limpiar();
+             await this.obtenerCatalogosFletera();
+            }
+            /*  if (value.nEstatus) {
+               row = value;
+               row.nEstatusOriginal = value.nEstatus;
+             } else {
+               row.nEstatus = row.nEstatusOriginal;
+             }
+             this.filerWithStatus(); */
+            // this.enfocarBotonNuevaVenta()
+          }
+        );
+      }
     }
 
   }

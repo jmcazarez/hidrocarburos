@@ -23,6 +23,7 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
   maxDate = new Date();
   minDate = new Date();
   @Input() public compra: any;
+  @Input() public compras: any;
   constructor(public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private util: UtilsService,
@@ -38,8 +39,6 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
     console.log(this.minDate);
     console.log(this.maxDate);
     let today = dayjs(new Date().toISOString().split('T')[0]).format('YYYY-MM-DD') //new Date().toISOString().split('T')[0];
-
-    console.log(this.compra);
 
     this.form = this.formBuilder.group({
       nLitrosComprados: [{ value: this.compra.nlitrosComprados, disabled: true }, Validators.required],

@@ -49,7 +49,7 @@
                 <div class="col-sm-7">
                   <div class="input-group mb-1">
                     <input type="text" class="form-control form-control-sm border-end-0" formControlName="cProveedor"
-                    onfocus="this.select()">
+                      onfocus="this.select()">
                     <span class="input-group-text border-start-0 bg-white">
                       <i class="feather icon-search" (click)="openModalProveedores()"></i>
                     </span>
@@ -60,37 +60,36 @@
                 <div class="col-sm-7">
                   <div class="input-group mb-1">
                     <input type="text" class="form-control form-control-sm border-end-0" formControlName="cArticulo"
-                    onfocus="this.select()"  [disabled]="this.nProveedor ===0">
+                      onfocus="this.select()" [disabled]="this.nProveedor ===0">
                     <span class="input-group-text border-start-0 bg-white">
-                      <i class="feather icon-search" (click)="openModalArticulos()" ></i>
+                      <i class="feather icon-search" (click)="openModalArticulos()"></i>
                     </span>
                   </div>
                 </div>
 
-              <ng-container *ngIf="this.bNacional === 0" >
-                <label class="form-label col-sm-5 col-form-label text-end" >Litros recibidos</label>
-                <div class="col-sm-7" >
-                  <div class="input-group mb-1">
-                    <input type="text" class="form-control form-control-sm captura-derecha"
-                      formControlName="nLitrosRecibidos"
-                      onfocus="this.select()"
-                      mask="separator.4" thousandSeparator="," [min]="0.01">
-
+                <ng-container *ngIf="this.bNacional === 0">
+                  <label class="form-label col-sm-5 col-form-label text-end">Litros recibidos</label>
+                  <div class="col-sm-7">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control form-control-sm captura-derecha"
+                        formControlName="nLitrosRecibidos" onfocus="this.select()" mask="separator.4"
+                        thousandSeparator="," [min]="0.01">
+                    </div>
                   </div>
-                </div>
 
-                <label class="form-label col-sm-5 col-form-label text-end">Fuller</label>
-                <div class="col-sm-7">
-                  <div class="input-group mb-1">
-                    <input type="text" class="form-control form-control-sm captura-derecha"  formControlName="cFuller"
-                    onfocus="this.select()">
+                  <label class="form-label col-sm-5 col-form-label text-end">Fuller</label>
+                  <div class="col-sm-7">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control form-control-sm captura-derecha" formControlName="cFuller"
+                        onfocus="this.select()">
+                    </div>
                   </div>
-                </div>
-              </ng-container>
+                </ng-container>
               </div>
             </div>
 
-            <div class="col-sm-2"></div>
+
+
 
             <!-- <div class="col-sm-5">
 
@@ -108,6 +107,12 @@
           </div> -->
           </div>
         </form>
+        <div class="col-mt-6">
+          <label class="form-label col-sm-4 col-form-label"></label>
+          <button type="button" class="btn btn-warning" (click)="limpiar()">Limpiar</button>
+          <!--   <button type="button" class="btn btn-dark mx-2">Cancelar</button> -->
+          <button type="button" *ngIf="this.bNacional === 0"  class="btn btn-primary" (click)="guardar()" [disabled]="form.invalid">Guardar</button>
+        </div>
         <div class="table-responsive my-5">
           <!--         <table class="table table-bordered">
             <thead>
@@ -163,18 +168,18 @@
             </ngx-datatable-column>
             <ngx-datatable-column name="Litros comprados" prop="nlitrosComprados" [width]="130">
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                {{value | number : '1.4-4'}}
+                {{value | number : '1.2-2'}}
               </ng-template>
             </ngx-datatable-column>
 
             <ngx-datatable-column name="Litros recibidos" prop="nLitrosRecibidos" [width]="120">
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                {{value | number : '1.4-4'}}
+                {{value | number : '1.2-2'}}
               </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Litros pendientes" prop="nLitrosPendientes" [width]="120">
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                {{value | number : '1.4-4'}}
+                {{value | number : '1.2-2'}}
               </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Total compra origen" prop="nCostoTotal" [width]="150">
@@ -182,11 +187,12 @@
                 {{value | currency}}
               </ng-template>
             </ngx-datatable-column>
-            this.bNacional
-            <ngx-datatable-column name="Estatus" prop="nEstatus" [width]="150" >
-              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template >
+
+            <ngx-datatable-column name="Estatus" prop="nEstatus" [width]="150">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 <select class="form-control form-control-sm" style="z-index:1000" [(ngModel)]="row.nEstatus"
-                  [disabled]="row.nEstatus === 3 || row.nEstatus === 4" (change)="onChange(row)" [disabled]="this.bNacional !== 1">
+                  [disabled]="row.nEstatus === 3 || row.nEstatus === 4" (change)="onChange(row)"
+                  [disabled]="this.bNacional !== 1 || row.cTipoCompraLarga=== 'Importación'">
                   <option *ngFor="let banco of estatus" value="{{ banco.nEstatus }}"> {{ banco.cEstatus }}
                   </option>
                 </select>
@@ -202,7 +208,7 @@
           <button type="button" class="btn btn-dark mx-2">Cancelar</button>
           <button type="button" class="btn btn-primary mx-2">Registrar</button>
         </div> -->
-   
+
       </div>
     </div>
   </div>

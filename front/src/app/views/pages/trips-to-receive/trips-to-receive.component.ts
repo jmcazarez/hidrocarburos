@@ -60,8 +60,8 @@ export class TripsToReceiveComponent implements OnInit {
       cProveedor: new FormControl({ value: '', disabled: true }, []),
       nArticulo: new FormControl('', Validators.required),
       cArticulo: new FormControl({ value: '', disabled: true }, []),
-      nLitrosRecibidos: new FormControl(0, []),
-      cFuller: new FormControl('', []),
+      nLitrosRecibidos: new FormControl(0.00, []),
+      cFuller: new FormControl('', Validators.required),
       bNacional: new FormControl(1, []),
     });
 
@@ -160,7 +160,7 @@ export class TripsToReceiveComponent implements OnInit {
           dFechaRecepcion: compra.dFechaRecepcion,
           cMotivoCancelacion: compra.cMotivoCancelacion,
           dFechaCompraOrigen: compra.dFechaCompraOrigen,
-          nLitrosPendientes: 0
+          nLitrosPendientes: (compra.nLitrosCompra - compra.nLitrosRecepcion)
         })
       }
 
@@ -178,7 +178,7 @@ export class TripsToReceiveComponent implements OnInit {
   filterDatatable(value: any): void {
     // Filtramos tabla
     let arraFiltrado: any = [];
-    let temporal =[];
+    let temporal = [];
     for (const key of this.estatus) {
       if (key.status) {
         let lea: any = this.dataTemp.filter((d) => {
@@ -204,7 +204,7 @@ export class TripsToReceiveComponent implements OnInit {
       temporal = this.data.filter((d) =>
         d.cArticulo.toLowerCase().indexOf(this.cArticulo.toLowerCase()) !== - 1
       );
-    }else{
+    } else {
       temporal = this.dataTemp;
     }
     console.log(temporal);
@@ -263,7 +263,7 @@ export class TripsToReceiveComponent implements OnInit {
       temporal = this.data.filter((d) =>
         d.cArticulo.toLowerCase().indexOf(this.cArticulo.toLowerCase()) !== - 1
       );
-    }else{
+    } else {
       temporal = this.dataTemp;
     }
     this.data = temporal;
@@ -343,7 +343,7 @@ export class TripsToReceiveComponent implements OnInit {
   filerWithStatus() {
     let arraFiltrado: any = [];
     let temporal = [];
-   
+
 
     if (this.cProveedor.toLowerCase() !== '' && this.cArticulo.toLowerCase() !== '') {
       console.log('1');
@@ -361,7 +361,7 @@ export class TripsToReceiveComponent implements OnInit {
       temporal = this.dataTemp.filter((d) =>
         d.cArticulo.toLowerCase().indexOf(this.cArticulo.toLowerCase()) !== - 1
       );
-    }else{
+    } else {
       temporal = this.dataTemp;
     }
 
@@ -467,5 +467,52 @@ export class TripsToReceiveComponent implements OnInit {
     this.form.controls["cArticulo"].setValue(value.cDescripcion);
     this.form.controls["nArticulo"].setValue(value.id);
     this.filterDatatableProveedorArticulo();
+  }
+
+  guardar(): void {
+    const modalRef = this.modalService.open(ConfirmacionRecepcionPedidosComponent, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+      modalDialogClass: 'dialog-formulario-mediano',
+    });
+    console.log(this.data);
+    const sum = this.data.reduce((accumulator, object) => {
+      return accumulator + object.nLitrosPendientes;
+    }, 0);
+    if (sum < this.nLitrosRecibidos) {
+      this.util.dialogWarning('La cantidad de litros recibidos no puede ser mayor a los litros pendientes por recibir.');
+
+    } else {
+      modalRef.componentInstance.compra = {
+        nlitrosComprados: this.nLitrosRecibidos,
+        dFechaCompraOrigen: dayjs(new Date().toISOString().split('T')[0]).format('DD/MM/YYYY')
+      }
+      let compras =  this.data;
+
+      compras.forEach(element => {
+
+      });
+
+      modalRef.componentInstance.compras = compras;
+      modalRef.closed.subscribe(
+        value => {
+          /*  if (value.nEstatus) {
+             row = value;
+             row.nEstatusOriginal = value.nEstatus;
+           } else {
+             row.nEstatus = row.nEstatusOriginal;
+           }
+           this.filerWithStatus(); */
+          // this.enfocarBotonNuevaVenta()
+        }
+      );
+    }
+
+  }
+
+  limpiar() {
+    this.form.reset();
+    this.data = this.dataTemp;
   }
 }

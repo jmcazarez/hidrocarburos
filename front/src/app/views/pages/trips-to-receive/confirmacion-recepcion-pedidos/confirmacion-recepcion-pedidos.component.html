@@ -12,7 +12,7 @@
                   <div class="col-sm-4">
                     <div class="input-group">
                       <input type="text" class="form-control form-control-sm " currencyMask
-                        [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 4 }" id="nLitrosComprados"
+                        [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }" id="nLitrosComprados"
                         formControlName="nLitrosComprados" maxlength="20">
                     </div>
                   </div>
@@ -25,7 +25,7 @@
                   <div class="col-sm-4">
                     <div class="input-group">
                       <input type="text" class="form-control form-control-sm  " currencyMask
-                        [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 4 }" id="nLitrosRecibidos"
+                        [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }" id="nLitrosRecibidos"
                         onfocus="this.select()"
                         [ngClass]="{'has-error': form.get('nLitrosRecibidos')?.hasError('required')}"
                         [ngClass]="{'has-error': form.get('nLitrosRecibidos')?.hasError('min')}"
@@ -57,10 +57,29 @@
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </form>
+
+        <table class="table table" *ngIf="compras">
+        <thead>
+            <tr >
+              <th class=" th-border">Nro.Factura</th>
+              <th class=" th-border">Fecha de movimiento</th>
+              <th class=" th-border">Almacen destino</th>
+              <th class=" th-border">Litros pendientes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of compras">
+              <td class="th-border">{{ item.cFactura }}</td>
+              <td class="th-border">{{ item.dFechaCompra }}</td>
+              <th class="th-border">{{ item.cAlmacen }}</th>
+              <td class="th-border">{{ item.nLitrosPendientes | number : '1.2-2' }}</td>
+            </tr>
+          </tbody>
+
+        </table>
       </div>
     </div>
   </div>

@@ -71,8 +71,9 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Litros recibidos</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
-                      <input type="number" class="form-control form-control-sm captura-derecha"
+                      <input type="text" class="form-control form-control-sm captura-derecha"
                         formControlName="nLitrosRecibidos" onfocus="this.select()" mask="separator.4"
+                        currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"
                         thousandSeparator="," [min]="0.01">
                     </div>
                   </div>
@@ -146,9 +147,9 @@
             [rowHeight]="'auto'" [limit]="10" [scrollbarH]="true"
             [sorts]="[{prop: 'dFechaCompra', dir: 'asc'},{prop: 'cEmpresa', dir: 'asc'},{prop: 'cProveedor', dir: 'asc'},{prop: 'cArticulo', dir: 'asc'}]">
             <ngx-datatable-column *ngIf="this.bNacional === 0" name="Recibir" prop="id" [width]="80">
-              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template  >           
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template  >
                   <input type="checkbox" class="form-check-input" id="authCheck" [(ngModel)]="row.bRecibir" *ngIf="row.nLitrosPendientes > 0 ">
-   
+
               </ng-template>
           </ngx-datatable-column>
             <ngx-datatable-column name="Mercado" prop="cTipoCompraLarga" [width]="120"></ngx-datatable-column>

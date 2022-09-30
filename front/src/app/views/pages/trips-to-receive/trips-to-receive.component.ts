@@ -483,12 +483,12 @@ export class TripsToReceiveComponent implements OnInit {
         this.util.dialogWarning('Es necesario seleccionar almenos un pedido para realizar la recepción.');
       } else {
 
-        compras = compras.sort((a, b) => a.dFechaCompraDate.getTime() - b.dFechaCompraDate.getTime())
+        compras = compras.sort((a, b) => a.dFechaCompraDate.getTime() - b.dFechaCompraDate.getTime() || b.nLitrosRecibidos - a.nLitrosRecibidos)
         const modalRef = this.modalService.open(ConfirmacionRecepcionPedidosComponent, {
           centered: true,
           backdrop: 'static',
           keyboard: false,
-          modalDialogClass: 'dialog-formulario-mediano',
+          modalDialogClass: 'dialog-formulario-grande',
         });
         modalRef.componentInstance.compra = {
           nlitrosComprados: this.nLitrosRecibidos,
@@ -496,7 +496,7 @@ export class TripsToReceiveComponent implements OnInit {
         }
         let litrosPorRecibirTemp = this.nLitrosRecibidos
         let comprasTemp: any = [];
-     
+
         compras.forEach(element => {
           let litrosPendientes = 0;
           litrosPendientes = element.nLitrosPendientes;
@@ -516,7 +516,7 @@ export class TripsToReceiveComponent implements OnInit {
             cAlmacen: element.cAlmacen,
             cProveedor: element.cProveedor,
             cFactura: element.cFactura,
-            nlitrosComprados: parseFloat(element.nLitrosCompra).toFixed(4),
+            nlitrosComprados: Number(element.nlitrosComprados),
             nCostoxLitro: element.nCostoxLitro,
             dFechaCompra: element.dFechaCompra,
             nCostoTotal: element.nCostoTotal,
@@ -528,20 +528,22 @@ export class TripsToReceiveComponent implements OnInit {
             cMotivoCancelacion: element.cMotivoCancelacion,
             dFechaCompraOrigen: element.dFechaCompraOrigen,
             nLitrosPendientes: element.nLitrosPendientes,
-            nLitrosRestantes: litrosPendientes,
+            nLitrosRestantes: Number(litrosPendientes),
             bRecibir: 1
           })
         });
 
 
-
+        console.log('compras',comprasTemp)
         modalRef.componentInstance.compras = comprasTemp;
         modalRef.closed.subscribe(
           async value => {
             console.log(value);
             if(value.nlitrosComprados){
-              this.limpiar();
+              this.form.controls["nLitrosRecibidos"].setValue(0);
+              this.form.controls["cFuller"].setValue('');
              await this.obtenerCatalogosFletera();
+             this.filterDatatableProveedorArticulo();
             }
             /*  if (value.nEstatus) {
                row = value;

@@ -85,7 +85,7 @@
                     </div>
                   </div>
 
-                 
+
 
                   <label class="form-label col-sm-4 col-form-label text-end">No. factura</label>
                   <div class="col-sm-8">
@@ -141,7 +141,7 @@
                     >
                   </div>
 
-                  
+
                   <ng-container *ngIf="this.cTipoCompra === 'I'" >
                   <label class="form-label col-sm-4 col-form-label text-end">Número de patona</label>
                   <div class="col-sm-3">
@@ -182,7 +182,7 @@
                   <ng-container *ngIf="this.cTipoCompra === 'I'" >
                     <label class="form-label col-sm-4 col-form-label text-end">Volúmen en galones</label>
                     <div class="col-sm-8">
-                      <input type="text" 
+                      <input type="text"
                       mask="separator.4" thousandSeparator=","
                       class="form-control form-control-sm captura-derecha" placeholder="" formControlName="nGalonesCompra"
                       onfocus="this.select()"
@@ -190,24 +190,43 @@
                       [ngClass]="{'has-error': form.get('nGalonesCompra')?.hasError('required')}"
                       >
                     </div>
+
+                    <label class="form-label col-sm-4 col-form-label text-end">Volúmen en litros</label>
+                    <div class="col-sm-8">
+                      <input type="text"
+                      currencyMask [options]="{ thousands: ',', decimal: '.', precision: 4 }"
+                      class="form-control form-control-sm captura-derecha" placeholder="" formControlName="nLitrosCompra"
+                      onfocus="this.select()"
+                      (blur)="calcularTotales()"
+                      [ngClass]="{'has-error': form.get('nLitrosCompra')?.hasError('required')}"
+                      >
+                    </div>
+
                   </ng-container>
 
-                  <label class="form-label col-sm-4 col-form-label text-end">Volúmen en litros</label>
-                  <div class="col-sm-8">
-                    <input type="text" 
-                    mask="separator.4" thousandSeparator=","
-                    class="form-control form-control-sm captura-derecha" placeholder="" formControlName="nLitrosCompra"
-                    onfocus="this.select()"
-                    (blur)="calcularTotales()"
-                    [ngClass]="{'has-error': form.get('nLitrosCompra')?.hasError('required')}"
-                    >
-                  </div>
+                  <ng-container *ngIf="this.cTipoCompra !== 'I'" >
+
+                    <label class="form-label col-sm-4 col-form-label text-end">Volúmen en litros</label>
+                    <div class="col-sm-8">
+                      <input type="text"
+                        mask="separator.4" thousandSeparator=","
+                      class="form-control form-control-sm captura-derecha" placeholder="" formControlName="nLitrosCompra"
+                      onfocus="this.select()"
+                      (blur)="calcularTotales()"
+                      [ngClass]="{'has-error': form.get('nLitrosCompra')?.hasError('required')}"
+                      >
+                    </div>
+
+                  </ng-container>
+
+
+
 
                   <ng-container *ngIf="this.cTipoCompra !== 'I'" >
-                    
+
                     <label class="form-label col-sm-4 col-form-label text-end">Costo en pesos</label>
                     <div class="col-sm-8">
-                      <input type="text" 
+                      <input type="text"
                       mask="separator.4" thousandSeparator="," prefix="$"
                       class="form-control form-control-sm captura-derecha" placeholder="" formControlName="nCostoTotal"
                       onfocus="this.select()"
@@ -215,11 +234,11 @@
                       (blur)="calcularTotales()"
                       >
                     </div>
-                    
+
                     <label class="form-label col-sm-4 col-form-label text-end">Costo por litro en pesos</label>
                     <div class="col-sm-8">
-                      <input type="text" 
-                      mask="separator.4" thousandSeparator="," prefix="$"
+                      <input type="text"
+                      currencyMask [options]="{ prefix: '$ ', thousands: ',', decimal: '.', precision: 4 }"
                       class="form-control form-control-sm captura-derecha" placeholder="" formControlName="nCostoLitro"
                       [ngClass]="{'has-error': form.get('nCostoLitro')?.hasError('required')}"
                       >
@@ -266,7 +285,7 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Costo total en dólares</label>
                   <div class="col-sm-7">
                     <input type="text" class="form-control form-control-sm captura-derecha" placeholder="" formControlName="nCostoFinalDolares"
-                    mask="separator.4" thousandSeparator="," prefix="$"
+                    currencyMask [options]="{ prefix: '$ ', thousands: ',', decimal: '.', precision: 4 }"
                     [ngClass]="{'has-error': form.get('nCostoFinalDolares')?.hasError('required')}"
                     >
                   </div>
@@ -274,7 +293,7 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Costo por litro en pesos</label>
                   <div class="col-sm-7">
                     <input type="text"
-                    mask="separator.4" thousandSeparator="," prefix="$"
+                    currencyMask [options]="{ prefix: '$ ', thousands: ',', decimal: '.', precision: 4 }"
                     class="form-control form-control-sm captura-derecha" placeholder=""
                     formControlName="nCostoLitro"
                     >
@@ -283,7 +302,7 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Costo total en pesos</label>
                   <div class="col-sm-7">
                     <input type="text" class="form-control form-control-sm captura-derecha" placeholder="" formControlName="nCostoTotal"
-                    mask="separator.4" thousandSeparator="," prefix="$"
+                    currencyMask [options]="{ prefix: '$ ', thousands: ',', decimal: '.', precision: 4 }"
                     onfocus="this.select()"
                     [ngClass]="{'has-error': form.get('nCostoTotal')?.hasError('required')}"
                     >
@@ -300,7 +319,7 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Costo factura</label>
                     <div class="col-sm-7">
                       <input type="text" class="form-control form-control-sm captura-derecha" placeholder="" formControlName="nCostoFactura"
-                      mask="separator.4" thousandSeparator="," prefix="$"
+                      currencyMask [options]="{ prefix: '$ ', thousands: ',', decimal: '.', precision: 4 }"
                       onfocus="this.select()"
                       (blur)="calcularTotales();"
                       [ngClass]="{'has-error': form.get('nCostoFactura')?.hasError('required')}"
@@ -369,8 +388,8 @@
 
                   <label class="form-label col-sm-7 col-form-label text-end">Costo litro MX</label>
                   <div class="col-sm-5">
-                    <input type="text"  
-                    mask="separator.4" thousandSeparator="," prefix="$"
+                    <input type="text"
+                      currencyMask [options]="{ prefix: '$ ', thousands: ',', decimal: '.', precision: 4 }"
                     class="form-control form-control-sm captura-derecha" placeholder=""
                     [ngClass]="{'has-error': form.get('nCostoFinalLitro')?.hasError('required')}"
                     formControlName="nCostoFinalLitro">
@@ -378,8 +397,8 @@
 
                   <label class="form-label col-sm-7 col-form-label text-end">Costo final de compra</label>
                   <div class="col-sm-5">
-                    <input type="text" 
-                    mask="separator.4" thousandSeparator="," prefix="$"
+                    <input type="text"
+                    currencyMask [options]="{ prefix: '$ ', thousands: ',', decimal: '.', precision: 4 }"
                     class="form-control form-control-sm captura-derecha"  placeholder=""
                     [ngClass]="{'has-error': form.get('nCostoFinalCompra')?.hasError('required')}"
                     formControlName="nCostoFinalCompra">

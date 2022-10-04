@@ -775,7 +775,7 @@ export class NationalsComponent implements OnInit {
       costoLitro = 0;
     }
 
-    this.form.controls["nCostoLitro"].setValue(costoLitro);
+    this.form.controls["nCostoLitro"].setValue(costoLitro.toFixed(4));
     this.form.controls["nCostoFactura"].setValue(totalCostoFactura);
 
     if (this.cTipoCompra !== 'I') { // Nacional
@@ -854,7 +854,7 @@ export class NationalsComponent implements OnInit {
     this.form.controls["nCostoFinalLitro"].setValue('');
     this.form.controls["nCostoFinalDolares"].setValue('');
     this.form.controls["nCostoLogistico"].setValue('');
-    
+
     this.form.controls["nCostoCruce"].setValue(this.nValorCostoCruce);
 
     this.form.controls["nCostoFinalCompra"].setValue('');

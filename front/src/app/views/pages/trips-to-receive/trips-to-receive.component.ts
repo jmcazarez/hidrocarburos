@@ -10,6 +10,7 @@ import { BusquedaModalComponent } from '../busquedas/busqueda-modal/busqueda-mod
 import { ProveedorService } from 'src/services/proveedor.service';
 import { ArticulosService } from 'src/services/articulos.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 
@@ -59,7 +60,8 @@ export class TripsToReceiveComponent implements OnInit {
   constructor(private service: ComprasService, private datePipe: DatePipe, public modalService: NgbModal,
     private util: UtilsService,
     private serviceProveedor: ProveedorService,
-    private serviceArticulo: ArticulosService,) { }
+    private serviceArticulo: ArticulosService,
+    private spinner: NgxSpinnerService,) { }
   async ngOnInit(): Promise<void> {
     this.form = new FormGroup({
 
@@ -115,8 +117,10 @@ export class TripsToReceiveComponent implements OnInit {
 
 
   async obtenerCatalogosFletera() {
+    console.log('obtener');
     const comprasTemp: any[] = [];
     let cFechaRecepcion = '';
+    this.spinner.show();
     await this.service.obtenerCompras(0).subscribe((resp: any) => {
       for (const compra of resp.data) {
         let nCostoxLitro = 0;
@@ -143,6 +147,9 @@ export class TripsToReceiveComponent implements OnInit {
 
         if (!compra.cFactura) {
           compra.cFactura = '';
+        }
+        if((Number(compra.nLitrosCompra) - Number(compra.nLitrosRecepcion)) == 0){
+          compra.nEstatus = 3;
         }
 
         comprasTemp.push({
@@ -178,6 +185,7 @@ export class TripsToReceiveComponent implements OnInit {
       );
       this.data = [...temp];
       console.log(this.data);
+      this.spinner.hide();
       /*  this.datePipe.transform(vigencia, 'dd-MM-yyyy'), */
     });
   }
@@ -534,16 +542,16 @@ export class TripsToReceiveComponent implements OnInit {
         });
 
 
-        console.log('compras',comprasTemp)
+        console.log('compras', comprasTemp)
         modalRef.componentInstance.compras = comprasTemp;
         modalRef.closed.subscribe(
           async value => {
-            console.log(value);
-            if(value.nlitrosComprados){
+            console.log('return',value);
+            if (value.length > 0) {
               this.form.controls["nLitrosRecibidos"].setValue(0);
               this.form.controls["cFuller"].setValue('');
-             await this.obtenerCatalogosFletera();
-             this.filterDatatableProveedorArticulo();
+              await this.obtenerCatalogosFletera();
+              this.filterDatatableProveedorArticulo();
             }
             /*  if (value.nEstatus) {
                row = value;

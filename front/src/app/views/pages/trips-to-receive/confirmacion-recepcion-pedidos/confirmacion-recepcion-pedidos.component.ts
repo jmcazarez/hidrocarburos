@@ -76,22 +76,23 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
       this.util.dialogError('La cantidad de litros recibidos no puede ser mayor a los litros comprados.');
     } else {
 
- 
+
 
       if (this.compras) {
         this.compras.forEach(async (element: any) => {
-          let litrosRecibir = 0;
+          let litrosRecibir = 0.00;
           let estatus = 3;
-          litrosRecibir = element.nLitrosPendientes - element.nLitrosRestantes;
+          console.log(Number(element.nLitrosPendientes) , Number(element.nLitrosRestantes))
+          litrosRecibir = Number(element.nLitrosPendientes) - Number(element.nLitrosRestantes);
 
           if (element.nLitrosPendientes !== element.nLitrosRestantes) {
             if (element.nLitrosRestantes > 0) {
               estatus = 5
             }
-
+            console.log('litros',Number(litrosRecibir))
             await this.service.confirmarCompra({
               nCompra: element.nCompra,
-              nLitrosRecepcion: litrosRecibir,
+              nLitrosRecepcion: Number(litrosRecibir),
               dFechaRecepcion: new Date(this.dFechaRecepcion).toISOString().split('T')[0],
               cObervaciones: this.cObservaciones,
               nEstatus: estatus
@@ -109,7 +110,7 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
       } else {
         await this.service.confirmarCompra({
           nCompra: this.compra.nCompra,
-          nLitrosRecepcion: this.nLitrosRecibidos,
+          nLitrosRecepcion: Number(this.nLitrosRecibidos),
           dFechaRecepcion: new Date(this.dFechaRecepcion).toISOString().split('T')[0],
           cObervaciones: this.cObservaciones,
           nEstatus: 3

@@ -38,7 +38,7 @@ async function guardarCompra(params) {
     const t = await sequelize.transaction();
 
     try {
-        
+
         let data = await sequelize.query(
             `
              CALL proc_guardar_registro_de_compra (
@@ -47,9 +47,9 @@ async function guardarCompra(params) {
                 ${params.nEmpresa},
                 ${params.nAlmacen},
                 ${params.nProveedor},
-                ${ params.cFactura ? "'" + params.cFactura + "'" : null },
-                ${ params.dFechaFactura ? "'" + params.dFechaFactura + "'" : null },
-                ${ params.cTicket ? "'" + params.cTicket + "'" : null },
+                ${params.cFactura ? "'" + params.cFactura + "'" : null},
+                ${params.dFechaFactura ? "'" + params.dFechaFactura + "'" : null},
+                ${params.cTicket ? "'" + params.cTicket + "'" : null},
                 ${params.nFletera},
                 ${params.nChofer},
                 '${params.cNumeroTrailer}',
@@ -197,7 +197,15 @@ async function confirmarCompra(params) {
 
     try {
 
-        console.log(params);
+        console.log('compra', `
+        CALL proc_confirmacion_compra(
+            ${params.nCompra},
+            ${params.nLitrosRecepcion},
+            '${params.dFechaRecepcion}',
+            '${params.cObervaciones}',
+            '${params.nEstatus}'
+       )
+        `);
         let data = await sequelize.query(
             `
              CALL proc_confirmacion_compra(
@@ -239,6 +247,13 @@ async function confirmarCompra(params) {
 async function actualizarEstatusCompra(params) {
 
     try {
+        console.log('actualizar,', `
+        CALL proc_actualizar_estatus_compra(
+            ${params.nCompra},
+            ${params.nEstatus},
+            '${params.cMotivoCancelacion}'
+       )
+        `)
         let data = await sequelize.query(
             `
              CALL proc_actualizar_estatus_compra(

@@ -103,6 +103,7 @@
                 <th>C. comprada</th>
                 <th>C. recibida</th>
                 <th>Diferencia LTS</th>
+                <th>Fuller recepción</th>
               </tr>
             </thead>
             <tbody *ngFor="let item of compras">
@@ -119,6 +120,7 @@
                 <td class="text-end">{{ item.nLitrosCompra | number : '1.2-4' }}</td>
                 <td class="text-end">{{ item.nLitrosRecepcion | number : '1.2-4' }}</td>
                 <td class="text-end">{{ item.nLitrosCompra - item.nLitrosRecepcion | number : '1.2-4' }}</td>
+                <td>{{ item.cFuller }}</td>
               </tr>
 
 

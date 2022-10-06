@@ -283,7 +283,10 @@ export class TripsToReceiveComponent implements OnInit {
         keyboard: false,
         modalDialogClass: 'dialog-formulario-mediano',
       });
-      modalRef.componentInstance.compra = row;
+      let compraTemp = row;
+
+      compraTemp.cFuller = ''
+      modalRef.componentInstance.compra = compraTemp;
       modalRef.closed.subscribe(
         value => {
           if (value.nEstatus) {
@@ -472,7 +475,6 @@ export class TripsToReceiveComponent implements OnInit {
 
   guardar(): void {
 
-    console.log(this.data);
     const sum = this.data.reduce((accumulator, object) => {
       return accumulator + object.nLitrosPendientes;
     }, 0);
@@ -500,7 +502,8 @@ export class TripsToReceiveComponent implements OnInit {
         });
         modalRef.componentInstance.compra = {
           nlitrosComprados: this.nLitrosRecibidos,
-          dFechaCompraOrigen: compras[0].dFechaCompraOrigen
+          dFechaCompraOrigen: compras[0].dFechaCompraOrigen,
+          cFuller:  this.cFuller
         }
         let litrosPorRecibirTemp = this.nLitrosRecibidos
         let comprasTemp: any = [];

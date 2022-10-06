@@ -82,20 +82,19 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
         this.compras.forEach(async (element: any) => {
           let litrosRecibir = 0.00;
           let estatus = 3;
-          console.log(Number(element.nLitrosPendientes) , Number(element.nLitrosRestantes))
           litrosRecibir = Number(element.nLitrosPendientes) - Number(element.nLitrosRestantes);
 
           if (element.nLitrosPendientes !== element.nLitrosRestantes) {
             if (element.nLitrosRestantes > 0) {
               estatus = 5
             }
-            console.log('litros',Number(litrosRecibir))
             await this.service.confirmarCompra({
               nCompra: element.nCompra,
               nLitrosRecepcion: Number(litrosRecibir),
               dFechaRecepcion: new Date(this.dFechaRecepcion).toISOString().split('T')[0],
               cObervaciones: this.cObservaciones,
-              nEstatus: estatus
+              nEstatus: estatus,
+              cFuller: this.compra.cFuller
             }).subscribe(async (resp: any) => {
               if (resp) {
                 this.util.dialogSuccess('Compra guardada correctamente.');
@@ -113,7 +112,8 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
           nLitrosRecepcion: Number(this.nLitrosRecibidos),
           dFechaRecepcion: new Date(this.dFechaRecepcion).toISOString().split('T')[0],
           cObervaciones: this.cObservaciones,
-          nEstatus: 3
+          nEstatus: 3,
+          cFuller: this.compra.cFuller
         }).subscribe(async (resp: any) => {
           if (resp) {
             this.util.dialogSuccess('Compra guardada correctamente.');

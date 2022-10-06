@@ -36,40 +36,40 @@ export class ProductDeliveryTicketComponent implements OnInit {
     private serviceFormasPago: FormasPagoService,
     private serviceEmpleados: EmpleadosService,
     private serviceClientes: ClienteService,
-  ) {}
+  ) { }
 
   async ngOnInit(): Promise<void> {
     this.form = new FormGroup({
-      nVenta : new FormControl({ value: '', disabled: true }, []),
+      nVenta: new FormControl({ value: '', disabled: true }, []),
       // cFolioExterno : new FormControl('', [Validators.required]),
-      dFechaVenta : new FormControl(dayjs().format('YYYY-MM-DD'), [Validators.required]),
-      cOrigen : new FormControl({value: '', disabled: true}, Validators.required),
-      nOrigen : new FormControl('', Validators.required),
-      nDestino : new FormControl('', Validators.required),
-      cDestino : new FormControl({ value: '', disabled: true }, Validators.required),
-      nVendedor : new FormControl('', Validators.required),
-      cVendedor : new FormControl({ value: '', disabled: true }, Validators.required),
-      cEquipo : new FormControl('', [Validators.required]),
-      cPlaca : new FormControl('', [Validators.required]),
-      cChofer : new FormControl({ value: '', disabled: true }, Validators.required),
-      nChofer : new FormControl('', Validators.required),
-      nArticulo : new FormControl('', Validators.required),
-      cArticulo : new FormControl({ value: '', disabled: true }, Validators.required),
-      nFormaPago : new FormControl('', Validators.required),
-      cFormaPago : new FormControl({ value: '', disabled: true }, Validators.required),
-      nCantidadEnviada : new FormControl('', [Validators.required]),
-      nCantidadRecibida : new FormControl('', [Validators.required]),
-      nCostoLitro : new FormControl('', [Validators.required]),
-      nTotal : new FormControl({value: '', disabled: true}, Validators.required),
-      nAnticipo : new FormControl('', [Validators.required]),
-      cObservaciones : new FormControl('', []),
-      cEncargado : new FormControl('', [Validators.required])
+      dFechaVenta: new FormControl(dayjs().format('YYYY-MM-DD'), [Validators.required]),
+      cOrigen: new FormControl({ value: '', disabled: true }, Validators.required),
+      nOrigen: new FormControl('', Validators.required),
+      nDestino: new FormControl('', Validators.required),
+      cDestino: new FormControl({ value: '', disabled: true }, Validators.required),
+      nVendedor: new FormControl('', Validators.required),
+      cVendedor: new FormControl({ value: '', disabled: true }, Validators.required),
+      cEquipo: new FormControl('', [Validators.required]),
+      cPlaca: new FormControl('', [Validators.required]),
+      cChofer: new FormControl({ value: '', disabled: true }, Validators.required),
+      nChofer: new FormControl('', Validators.required),
+      nArticulo: new FormControl('', Validators.required),
+      cArticulo: new FormControl({ value: '', disabled: true }, Validators.required),
+      nFormaPago: new FormControl('', Validators.required),
+      cFormaPago: new FormControl({ value: '', disabled: true }, Validators.required),
+      nCantidadEnviada: new FormControl('', [Validators.required]),
+      nCantidadRecibida: new FormControl('', [Validators.required]),
+      nCostoLitro: new FormControl('', [Validators.required]),
+      nTotal: new FormControl({ value: '', disabled: true }, Validators.required),
+      nAnticipo: new FormControl('', [Validators.required]),
+      cObservaciones: new FormControl('', []),
+      cEncargado: new FormControl('', [Validators.required])
     });
     this.obtener();
   }
 
   get nVenta(): number {
-    if (!this.form.get('nVenta')?.value ||  this.form.get('nVenta')?.value == ''){
+    if (!this.form.get('nVenta')?.value || this.form.get('nVenta')?.value == '') {
       return 0;
     }
     return this.form.get('nVenta')?.value;
@@ -150,7 +150,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
   }
 
   async obtener() {
-    this.service.obtenerVentas(0).subscribe( (resp: any) => {
+    this.service.obtenerVentas(0).subscribe((resp: any) => {
       this.ventas = resp.data;
     }, (error: any) => {
       this.util.dialogError('Ocurrió un error al obtener las ventas.');
@@ -175,24 +175,24 @@ export class ProductDeliveryTicketComponent implements OnInit {
       if (result.isConfirmed) {
 
         const obj = {
-            nVenta : this.nVenta,
-            cFolioExterno: '', // this.cFolioExterno,
-            dFechaVenta : this.dFechaVenta,
-            nOrigen: this.nOrigen,
-            nDestino: this.nDestino,
-            nVendedor: this.nVendedor,
-            nChofer: this.nChofer,
-            cEquipo: this.cEquipo,
-            cPlaca: this.cPlaca,
-            nArticulo: this.nArticulo,
-            nCantidadEnviada: this.nCantidadEnviada,
-            nCantidadRecibida: this.nCantidadRecibida,
-            nCostoLitro: this.nCostoLitro,
-            nAnticipo: this.nAnticipo,
-            nFormaPago: this.nFormaPago,
-            cEncargado: this.cEncargado,
-            cObservaciones: this.cObservaciones,
-            nTotal: this.calcularTotal()
+          nVenta: this.nVenta,
+          cFolioExterno: '', // this.cFolioExterno,
+          dFechaVenta: this.dFechaVenta,
+          nOrigen: this.nOrigen,
+          nDestino: this.nDestino,
+          nVendedor: this.nVendedor,
+          nChofer: this.nChofer,
+          cEquipo: this.cEquipo,
+          cPlaca: this.cPlaca,
+          nArticulo: this.nArticulo,
+          nCantidadEnviada: this.nCantidadEnviada,
+          nCantidadRecibida: this.nCantidadRecibida,
+          nCostoLitro: this.nCostoLitro,
+          nAnticipo: this.nAnticipo,
+          nFormaPago: this.nFormaPago,
+          cEncargado: this.cEncargado,
+          cObservaciones: this.cObservaciones,
+          nTotal: this.calcularTotal()
         };
 
         this.service.guardarVenta(obj).subscribe(async (resp: any) => {
@@ -207,12 +207,11 @@ export class ProductDeliveryTicketComponent implements OnInit {
             this.obtener();
           }
         }, (err: { error: any; }) => {
-          // if(err.error.error.type){
-          //   this.util.dialogError(err.error.error.type);
-          // }else{
-          //   this.util.dialogError('Error al guardar la empresa.');
-          // }
-          this.util.dialogError('Error al guardar la venta.');
+          if (err.error.error) {
+            this.util.dialogError(err.error.error);
+          } else {
+            this.util.dialogError('Error al guardar la venta.');
+          }
 
         });
       }
@@ -250,7 +249,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
 
     const empresasResp = await this.serviceEmpresa.obtenerEmpresas(0).toPromise();
 
-    const data = empresasResp.data.map( (item: any) => { return {nEmpresa: item.nEmpresa, cNombreEmpresa: item.cNombreEmpresa} });
+    const data = empresasResp.data.map((item: any) => { return { nEmpresa: item.nEmpresa, cNombreEmpresa: item.cNombreEmpresa } });
 
     modalRef.componentInstance.data = data;
     modalRef.componentInstance.dataTemp = data;
@@ -258,7 +257,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value && value.id){
+        if (value && value.id) {
           if (nTipo === 1) {
             this.asignarOrigen(value);
           } else {
@@ -302,7 +301,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
 
     const choferResp = await this.serviceChofer.obtenerChoferes(0, -1).toPromise();
 
-    const data = choferResp.data.map( (item: any) => { return {nChofer: item.nChofer, cDescripcion: item.cNombreChofer} });
+    const data = choferResp.data.map((item: any) => { return { nChofer: item.nChofer, cDescripcion: item.cNombreChofer } });
 
     modalRef.componentInstance.data = data;
     modalRef.componentInstance.dataTemp = data;
@@ -310,7 +309,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value && value.id){
+        if (value && value.id) {
           this.asignarChoferes(value);
           modalRef.close();
         }
@@ -345,7 +344,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
 
     const articuloResp = await this.serviceArticulo.obtenerArticulos(0, -1).toPromise();
 
-    const data = articuloResp.data.map( (item: any) => { return {nArticulo: item.nArticulo, cDescripcion: item.cDescripcionLarga} });
+    const data = articuloResp.data.map((item: any) => { return { nArticulo: item.nArticulo, cDescripcion: item.cDescripcionLarga } });
 
     modalRef.componentInstance.data = data;
     modalRef.componentInstance.dataTemp = data;
@@ -353,7 +352,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value && value.id){
+        if (value && value.id) {
           this.asignarArticulo(value);
           modalRef.close();
         }
@@ -390,7 +389,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
 
     console.log(empResp);
 
-    const data = empResp.data.map( (item: any) => { return {nEmpleado: item.nEmpleado, cDescripcion: item.cNombreEmpleado} });
+    const data = empResp.data.map((item: any) => { return { nEmpleado: item.nEmpleado, cDescripcion: item.cNombreEmpleado } });
 
     modalRef.componentInstance.data = data;
     modalRef.componentInstance.dataTemp = data;
@@ -398,7 +397,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value && value.id){
+        if (value && value.id) {
           this.asignarEmpleado(value);
           modalRef.close();
         }
@@ -433,7 +432,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
 
     const cliResp = await this.serviceClientes.obtenerClientes(0).toPromise();
 
-    const data = cliResp.data.map( (item: any) => { return {nCliente: item.nCliente, cDescripcion: item.cNombreCliente} });
+    const data = cliResp.data.map((item: any) => { return { nCliente: item.nCliente, cDescripcion: item.cNombreCliente } });
 
     modalRef.componentInstance.data = data;
     modalRef.componentInstance.dataTemp = data;
@@ -441,7 +440,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value && value.id){
+        if (value && value.id) {
           this.asignarCliente(value);
           modalRef.close();
         }
@@ -476,7 +475,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
 
     const frmResp = await this.serviceFormasPago.obtenerFormasPago().toPromise();
 
-    const data = frmResp.data.map( (item: any) => { return {nFormaPago: item.nFormaPago, cDescripcion: item.cDescripcion} });
+    const data = frmResp.data.map((item: any) => { return { nFormaPago: item.nFormaPago, cDescripcion: item.cDescripcion } });
 
     modalRef.componentInstance.data = data;
     modalRef.componentInstance.dataTemp = data;
@@ -484,7 +483,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value && value.id >= 0){
+        if (value && value.id >= 0) {
           this.asignarFormaPago(value);
           modalRef.close();
         }

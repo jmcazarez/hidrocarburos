@@ -32,53 +32,138 @@ async function obtenerVentas(params) {
 }
 
 async function guardarVenta(params) {
-
+    const t = await sequelize.transaction();
     try {
 
-        let data = await sequelize.query(
+        let venta = await sequelize.query(
             `
              CALL proc_guardar_venta (
-                ${ params.nVenta },
-                '${ params.cFolioExterno }',
-                '${ params.dFechaVenta }',
-                ${ params.nOrigen },
-                ${ params.nDestino },
-                ${ params.nVendedor },
-                ${ params.nChofer },
-                '${ params.cEquipo }',
-                '${ params.cPlaca }',
-                ${ params.nArticulo },
-                ${ params.nCantidadEnviada },
-                ${ params.nCantidadRecibida },
-                ${ params.nCostoLitro },
-                ${ params.nAnticipo },
-                ${ params.nFormaPago },
-                '${ params.cEncargado }',
-                '${ params.cObservaciones }',
-                ${ params.nTotal }
+                ${params.nVenta},
+                '${params.cFolioExterno}',
+                '${params.dFechaVenta}',
+                ${params.nOrigen},
+                ${params.nDestino},
+                ${params.nVendedor},
+                ${params.nChofer},
+                '${params.cEquipo}',
+                '${params.cPlaca}',
+                ${params.nArticulo},
+                ${params.nCantidadEnviada},
+                ${params.nCantidadRecibida},
+                ${params.nCostoLitro},
+                ${params.nAnticipo},
+                ${params.nFormaPago},
+                '${params.cEncargado}',
+                '${params.cObservaciones}',
+                ${params.nTotal}
             )
              `,
             {
-                type: QueryTypes.INSERT
+                type: QueryTypes.INSERT,
+                transaction: t
             }
         );
 
+        let movimiento = await sequelize.query(
+            `
+             CALL proc_registra_movimiento_de_inventario (
+                ${7},
+                ${8},
+                ${8},
+                '${params.dFechaVenta}',
+                '${params.cLogin}',
+                '${params.nVenta}',
+                @rank,
+                @contraMovimiento
+            )
+             `,
+            {
+                type: QueryTypes.INSERT,
+                transaction: t
+            }
+        ).then((res) => {
+            if (res.length === 0) {
+                return null;
+            }
+            return res;
+        }).catch(async (error) => {
+            await t.rollback();
+            throw error;
+        });
+
+
+        if (movimiento[0]) {
+            await sequelize.query(
+                `
+             CALL proc_registra_movimiento_de_inventario_detalle (
+                ${movimiento[0].ID},
+                ${movimiento[0].nTipoMovimiento},
+                ${1},
+                ${params.nArticulo},
+                ${params.nCantidadEnviada},
+                ${params.nCostoLitro},
+                ${params.nCostoLitro}
+            )
+             `,
+                {
+                    type: QueryTypes.INSERT,
+                    transaction: t
+                }
+            ).then((res) => {
+                if (res.length === 0) {
+                    return null;
+                }
+                return res;
+            }).catch(async (error) => {
+                throw error;
+            });
+
+            let aplica = await sequelize.query(
+                `
+                 CALL proc_aplica_movimiento_almacen (
+                    ${movimiento[0].ID}
+                )
+                 `,
+                {
+                    type: QueryTypes.INSERT,
+                    transaction: t
+                }
+            ).then((res) => {
+
+                return res;
+            }).catch(async (error) => {
+                throw error;
+            });
+        }
+        t.commit();
         return {
             status: 200,
             error: '',
-            data: data[0],
+            data: venta,
         }
 
     } catch (err) {
         // do something
-
         console.log(err);
+        t.rollback();
+        // do something
         if (err) {
-            return {
-                status: 400,
-                error: err,
-                data: [],
-            };
+            console.log('entro');
+            if(err.parent){
+                console.log('entro2');
+                return {
+                    status: 400,
+                    error: err.parent.sqlMessage,
+                    data: [],
+                };
+            }else{
+                return {
+                    status: 400,
+                    error: err,
+                    data: [],
+                };
+            }
+            
         } else {
             return {
                 status: 400,

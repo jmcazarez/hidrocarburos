@@ -5,6 +5,7 @@ import { ComprasService } from 'src/services/compras.service';
 import { UtilsService } from 'src/services/utils.service';
 import * as dayjs from 'dayjs';
 import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-confirmacion-recepcion-pedidos',
   templateUrl: './confirmacion-recepcion-pedidos.component.html',
@@ -35,6 +36,7 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
   ngOnInit(): void {
     this.dataTemp = [];
     this.data = [];
+
     this.minDate = new Date(this.compra.dFechaCompraOrigen);
     let disableRecibidos = false;
     console.log(this.minDate);

@@ -1,0 +1,17 @@
+<div class="modal-header">
+	<span>{{cTitulo ?? ''}}</span>
+	<button (click)='cerrar()'>
+
+	</button>
+</div>
+<div class="modal-body">
+	<div class="row">
+		<div class="col">
+			<iframe [src]="cBase64PdfSanitizado" class="contenido">
+			</iframe>
+		</div>
+	</div>
+</div>
+<div class="modal-footer d-flex justify-content-start">
+	<span>&#60;ESC&#62; Salir</span>
+</div>

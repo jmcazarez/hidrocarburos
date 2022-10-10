@@ -124,7 +124,9 @@ export class TripsToReceiveComponent implements OnInit {
     await this.service.obtenerCompras(0).subscribe((resp: any) => {
       for (const compra of resp.data) {
         let nCostoxLitro = 0;
+        compra.dFechaCompra = compra.dFechaCompra.replace('T00:00:00.000Z','T06:00:00.000Z')
         let dFechaCompraDate = new Date(compra.dFechaCompra);
+
         if (compra.nLitrosCompra > 0 && compra.nCostoTotal > 0) {
           nCostoxLitro = compra.nCostoTotal / compra.nLitrosCompra
         }

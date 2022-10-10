@@ -37,18 +37,7 @@ async function obtenerMovimientoAlmacen(params) {
 async function guardarMovimientoAlmacen(params) {
     const t = await sequelize.transaction();
     try {
-        console.log(`
-      CALL proc_registra_movimiento_de_inventario (
-         ${params.nTipoMovimiento},
-         ${params.nAlmacenRegistro},
-         ${params.nAlmacenMovimiento},
-         '${params.dFechaMovimiento}',
-         '${params.cLogin}',
-         '${params.cReferencia}',
-         @rank,
-         @contraMovimiento
-     )
-      `);
+
         let data = await sequelize.query(
             `
              CALL proc_registra_movimiento_de_inventario (

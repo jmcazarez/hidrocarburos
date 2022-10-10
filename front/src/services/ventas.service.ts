@@ -9,6 +9,7 @@ export class VentasService {
 
   private baseUrl: string;
   private urlVentas = "registros/ventas";
+  private urlPdfs = "pdfs/pdfs";
   constructor(private http: HttpClient) {
     this.baseUrl = environment.api;
   }
@@ -18,6 +19,10 @@ export class VentasService {
   }
   guardarVenta(item: any): any {
     return this.http.post(this.baseUrl + this.urlVentas, item);
+  }
+
+  obtenerTicketVenta(): any{
+    return this.http.get(this.baseUrl + this.urlPdfs);
   }
 
 

@@ -105,6 +105,10 @@ const movimientos_almacen = require("./routes/registros/movimientos_almacen");
 // movimientos_inveitario
 const inv_tipo_de_movimientos = require("./routes/catalogos/inv_tipo_de_movimientos");
 
+
+// pdfs
+const pdfs = require("./routes/pdfs/pdfs");
+
 // rutas base
 
 app.use("/api/login", login);
@@ -128,4 +132,5 @@ app.use("/api/catalogos/empleados", empleados);
 app.use("/api/registros/ventas", ventas);
 app.use("/api/registros/movimientos_almacen", movimientos_almacen);
 app.use("/api/catalogos/inv_tipo_de_movimientos", inv_tipo_de_movimientos);
+app.use("/api/pdfs/pdfs", pdfs);
 module.exports = app;

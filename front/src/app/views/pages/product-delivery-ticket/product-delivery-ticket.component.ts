@@ -8,6 +8,7 @@ import { ClienteService } from 'src/services/cliente.service';
 import { EmpleadosService } from 'src/services/empleados.service';
 import { EmpresaService } from 'src/services/empresa.service';
 import { FormasPagoService } from 'src/services/formas-pago.service';
+import { PdfService } from 'src/services/pdf.service';
 import { UtilsService } from 'src/services/utils.service';
 import { VentasService } from 'src/services/ventas.service';
 import { Patterns } from 'src/utils/patterns';
@@ -36,6 +37,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
     private serviceFormasPago: FormasPagoService,
     private serviceEmpleados: EmpleadosService,
     private serviceClientes: ClienteService,
+    private pdfService: PdfService
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -523,4 +525,18 @@ export class ProductDeliveryTicketComponent implements OnInit {
     this.form.controls["cFormaPago"].setValue('');
   }
 
+  async imprimir() {
+   await this.service.obtenerTicketVenta().subscribe(async (resp: any) => {
+    console.log(resp.data.pdf);
+    this.pdfService.visualizarPdf(resp.data.pdf, 'Cotización', true, 'venta-input-articulo', null, null);
+
+    }, (err: { error: any; }) => {
+      if (err.error.error) {
+        this.util.dialogError(err.error.error);
+      } else {
+        this.util.dialogError('Error al generar ticket de venta.');
+      }
+
+    });
+  }
 }

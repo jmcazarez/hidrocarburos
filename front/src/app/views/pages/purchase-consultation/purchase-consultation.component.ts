@@ -33,27 +33,27 @@ export class PurchaseConsultationComponent implements OnInit {
     private serviceProveedor: ProveedorService,
     private serviceArticulo: ArticulosService,
     private spinner: NgxSpinnerService
-  ) {}
+  ) { }
 
   async ngOnInit(): Promise<void> {
     this.form = new FormGroup({
-      nCompra : new FormControl('', []),
-      cTipoCompra : new FormControl('', []),
-      cEmpresa : new FormControl({value: '', disabled: true}, []),
-      nEmpresa : new FormControl('', []),
-      nAlmacen : new FormControl('', []),
-      cAlmacen : new FormControl({ value: '', disabled: true }, []),
-      nProveedor : new FormControl('', Validators.required),
-      cProveedor : new FormControl({ value: '', disabled: true }, []),
-      nArticulo : new FormControl('', Validators.required),
-      cArticulo : new FormControl({ value: '', disabled: true }, []),
-      dFechaInicio : new FormControl('', []),
-      dFechaFin : new FormControl('', []),
+      nCompra: new FormControl('', []),
+      cTipoCompra: new FormControl('', []),
+      cEmpresa: new FormControl({ value: '', disabled: true }, []),
+      nEmpresa: new FormControl('', []),
+      nAlmacen: new FormControl('', []),
+      cAlmacen: new FormControl({ value: '', disabled: true }, []),
+      nProveedor: new FormControl('', Validators.required),
+      cProveedor: new FormControl({ value: '', disabled: true }, []),
+      nArticulo: new FormControl('', Validators.required),
+      cArticulo: new FormControl({ value: '', disabled: true }, []),
+      dFechaInicio: new FormControl('', []),
+      dFechaFin: new FormControl('', []),
     });
   }
 
   get nCompra(): number {
-    if (!this.form.get('nCompra')?.value ||  this.form.get('nCompra')?.value == ''){
+    if (!this.form.get('nCompra')?.value || this.form.get('nCompra')?.value == '') {
       return 0;
     }
     return this.form.get('nCompra')?.value;
@@ -64,21 +64,21 @@ export class PurchaseConsultationComponent implements OnInit {
   }
 
   get nEmpresa(): number {
-    if (!this.form.get('nEmpresa')?.value ||  this.form.get('nEmpresa')?.value == ''){
+    if (!this.form.get('nEmpresa')?.value || this.form.get('nEmpresa')?.value == '') {
       return 0;
     }
     return this.form.get('nEmpresa')?.value;
   }
 
   get nAlmacen(): number {
-    if (!this.form.get('nAlmacen')?.value ||  this.form.get('nAlmacen')?.value == ''){
+    if (!this.form.get('nAlmacen')?.value || this.form.get('nAlmacen')?.value == '') {
       return 0;
     }
     return this.form.get('nAlmacen')?.value;
   }
 
   get nProveedor(): number {
-    if (!this.form.get('nProveedor')?.value ||  this.form.get('nProveedor')?.value == ''){
+    if (!this.form.get('nProveedor')?.value || this.form.get('nProveedor')?.value == '') {
       return 0;
     }
     return this.form.get('nProveedor')?.value;
@@ -93,7 +93,7 @@ export class PurchaseConsultationComponent implements OnInit {
   }
 
   get nArticulo(): number {
-    if (!this.form.get('nArticulo')?.value ||  this.form.get('nArticulo')?.value == ''){
+    if (!this.form.get('nArticulo')?.value || this.form.get('nArticulo')?.value == '') {
       return 0;
     }
     return this.form.get('nArticulo')?.value;
@@ -122,7 +122,7 @@ export class PurchaseConsultationComponent implements OnInit {
 
     const empresasResp = await this.serviceEmpresa.obtenerEmpresas(0).toPromise();
 
-    const data = empresasResp.data.map( (item: any) => { return {nEmpresa: item.nEmpresa, cNombreEmpresa: item.cNombreEmpresa} });
+    const data = empresasResp.data.map((item: any) => { return { nEmpresa: item.nEmpresa, cNombreEmpresa: item.cNombreEmpresa } });
 
     modalRef.componentInstance.data = data;
     modalRef.componentInstance.dataTemp = data;
@@ -130,7 +130,7 @@ export class PurchaseConsultationComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value && value.id){
+        if (value && value.id) {
           this.asignarEmpresa(value);
           modalRef.close();
         }
@@ -165,7 +165,7 @@ export class PurchaseConsultationComponent implements OnInit {
 
     const almacenResp = await this.serviceAlmacen.obtenerAlmacenes(0).toPromise();
 
-    const data = almacenResp.data.map( (item: any) => { return {nAlmacen: item.nAlmacen, cDescripcion: item.cDescripcion} });
+    const data = almacenResp.data.map((item: any) => { return { nAlmacen: item.nAlmacen, cDescripcion: item.cDescripcion } });
 
     modalRef.componentInstance.data = data;
     modalRef.componentInstance.dataTemp = data;
@@ -173,7 +173,7 @@ export class PurchaseConsultationComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value && value.id){
+        if (value && value.id) {
           this.asignarAlmacen(value);
           modalRef.close();
         }
@@ -208,7 +208,7 @@ export class PurchaseConsultationComponent implements OnInit {
 
     const proveedorResp = await this.serviceProveedor.obtenerProveedores(0, -1).toPromise();
 
-    const data = proveedorResp.data.map( (item: any) => { return {nProveedor: item.nProveedor, cDescripcion: item.cNombreProveedor} });
+    const data = proveedorResp.data.map((item: any) => { return { nProveedor: item.nProveedor, cDescripcion: item.cNombreProveedor } });
 
     modalRef.componentInstance.data = data;
     modalRef.componentInstance.dataTemp = data;
@@ -216,7 +216,7 @@ export class PurchaseConsultationComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value && value.id){
+        if (value && value.id) {
           this.asignarProveedor(value);
           modalRef.close();
         }
@@ -251,7 +251,7 @@ export class PurchaseConsultationComponent implements OnInit {
 
     const articuloResp = await this.serviceArticulo.obtenerArticulos(0, -1).toPromise();
 
-    const data = articuloResp.data.map( (item: any) => { return {nArticulo: item.nArticulo, cDescripcion: item.cDescripcionLarga} });
+    const data = articuloResp.data.map((item: any) => { return { nArticulo: item.nArticulo, cDescripcion: item.cDescripcionLarga } });
 
     modalRef.componentInstance.data = data;
     modalRef.componentInstance.dataTemp = data;
@@ -259,7 +259,7 @@ export class PurchaseConsultationComponent implements OnInit {
     modalRef.closed.subscribe(
       value => {
         console.log('value:', value);
-        if(value && value.id){
+        if (value && value.id) {
           this.asignarArticulo(value);
           modalRef.close();
         }
@@ -284,9 +284,46 @@ export class PurchaseConsultationComponent implements OnInit {
       this.nAlmacen ?? 0,
       this.nArticulo ?? 0,
       ''
-    ).subscribe ( (resp: any) => {
+    ).subscribe((resp: any) => {
       if (resp) {
-        this.compras = resp.data;
+
+        for (const compra of resp.data) {
+          console.log(compra);
+          if (compra.cTipoCompra === "I") {
+            compra.nCostoLitroNacional = compra.nCostoTotalFinal / compra.nLitrosCompra
+          }else{
+            compra.nCostoLitroNacional = compra.nCostoLitro
+          }
+          this.compras.push({
+            nCompra: compra.nCompra,
+            cTipoCompra: compra.cTipoCompra,
+            cFechaCompra: compra.cFechaCompra,
+
+            cEmpresa: compra.cEmpresa,
+            nEmpresa: compra.nEmpresa,
+            nAlmacen: compra.nAlmacen,
+            cAlmacen: compra.cAlmacen,
+            nProveedor: compra.nProveedor,
+            cProveedor: compra.cProveedor,
+            nArticulo: compra.nArticulo,
+            cArticulo: compra.cArticulo,
+            dFechaInicio: compra.dFechaInicio,
+            dFechaFin: compra.dFechaFin,
+            nLitrosCompra: compra.nLitrosCompra,
+            nCostoLitro: compra.nCostoLitro,
+            nCostoTotal: compra.nCostoTotal,
+            nCostoFactura: compra.nCostoFactura,
+            nCostoFlete: compra.nCostoFlete * compra.nTipoCambioLocal,
+            nCostoLogistico: compra.nCostoLogistico * compra.nKilometrosRecorridos,
+            nCostoCruce: compra.nCostoCruce * compra.nTipoCambioLocal,
+            nCostoTotalFinal: compra.nCostoTotalFinal,
+            nCostoLitroNacional: compra.nCostoLitroNacional
+          });
+
+
+
+        }
+        /*  this.compras = resp.data;  */
         console.log('Compras:', resp);
       }
       this.spinner.hide();

@@ -734,20 +734,20 @@ export class NationalsComponent implements OnInit {
         this.form.controls["cFuller2"].setValue(compra.cFuller2);
         this.form.controls["cSellos1"].setValue(compra.cSellos1);
         this.form.controls["cSellos2"].setValue(compra.cSellos2);
-        this.form.controls["nLitrosCompra"].setValue(parseFloat(compra.nLitrosCompra));
-        this.form.controls["nTipoCambio"].setValue(parseFloat(compra.nTipoCambio));
-        this.form.controls["nCostoFactura"].setValue(parseFloat(compra.nCostoFactura));
-        this.form.controls["nCostoFlete"].setValue(parseFloat(compra.nCostoFlete));
-        this.form.controls["nCostoCruce"].setValue(parseFloat(compra.nCostoCruce));
-        this.form.controls["nGalonesCompra"].setValue(parseFloat(compra.nGalonesCompra));
+        this.form.controls["nLitrosCompra"].setValue(parseFloat(compra.nLitrosCompra).toFixed(4));
+        this.form.controls["nTipoCambio"].setValue(parseFloat(compra.nTipoCambio).toFixed(4));
+        this.form.controls["nCostoFactura"].setValue(parseFloat(compra.nCostoFactura).toFixed(4));
+        this.form.controls["nCostoFlete"].setValue(parseFloat(compra.nCostoFlete).toFixed(4));
+        this.form.controls["nCostoCruce"].setValue(parseFloat(compra.nCostoCruce).toFixed(4));
+        this.form.controls["nGalonesCompra"].setValue(parseFloat(compra.nGalonesCompra).toFixed(4));
         this.form.controls["nCostoGalon"].setValue(parseFloat(compra.nCostoGalon).toFixed(4));
-        this.form.controls["nCostoLitro"].setValue(parseFloat(compra.nCostoLitro));
-        this.form.controls["nCostoLogistico"].setValue(parseFloat(compra.nCostoLogistico));
-        this.form.controls["nCostoTotal"].setValue(parseFloat(compra.nCostoTotal));
+        this.form.controls["nCostoLitro"].setValue(parseFloat(compra.nCostoLitro).toFixed(4));
+        this.form.controls["nCostoLogistico"].setValue(parseFloat(compra.nCostoLogistico).toFixed(4));
+        this.form.controls["nCostoTotal"].setValue(parseFloat(compra.nCostoTotal).toFixed(4));
         this.form.controls["cNumeroPatona"].setValue(compra.cNumeroPatona);
         this.form.controls["cSellos"].setValue(compra.cSellos);
-        this.form.controls["nKilometrosRecorridos"].setValue(parseFloat(compra.nKilometrosRecorridos));
-        this.form.controls["nTipoCambioLocal"].setValue(parseFloat(compra.nTipoCambioLocal));
+        this.form.controls["nKilometrosRecorridos"].setValue(parseFloat(compra.nKilometrosRecorridos).toFixed(4));
+        this.form.controls["nTipoCambioLocal"].setValue(parseFloat(compra.nTipoCambioLocal).toFixed(4));
 
         this.form.controls["cTipoCompra"].disable();
 
@@ -774,51 +774,51 @@ export class NationalsComponent implements OnInit {
 
     let costoLitro = this.nCostoTotal  / this.nLitrosCompra;
     const totalCostoFactura = this.costoLitroFactura * this.nLitrosCompra;
-    const costoFlete = this.nCostoFlete;
+    const costoFlete = parseFloat(this.nCostoFlete.toString());
 
     if (!costoLitro) {
       costoLitro = 0;
     }
 
     this.form.controls["nCostoLitro"].setValue(costoLitro.toFixed(4));
-    this.form.controls["nCostoFactura"].setValue(totalCostoFactura);
+    this.form.controls["nCostoFactura"].setValue(totalCostoFactura.toFixed(4));
 
     if (this.cTipoCompra !== 'I') { // Nacional
 
-      const costoFinalCompra = this.nCostoTotal + totalCostoFactura + costoFlete;
-      let costoFinalLitro = costoFinalCompra / this.nLitrosCompra;
+      const costoFinalCompra = parseFloat(this.nCostoTotal.toString()) + totalCostoFactura;
+      let costoFinalLitro = costoFinalCompra / parseFloat(this.nLitrosCompra.toString());
 
-      if (!costoFinalLitro) {
+      if (!costoFinalLitro || costoFinalLitro === Infinity) {
         costoFinalLitro = 0;
       }
 
-      this.form.controls["nCostoFinalCompra"].setValue(costoFinalCompra);
-      this.form.controls["nCostoFinalLitro"].setValue(costoFinalLitro);
+      this.form.controls["nCostoFinalCompra"].setValue(costoFinalCompra.toFixed(4));
+      this.form.controls["nCostoFinalLitro"].setValue(costoFinalLitro.toFixed(4));
 
     } else {
 
       const litrosGalones = this.nGalonesCompra * this.nValorGalon;
-      this.form.controls["nLitrosCompra"].setValue(litrosGalones);
+      this.form.controls["nLitrosCompra"].setValue(litrosGalones.toFixed(4));
 
       const totalCruce = this.nCostoCruce * this.nTipoCambioLocal;
       const totalCostoLogistico = this.nCostoLogistico * this.nTipoCambio;
       const totalCostoFlete = this.nCostoFlete * this.nKilometrosRecorridos;
 
       const totalDolares = this.nCostoGalon * this.nGalonesCompra;
-      this.form.controls["nCostoFinalDolares"].setValue(totalDolares);
+      this.form.controls["nCostoFinalDolares"].setValue(totalDolares.toFixed(4));
 
       const totalPesos = totalDolares * this.nTipoCambio;
-      this.form.controls["nCostoTotal"].setValue(totalPesos);
+      this.form.controls["nCostoTotal"].setValue(totalPesos.toFixed(4));
 
       const costoLitro = totalPesos / litrosGalones;
 
-      this.form.controls["nCostoLitro"].setValue(costoLitro);
+      this.form.controls["nCostoLitro"].setValue(costoLitro.toFixed(4));
 
       const costoFinalCompra = totalPesos + totalCostoFactura + totalCruce + totalCostoFlete + totalCostoLogistico;
       let final = costoFinalCompra / this.nLitrosCompra;
 
-      this.form.controls["nCostoFinalCompra"].setValue(costoFinalCompra);
-      this.form.controls["nCostoFinalLitro"].setValue(final);
+      this.form.controls["nCostoFinalCompra"].setValue(costoFinalCompra.toFixed(4));
+      this.form.controls["nCostoFinalLitro"].setValue(final.toFixed(4));
 
     }
 

@@ -274,8 +274,8 @@
 
                   <label class="form-label col-sm-5 col-form-label text-end">Costo por galón en dólares</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm captura-derecha" placeholder="" formControlName="nCostoGalon"
-                    mask="separator.4" thousandSeparator="," prefix="$"
+                    <input type="text" appDecimales4
+                    class="form-control form-control-sm captura-derecha" placeholder="" formControlName="nCostoGalon"
                     [ngClass]="{'has-error': form.get('nCostoGalon')?.hasError('required')}"
                     onfocus="this.select()"
                     (blur)="calcularTotales()"

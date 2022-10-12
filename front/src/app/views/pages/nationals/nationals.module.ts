@@ -1,3 +1,4 @@
+import { Decimales4Directive } from './../../../../directives/decimales4.directive';
 /* ---------- Modules ---------- */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -18,17 +19,17 @@ const maskConfig: Partial<IConfig> = {
 };
 
 const routes: Routes = [
-  
+
   {
     path: '',
     component: NationalsComponent
   },
-  
-  
+
+
 ]
 
 @NgModule({
-  declarations: [NationalsComponent, BusquedaCompraComponent],
+  declarations: [NationalsComponent, BusquedaCompraComponent, Decimales4Directive],
   imports: [
     CommonModule,
     SharedModule,

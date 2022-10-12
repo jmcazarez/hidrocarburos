@@ -15,6 +15,8 @@ import { Patterns } from 'src/utils/patterns';
 import { BusquedaModalComponent } from '../busquedas/busqueda-modal/busqueda-modal.component';
 import { BusquedaFleteraComponent } from '../parcel/busqueda-fletera/busqueda-fletera.component';
 import * as dayjs from 'dayjs';
+import { MaskApplierService } from 'ngx-mask';
+
 
 @Component({
   selector: 'app-nationals',
@@ -44,7 +46,8 @@ export class NationalsComponent implements OnInit {
     private serviceProveedor: ProveedorService,
     private serviceFletara: FleterasService,
     private serviceChofer: ChoferesService,
-    private serviceArticulo: ArticulosService
+    private serviceArticulo: ArticulosService,
+    private maskService: MaskApplierService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -706,6 +709,8 @@ export class NationalsComponent implements OnInit {
       if (resp) {
         const compra = resp.data[0];
 
+        console.log('compra:', compra);
+
         this.form.controls["nCompra"].setValue(compra.nCompra);
         this.form.controls["cTipoCompra"].setValue(compra.cTipoCompra);
         this.form.controls["cEmpresa"].setValue(compra.cEmpresa);
@@ -735,7 +740,7 @@ export class NationalsComponent implements OnInit {
         this.form.controls["nCostoFlete"].setValue(parseFloat(compra.nCostoFlete));
         this.form.controls["nCostoCruce"].setValue(parseFloat(compra.nCostoCruce));
         this.form.controls["nGalonesCompra"].setValue(parseFloat(compra.nGalonesCompra));
-        this.form.controls["nCostoGalon"].setValue(parseFloat(compra.nCostoGalon));
+        this.form.controls["nCostoGalon"].setValue(parseFloat(compra.nCostoGalon).toFixed(4));
         this.form.controls["nCostoLitro"].setValue(parseFloat(compra.nCostoLitro));
         this.form.controls["nCostoLogistico"].setValue(parseFloat(compra.nCostoLogistico));
         this.form.controls["nCostoTotal"].setValue(parseFloat(compra.nCostoTotal));

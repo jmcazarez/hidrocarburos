@@ -46,9 +46,12 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
     if (this.compras) {
       disableRecibidos = true;
     }
+    if (!this.compra.nLitrosARecibir) {
+      this.compra.nLitrosARecibir = this.compra.nlitrosComprados;
+    }
     this.form = this.formBuilder.group({
       nLitrosComprados: [{ value: this.compra.nlitrosComprados, disabled: true }, Validators.required],
-      nLitrosRecibidos: [{ value: this.compra.nlitrosComprados, disabled: disableRecibidos }, [Validators.required, Validators.min(0.01)]],
+      nLitrosRecibidos: [{ value: this.compra.nLitrosARecibir, disabled: disableRecibidos }, [Validators.required, Validators.min(0.01)]],
       dFechaRecepcion: [this.datePipe.transform(new Date(), 'yyyy-MM-dd')],
       cObservaciones: [''],
     });

@@ -402,7 +402,7 @@ export class TripsToReceiveComponent implements OnInit {
     }
     ];
 
-    const articuloResp = await this.serviceArticulo.obtenerArticulos(0, -1).toPromise();
+    const articuloResp = await this.serviceArticulo.obtenerArticulos(0, this.bNacional).toPromise();
 
     const data = articuloResp.data.map((item: any) => { return { nArticulo: item.nArticulo, cDescripcion: item.cDescripcionLarga } });
 
@@ -502,14 +502,10 @@ export class TripsToReceiveComponent implements OnInit {
           keyboard: false,
           modalDialogClass: 'dialog-formulario-grande',
         });
-        modalRef.componentInstance.compra = {
-          nlitrosComprados: this.nLitrosRecibidos,
-          dFechaCompraOrigen: compras[0].dFechaCompraOrigen,
-          cFuller:  this.cFuller
-        }
+
         let litrosPorRecibirTemp = this.nLitrosRecibidos
         let comprasTemp: any = [];
-
+        let litrosCompradosOrigen = 0;
         compras.forEach(element => {
           let litrosPendientes = 0;
           litrosPendientes = element.nLitrosPendientes;
@@ -521,7 +517,7 @@ export class TripsToReceiveComponent implements OnInit {
             litrosPorRecibirTemp = litrosPorRecibirTemp - litrosPendientes;
             litrosPendientes = 0;
           }
-
+          litrosCompradosOrigen =  litrosCompradosOrigen + Number(element.nlitrosComprados)
           comprasTemp.push({
             nCompra: element.nCompra,
             cTipoCompraLarga: element.cTipoCompraLarga,
@@ -545,6 +541,13 @@ export class TripsToReceiveComponent implements OnInit {
             bRecibir: 1
           })
         });
+
+        modalRef.componentInstance.compra = {
+          nlitrosComprados: litrosCompradosOrigen,
+          nLitrosARecibir : this.nLitrosRecibidos,
+          dFechaCompraOrigen: compras[0].dFechaCompraOrigen,
+          cFuller:  this.cFuller
+        }
 
 
         console.log('compras', comprasTemp)

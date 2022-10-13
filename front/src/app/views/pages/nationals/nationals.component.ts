@@ -99,10 +99,21 @@ export class NationalsComponent implements OnInit {
     this.calcularTotales();
   }
 
-  asignarValoresIniciales() {
+  async asignarValoresIniciales() {
     this.form.get('nCostoCruce')?.setValue(this.nValorCostoCruce);
     this.form.get('nCostoFlete')?.setValue(this.nValorCostoFlete);
     this.form.get('nCostoLogistico')?.setValue(this.nValorCostoLogistico);
+
+    const almacenResp = await this.serviceAlmacen.obtenerAlmacenes(0).toPromise();
+    const data = almacenResp.data.map( (item: any) => { return {nAlmacen: item.nAlmacen, cDescripcion: item.cDescripcion} });
+
+    for (const item of data) {
+      if (item.cDescripcion === 'CEDI CULIACAN') {
+        this.asignarAlmacen(item);
+        return;
+      }
+    }
+
   }
 
   get nCompra(): number {
@@ -873,6 +884,8 @@ export class NationalsComponent implements OnInit {
     this.form.controls["cSellos"].setValue('');
     this.form.controls["nKilometrosRecorridos"].setValue('');
     this.form.controls["nTipoCambioLocal"].setValue('');
+
+    this.asignarValoresIniciales();
 
   }
 

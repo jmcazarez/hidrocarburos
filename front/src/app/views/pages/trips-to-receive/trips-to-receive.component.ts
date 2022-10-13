@@ -480,6 +480,10 @@ export class TripsToReceiveComponent implements OnInit {
     const sum = this.data.reduce((accumulator, object) => {
       return accumulator + object.nLitrosPendientes;
     }, 0);
+
+    console.log('sum:', sum);
+    console.log('litros recb.', this.nLitrosRecibidos);
+
     if (sum < this.nLitrosRecibidos) {
       this.util.dialogWarning('La cantidad de litros recibidos no puede ser mayor a los litros pendientes por recibir.');
 

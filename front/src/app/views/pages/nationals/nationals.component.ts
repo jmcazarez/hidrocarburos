@@ -15,6 +15,9 @@ import { Patterns } from 'src/utils/patterns';
 import { BusquedaModalComponent } from '../busquedas/busqueda-modal/busqueda-modal.component';
 import { BusquedaFleteraComponent } from '../parcel/busqueda-fletera/busqueda-fletera.component';
 import * as dayjs from 'dayjs';
+import { MaskApplierService } from 'ngx-mask';
+import { CurrencyPipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-nationals',
@@ -44,7 +47,9 @@ export class NationalsComponent implements OnInit {
     private serviceProveedor: ProveedorService,
     private serviceFletara: FleterasService,
     private serviceChofer: ChoferesService,
-    private serviceArticulo: ArticulosService
+    private serviceArticulo: ArticulosService,
+    private maskService: MaskApplierService,
+    private cp: CurrencyPipe
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -94,10 +99,21 @@ export class NationalsComponent implements OnInit {
     this.calcularTotales();
   }
 
-  asignarValoresIniciales() {
+  async asignarValoresIniciales() {
     this.form.get('nCostoCruce')?.setValue(this.nValorCostoCruce);
     this.form.get('nCostoFlete')?.setValue(this.nValorCostoFlete);
     this.form.get('nCostoLogistico')?.setValue(this.nValorCostoLogistico);
+
+    const almacenResp = await this.serviceAlmacen.obtenerAlmacenes(0).toPromise();
+    const data = almacenResp.data.map( (item: any) => { return {nAlmacen: item.nAlmacen, cDescripcion: item.cDescripcion} });
+
+    for (const item of data) {
+      if (item.cDescripcion === 'CEDI CULIACAN') {
+        this.asignarAlmacen(item);
+        return;
+      }
+    }
+
   }
 
   get nCompra(): number {
@@ -168,63 +184,63 @@ export class NationalsComponent implements OnInit {
   }
 
   get nLitrosCompra(): number {
-    return this.form.get('nLitrosCompra')?.value !== '' ? this.form.get('nLitrosCompra')?.value : 0;
+    return this.form.get('nLitrosCompra')?.value !== '' ? parseFloat(this.form.get('nLitrosCompra')?.value.toString().replaceAll(',', '')) : 0;
   }
 
   get nTipoCambio(): number {
-    return this.form.get('nTipoCambio')?.value !== '' ? this.form.get('nTipoCambio')?.value : 0;
+    return this.form.get('nTipoCambio')?.value !== '' ? parseFloat(this.form.get('nTipoCambio')?.value.toString().replaceAll(',', '')) : 0;
   }
 
   get nCostoTotal(): number {
-    return this.form.get('nCostoTotal')?.value !== '' ? this.form.get('nCostoTotal')?.value : 0;
+    return this.form.get('nCostoTotal')?.value !== '' ? parseFloat(this.form.get('nCostoTotal')?.value.toString().replaceAll(',', '')) : 0;
   }
 
   get nCostoFactura(): number {
-    return this.form.get('nCostoFactura')?.value !== '' ? this.form.get('nCostoFactura')?.value : 0;
+    return this.form.get('nCostoFactura')?.value !== '' ? parseFloat(this.form.get('nCostoFactura')?.value.toString().replaceAll(',', '')) : 0;
   }
 
   get nCostoFlete(): number {
-    return this.form.get('nCostoFlete')?.value !== '' ? this.form.get('nCostoFlete')?.value : 0;
+    return this.form.get('nCostoFlete')?.value !== '' ? parseFloat(this.form.get('nCostoFlete')?.value.toString().replaceAll(',', '')) : 0;
   }
 
   get nCostoCruce(): number {
-    return this.form.get('nCostoCruce')?.value !== '' ? this.form.get('nCostoCruce')?.value : 0;
+    return this.form.get('nCostoCruce')?.value !== '' ? parseFloat(this.form.get('nCostoCruce')?.value.toString().replaceAll(',', '')) : 0;
   }
 
   get nGalonesCompra(): number {
-    return this.form.get('nGalonesCompra')?.value !== '' ? this.form.get('nGalonesCompra')?.value : 0;
+    return this.form.get('nGalonesCompra')?.value !== '' ? parseFloat(this.form.get('nGalonesCompra')?.value.toString().replaceAll(',', '')) : 0;
   }
 
   get nCostoGalon(): number {
-    return this.form.get('nCostoGalon')?.value !== '' ? this.form.get('nCostoGalon')?.value : 0;
+    return this.form.get('nCostoGalon')?.value !== '' ? parseFloat(this.form.get('nCostoGalon')?.value.toString().replaceAll(',', '')) : 0;
   }
 
   get cTicket(): string {
-    return this.form.get('cTicket')?.value !== '' ? this.form.get('cTicket')?.value : 0;
+    return this.form.get('cTicket')?.value !== '' ? this.form.get('cTicket')?.value : '';
   }
 
   get nCostoLitro(): number {
-    return this.form.get('nCostoLitro')?.value !== '' ? this.form.get('nCostoLitro')?.value : 0;
+    return this.form.get('nCostoLitro')?.value !== '' ? parseFloat(this.form.get('nCostoLitro')?.value.toString().replaceAll(',', '')) : 0;
   }
 
   get nCostoLogistico(): number {
-    return this.form.get('nCostoLogistico')?.value !== '' ? this.form.get('nCostoLogistico')?.value : 0;
+    return this.form.get('nCostoLogistico')?.value !== '' ? parseFloat(this.form.get('nCostoLogistico')?.value.toString().replaceAll(',', '')) : 0;
   }
 
   get nPrecioKMFlete(): number {
-    return this.form.get('nPrecioKMFlete')?.value !== '' ? this.form.get('nPrecioKMFlete')?.value : 0;
+    return this.form.get('nPrecioKMFlete')?.value !== '' ? parseFloat(this.form.get('nPrecioKMFlete')?.value.toString().replaceAll(',', '')) : 0;
   }
 
   get nKilometrosRecorridos(): number {
-    return this.form.get('nKilometrosRecorridos')?.value !== '' ? this.form.get('nKilometrosRecorridos')?.value : 0;
+    return this.form.get('nKilometrosRecorridos')?.value !== '' ? parseFloat(this.form.get('nKilometrosRecorridos')?.value.toString().replaceAll(',', '')) : 0;
   }
 
   get nCostoLitroMX(): number {
-    return this.form.get('nCostoLitroMX')?.value !== '' ? this.form.get('nCostoLitroMX')?.value : 0;
+    return this.form.get('nCostoLitroMX')?.value !== '' ? parseFloat(this.form.get('nCostoLitroMX')?.value.toString().replaceAll(',', '')) : 0;
   }
 
   get nTipoCambioLocal(): number {
-    return this.form.get('nTipoCambioLocal')?.value !== '' ? this.form.get('nTipoCambioLocal')?.value : 0;
+    return this.form.get('nTipoCambioLocal')?.value !== '' ? parseFloat(this.form.get('nTipoCambioLocal')?.value.toString().replaceAll(',', '')) : 0;
   }
 
   get cNumeroPatona(): string {
@@ -367,22 +383,22 @@ export class NationalsComponent implements OnInit {
             cFuller2 : this.cFuller2,
             cSellos1 : this.cSellos1,
             cSellos2 : this.cSellos2,
-            nLitrosCompra : this.nLitrosCompra,
-            nTipoCambio : this.nTipoCambio,
-            nCostoTotal : this.nCostoTotal,
+            nLitrosCompra : this.nLitrosCompra.toString().replaceAll(',', ''),
+            nTipoCambio : this.nTipoCambio.toString().replaceAll(',', ''),
+            nCostoTotal : this.nCostoTotal.toString().replaceAll(',', ''),
             nCostoCruce: this.cTipoCompra === 'I' ? this.nCostoCruce : null,
-            nCostoFactura: this.nCostoFactura,
+            nCostoFactura: this.nCostoFactura.toString().replaceAll(',', ''),
             dFechaCompra: new Date(this.dFechaCompra).toISOString().split('T')[0],
-            nCostoFlete : this.nCostoFlete,
+            nCostoFlete : this.nCostoFlete.toString().replaceAll(',', ''),
             cTicket: this.cTipoCompra === 'I' ? this.cTicket : null,
-            nGalonesCompra: this.cTipoCompra === 'I' ? this.nGalonesCompra : null,
-            nCostoGalon: this.cTipoCompra === 'I' ? this.nCostoGalon : null,
-            nCostoLitro: this.nCostoLitro,
-            nCostoLogistico: this.cTipoCompra === 'I' ? this.nCostoLogistico : null,
+            nGalonesCompra: this.cTipoCompra === 'I' ? this.nGalonesCompra.toString().replaceAll(',', '') : null,
+            nCostoGalon: this.cTipoCompra === 'I' ? this.nCostoGalon.toString().replaceAll(',', '') : null,
+            nCostoLitro: this.nCostoLitro.toString().replaceAll(',', ''),
+            nCostoLogistico: this.cTipoCompra === 'I' ? this.nCostoLogistico.toString().replaceAll(',', '') : null,
             cNumeroPatona: this.cNumeroPatona,
             cSellos: this.cSellos,
-            nKilometrosRecorridos: this.nKilometrosRecorridos,
-            nTipoCambioLocal: this.nTipoCambioLocal
+            nKilometrosRecorridos: this.nKilometrosRecorridos.toString().replaceAll(',', ''),
+            nTipoCambioLocal: this.nTipoCambioLocal.toString().replaceAll(',', '')
         };
 
         this.service.guardarCompra(obj).subscribe(async (resp: any) => {
@@ -706,6 +722,8 @@ export class NationalsComponent implements OnInit {
       if (resp) {
         const compra = resp.data[0];
 
+        console.log('compra:', compra);
+
         this.form.controls["nCompra"].setValue(compra.nCompra);
         this.form.controls["cTipoCompra"].setValue(compra.cTipoCompra);
         this.form.controls["cEmpresa"].setValue(compra.cEmpresa);
@@ -729,20 +747,20 @@ export class NationalsComponent implements OnInit {
         this.form.controls["cFuller2"].setValue(compra.cFuller2);
         this.form.controls["cSellos1"].setValue(compra.cSellos1);
         this.form.controls["cSellos2"].setValue(compra.cSellos2);
-        this.form.controls["nLitrosCompra"].setValue(parseFloat(compra.nLitrosCompra));
-        this.form.controls["nTipoCambio"].setValue(parseFloat(compra.nTipoCambio));
-        this.form.controls["nCostoFactura"].setValue(parseFloat(compra.nCostoFactura));
-        this.form.controls["nCostoFlete"].setValue(parseFloat(compra.nCostoFlete));
-        this.form.controls["nCostoCruce"].setValue(parseFloat(compra.nCostoCruce));
-        this.form.controls["nGalonesCompra"].setValue(parseFloat(compra.nGalonesCompra));
-        this.form.controls["nCostoGalon"].setValue(parseFloat(compra.nCostoGalon));
-        this.form.controls["nCostoLitro"].setValue(parseFloat(compra.nCostoLitro));
-        this.form.controls["nCostoLogistico"].setValue(parseFloat(compra.nCostoLogistico));
-        this.form.controls["nCostoTotal"].setValue(parseFloat(compra.nCostoTotal));
+        this.form.controls["nLitrosCompra"].setValue(parseFloat(compra.nLitrosCompra).toFixed(4));
+        this.form.controls["nTipoCambio"].setValue(parseFloat(compra.nTipoCambio).toFixed(4));
+        this.form.controls["nCostoFactura"].setValue(parseFloat(compra.nCostoFactura).toFixed(4));
+        this.form.controls["nCostoFlete"].setValue(parseFloat(compra.nCostoFlete).toFixed(4));
+        this.form.controls["nCostoCruce"].setValue(parseFloat(compra.nCostoCruce).toFixed(4));
+        this.form.controls["nGalonesCompra"].setValue(parseFloat(compra.nGalonesCompra).toFixed(4));
+        this.form.controls["nCostoGalon"].setValue(parseFloat(compra.nCostoGalon).toFixed(4));
+        this.form.controls["nCostoLitro"].setValue(parseFloat(compra.nCostoLitro).toFixed(4));
+        this.form.controls["nCostoLogistico"].setValue(parseFloat(compra.nCostoLogistico).toFixed(4));
+        this.form.controls["nCostoTotal"].setValue(parseFloat(compra.nCostoTotal).toFixed(4));
         this.form.controls["cNumeroPatona"].setValue(compra.cNumeroPatona);
         this.form.controls["cSellos"].setValue(compra.cSellos);
-        this.form.controls["nKilometrosRecorridos"].setValue(parseFloat(compra.nKilometrosRecorridos));
-        this.form.controls["nTipoCambioLocal"].setValue(parseFloat(compra.nTipoCambioLocal));
+        this.form.controls["nKilometrosRecorridos"].setValue(parseFloat(compra.nKilometrosRecorridos).toFixed(4));
+        this.form.controls["nTipoCambioLocal"].setValue(parseFloat(compra.nTipoCambioLocal).toFixed(4));
 
         this.form.controls["cTipoCompra"].disable();
 
@@ -775,45 +793,45 @@ export class NationalsComponent implements OnInit {
       costoLitro = 0;
     }
 
-    this.form.controls["nCostoLitro"].setValue(costoLitro.toFixed(4));
-    this.form.controls["nCostoFactura"].setValue(totalCostoFactura);
+    this.form.controls["nCostoLitro"].setValue(this.aplicarFormato(costoLitro.toFixed(4)));
+    this.form.controls["nCostoFactura"].setValue(this.aplicarFormato(totalCostoFactura.toFixed(4)));
 
     if (this.cTipoCompra !== 'I') { // Nacional
 
-      const costoFinalCompra = this.nCostoTotal + totalCostoFactura + costoFlete;
+      const costoFinalCompra = this.nCostoTotal+ totalCostoFactura;
       let costoFinalLitro = costoFinalCompra / this.nLitrosCompra;
 
-      if (!costoFinalLitro) {
+      if (!costoFinalLitro || costoFinalLitro === Infinity) {
         costoFinalLitro = 0;
       }
 
-      this.form.controls["nCostoFinalCompra"].setValue(costoFinalCompra);
-      this.form.controls["nCostoFinalLitro"].setValue(costoFinalLitro);
+      this.form.controls["nCostoFinalCompra"].setValue( this.aplicarFormato(costoFinalCompra.toFixed(4)));
+      this.form.controls["nCostoFinalLitro"].setValue(this.aplicarFormato(costoFinalLitro.toFixed(4)));
 
     } else {
 
       const litrosGalones = this.nGalonesCompra * this.nValorGalon;
-      this.form.controls["nLitrosCompra"].setValue(litrosGalones);
+      this.form.controls["nLitrosCompra"].setValue(this.aplicarFormato(litrosGalones.toFixed(4)));
 
       const totalCruce = this.nCostoCruce * this.nTipoCambioLocal;
       const totalCostoLogistico = this.nCostoLogistico * this.nTipoCambio;
       const totalCostoFlete = this.nCostoFlete * this.nKilometrosRecorridos;
 
       const totalDolares = this.nCostoGalon * this.nGalonesCompra;
-      this.form.controls["nCostoFinalDolares"].setValue(totalDolares);
+      this.form.controls["nCostoFinalDolares"].setValue(this.aplicarFormato(totalDolares.toFixed(4)));
 
       const totalPesos = totalDolares * this.nTipoCambio;
-      this.form.controls["nCostoTotal"].setValue(totalPesos);
+      this.form.controls["nCostoTotal"].setValue(this.aplicarFormato(totalPesos.toFixed(4)));
 
       const costoLitro = totalPesos / litrosGalones;
 
-      this.form.controls["nCostoLitro"].setValue(costoLitro);
+      this.form.controls["nCostoLitro"].setValue(this.aplicarFormato(costoLitro.toFixed(4)));
 
       const costoFinalCompra = totalPesos + totalCostoFactura + totalCruce + totalCostoFlete + totalCostoLogistico;
       let final = costoFinalCompra / this.nLitrosCompra;
 
-      this.form.controls["nCostoFinalCompra"].setValue(costoFinalCompra);
-      this.form.controls["nCostoFinalLitro"].setValue(final);
+      this.form.controls["nCostoFinalCompra"].setValue(this.aplicarFormato(costoFinalCompra.toFixed(4)));
+      this.form.controls["nCostoFinalLitro"].setValue(this.aplicarFormato(final.toFixed(4)));
 
     }
 
@@ -867,6 +885,8 @@ export class NationalsComponent implements OnInit {
     this.form.controls["nKilometrosRecorridos"].setValue('');
     this.form.controls["nTipoCambioLocal"].setValue('');
 
+    this.asignarValoresIniciales();
+
   }
 
   eliminar() {
@@ -886,6 +906,13 @@ export class NationalsComponent implements OnInit {
         });
       }
     });
+  }
+
+  aplicarFormato(value: any) {
+    if (value && value.length > 0) {
+        return this.cp.transform(value, ' ', 'symbol', '1.2-4');
+    }
+    return value;
   }
 
 }

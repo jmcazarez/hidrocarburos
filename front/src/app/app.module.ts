@@ -21,11 +21,12 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AuthInterceptor } from 'src/interceptors/authInterceptor';
 import { Patterns } from 'src/utils/patterns';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { CurrencyPipe } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorPageComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +43,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SharedModule
   ],
   providers: [
+    CurrencyPipe,
     AuthGuard,
     {
       provide: HIGHLIGHT_OPTIONS,

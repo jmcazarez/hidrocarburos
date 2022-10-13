@@ -68,7 +68,8 @@
               <th class=" th-border">Fecha de movimiento</th>
               <th class=" th-border">Almacen destino</th>
               <th class=" th-border">Litros comprados</th>
-              <th class=" th-border">Litros recibidos</th>
+              <th class=" th-border">Litros recibidos previamente</th>
+              <th class=" th-border">Litros a recibir</th>
               <th class=" th-border">Litros pendientes de recibir</th>
             </tr>
           </thead>
@@ -77,9 +78,10 @@
               <td class="th-border">{{ item.cFactura }}</td>
               <td class="th-border">{{ item.dFechaCompra }}</td>
               <th class="th-border">{{ item.cAlmacen }}</th>
-              <td class="th-border">{{ item.nlitrosComprados | number : '1.2-2' }}</td>
-              <td class="th-border">{{ item.nLitrosPendientes | number : '1.2-2' }}</td>
-              <td class="th-border">{{ item.nLitrosRestantes | number : '1.2-2' }}</td>
+              <td class="th-border">{{ item.nlitrosComprados  | number : '1.4-4' }}</td>
+              <td class="th-border">{{ item.nlitrosComprados - item.nLitrosPendientes | number : '1.4-4' }}</td>
+              <td class="th-border">{{ item.nLitrosPendientes - item.nLitrosRestantes | number : '1.4-4' }}</td>
+              <td class="th-border">{{ item.nLitrosRestantes | number : '1.4-4' }}</td>
             </tr>
           </tbody>
 

@@ -124,7 +124,7 @@ export class TripsToReceiveComponent implements OnInit {
     await this.service.obtenerCompras(0).subscribe((resp: any) => {
       for (const compra of resp.data) {
         let nCostoxLitro = 0;
-        compra.dFechaCompra = compra.dFechaCompra.replace('T00:00:00.000Z','T06:00:00.000Z')
+        compra.dFechaCompra = compra.dFechaCompra.replace('T00:00:00.000Z', 'T06:00:00.000Z')
         let dFechaCompraDate = new Date(compra.dFechaCompra);
 
         if (compra.nLitrosCompra > 0 && compra.nCostoTotal > 0) {
@@ -150,7 +150,7 @@ export class TripsToReceiveComponent implements OnInit {
         if (!compra.cFactura) {
           compra.cFactura = '';
         }
-        if((Number(compra.nLitrosCompra) - Number(compra.nLitrosRecepcion)) == 0){
+        if ((Number(compra.nLitrosCompra) - Number(compra.nLitrosRecepcion)) == 0) {
           compra.nEstatus = 3;
         }
 
@@ -476,20 +476,20 @@ export class TripsToReceiveComponent implements OnInit {
   }
 
   guardar(): void {
+    let compras = this.data.filter(
+      (d) =>
+        d.bRecibir === true
+    )
 
-    const sum = this.data.reduce((accumulator, object) => {
+    const sum = compras.reduce((accumulator, object) => {
       return accumulator + object.nLitrosPendientes;
     }, 0);
+
+    console.log(sum);
     if (sum < this.nLitrosRecibidos) {
       this.util.dialogWarning('La cantidad de litros recibidos no puede ser mayor a los litros pendientes por recibir.');
 
     } else {
-
-      let compras = this.data.filter(
-        (d) =>
-          d.bRecibir === true
-      )
-
 
       if (compras.length === 0) {
         this.util.dialogWarning('Es necesario seleccionar almenos un pedido para realizar la recepción.');
@@ -505,7 +505,7 @@ export class TripsToReceiveComponent implements OnInit {
         modalRef.componentInstance.compra = {
           nlitrosComprados: this.nLitrosRecibidos,
           dFechaCompraOrigen: compras[0].dFechaCompraOrigen,
-          cFuller:  this.cFuller
+          cFuller: this.cFuller
         }
         let litrosPorRecibirTemp = this.nLitrosRecibidos
         let comprasTemp: any = [];
@@ -551,7 +551,7 @@ export class TripsToReceiveComponent implements OnInit {
         modalRef.componentInstance.compras = comprasTemp;
         modalRef.closed.subscribe(
           async value => {
-            console.log('return',value);
+            console.log('return', value);
             if (value.length > 0) {
               this.form.controls["nLitrosRecibidos"].setValue(0);
               this.form.controls["cFuller"].setValue('');

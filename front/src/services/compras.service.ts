@@ -9,6 +9,7 @@ export class ComprasService {
 
   private baseUrl: string;
   private urlCompras = "registros/compras";
+  private urlFlete = "catalogos/generico/catalogos-flete-por-ruta";
   constructor(private http: HttpClient) {
     this.baseUrl = environment.api;
   }
@@ -16,6 +17,11 @@ export class ComprasService {
   obtenerCompras(nCompra: number): any {
     return this.http.get(this.baseUrl + this.urlCompras + '/' + nCompra);
   }
+
+  obtenerFlete(nFlete: number): any {
+    return this.http.get(this.baseUrl + this.urlFlete + '/' + nFlete);
+  }
+
 
   guardarCompra(item: any): any {
 

@@ -13,7 +13,20 @@ async function obtenerCatalogosCFDI(req, res) {
     });
 }
 
+async function obtenerFletePorRuta(req, res) {
+    let params = req.params;
+    params.cLogin = req.user.cLogin;
+
+    let result = await service.obtenerFletePorRuta(params);
+
+    res.status(result.status).json({
+        error: result.error,
+        data: result.data
+    });
+}
+
 
 module.exports = {
-    obtenerCatalogosCFDI
+    obtenerCatalogosCFDI,
+    obtenerFletePorRuta
 };

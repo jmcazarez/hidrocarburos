@@ -44,6 +44,38 @@ async function obtenerCatalogosCFDI(params) {
 }
 
 
+async function obtenerFletePorRuta(params) {
+
+    try {
+        let data = await sequelize.query(
+            `
+             CALL proc_obtener_flete_por_ruta (${params.nRuta})
+             `,
+            {
+                type: QueryTypes.RAW
+            }
+        );
+
+
+        return {
+            status: 200,
+            error: '',
+            data: data
+        }
+
+    } catch (err) {
+        // do something
+        console.log(err);
+        return {
+            status: 400,
+            error: 'Error al obtener los catalogos para el CFDI.',
+            data: [],
+        };
+    }
+}
+
+
 module.exports = {
-    obtenerCatalogosCFDI
+    obtenerCatalogosCFDI,
+    obtenerFletePorRuta
 };

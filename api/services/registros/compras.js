@@ -73,7 +73,8 @@ async function guardarCompra(params) {
                 '${params.cNumeroPatona}',
                 '${params.cSellos}',
                 ${params.nKilometrosRecorridos},
-                ${params.nTipoCambioLocal}
+                ${params.nTipoCambioLocal},
+                ${params.nRuta ? params.nRuta : null}
             )
              `,
             {

@@ -11,6 +11,7 @@ import { BusinessModule } from '../business/business.module';
 import { BusquedasModule } from '../busquedas/busquedas.module';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BusquedaCompraComponent } from './busqueda-compra/busqueda-compra.component';
+import { BusquedaFleteComponent } from './busqueda-flete/busqueda-flete.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 
@@ -29,7 +30,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [NationalsComponent, BusquedaCompraComponent, Decimales4Directive],
+  declarations: [NationalsComponent, BusquedaCompraComponent, Decimales4Directive,BusquedaFleteComponent],
   imports: [
     CommonModule,
     SharedModule,

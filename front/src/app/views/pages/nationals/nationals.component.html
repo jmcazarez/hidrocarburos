@@ -77,7 +77,7 @@
                   <div class="col-sm-8">
                     <div class="input-group mb-1">
                       <input type="text" class="form-control form-control-sm" formControlName="cAlmacen"
-                      [ngClass]="{'has-error': form.get('nAlmacen')?.hasError('required')}"
+                      [ngClass]="{'has-error': form.get('cAlmacen')?.hasError('required')}"
                       >
                       <span class="input-group-text bg-white">
                         <i class="feather icon-search" (click)="openModalAlmacenes()"></i>
@@ -373,7 +373,7 @@
                       >
                     </div>
 
-                    <label class="form-label col-sm-5 col-form-label text-end">Precio por KM flete M.N.</label>
+         <!--            <label class="form-label col-sm-5 col-form-label text-end">Precio por KM flete M.N.</label>
                     <div class="col-sm-7">
                       <input type="text" class="form-control form-control-sm captura-derecha" placeholder="" formControlName="nCostoFlete"
                       appDecimales4 maxlength="15"
@@ -391,7 +391,34 @@
                       (blur)="calcularTotales();"
                       [ngClass]="{'has-error': form.get('nKilometrosRecorridos')?.hasError('required')}"
                       >
+                    </div> -->
+
+                  </ng-container>
+
+
+                  <ng-container *ngIf="this.cTipoCompra === 'I'" >
+                    <h5><span class="badge bg-primary">Origen-Destino</span></h5>
+
+                    <label class="form-label col-sm-5 col-form-label text-end">Ruta</label>
+                    <div class="col-sm-7">
+                      <div class="input-group mb-1">
+                        <input type="text" class="form-control form-control-sm" formControlName="cRuta"
+                        [ngClass]="{'has-error': form.get('nRuta')?.hasError('required')}"
+                        >
+                        <span class="input-group-text bg-white">
+                          <i class="feather icon-search" (click)="openModalFlete()"></i>
+                        </span>
+                      </div>
                     </div>
+                    <label class="form-label col-sm-5 col-form-label text-end">Costo Flete</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control form-control-sm captura-derecha" placeholder="" formControlName="nCostoFlete"
+                      appDecimales4 maxlength="15"
+                      onfocus="this.select()"
+                      (blur)="calcularTotales();"
+                      [ngClass]="{'has-error': form.get('nCostoFlete')?.hasError('required')}">
+                    </div>
+  
 
                   </ng-container>
 

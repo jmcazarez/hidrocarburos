@@ -314,12 +314,13 @@ export class PurchaseConsultationComponent implements OnInit {
             nCostoTotal: compra.nCostoTotal,
             nCostoFactura: compra.nCostoFactura,
             nCostoFlete: compra.nCostoFlete ,
-            nCostoLogistico: compra.nCostoLogistico * compra.nKilometrosRecorridos,
+            nCostoLogistico: compra.nCostoLogistico * compra.nTipoCambio,
             nCostoCruce: compra.nCostoCruce * compra.nTipoCambioLocal,
             nCostoTotalFinal: compra.nCostoTotalFinal,
             nCostoLitroNacional: compra.nCostoLitroNacional
           });
 
+          console.log(compra.nTipoCambioLocal);
 
 
         }

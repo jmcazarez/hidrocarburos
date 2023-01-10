@@ -60,7 +60,7 @@ export class NationalsComponent implements OnInit {
       dFechaCompra: new FormControl('', [Validators.required]),
       cEmpresa: new FormControl({ value: '', disabled: true }, Validators.required),
       nEmpresa: new FormControl('', Validators.required),
-      nAlmacen: new FormControl('', Validators.required),
+      nAlmacen: new FormControl(''),
       cAlmacen: new FormControl({ value: '', disabled: true }, Validators.required),
       nProveedor: new FormControl('', Validators.required),
       cProveedor: new FormControl({ value: '', disabled: true }, Validators.required),
@@ -418,6 +418,8 @@ export class NationalsComponent implements OnInit {
           nRuta: this.nRuta
         };
 
+        console.log(obj);
+
         this.service.guardarCompra(obj).subscribe(async (resp: any) => {
 
           if (resp.error !== '') {
@@ -582,7 +584,9 @@ export class NationalsComponent implements OnInit {
   }
   asignarAlmacen(value: any) {
     this.form.controls["cAlmacen"].setValue(value.cDescripcion);
-    this.form.controls["nAlmacen"].setValue(value.id);
+    this.form.controls["nAlmacen"].setValue(value.nAlmacen);
+   
+    console.log('value:', value);
   }
 
   asignarFlete(value: any) {
@@ -882,6 +886,13 @@ export class NationalsComponent implements OnInit {
       this.form.controls["nCostoLitro"].setValue(this.aplicarFormato(costoLitro.toFixed(4)));
 
       const costoFinalCompra = totalPesos + totalCostoFactura + totalCruce + totalCostoFlete + totalCostoLogistico;
+
+      console.log(totalPesos)
+      console.log(totalCostoFactura)
+      console.log(totalCruce)
+      console.log(totalCostoFlete)
+      console.log(totalCostoLogistico)
+
       let final = costoFinalCompra / this.nLitrosCompra;
 
       this.form.controls["nCostoFinalCompra"].setValue(this.aplicarFormato(costoFinalCompra.toFixed(4)));

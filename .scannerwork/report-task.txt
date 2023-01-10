@@ -1,0 +1,6 @@
+projectKey=hidrocarburos
+serverUrl=http://127.0.0.1:9000
+serverVersion=9.8.0.63668
+dashboardUrl=http://127.0.0.1:9000/dashboard?id=hidrocarburos
+ceTaskId=AYWciHHd4WPrjc-GH7H-
+ceTaskUrl=http://127.0.0.1:9000/api/ce/task?id=AYWciHHd4WPrjc-GH7H-

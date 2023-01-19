@@ -154,6 +154,8 @@ export class TripsToReceiveComponent implements OnInit {
           compra.nEstatus = 3;
         }
 
+        console.log(compra);
+
         comprasTemp.push({
           nCompra: compra.nCompra,
           cTipoCompraLarga: compra.cTipoCompraLarga,
@@ -481,15 +483,16 @@ export class TripsToReceiveComponent implements OnInit {
         d.bRecibir === true
     )
 
+    console.log(compras);
     const sum = compras.reduce((accumulator, object) => {
-      return accumulator + object.nLitrosPendientes;
+      return accumulator + Number(object.nLitrosPendientes).toFixed(2);
     }, 0);
 
     console.log(sum);
     console.log('sum:', sum);
     console.log('litros recb.', this.nLitrosRecibidos);
 
-    if (sum < this.nLitrosRecibidos) {
+    if (sum < Number(this.nLitrosRecibidos)) {
       this.util.dialogWarning('La cantidad de litros recibidos no puede ser mayor a los litros pendientes por recibir.');
 
     } else {
@@ -525,7 +528,7 @@ export class TripsToReceiveComponent implements OnInit {
             litrosPorRecibirTemp = litrosPorRecibirTemp - litrosPendientes;
             litrosPendientes = 0;
           }
-          litrosCompradosOrigen =  litrosCompradosOrigen + Number(element.nlitrosComprados)
+          litrosCompradosOrigen = litrosCompradosOrigen + Number(element.nlitrosComprados)
           comprasTemp.push({
             nCompra: element.nCompra,
             cTipoCompraLarga: element.cTipoCompraLarga,
@@ -552,9 +555,9 @@ export class TripsToReceiveComponent implements OnInit {
 
         modalRef.componentInstance.compra = {
           nlitrosComprados: litrosCompradosOrigen,
-          nLitrosARecibir : this.nLitrosRecibidos,
+          nLitrosARecibir: this.nLitrosRecibidos,
           dFechaCompraOrigen: compras[0].dFechaCompraOrigen,
-          cFuller:  this.cFuller
+          cFuller: this.cFuller
         }
 
 

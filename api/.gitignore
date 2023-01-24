@@ -8,7 +8,7 @@
 /bazel-out
 
 # config 
-*.env
+
 # /db/*.js
 *.bak
 

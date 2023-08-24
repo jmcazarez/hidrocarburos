@@ -274,6 +274,7 @@ export class PurchaseConsultationComponent implements OnInit {
 
   consultar() {
     this.spinner.show();
+    this.compras = [];
     this.service.obtenerConsultaCompras(
       this.cTipoCompra,
       this.dFechaInicio ? new Date(this.dFechaInicio).toISOString().split('T')[0] : '',
@@ -288,7 +289,6 @@ export class PurchaseConsultationComponent implements OnInit {
       if (resp) {
 
         for (const compra of resp.data) {
-          console.log(compra);
           if (compra.cTipoCompra === "I") {
             compra.nCostoLitroNacional = compra.nCostoTotalFinal / compra.nLitrosCompra
           }else{

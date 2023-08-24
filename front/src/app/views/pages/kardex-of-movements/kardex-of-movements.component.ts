@@ -43,7 +43,7 @@ export class KardexOfMovementsComponent implements OnInit {
       nTipoMovimiento: new FormControl(''),
     });
 
-    let tiposDeMovimientosTemp = await this.serviceInventario.obtenerTiposDeMovimientos(0).toPromise();
+    let tiposDeMovimientosTemp = await this.serviceInventario.obtenerTiposDeMovimientos(-1).toPromise();
     if (tiposDeMovimientosTemp.data) {
       this.tiposDeMovimientos = tiposDeMovimientosTemp.data;
     } else {
@@ -200,7 +200,6 @@ export class KardexOfMovementsComponent implements OnInit {
       console.log(resp);
       if (resp) {
 
-        console.log(resp.data.data);
         this.movimientos = resp.data.movimientos;
 
         this.nTotalEntradas = resp.data.nTotalEntradas;

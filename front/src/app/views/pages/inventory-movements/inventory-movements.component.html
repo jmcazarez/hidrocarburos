@@ -23,7 +23,7 @@
   <div class="col-md-12 stretch-card">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title">Formulario de Consultas de Movimientos de Inventarios</h6>
+        <h6 class="card-title">Movimientos de Inventarios</h6>
         <form name="form" [formGroup]="form">
 
           <div class="row mt-4">
@@ -89,7 +89,8 @@
                 <div class="col-sm-7">
                   <input type="text" class="form-control form-control-sm" formControlName="nCantidadMovimiento"
                     currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"
-                    onfocus="this.select()" maxlength="20" [min]=".01">
+                    onfocus="this.select()" maxlength="20" [min]=".01"
+                    (ngModelChange)='total()' (change)="total()">
                 </div>
 
 
@@ -97,7 +98,14 @@
                 <div class="col-sm-7">
                   <input type="text" class="form-control form-control-sm" formControlName="nCosto"
                     currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"
-                    onfocus="this.select()" maxlength="20">
+                    onfocus="this.select()" (ngModelChange)='total()' (change)="total()" maxlength="20">
+                </div>
+
+                <label class="form-label col-sm-5 col-form-label text-end">Total</label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control form-control-sm" formControlName="nTotal"
+                    currencyMask [options]="{ prefix: '$', thousands: ',', decimal: '.', precision: 2 }"
+                    [disabled]="true" maxlength="20">
                 </div>
 
 

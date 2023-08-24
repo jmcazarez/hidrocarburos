@@ -141,17 +141,17 @@
                   <td>{{ item.cProveedor }}</td>
                   <td>{{ item.cAlmacen }}</td>
                   <td>{{ item.cArticulo }}</td>
-                  <td class="text-end">{{ item.nLitrosCompra | number : '1.2-4' }}</td>
-                  <td class="text-end">{{ item.cTipoCompra === 'N' ? '' : (item.nCostoLitro | currency:'CAD':'symbol-narrow':'1.2-4' )  }}</td>
-                  <td class="text-end">{{ (item.nCostoLitroNacional | currency:'CAD':'symbol-narrow':'1.2-4')  }}</td>
+                  <td class="text-end">{{ item.nLitrosCompra | number:'1.2-2' }}</td>
+                  <td class="text-end">{{ item.cTipoCompra === 'N' ? '' : (item.nCostoLitro | number:'1.2-2' )  }}</td>
+                  <td class="text-end">{{ (item.nCostoLitroNacional | number:'1.2-2' )  }}</td>
 
-                  <td class="text-end">{{ item.nCostoTotal | currency:'CAD':'symbol-narrow':'1.2-4' }}</td>
-                  <td class="text-end">{{ item.nCostoFactura | currency:'CAD':'symbol-narrow':'1.2-4' }}</td>
-                  <td class="text-end">{{ item.nCostoFlete | currency:'CAD':'symbol-narrow':'1.2-4' }}</td>
-                  <td class="text-end">{{ item.nCostoCruce | currency:'CAD':'symbol-narrow':'1.2-4'  }}</td>
-                  <td class="text-end">{{ item.nCostoLogistico | currency:'CAD':'symbol-narrow':'1.2-4'  }}</td>
+                  <td class="text-end">{{ item.nCostoTotal | number:'1.2-2' }}</td>
+                  <td class="text-end">{{ item.nCostoFactura | number:'1.2-2' }}</td>
+                  <td class="text-end">{{ item.nCostoFlete | number:'1.2-2' }}</td>
+                  <td class="text-end">{{ item.nCostoCruce | number:'1.2-2'  }}</td>
+                  <td class="text-end">{{ item.nCostoLogistico | number:'1.2-2'  }}</td>
 
-                  <td class="text-end">{{ item.nCostoTotalFinal | currency:'CAD':'symbol-narrow':'1.2-4' }}</td>
+                  <td class="text-end">{{ item.nCostoTotalFinal | number:'1.2-2' }}</td>
                 </tr>
               </tbody>
             </table>

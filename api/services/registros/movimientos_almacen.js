@@ -245,7 +245,6 @@ async function obtenerKardex(params) {
         let nExistenciaFinal = 0;
         let existencia = [];
         if (params.dFechaInicio != '') {
-            console.log(params.dFechaInicio);
             existencia = await sequelize.query(
                 `
                  CALL proc_consulta_existencia(
@@ -257,14 +256,11 @@ async function obtenerKardex(params) {
                     type: QueryTypes.RAW
                 }
             );
-            console.log(existencia);
             if (existencia.length > 0) {
                 nExistenciaInicial = existencia[0].nExistencia
             }
 
         }
-
-
 
         let data = await sequelize.query(
             `

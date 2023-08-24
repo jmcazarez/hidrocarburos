@@ -6,7 +6,7 @@
     <input type='text' matInput placeholder='Buscar compra ...' (keyup)='filterDatatable($event)' [(ngModel)]="valueBuscador">
     <ngx-datatable class="material shadow-none" [rows]="data" [loadingIndicator]="loadingIndicator"
       [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [reorderable]="reorderable"
-      [limit]="10" [scrollbarH]="true" (activate)="onClick($event)">
+      [limit]="10" [scrollbarH]="true" (activate)="onClick($event)" [sorts]="[{prop: 'dFechaCompra', dir: 'desc'}]">
       <ngx-datatable-column name="Folio" prop="nCompra"></ngx-datatable-column>
       <ngx-datatable-column name="Tipo" prop="cTipoCompraLarga"></ngx-datatable-column>
       <ngx-datatable-column name="Empresa" prop="cEmpresa"></ngx-datatable-column>

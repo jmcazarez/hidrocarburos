@@ -45,6 +45,7 @@ export class InventoryMovementsComponent implements OnInit {
       nCantidadMovimiento: new FormControl(0, Validators.required),
       dFechaMovimiento: new FormControl(this.datePipe.transform(new Date(), 'yyyy-MM-dd'), [Validators.required]),
       nCosto: new FormControl(0, Validators.required),
+      nTotal: new FormControl({ value: 0, disabled: true }, Validators.required),
       cObservaciones: new FormControl(''),
 
     });
@@ -89,6 +90,9 @@ export class InventoryMovementsComponent implements OnInit {
   get nCosto(): number {
     return this.form.get('nCosto')?.value ?? 0;
   }
+  get nTotal(): number {
+    return this.form.get('nTotal')?.value ?? 0;
+  }
   get nTipoMovimiento(): any {
     return this.form.get('nTipoMovimiento')?.value ?? {};
   }
@@ -131,7 +135,6 @@ export class InventoryMovementsComponent implements OnInit {
 
     modalRef.closed.subscribe(
       value => {
-        console.log('value:', value);
         if (value && value.id) {
           this.asignarArticulo(value);
           modalRef.close();
@@ -253,6 +256,12 @@ export class InventoryMovementsComponent implements OnInit {
     this.form.controls["nAlmacenDestino"].setValue(value.id);
   }
 
+  total() {
+
+    console.log('entro');
+    this.form.controls["nTotal"].setValue(this.nCantidadMovimiento * this.nCosto);
+
+  }
 
   async guardar() {
 

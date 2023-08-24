@@ -22,6 +22,7 @@ export class BusquedaCompraComponent implements OnInit {
     console.log('ngOnInit');
     this.service.obtenerCompras(0).subscribe( (resp: any) => {
       this.data = resp.data;
+      console.log(this.data);
       this.dataTemp = [...this.data];
     }, (error: any) => {
 
@@ -41,6 +42,7 @@ export class BusquedaCompraComponent implements OnInit {
   filterDatatable(value: any): void {
     this.data = this.data;
     // Filtramos tabla
+    this.data = this.dataTemp;
     if (value.target.value === "") {
       this.data = this.dataTemp;
     } else {

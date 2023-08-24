@@ -157,6 +157,20 @@ async function cancelarCompra(params) {
 async function obtenerConsultaCompras(params) {
 
     try {
+
+        console.log( `
+        CALL proc_consulta_compras(
+           '${params.cTipoCompra}',
+            '${params.dFechaInicio}',
+            '${params.dFechaFin}',
+            ${params.nCompra},
+            ${params.nEmpresa},
+            ${params.nProveedor},
+            ${params.nAlmacen},
+            ${params.nArticulo},
+            '${params.cFactura || ''}'
+       )
+        `)
         let data = await sequelize.query(
             `
              CALL proc_consulta_compras(

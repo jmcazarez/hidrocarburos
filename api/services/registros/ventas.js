@@ -51,8 +51,8 @@ async function guardarVenta(params) {
                 ${params.nCantidadEnviada},
                 ${params.nCantidadRecibida},
                 ${params.nCostoLitro},
-                ${params.nAnticipo},
-                ${params.nFormaPago},
+                ${params.nAnticipo || 0},
+                ${params.nFormaPago || null},
                 '${params.cEncargado}',
                 '${params.cObservaciones}',
                 ${params.nTotal}

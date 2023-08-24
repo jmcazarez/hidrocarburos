@@ -57,13 +57,13 @@ export class ProductDeliveryTicketComponent implements OnInit {
       nChofer: new FormControl('', Validators.required),
       nArticulo: new FormControl('', Validators.required),
       cArticulo: new FormControl({ value: '', disabled: true }, Validators.required),
-      nFormaPago: new FormControl('', Validators.required),
-      cFormaPago: new FormControl({ value: '', disabled: true }, Validators.required),
+      nFormaPago: new FormControl(''),
+      cFormaPago: new FormControl({ value: '', disabled: true }),
       nCantidadEnviada: new FormControl('', [Validators.required]),
       nCantidadRecibida: new FormControl('', [Validators.required]),
       nCostoLitro: new FormControl('', [Validators.required]),
       nTotal: new FormControl({ value: '', disabled: true }, Validators.required),
-      nAnticipo: new FormControl('', [Validators.required]),
+      nAnticipo: new FormControl('', []),
       cObservaciones: new FormControl('', []),
       cEncargado: new FormControl('', [Validators.required])
     });
@@ -154,6 +154,8 @@ export class ProductDeliveryTicketComponent implements OnInit {
   async obtener() {
     this.service.obtenerVentas(0).subscribe((resp: any) => {
       this.ventas = resp.data;
+      this.ventas.sort((a, b) => (a.nVenta > b.nVenta ? -1 : 1));
+      this.ventas = this.ventas.slice(0, 10);
     }, (error: any) => {
       this.util.dialogError('Ocurrió un error al obtener las ventas.');
     })

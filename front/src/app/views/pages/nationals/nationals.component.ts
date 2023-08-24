@@ -384,6 +384,11 @@ export class NationalsComponent implements OnInit {
         }
       }
 
+      if (this.nAlmacen <= 0) {
+        this.util.dialogWarning('Ocurrió un error al enviar el almacen.');
+        return;
+      }
+
       if (result.isConfirmed) {
 
         const obj = {
@@ -421,12 +426,9 @@ export class NationalsComponent implements OnInit {
           nRuta: this.nRuta
         };
 
-        console.log(obj);
 
         this.service.guardarCompra(obj).subscribe(async (resp: any) => {
-
           if (resp.error !== '') {
-
             this.util.dialogError(resp.error.error.type);
           }
           else {
@@ -434,13 +436,7 @@ export class NationalsComponent implements OnInit {
             this.util.dialogSuccess('Compra guardada correctamente.');
           }
         }, (err: { error: any; }) => {
-          // if(err.error.error.type){
-          //   this.util.dialogError(err.error.error.type);
-          // }else{
-          //   this.util.dialogError('Error al guardar la empresa.');
-          // }
           this.util.dialogError('Error al guardar la compra.');
-
         });
       }
     });
@@ -835,8 +831,8 @@ export class NationalsComponent implements OnInit {
         } else {
           this.form.controls["nCostoFactura"].disable();
           this.form.controls["nCostoTotal"].disable();
-          
-        this.calcularTotales();
+
+          this.calcularTotales();
         }
 
       }

@@ -37,11 +37,12 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
     this.dataTemp = [];
     this.data = [];
 
-    this.minDate = new Date(this.compra.dFechaCompraOrigen);
+    this.minDate = new Date(new Date(this.compra.dFechaCompraOrigen).toISOString().split('T')[0]);
+    this.minDate.setMinutes(this.minDate.getMinutes() + this.minDate.getTimezoneOffset())
     let disableRecibidos = false;
-    console.log(this.minDate);
-    console.log(this.maxDate);
-    let today = dayjs(new Date().toISOString().split('T')[0]).format('YYYY-MM-DD') //new Date().toISOString().split('T')[0];
+
+   
+   // let today = dayjs(new Date(this.compra.dFechaCompraOrigen).toISOString().split('T')[0]).format('YYYY-MM-DD') //new Date().toISOString().split('T')[0];
 
     if (this.compras) {
       disableRecibidos = true;
@@ -76,13 +77,9 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
     vm.activeModal.close({});
   }
   async guardar() {
-
     if (this.nLitrosRecibidos > this.nLitrosComprados) {
       this.util.dialogError('La cantidad de litros recibidos no puede ser mayor a los litros comprados.');
     } else {
-
-
-
       if (this.compras) {
         this.compras.forEach(async (element: any) => {
           let litrosRecibir = 0.00;

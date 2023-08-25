@@ -41,8 +41,8 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
     this.minDate.setMinutes(this.minDate.getMinutes() + this.minDate.getTimezoneOffset())
     let disableRecibidos = false;
 
-   
-   // let today = dayjs(new Date(this.compra.dFechaCompraOrigen).toISOString().split('T')[0]).format('YYYY-MM-DD') //new Date().toISOString().split('T')[0];
+
+    // let today = dayjs(new Date(this.compra.dFechaCompraOrigen).toISOString().split('T')[0]).format('YYYY-MM-DD') //new Date().toISOString().split('T')[0];
 
     if (this.compras) {
       disableRecibidos = true;
@@ -84,7 +84,16 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
         this.compras.forEach(async (element: any) => {
           let litrosRecibir = 0.00;
           let estatus = 3;
+          let cFechaCompra = new Date(element.dFechaCompraOrigen).toISOString().split('T')[0];
+          let cFechaRecepcion = new Date(this.dFechaRecepcion).toISOString().split('T')[0];
+          let dFechaCompra = new Date(cFechaCompra);
+          let dFechaRecepcion = new Date(cFechaRecepcion);
           litrosRecibir = Number(element.nLitrosPendientes) - Number(element.nLitrosRestantes);
+
+          if (dFechaRecepcion.getTime() < dFechaCompra.getTime()) {
+            this.util.dialogError('La fecha de la recepcion no puede ser menor a la fecha del movimiento.');
+            throw 'La fecha de la recepcion no puede ser menor a la fecha del movimiento.'
+          }
 
           if (element.nLitrosPendientes !== element.nLitrosRestantes) {
             if (element.nLitrosRestantes > 0) {
@@ -109,6 +118,7 @@ export class ConfirmacionRecepcionPedidosComponent implements OnInit {
 
         });
       } else {
+
         await this.service.confirmarCompra({
           nCompra: this.compra.nCompra,
           nLitrosRecepcion: Number(this.nLitrosRecibidos),

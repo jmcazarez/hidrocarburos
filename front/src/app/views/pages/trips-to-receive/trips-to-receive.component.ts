@@ -567,7 +567,7 @@ export class TripsToReceiveComponent implements OnInit {
               if (value.length > 0) {
                 this.form.controls["nLitrosRecibidos"].setValue(0);
                 this.form.controls["cFuller"].setValue('');
-                await this.obtenerCompras();
+                this.limpiar();
                 this.filterDatatableProveedorArticulo();
               }
               /*  if (value.nEstatus) {

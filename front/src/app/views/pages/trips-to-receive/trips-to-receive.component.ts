@@ -74,7 +74,7 @@ export class TripsToReceiveComponent implements OnInit {
       bNacional: new FormControl(1, []),
     });
 
-    await this.obtenerCatalogosFletera();
+    await this.obtenerCompras();
 
 
   }
@@ -116,8 +116,7 @@ export class TripsToReceiveComponent implements OnInit {
   }
 
 
-  async obtenerCatalogosFletera() {
-    console.log('obtener');
+  async obtenerCompras() {
     const comprasTemp: any[] = [];
     let cFechaRecepcion = '';
     this.spinner.show();
@@ -154,7 +153,6 @@ export class TripsToReceiveComponent implements OnInit {
           compra.nEstatus = 3;
         }
 
-        console.log(compra);
 
         comprasTemp.push({
           nCompra: compra.nCompra,
@@ -180,7 +178,6 @@ export class TripsToReceiveComponent implements OnInit {
         })
       }
 
-      console.log(comprasTemp);
       this.dataTemp = [...comprasTemp];
       const temp = this.dataTemp.filter((d) =>
         String(d.nEstatus).toLowerCase().indexOf('1') !== - 1
@@ -463,7 +460,6 @@ export class TripsToReceiveComponent implements OnInit {
   }
   async asignarProveedor(value: any) {
     const proveedorResp = await this.serviceProveedor.obtenerProveedores(value.id, -1).toPromise();
-    console.log('proveedor', proveedorResp.data[0].bNacional);
     this.form.controls["cProveedor"].setValue(value.cDescripcion);
     this.form.controls["nProveedor"].setValue(value.id);
     this.form.controls["bNacional"].setValue(proveedorResp.data[0].bNacional);
@@ -478,117 +474,153 @@ export class TripsToReceiveComponent implements OnInit {
   }
 
   guardar(): void {
-    let compras = this.data.filter(
-      (d) =>
-        d.bRecibir === true
-    )
+    try {
+      let compras = this.data.filter(
+        (d) =>
+          d.bRecibir === true
+      )
 
-    console.log(compras);
-    const sum = compras.reduce((accumulator, object) => {
-      return accumulator + Number(object.nLitrosPendientes).toFixed(2);
-    }, 0);
+      if (compras.length > 1) {
+        this.util.dialogWarning('No se puede recibir mas de un viaje a la vez.');
+        throw ''
+      }
 
-    console.log(sum);
-    console.log('sum:', sum);
-    console.log('litros recb.', this.nLitrosRecibidos);
+      const sum = compras.reduce((accumulator, object) => {
+        return accumulator + Number(object.nLitrosPendientes).toFixed(2);
+      }, 0);
 
-    if (sum < Number(this.nLitrosRecibidos)) {
-      this.util.dialogWarning('La cantidad de litros recibidos no puede ser mayor a los litros pendientes por recibir.');
 
-    } else {
 
-      if (compras.length === 0) {
-        this.util.dialogWarning('Es necesario seleccionar almenos un pedido para realizar la recepción.');
+      if (sum < Number(this.nLitrosRecibidos)) {
+        this.util.dialogWarning('La cantidad de litros recibidos no puede ser mayor a los litros pendientes por recibir.');
+
       } else {
 
-        compras = compras.sort((a, b) => a.dFechaCompraDate.getTime() - b.dFechaCompraDate.getTime() || b.nLitrosRecibidos - a.nLitrosRecibidos)
-        const modalRef = this.modalService.open(ConfirmacionRecepcionPedidosComponent, {
-          centered: true,
-          backdrop: 'static',
-          keyboard: false,
-          modalDialogClass: 'dialog-formulario-grande',
-        });
-        modalRef.componentInstance.compra = {
-          nlitrosComprados: this.nLitrosRecibidos,
-          dFechaCompraOrigen: compras[0].dFechaCompraOrigen,
-          cFuller: this.cFuller
-        }
+        if (compras.length === 0) {
+          this.util.dialogWarning('Es necesario seleccionar almenos un pedido para realizar la recepción.');
+        } else {
 
-        let litrosPorRecibirTemp = this.nLitrosRecibidos
-        let comprasTemp: any = [];
-        let litrosCompradosOrigen = 0;
-        compras.forEach(element => {
-          let litrosPendientes = 0;
-          litrosPendientes = element.nLitrosPendientes;
-
-          if (litrosPorRecibirTemp < litrosPendientes) {
-            litrosPendientes = litrosPendientes - litrosPorRecibirTemp
-            litrosPorRecibirTemp = 0;
-          } else {
-            litrosPorRecibirTemp = litrosPorRecibirTemp - litrosPendientes;
-            litrosPendientes = 0;
+          compras = compras.sort((a, b) => a.dFechaCompraDate.getTime() - b.dFechaCompraDate.getTime() || b.nLitrosRecibidos - a.nLitrosRecibidos)
+          const modalRef = this.modalService.open(ConfirmacionRecepcionPedidosComponent, {
+            centered: true,
+            backdrop: 'static',
+            keyboard: false,
+            modalDialogClass: 'dialog-formulario-grande',
+          });
+          modalRef.componentInstance.compra = {
+            nlitrosComprados: this.nLitrosRecibidos,
+            dFechaCompraOrigen: compras[0].dFechaCompraOrigen,
+            cFuller: this.cFuller
           }
-          litrosCompradosOrigen = litrosCompradosOrigen + Number(element.nlitrosComprados)
-          comprasTemp.push({
-            nCompra: element.nCompra,
-            cTipoCompraLarga: element.cTipoCompraLarga,
-            cEmpresa: element.cEmpresa,
-            cAlmacen: element.cAlmacen,
-            cProveedor: element.cProveedor,
-            cFactura: element.cFactura,
-            nlitrosComprados: Number(element.nlitrosComprados),
-            nCostoxLitro: element.nCostoxLitro,
-            dFechaCompra: element.dFechaCompra,
-            nCostoTotal: element.nCostoTotal,
-            nLitrosRecibidos: element.nLitrosRecepcion,
-            nEstatus: element.nEstatus,
-            cArticulo: element.cArticulo,
-            nEstatusOriginal: element.nEstatus,
-            dFechaRecepcion: element.dFechaRecepcion,
-            cMotivoCancelacion: element.cMotivoCancelacion,
-            dFechaCompraOrigen: element.dFechaCompraOrigen,
-            nLitrosPendientes: element.nLitrosPendientes,
-            nLitrosRestantes: Number(litrosPendientes),
-            bRecibir: 1
-          })
-        });
 
-        modalRef.componentInstance.compra = {
-          nlitrosComprados: litrosCompradosOrigen,
-          nLitrosARecibir: this.nLitrosRecibidos,
-          dFechaCompraOrigen: compras[0].dFechaCompraOrigen,
-          cFuller: this.cFuller
-        }
+          let litrosPorRecibirTemp = this.nLitrosRecibidos
+          let comprasTemp: any = [];
+          let litrosCompradosOrigen = 0;
+          compras.forEach(element => {
+            let litrosPendientes = 0;
+            litrosPendientes = element.nLitrosPendientes;
 
-
-        console.log('compras', comprasTemp)
-        modalRef.componentInstance.compras = comprasTemp;
-        modalRef.closed.subscribe(
-          async value => {
-            console.log('return', value);
-            if (value.length > 0) {
-              this.form.controls["nLitrosRecibidos"].setValue(0);
-              this.form.controls["cFuller"].setValue('');
-              await this.obtenerCatalogosFletera();
-              this.filterDatatableProveedorArticulo();
+            if (litrosPorRecibirTemp < litrosPendientes) {
+              litrosPendientes = litrosPendientes - litrosPorRecibirTemp
+              litrosPorRecibirTemp = 0;
+            } else {
+              litrosPorRecibirTemp = litrosPorRecibirTemp - litrosPendientes;
+              litrosPendientes = 0;
             }
-            /*  if (value.nEstatus) {
-               row = value;
-               row.nEstatusOriginal = value.nEstatus;
-             } else {
-               row.nEstatus = row.nEstatusOriginal;
-             }
-             this.filerWithStatus(); */
-            // this.enfocarBotonNuevaVenta()
+            litrosCompradosOrigen = litrosCompradosOrigen + Number(element.nlitrosComprados)
+            comprasTemp.push({
+              nCompra: element.nCompra,
+              cTipoCompraLarga: element.cTipoCompraLarga,
+              cEmpresa: element.cEmpresa,
+              cAlmacen: element.cAlmacen,
+              cProveedor: element.cProveedor,
+              cFactura: element.cFactura,
+              nlitrosComprados: Number(element.nlitrosComprados),
+              nCostoxLitro: element.nCostoxLitro,
+              dFechaCompra: element.dFechaCompra,
+              nCostoTotal: element.nCostoTotal,
+              nLitrosRecibidos: element.nLitrosRecepcion,
+              nEstatus: element.nEstatus,
+              cArticulo: element.cArticulo,
+              nEstatusOriginal: element.nEstatus,
+              dFechaRecepcion: element.dFechaRecepcion,
+              cMotivoCancelacion: element.cMotivoCancelacion,
+              dFechaCompraOrigen: element.dFechaCompraOrigen,
+              nLitrosPendientes: element.nLitrosPendientes,
+              nLitrosRestantes: Number(litrosPendientes),
+              bRecibir: 1
+            })
+          });
+
+          modalRef.componentInstance.compra = {
+            nlitrosComprados: litrosCompradosOrigen,
+            nLitrosARecibir: this.nLitrosRecibidos,
+            dFechaCompraOrigen: compras[0].dFechaCompraOrigen,
+            cFuller: this.cFuller
           }
-        );
+
+
+          console.log('compras', comprasTemp)
+          modalRef.componentInstance.compras = comprasTemp;
+          modalRef.closed.subscribe(
+            async value => {
+              if (value.length > 0) {
+                this.form.controls["nLitrosRecibidos"].setValue(0);
+                this.form.controls["cFuller"].setValue('');
+                await this.obtenerCompras();
+                this.filterDatatableProveedorArticulo();
+              }
+              /*  if (value.nEstatus) {
+                 row = value;
+                 row.nEstatusOriginal = value.nEstatus;
+               } else {
+                 row.nEstatus = row.nEstatusOriginal;
+               }
+               this.filerWithStatus(); */
+              // this.enfocarBotonNuevaVenta()
+            }
+          );
+        }
       }
+
+    } catch (err) {
+
     }
 
   }
 
-  limpiar() {
+  async limpiar() {
     this.form.reset();
+    await this.obtenerCompras();
     this.data = this.dataTemp;
+
+    this.estatus = [
+      {
+        nEstatus: 1,
+        cEstatus: 'En Tránsito',
+        status: true
+      },
+      {
+        nEstatus: 2,
+        cEstatus: 'En Aduana',
+        status: true
+      },
+
+      {
+        nEstatus: 5,
+        cEstatus: 'Parcial',
+        status: true
+      },
+      {
+        nEstatus: 3,
+        cEstatus: 'Recibido',
+        status: false
+      },
+      {
+        nEstatus: 4,
+        cEstatus: 'Cancelado',
+        status: false
+      }
+    ]
   }
 }

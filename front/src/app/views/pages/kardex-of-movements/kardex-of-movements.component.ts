@@ -7,6 +7,8 @@ import { ArticulosService } from 'src/services/articulos.service';
 import { InventariosService } from 'src/services/inventarios.service';
 import { UtilsService } from 'src/services/utils.service';
 import { BusquedaModalComponent } from '../busquedas/busqueda-modal/busqueda-modal.component';
+import * as moment from 'moment';
+import { TableUtil } from 'src/utils/tableUtils';
 
 @Component({
   selector: 'app-kardex-of-movements',
@@ -22,12 +24,11 @@ export class KardexOfMovementsComponent implements OnInit {
     private serviceAlmacen: AlmacenService,
     private serviceArticulo: ArticulosService,
     private spinner: NgxSpinnerService,
-    private serviceInventario: InventariosService,
-
+    private serviceInventario: InventariosService
   ) { }
   form: FormGroup;
   tiposDeMovimientos: any = [];
-  movimientos:any = [];
+  movimientos: any = [];
   nTotalEntradas = 0;
   nTotalSalidas = 0;
   nExistenciaInicial = 0;
@@ -179,9 +180,53 @@ export class KardexOfMovementsComponent implements OnInit {
     this.movimientos = [];
 
     this.nTotalEntradas = 0;
-    this.nTotalSalidas =0;
+    this.nTotalSalidas = 0;
     this.nExistenciaInicial = 0;
     this.nExistenciaFinal = 0;
+  }
+  /*   <td class="th-border">{{ item.nMovimientoAlmacen }}</td>
+    <td class="th-border">{{ item.cDescripcionMovimiento }}</td>
+    <td class="th-border">{{ item.cDescripcionAlmacen}}</td>
+    <td class="th-border">{{ item.cDescripcionAlmacenRegistro }}</td>
+    <td class="th-border">{{ item.cFechaMovimiento }}</td>
+    <td class="th-border text-end">{{ item.nEfecto == 1 ? item.nCantidadMovimiento : 0 | number : '1.2-2' }}
+    </td>
+    <td class="th-border text-end">{{ item.nEfecto == -1 ? item.nCantidadMovimiento : 0 | number : '1.2-2' 
+      <th class=" th-border">Folio</th>
+                  <th class=" th-border">Tipo</th>
+                  <th class=" th-border">Almacen Origen</th>
+                  <th class=" th-border">Almacen Destino</th>
+                  <th class=" th-border">Fecha de movimiento</th>
+                  <th class=" th-border">Cantidad Entrada</th>
+                  <th class=" th-border">Cantidad Salida</th>
+    */
+  exportarExcel() {
+    let vm = this;
+    let headers = [
+      ["Folio", "Almacen Origen", "Almacen Destino", "Fecha de movimiento", "Cantidad Entrada", "Cantidad Salida"],
+    ];
+    let data = this.movimientos.map(function (item: any) {
+      return {
+        folio: item.nMovimientoAlmacen,
+        cDescripcionMovimiento: item.cDescripcionMovimiento,
+        cDescripcionAlmacen: item.cDescripcionAlmacen,
+        cDescripcionAlmacenRegistro: item.cDescripcionAlmacenRegistro,
+        cFechaMovimiento: item.cFechaMovimiento,
+        nCantidadEntrada: item.nEfecto == 1 ? Number(item.nCantidadMovimientoOrigen).toFixed(4) : '0.0000' ,
+        nCantidadSalida: item.nEfecto == -1 ? Number(item.nCantidadMovimientoOrigen).toFixed(4) : '0.0000'
+      };
+    });
+    let footer: any = {
+      folio: '',
+      cDescripcionMovimiento: '',
+      cDescripcionAlmacen: '',
+      cDescripcionAlmacenRegistro: '',
+      cFechaMovimiento: '',
+      nCantidadEntrada: '',
+      nCantidadSalida:  '',
+    };
+    data.push(footer);
+    TableUtil.exportArrayToExcel(data, "Reporte_de_kardex_de_articulo", headers, null);
   }
   consultar() {
 

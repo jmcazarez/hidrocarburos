@@ -24,130 +24,136 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Formulario de Consultas de Kardex de Movimientos</h6>
-          <form [formGroup]="form">
+        <form [formGroup]="form">
 
-            <div class="row mt-4">
-              <div class="col-sm-5">
-                <div class="row">
-                  <label class="form-label col-sm-5 col-form-label text-end" >Almacen</label>
-                  <div class="col-sm-7">
-                    <div class="input-group mb-1">
-                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="cAlmacen">
-                      <span class="input-group-text border-start-0 bg-white">
-                        <i class="feather icon-search" (click)="openModalAlmacenes()"></i>
-                      </span>
-                    </div>
-                  </div>
-
-                  <label class="form-label col-sm-5 col-form-label text-end">Articulo</label>
-                  <div class="col-sm-7">
-                    <div class="input-group mb-1">
-                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="cArticulo">
-                      <span class="input-group-text border-start-0 bg-white">
-                        <i class="feather icon-search" (click)="openModalArticulos()"></i>
-                      </span>
-                    </div>
-                  </div>
-
-                  <label class="form-label col-sm-5 col-form-label text-end">Tipo de Movimiento</label>
-                  <div class="col-sm-7">
-                    <select class="form-control form-control-sm" style="z-index:1000" formControlName="nTipoMovimiento">
-                      <option *ngFor="let movimiento of tiposDeMovimientos" [ngValue]="movimiento"> {{ movimiento.cDescripcion }}
-                      </option>
-                    </select>
+          <div class="row mt-4">
+            <div class="col-sm-5">
+              <div class="row">
+                <label class="form-label col-sm-5 col-form-label text-end">Almacen</label>
+                <div class="col-sm-7">
+                  <div class="input-group mb-1">
+                    <input type="text" class="form-control form-control-sm border-end-0" formControlName="cAlmacen">
+                    <span class="input-group-text border-start-0 bg-white">
+                      <i class="feather icon-search" (click)="openModalAlmacenes()"></i>
+                    </span>
                   </div>
                 </div>
-              </div>
 
-              <div class="col-sm-2"></div>
-
-              <div class="col-sm-5">
-
-                <div class="row mt-4">
-                  <label class="form-label col-sm-5 col-form-label text-end">Fecha de Inicio</label>
-                  <div class="col-sm-7">
-                    <input type="date" class="form-control form-control-sm"  formControlName="dFechaInicio">
+                <label class="form-label col-sm-5 col-form-label text-end">Articulo</label>
+                <div class="col-sm-7">
+                  <div class="input-group mb-1">
+                    <input type="text" class="form-control form-control-sm border-end-0" formControlName="cArticulo">
+                    <span class="input-group-text border-start-0 bg-white">
+                      <i class="feather icon-search" (click)="openModalArticulos()"></i>
+                    </span>
                   </div>
+                </div>
 
-                  <label class="form-label col-sm-5 col-form-label text-end">Fecha de Fin</label>
-                  <div class="col-sm-7">
-                    <input type="date" class="form-control form-control-sm"  formControlName="dFechaFin">
-                  </div>
-
+                <label class="form-label col-sm-5 col-form-label text-end">Tipo de Movimiento</label>
+                <div class="col-sm-7">
+                  <select class="form-control form-control-sm" style="z-index:1000" formControlName="nTipoMovimiento">
+                    <option *ngFor="let movimiento of tiposDeMovimientos" [ngValue]="movimiento"> {{
+                      movimiento.cDescripcion }}
+                    </option>
+                  </select>
                 </div>
               </div>
             </div>
 
+            <div class="col-sm-2"></div>
 
-          </form>
-          <div class="d-flex justify-content-end my-4">
-            <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
-            <!--   <button type="button" class="btn btn-dark mx-2">Cancelar</button> -->
-              <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid"(click)="consultar()">Consultar</button>
+            <div class="col-sm-5">
+
+              <div class="row mt-4">
+                <label class="form-label col-sm-5 col-form-label text-end">Fecha de Inicio</label>
+                <div class="col-sm-7">
+                  <input type="date" class="form-control form-control-sm" formControlName="dFechaInicio">
+                </div>
+
+                <label class="form-label col-sm-5 col-form-label text-end">Fecha de Fin</label>
+                <div class="col-sm-7">
+                  <input type="date" class="form-control form-control-sm" formControlName="dFechaFin">
+                </div>
+
+              </div>
+            </div>
           </div>
 
-          <div class="table-responsive my-5">
 
-            <table class="table table">
-              <thead>
-                <tr>
-                  <th class="th-not-border"></th>
-                  <th class="th-not-border"></th>
-                  <th class="th-not-border"></th>
-                  <th class="th-not-border"></th>
-                  <th class="th-not-border"></th>
-                  <th class="th-border">Existencia inicial</th>
-                  <th class=" th-border text-end">{{nExistenciaInicial | number : '1.2-4' }}</th>
-                </tr>
-              </thead>
-              <thead>
-                <tr >
-                  <th class=" th-border">Folio</th>
-                  <th class=" th-border">Tipo</th>
-                  <th class=" th-border">Almacen Origen</th>
-                  <th class=" th-border">Almacen Destino</th>
-                  <th class=" th-border">Fecha de movimiento</th>
-                  <th class=" th-border">Cantidad Entrada</th>
-                  <th class=" th-border">Cantidad Salida</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of movimientos">
-                  <td class="th-border">{{ item.nMovimientoAlmacen }}</td>
-                  <td class="th-border">{{ item.cDescripcionMovimiento }}</td>
-                  <td class="th-border">{{ item.cDescripcionAlmacen}}</td>
-                  <td class="th-border">{{ item.cDescripcionAlmacenRegistro }}</td>
-                  <td class="th-border">{{ item.cFechaMovimiento }}</td>
-                  <td class="th-border text-end">{{ item.nEfecto == 1 ? item.nCantidadMovimiento  : 0  | number : '1.2-2' }}</td>
-                  <td class="th-border text-end">{{ item.nEfecto == -1 ? item.nCantidadMovimiento : 0  | number : '1.2-2' }}</td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <th class="th-not-border"></th>
-                  <th class="th-not-border"></th>
-                  <th class="th-not-border"></th>
-                  <th class="th-not-border"></th>
-                  <th class="th-not-border"></th>
-                  <th class="th-border">Existencia final</th>
-                  <th class="th-border text-end">{{nExistenciaFinal | number : '1.2-4' }}</th>
-                </tr>
+        </form>
+        <div class="d-flex justify-content-end my-4">
+          <button type="button" class="btn btn-secondary mx-2" (click)="exportarExcel()"
+            [disabled]="movimientos.length == 0">Exportar</button>
+          <button type="button" class="btn btn-warning mx-2" (click)="limpiar()">Limpiar</button>
+          <!--   <button type="button" class="btn btn-dark mx-2">Cancelar</button> -->
+          <button type="button" class="btn btn-primary mx-2" [disabled]="form.invalid"
+            (click)="consultar()">Consultar</button>
+        </div>
 
-              </tfoot>
-              <tfoot>
-                <tr>
-                  <th class="th-not-border"></th>
-                  <th class="th-not-border"></th>
-                  <th class="th-not-border"></th>
-                  <th class="th-not-border"></th>
-                  <th class="th-border  text-end">Total</th>
-                  <th class="th-border  text-end">{{nTotalEntradas | number : '1.2-4' }}</th>
-                  <th class="th-border  text-end">{{nTotalSalidas | number : '1.2-4' }}</th>
-                </tr>
-              </tfoot>
+        <div class="table-responsive my-5">
 
-            </table>
-          </div>
+          <table class="table table">
+            <thead>
+              <tr>
+                <th class="th-not-border"></th>
+                <th class="th-not-border"></th>
+                <th class="th-not-border"></th>
+                <th class="th-not-border"></th>
+                <th class="th-not-border"></th>
+                <th class="th-border">Existencia inicial</th>
+                <th class=" th-border text-end">{{nExistenciaInicial | number : '1.2-4' }}</th>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th class=" th-border">Folio</th>
+                <th class=" th-border">Tipo</th>
+                <th class=" th-border">Almacen Origen</th>
+                <th class=" th-border">Almacen Destino</th>
+                <th class=" th-border">Fecha de movimiento</th>
+                <th class=" th-border">Cantidad Entrada</th>
+                <th class=" th-border">Cantidad Salida</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of movimientos">
+                <td class="th-border">{{ item.nMovimientoAlmacen }}</td>
+                <td class="th-border">{{ item.cDescripcionMovimiento }}</td>
+                <td class="th-border">{{ item.cDescripcionAlmacen}}</td>
+                <td class="th-border">{{ item.cDescripcionAlmacenRegistro }}</td>
+                <td class="th-border">{{ item.cFechaMovimiento }}</td>
+                <td class="th-border text-end">{{ item.nEfecto == 1 ? item.nCantidadMovimiento : 0 | number : '1.2-2' }}
+                </td>
+                <td class="th-border text-end">{{ item.nEfecto == -1 ? item.nCantidadMovimiento : 0 | number : '1.2-2'
+                  }}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th class="th-not-border"></th>
+                <th class="th-not-border"></th>
+                <th class="th-not-border"></th>
+                <th class="th-not-border"></th>
+                <th class="th-not-border"></th>
+                <th class="th-border">Existencia final</th>
+                <th class="th-border text-end">{{nExistenciaFinal | number : '1.2-4' }}</th>
+              </tr>
+
+            </tfoot>
+            <tfoot>
+              <tr>
+                <th class="th-not-border"></th>
+                <th class="th-not-border"></th>
+                <th class="th-not-border"></th>
+                <th class="th-not-border"></th>
+                <th class="th-border  text-end">Total</th>
+                <th class="th-border  text-end">{{nTotalEntradas | number : '1.2-4' }}</th>
+                <th class="th-border  text-end">{{nTotalSalidas | number : '1.2-4' }}</th>
+              </tr>
+            </tfoot>
+
+          </table>
+        </div>
       </div>
     </div>
   </div>

@@ -150,8 +150,8 @@
 
                 <label class="form-label col-sm-3 col-form-label text-end">Cantidad Env (lts)</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nCantidadEnviada"
-                  currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"
+                  <input type="text" class="form-control form-control-sm text-end" placeholder="" formControlName="nCantidadEnviada"
+                  appDecimales4
                   onfocus="this.select()"
                   (blur)="calcularTotal(); this.form.get('nCantidadRecibida')?.setValue(this.form.get('nCantidadEnviada')?.value);"
                   [ngClass]="{'has-error': form.get('nCantidadEnviada')?.hasError('required')}"
@@ -160,8 +160,8 @@
 
                 <label class="form-label col-sm-3 col-form-label text-end">Cantidad Rec (lts)</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nCantidadRecibida"
-                  currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"
+                  <input type="text" class="form-control form-control-sm text-end" placeholder="" formControlName="nCantidadRecibida"
+                  appDecimales4
                   onfocus="this.select()"
                   [ngClass]="{'has-error': form.get('nCantidadRecibida')?.hasError('required')}"
                   >
@@ -169,8 +169,8 @@
 
                 <label class="form-label col-sm-3 col-form-label text-end">Costo litro</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nCostoLitro"
-                  currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"
+                  <input type="text" class="form-control form-control-sm text-end" placeholder="" formControlName="nCostoLitro"
+                  appDecimales4
                   onfocus="this.select()"
                   (blur)="calcularTotal()"
                   [ngClass]="{'has-error': form.get('nCostoLitro')?.hasError('required')}"
@@ -180,14 +180,14 @@
                 <label class="form-label col-sm-3 col-form-label text-end">Total a pagar</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nTotal"
-                  currencyMask [options]="{ prefix: '$', thousands: ',', decimal: '.', precision: 2 }"
+                  currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 4 }"
                   >
                 </div>
 
                 <label class="form-label col-sm-3 col-form-label text-end">Anticipo</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control form-control-sm" placeholder="" formControlName="nAnticipo"
-                  currencyMask [options]="{ prefix: '', thousands: ',', decimal: '.', precision: 2 }"
+                  <input type="text" class="form-control form-control-sm text-end" placeholder="" formControlName="nAnticipo"
+                  appDecimales4
                   onfocus="this.select()"
                   [ngClass]="{'has-error': form.get('nAnticipo')?.hasError('required')}"
                   >

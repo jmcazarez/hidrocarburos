@@ -14,6 +14,7 @@ import { BusquedaCompraComponent } from './busqueda-compra/busqueda-compra.compo
 import { BusquedaFleteComponent } from './busqueda-flete/busqueda-flete.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { DirectivesModule } from 'src/directives/directives.module';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -30,7 +31,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [NationalsComponent, BusquedaCompraComponent, Decimales4Directive,BusquedaFleteComponent],
+  declarations: [NationalsComponent, BusquedaCompraComponent, BusquedaFleteComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -45,6 +46,7 @@ const routes: Routes = [
         selectedMessage: 'selected' // Footer selected message
       }
     }),
+    DirectivesModule
   ],
   exports: [
     RouterModule

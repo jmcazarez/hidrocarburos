@@ -165,18 +165,23 @@ export class ProductDeliveryTicketComponent implements OnInit {
 
     this.util.dialogConfirm('¿Está seguro que desea guardar los datos?').then((result) => {
 
-      // validar la fecha de compra
-
-      let fechaVenta = dayjs(this.dFechaVenta);
-
-      let fechaActual = dayjs();
-
-      if (fechaVenta > fechaActual) {
-        this.util.dialogWarning('La fecha de venta no debe ser mayor a la fecha actual.');
-        return;
-      }
-
       if (result.isConfirmed) {
+
+        // validar la fecha de compra
+
+        let fechaVenta = dayjs(this.dFechaVenta);
+
+        let fechaActual = dayjs();
+
+        if (fechaVenta > fechaActual) {
+          this.util.dialogWarning('La fecha de venta no debe ser mayor a la fecha actual.');
+          return;
+        }
+
+        if (this.nAnticipo > 0 && (!this.nFormaPago || this.nFormaPago <=0 )) {
+          this.util.dialogWarning('Debe proporcionar una forma de pago.');
+          return;
+        }
 
         const obj = {
           nVenta: this.nVenta,

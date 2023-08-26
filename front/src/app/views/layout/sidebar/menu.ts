@@ -91,89 +91,89 @@ export const MENU: MenuItem[] = [
       },
     ]
   },
-  {
-    label: 'Cobranza',
-    icon: 'shopping-cart',
-    subItems: [
-      {
-        label: 'Cuentas por cobrar',
-        link: '/accounts-receivable'
-      },
-      {
-        label: 'Consulta de movimientos',
-        link: '/consultation-collection-movements'
-      },
-    ]
-  },
-  {
-    label: 'Control de flujos',
-    icon: 'filter',
-    subItems: [
-      {
-        label: 'Registro de egresos',
-        link: '/expense-record'
-      },
-      {
-        label: 'Consulta de movimientos',
-        link: '/query-movements'
-      },
-    ]
-  },
+  // {
+  //   label: 'Cobranza',
+  //   icon: 'shopping-cart',
+  //   subItems: [
+  //     {
+  //       label: 'Cuentas por cobrar',
+  //       link: '/accounts-receivable'
+  //     },
+  //     {
+  //       label: 'Consulta de movimientos',
+  //       link: '/consultation-collection-movements'
+  //     },
+  //   ]
+  // },
+  // {
+  //   label: 'Control de flujos',
+  //   icon: 'filter',
+  //   subItems: [
+  //     {
+  //       label: 'Registro de egresos',
+  //       link: '/expense-record'
+  //     },
+  //     {
+  //       label: 'Consulta de movimientos',
+  //       link: '/query-movements'
+  //     },
+  //   ]
+  // },
 
-  {
-    label: '',
-    isTitle: true
-  },
-  {
-    label: 'Pagos diversos',
-    icon: 'dollar-sign',
-    subItems: [
-      {
-        label: 'Registro de costos indirectos',
-        link: '/indirect-cost-record'
-      },
-      {
-        label: 'Registro de abonos',
-        link: '/credit-register'
-      },
-      {
-        label: 'Consulta de movimientos',
-        link: '/registered-movements'
-      },
-    ]
-  },
-  {
-    label: 'Control de Bancos',
-    icon: 'home',
-    subItems: [
-      {
-        label: 'Registro de movimientos',
-        link: '/movement-record'
-      },
-      {
-        label: 'Consulta de movimientos',
-        link: '/consult-bank'
-      },
-    ]
-  },
-  {
-    label: 'Reportes directivos',
-    icon: 'book-open',
-    subItems: [
-      {
-        label: 'Existencias globales',
-        link: '/global-stocks'
-      },
-      {
-        label: 'Dashboard',
-        link: '/executive-dashboard'
-      },
-      {
-        label: 'Reporte concentrado',
-        link: '/concentrated-report'
-      },
-    ]
-  },
+  // {
+  //   label: '',
+  //   isTitle: true
+  // },
+  // {
+  //   label: 'Pagos diversos',
+  //   icon: 'dollar-sign',
+  //   subItems: [
+  //     {
+  //       label: 'Registro de costos indirectos',
+  //       link: '/indirect-cost-record'
+  //     },
+  //     {
+  //       label: 'Registro de abonos',
+  //       link: '/credit-register'
+  //     },
+  //     {
+  //       label: 'Consulta de movimientos',
+  //       link: '/registered-movements'
+  //     },
+  //   ]
+  // },
+  // {
+  //   label: 'Control de Bancos',
+  //   icon: 'home',
+  //   subItems: [
+  //     {
+  //       label: 'Registro de movimientos',
+  //       link: '/movement-record'
+  //     },
+  //     {
+  //       label: 'Consulta de movimientos',
+  //       link: '/consult-bank'
+  //     },
+  //   ]
+  // },
+  // {
+  //   label: 'Reportes directivos',
+  //   icon: 'book-open',
+  //   subItems: [
+  //     {
+  //       label: 'Existencias globales',
+  //       link: '/global-stocks'
+  //     },
+  //     {
+  //       label: 'Dashboard',
+  //       link: '/executive-dashboard'
+  //     },
+  //     {
+  //       label: 'Reporte concentrado',
+  //       link: '/concentrated-report'
+  //     },
+  //   ]
+  // },
 
 
   {

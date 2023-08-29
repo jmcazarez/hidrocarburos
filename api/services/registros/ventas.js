@@ -35,6 +35,10 @@ async function guardarVenta(params) {
     const t = await sequelize.transaction();
     try {
 
+        if (params.nFormaPago === '') {
+            params.nFormaPago = null;
+        }
+
         let venta = await sequelize.query(
             `
              CALL proc_guardar_venta (
@@ -52,14 +56,14 @@ async function guardarVenta(params) {
                 ${params.nCantidadRecibida},
                 ${params.nCostoLitro},
                 ${params.nAnticipo || 0},
-                ${params.nFormaPago || null},
+                ${params.nFormaPago},
                 '${params.cEncargado}',
                 '${params.cObservaciones}',
                 ${params.nTotal}
             )
              `,
             {
-                type: QueryTypes.INSERT,
+                type: QueryTypes.RAW,
                 transaction: t
             }
         );

@@ -126,11 +126,11 @@ export class ProductDeliveryTicketComponent implements OnInit {
   }
 
   get nAnticipo(): number {
-    return this.form.get('nAnticipo')?.value ?? '';
+    return this.form.get('nAnticipo')?.value ?? 0;
   }
 
   get nFormaPago(): number {
-    return this.form.get('nFormaPago')?.value ?? '';
+    return this.form.get('nFormaPago')?.value ?? -1;
   }
 
   get cEncargado(): string {
@@ -178,8 +178,16 @@ export class ProductDeliveryTicketComponent implements OnInit {
           return;
         }
 
-        if (this.nAnticipo > 0 && (!this.nFormaPago || this.nFormaPago <=0 )) {
+        console.log('anticipo:', this.nAnticipo);
+        console.log('forma:', this.nFormaPago);
+
+        if (this.nAnticipo > 0 && this.nFormaPago < 0 ) {
           this.util.dialogWarning('Debe proporcionar una forma de pago.');
+          return;
+        }
+
+        if ( (this.nAnticipo.toString() == '' || this.nAnticipo == 0) && (this.nFormaPago.toString() != '' && this.nFormaPago >= 0) ) {
+          this.util.dialogWarning('Debe proporcionar un anticipo.');
           return;
         }
 

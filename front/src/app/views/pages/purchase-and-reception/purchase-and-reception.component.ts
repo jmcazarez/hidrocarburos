@@ -38,6 +38,8 @@ export class PurchaseAndReceptionComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.form = new FormGroup({
       nCompra : new FormControl('', []),
+      cEmpresa: new FormControl({ value: '', disabled: true }, []),
+      nEmpresa: new FormControl('', []),
       nAlmacen : new FormControl('', []),
       cAlmacen : new FormControl({ value: '', disabled: true }, []),
       nArticulo : new FormControl('', Validators.required),
@@ -88,6 +90,13 @@ export class PurchaseAndReceptionComponent implements OnInit {
       return 0;
     }
     return this.form.get('nProveedor')?.value;
+  }
+
+  get nEmpresa(): number {
+    if (!this.form.get('nEmpresa')?.value || this.form.get('nEmpresa')?.value == '') {
+      return 0;
+    }
+    return this.form.get('nEmpresa')?.value;
   }
 
   async openModalEmpresas() {
@@ -271,7 +280,7 @@ export class PurchaseAndReceptionComponent implements OnInit {
       this.dFechaInicio ? new Date(this.dFechaInicio).toISOString().split('T')[0] : '',
       this.dFechaFin ? new Date(this.dFechaFin).toISOString().split('T')[0] : '',
       this.nCompra ?? 0,
-      0,
+      this.nEmpresa ?? 0,
       this.nProveedor ?? 0,
       this.nAlmacen ?? 0,
       this.nArticulo ?? 0,
@@ -304,6 +313,8 @@ export class PurchaseAndReceptionComponent implements OnInit {
     this.form.controls["cFactura"].setValue('');
     this.form.controls["cProveedor"].setValue('');
     this.form.controls["nProveedor"].setValue('');
+    this.form.controls["cEmpresa"].setValue('');
+    this.form.controls["nEmpresa"].setValue('');
     this.compras = [];
   }
 

@@ -24,6 +24,16 @@
                     </div>
                   </div>
 
+                  <label class="form-label col-sm-3 col-form-label text-end">Empresa</label>
+                  <div class="col-sm-7">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control form-control-sm border-end-0" formControlName="cEmpresa">
+                      <span class="input-group-text border-start-0 bg-white">
+                        <i class="feather icon-search" (click)="openModalEmpresas()"></i>
+                      </span>
+                    </div>
+                  </div>
+
                   <label class="form-label col-sm-3 col-form-label text-end">Proveedor</label>
                   <div class="col-sm-7">
                     <div class="input-group mb-1">
@@ -96,6 +106,7 @@
                 <th>TMF Ticket #</th>
                 <th>F. compra</th>
                 <th>F. recepción</th>
+                <th>Empresa</th>
                 <th>Proveedor</th>
                 <th>Almacén recepción</th>
                 <th>Articulo</th>
@@ -113,6 +124,7 @@
                 <td>{{ item.cTicket }}</td>
                 <td>{{ formatoFecha(item.dFechaCompra) }}</td>
                 <td>{{ formatoFecha(item.dFechaRecepcion) }}</td>
+                <td>{{ item.cEmpresa }}</td>
                 <td>{{ item.cProveedor }}</td>
                 <td>{{ item.cAlmacen }}</td>
                 <td>{{ item.cArticulo }}</td>

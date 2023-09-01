@@ -82,7 +82,7 @@ export class NationalsComponent implements OnInit {
       nTipoCambio: new FormControl('', Validators.required),
       nCostoTotal: new FormControl('', [Validators.required]),
       nCostoCruce: new FormControl(this.nValorCostoCruce, Validators.required),
-      nCostoFactura: new FormControl({ value: '', disabled: false }, []),
+      nCostoFactura: new FormControl({ value: '' }, []),
       nCostoFlete: new FormControl('', []),
       nGalonesCompra: new FormControl('', []),
       nCostoGalon: new FormControl('', []),
@@ -352,7 +352,7 @@ export class NationalsComponent implements OnInit {
       this.form.controls["nRuta"].setValue('');
       this.form.controls["cRuta"].setValue('');
       this.form.controls["cRuta"].setValidators(Validators.required);
-      this.form.controls["nCostoFactura"].disable();
+      // this.form.controls["nCostoFactura"].disable();
       this.asignarValoresIniciales();
 
 
@@ -884,8 +884,8 @@ export class NationalsComponent implements OnInit {
       totalCostoFactura = this.costoLitroFactura * this.nLitrosCompra;
       const litrosGalones = this.nGalonesCompra * this.nValorGalon;
       this.form.controls["nLitrosCompra"].setValue(this.aplicarFormato(litrosGalones.toFixed(4)));
-      this.form.controls["nCostoFactura"].setValue(this.aplicarFormato(totalCostoFactura.toFixed(4)));
-
+      // this.form.controls["nCostoFactura"].setValue(this.aplicarFormato(totalCostoFactura.toFixed(4)));
+      totalCostoFactura = this.nCostoFactura;
       const totalCruce = this.nCostoCruce * this.nTipoCambioLocal;
       const totalCostoLogistico = this.nCostoLogistico * this.nTipoCambio;
       const totalCostoFlete = this.nCostoFlete;

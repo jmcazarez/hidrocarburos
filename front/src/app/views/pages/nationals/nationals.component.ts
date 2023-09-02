@@ -384,6 +384,8 @@ export class NationalsComponent implements OnInit {
         }
       }
 
+
+      console.log('almacen',this.nAlmacen );
       if (this.nAlmacen <= 0) {
         this.util.dialogWarning('Ocurrió un error al enviar el almacen.');
         return;
@@ -583,8 +585,9 @@ export class NationalsComponent implements OnInit {
   }
   asignarAlmacen(value: any) {
     this.form.controls["cAlmacen"].setValue(value.cDescripcion);
-    this.form.controls["nAlmacen"].setValue(value.nAlmacen);
+    this.form.controls["nAlmacen"].setValue(value.id);
 
+    console.log(this.nAlmacen);
     console.log('value:', value);
   }
 

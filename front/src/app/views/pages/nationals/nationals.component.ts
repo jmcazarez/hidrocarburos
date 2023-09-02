@@ -36,7 +36,7 @@ export class NationalsComponent implements OnInit {
   nValorCostoCruce = 3800;
   nValorCostoLogistico = 100;
   nValorCostoFlete = 0;
-
+  bEditoCostoFactura = false;
 
   constructor(
     private service: ComprasService,
@@ -51,7 +51,10 @@ export class NationalsComponent implements OnInit {
     private serviceArticulo: ArticulosService,
     private maskService: MaskApplierService,
     private cp: CurrencyPipe
-  ) { }
+  ) {
+
+   
+   }
 
   async ngOnInit(): Promise<void> {
     this.form = new FormGroup({
@@ -100,6 +103,8 @@ export class NationalsComponent implements OnInit {
     });
     this.asignarValoresIniciales();
     this.calcularTotales();
+
+    
   }
 
   async asignarValoresIniciales() {
@@ -112,7 +117,7 @@ export class NationalsComponent implements OnInit {
 
     for (const item of data) {
       if (item.cDescripcion === 'CEDI CULIACAN') {
-        this.asignarAlmacen(item);
+        this.asignarAlmacenDefault(item);
         return;
       }
     }
@@ -385,7 +390,7 @@ export class NationalsComponent implements OnInit {
       }
 
 
-      console.log('almacen',this.nAlmacen );
+      console.log('almacen', this.nAlmacen);
       if (this.nAlmacen <= 0) {
         this.util.dialogWarning('Ocurrió un error al enviar el almacen.');
         return;
@@ -591,6 +596,14 @@ export class NationalsComponent implements OnInit {
     console.log('value:', value);
   }
 
+  asignarAlmacenDefault(value: any) {
+    this.form.controls["cAlmacen"].setValue(value.cDescripcion);
+    this.form.controls["nAlmacen"].setValue(value.nAlmacen);
+
+    console.log(this.nAlmacen);
+    console.log('value:', value);
+  }
+
   asignarFlete(value: any) {
     this.form.controls["cRuta"].setValue(value.cOrigen + ' - ' + value.cDestino);
     this.form.controls["nRuta"].setValue(value.nRuta);
@@ -680,6 +693,8 @@ export class NationalsComponent implements OnInit {
       }
     );
   }
+
+  
 
   asignarFleteras(value: any) {
     this.form.controls["cFletera"].setValue(value.cDescripcion);
@@ -844,6 +859,8 @@ export class NationalsComponent implements OnInit {
     });
   }
 
+  
+
   cambioCostoFactura() {
     console.log('entro');
     let totalCostoFactura = 0;
@@ -853,10 +870,8 @@ export class NationalsComponent implements OnInit {
       let nCostoPorLitro = (this.nCostoTotal + this.nCostoFactura) / this.nLitrosCompra
       this.form.controls["nCostoFinalLitro"].setValue(this.aplicarFormato(nCostoPorLitro.toFixed(4)));
     } else {
-      totalCostoFactura = this.costoLitroFactura * this.nLitrosCompra;
       const litrosGalones = this.nGalonesCompra * this.nValorGalon;
-      this.form.controls["nLitrosCompra"].setValue(this.aplicarFormato(litrosGalones.toFixed(4)));
-      // this.form.controls["nCostoFactura"].setValue(this.aplicarFormato(totalCostoFactura.toFixed(4)));
+
       totalCostoFactura = this.nCostoFactura;
       const totalCruce = this.nCostoCruce * this.nTipoCambioLocal;
       const totalCostoLogistico = this.nCostoLogistico * this.nTipoCambio;
@@ -873,12 +888,12 @@ export class NationalsComponent implements OnInit {
       this.form.controls["nCostoLitro"].setValue(this.aplicarFormato(costoLitro.toFixed(4)));
 
       const costoFinalCompra = totalPesos + totalCostoFactura + totalCruce + totalCostoFlete + totalCostoLogistico;
-    
+
       let final = costoFinalCompra / this.nLitrosCompra;
 
       this.form.controls["nCostoFinalCompra"].setValue(this.aplicarFormato(costoFinalCompra.toFixed(4)));
       this.form.controls["nCostoFinalLitro"].setValue(this.aplicarFormato(final.toFixed(4)));
-
+      this.bEditoCostoFactura = true;
     }
   }
   calcularTotales() {
@@ -909,10 +924,12 @@ export class NationalsComponent implements OnInit {
       this.form.controls["nCostoFinalLitro"].setValue(this.aplicarFormato(costoFinalLitro.toFixed(4)));
 
     } else {
+
       totalCostoFactura = this.costoLitroFactura * this.nLitrosCompra;
       const litrosGalones = this.nGalonesCompra * this.nValorGalon;
       this.form.controls["nLitrosCompra"].setValue(this.aplicarFormato(litrosGalones.toFixed(4)));
-      // this.form.controls["nCostoFactura"].setValue(this.aplicarFormato(totalCostoFactura.toFixed(4)));
+      console.log('this.bEditoCostoFactura', this.bEditoCostoFactura);
+      this.form.controls["nCostoFactura"].setValue(this.aplicarFormato(totalCostoFactura.toFixed(4)));
       totalCostoFactura = this.nCostoFactura;
       const totalCruce = this.nCostoCruce * this.nTipoCambioLocal;
       const totalCostoLogistico = this.nCostoLogistico * this.nTipoCambio;

@@ -829,7 +829,7 @@ export class NationalsComponent implements OnInit {
           this.form.controls["nCostoFactura"].enable();
           this.cambioCostoFactura();
         } else {
-          this.form.controls["nCostoFactura"].disable();
+          this.form.controls["nCostoFactura"].enable();
           this.form.controls["nCostoTotal"].disable();
 
           this.calcularTotales();
@@ -843,13 +843,38 @@ export class NationalsComponent implements OnInit {
 
   cambioCostoFactura() {
     console.log('entro');
+    let totalCostoFactura = 0;
     if (this.cTipoCompra !== 'I') { // Nacional{
       let nCostoFinal = Number(this.nCostoTotal.toFixed(4)) + Number(this.nCostoFactura.toFixed(4))
-      console.log(nCostoFinal);
       this.form.controls["nCostoFinalCompra"].setValue(this.aplicarFormato(nCostoFinal.toFixed(4)));
       let nCostoPorLitro = (this.nCostoTotal + this.nCostoFactura) / this.nLitrosCompra
       this.form.controls["nCostoFinalLitro"].setValue(this.aplicarFormato(nCostoPorLitro.toFixed(4)));
     } else {
+      totalCostoFactura = this.costoLitroFactura * this.nLitrosCompra;
+      const litrosGalones = this.nGalonesCompra * this.nValorGalon;
+      this.form.controls["nLitrosCompra"].setValue(this.aplicarFormato(litrosGalones.toFixed(4)));
+      // this.form.controls["nCostoFactura"].setValue(this.aplicarFormato(totalCostoFactura.toFixed(4)));
+      totalCostoFactura = this.nCostoFactura;
+      const totalCruce = this.nCostoCruce * this.nTipoCambioLocal;
+      const totalCostoLogistico = this.nCostoLogistico * this.nTipoCambio;
+      const totalCostoFlete = this.nCostoFlete;
+
+      const totalDolares = this.nCostoGalon * this.nGalonesCompra;
+      this.form.controls["nCostoFinalDolares"].setValue(this.aplicarFormato(totalDolares.toFixed(4)));
+
+      const totalPesos = totalDolares * this.nTipoCambio;
+      this.form.controls["nCostoTotal"].setValue(this.aplicarFormato(totalPesos.toFixed(4)));
+
+      const costoLitro = totalPesos / litrosGalones;
+
+      this.form.controls["nCostoLitro"].setValue(this.aplicarFormato(costoLitro.toFixed(4)));
+
+      const costoFinalCompra = totalPesos + totalCostoFactura + totalCruce + totalCostoFlete + totalCostoLogistico;
+    
+      let final = costoFinalCompra / this.nLitrosCompra;
+
+      this.form.controls["nCostoFinalCompra"].setValue(this.aplicarFormato(costoFinalCompra.toFixed(4)));
+      this.form.controls["nCostoFinalLitro"].setValue(this.aplicarFormato(final.toFixed(4)));
 
     }
   }

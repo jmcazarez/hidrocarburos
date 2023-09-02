@@ -241,6 +241,8 @@ async function obtenerKardex(params) {
 
         let nTotalEntradas = 0;
         let nTotalSalidas = 0;
+        let nTotalEntradasExistencia = 0;
+        let nTotalSalidasExistencia = 0;
         let nExistenciaInicial = 0;
         let nExistenciaFinal = 0;
         let existencia = [];
@@ -261,6 +263,21 @@ async function obtenerKardex(params) {
             }
 
         }
+
+        let existenciaFinal = await sequelize.query(
+            `
+             CALL proc_consulta_kardex(
+                 ${params.nAlmacen},
+                 ${params.nArticulo},
+                 0,
+                 '${params.dFechaInicio}',
+                 '${params.dFechaFin}'
+            )
+             `,
+            {
+                type: QueryTypes.RAW
+            }
+        );
 
         let data = await sequelize.query(
             `
@@ -286,7 +303,18 @@ async function obtenerKardex(params) {
             }
         });
         
-        nExistenciaFinal = (Number(nExistenciaInicial) + Number(nTotalEntradas)) - Number(nTotalSalidas);
+
+        await existenciaFinal.forEach(element => {
+           
+            if (element.nEfecto === 1) {
+                nTotalEntradasExistencia = nTotalEntradasExistencia + Number(element.nCantidadMovimientoOrigen);
+            } else {              
+                nTotalSalidasExistencia = nTotalSalidasExistencia + Number(element.nCantidadMovimientoOrigen);
+           
+            }
+        });
+        
+        nExistenciaFinal = (Number(nExistenciaInicial) + Number(nTotalEntradasExistencia)) - Number(nTotalSalidasExistencia);
 
         return {
             status: 200,

@@ -99,7 +99,6 @@
                 <th class="th-not-border"></th>
                 <th class="th-not-border"></th>
                 <th class="th-not-border"></th>
-                <th class="th-not-border"></th>
                 <th class="th-border">Existencia inicial</th>
                 <th class=" th-border text-end">{{nExistenciaInicial | number : '1.2-4' }}</th>
               </tr>
@@ -108,8 +107,7 @@
               <tr>
                 <th class=" th-border">Folio</th>
                 <th class=" th-border">Tipo</th>
-                <th class=" th-border">Almacen Origen</th>
-                <th class=" th-border">Almacen Destino</th>
+                <th class=" th-border">Almacen involucrado</th>
                 <th class=" th-border">Fecha de movimiento</th>
                 <th class=" th-border">Cantidad Entrada</th>
                 <th class=" th-border">Cantidad Salida</th>
@@ -119,7 +117,6 @@
               <tr *ngFor="let item of movimientos">
                 <td class="th-border">{{ item.nMovimientoAlmacen }}</td>
                 <td class="th-border">{{ item.cDescripcionMovimiento }}</td>
-                <td class="th-border">{{ item.cDescripcionAlmacen}}</td>
                 <td class="th-border">{{ item.cDescripcionAlmacenRegistro }}</td>
                 <td class="th-border">{{ item.cFechaMovimiento }}</td>
                 <td class="th-border text-end">{{ item.nEfecto == 1 ? item.nCantidadMovimiento : 0 | number : '1.2-2' }}
@@ -134,7 +131,6 @@
                 <th class="th-not-border"></th>
                 <th class="th-not-border"></th>
                 <th class="th-not-border"></th>
-                <th class="th-not-border"></th>
                 <th class="th-border">Existencia final</th>
                 <th class="th-border text-end">{{nExistenciaFinal | number : '1.2-4' }}</th>
               </tr>
@@ -142,7 +138,6 @@
             </tfoot>
             <tfoot>
               <tr>
-                <th class="th-not-border"></th>
                 <th class="th-not-border"></th>
                 <th class="th-not-border"></th>
                 <th class="th-not-border"></th>

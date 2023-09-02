@@ -26,6 +26,10 @@ export class ProductDeliveryTicketComponent implements OnInit {
   ventas: any[] = [];
   maxDate = new Date();
 
+  nTotalEnviada = 0;
+  nTotalRecibida = 0;
+  nTotalGlobal = 0;
+
   constructor(
     private service: VentasService,
     private util: UtilsService,
@@ -156,6 +160,7 @@ export class ProductDeliveryTicketComponent implements OnInit {
       this.ventas = resp.data;
       this.ventas.sort((a, b) => (a.nVenta > b.nVenta ? -1 : 1));
       this.ventas = this.ventas.slice(0, 10);
+      this.obtenerTotales();
     }, (error: any) => {
       this.util.dialogError('Ocurrió un error al obtener las ventas.');
     })
@@ -554,4 +559,11 @@ export class ProductDeliveryTicketComponent implements OnInit {
 
     });
   }
+
+  obtenerTotales() {
+    this.nTotalEnviada = this.ventas.reduce((a: number, b: any) => a + Number(b.nCantidadEnviada), 0);
+    this.nTotalRecibida = this.ventas.reduce((a: number, b) => a + Number(b.nCantidadRecibida), 0);
+    this.nTotalGlobal = this.ventas.reduce((a: number, b) => a + Number(b.nTotal), 0);
+  }
+
 }

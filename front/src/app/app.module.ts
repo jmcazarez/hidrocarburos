@@ -21,7 +21,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AuthInterceptor } from 'src/interceptors/authInterceptor';
 import { Patterns } from 'src/utils/patterns';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -61,7 +61,8 @@ import { CurrencyPipe } from '@angular/common';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
   ],
   bootstrap: [AppComponent]
 })

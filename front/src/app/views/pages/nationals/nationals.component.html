@@ -239,7 +239,7 @@
                     <label class="form-label col-sm-4 col-form-label text-end">Costo en pesos</label>
                     <div class="col-sm-8">
                       <input type="text"
-                      currencyMask [options]="{ prefix: '$', thousands: ',', decimal: '.', precision: 4 }" maxlength="15"
+                      appDecimales4
                       class="form-control form-control-sm captura-derecha" placeholder="" formControlName="nCostoTotal"
                       onfocus="this.select()"
                       [ngClass]="{'has-error': form.get('nCostoTotal')?.hasError('required')}"
@@ -330,7 +330,7 @@
                   <label class="form-label col-sm-5 col-form-label text-end">Costo factura</label>
                     <div class="col-sm-7">
                       <input type="text" class="form-control form-control-sm captura-derecha" placeholder="" formControlName="nCostoFactura"
-                       maxlength="15"  currencyMask [options]="{ prefix: '$', thousands: ',', decimal: '.', precision: 4 }"
+                       maxlength="15"  appDecimales4 
                       onfocus="this.select()"
                       (ngModelChange)="cambioCostoFactura()"
                       [ngClass]="{'has-error': form.get('nCostoFactura')?.hasError('required')}"

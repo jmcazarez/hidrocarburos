@@ -26,6 +26,11 @@ export class SalesReportComponent implements OnInit {
   compras = [] as any;
   ventas = [] as any;
 
+  nTotalEnviada = 0;
+  nTotalRecibida = 0;
+  nTotalGlobal = 0;
+  nTotalAnticipo = 0;
+
   constructor(
     private service: VentasService,
     private util: UtilsService,
@@ -287,6 +292,7 @@ export class SalesReportComponent implements OnInit {
       this.nArticulo ?? 0
     ).subscribe( (resp: any) => {
       this.ventas = resp.data;
+      this.obtenerTotales();
       this.spinner.hide();
     }, (error: any) => {
       this.util.dialogError('Ocurrió un error al obtener las ventas.');
@@ -312,8 +318,15 @@ export class SalesReportComponent implements OnInit {
     this.form.controls["nVendedor"].setValue('');
     this.form.controls["cVendedor"].setValue('');
     this.ventas = [];
+    this.obtenerTotales();
   }
 
+  obtenerTotales() {
+    this.nTotalEnviada = this.ventas.reduce((a: number, b: any) => a + Number(b.nCantidadEnviada), 0);
+    this.nTotalRecibida = this.ventas.reduce((a: number, b: any) => a + Number(b.nCantidadRecibida), 0);
+    this.nTotalGlobal = this.ventas.reduce((a: number, b: any) => a + Number(b.nTotal), 0);
+    this.nTotalAnticipo = this.ventas.reduce((a: number, b: any) => a + Number(b.nAnticipo), 0);
+  }
 
 }
 

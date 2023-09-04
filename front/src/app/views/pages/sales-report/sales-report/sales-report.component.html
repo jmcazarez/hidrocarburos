@@ -135,6 +135,26 @@
                     </tr>
       
                   </tbody>
+                  <tfoot>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td><b>TOTALES :</b></td>
+                      <td class="text-end"><b>{{ nTotalEnviada | number : '1.2-2' }}</b></td>
+                      <td class="text-end"><b>{{ nTotalRecibida | number : '1.2-2' }}</b></td>
+                      <td class="text-end"></td>
+                      <td class="text-end"><b>{{ nTotalGlobal | currency }}</b></td>
+                      <td class="text-end"><b>{{ nTotalAnticipo | currency }}</b></td>
+                      <td class="text-end"><b>{{ nTotalGlobal - nTotalAnticipo | currency }}</b></td>
+                      <td></td>
+                    </tr>
+                  </tfoot>
             </table>
           </div>
   

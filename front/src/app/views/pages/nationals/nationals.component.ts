@@ -927,7 +927,10 @@ export class NationalsComponent implements OnInit {
 
       totalCostoFactura = this.costoLitroFactura * this.nLitrosCompra;
       const litrosGalones = this.nGalonesCompra * this.nValorGalon;
-      this.form.controls["nLitrosCompra"].setValue(this.aplicarFormato(litrosGalones.toFixed(4)));
+      console.log('nGalones',litrosGalones.toFixed(4));
+      console.log('nLitrosCompra',this.aplicarFormato(litrosGalones.toFixed(4)))
+      
+      this.form.controls["nLitrosCompra"].setValue(litrosGalones.toFixed(4));
       console.log('this.bEditoCostoFactura', this.bEditoCostoFactura);
       this.form.controls["nCostoFactura"].setValue(this.aplicarFormato(totalCostoFactura.toFixed(4)));
       totalCostoFactura = this.nCostoFactura;

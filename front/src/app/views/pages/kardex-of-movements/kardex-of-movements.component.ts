@@ -203,13 +203,12 @@ export class KardexOfMovementsComponent implements OnInit {
   exportarExcel() {
     let vm = this;
     let headers = [
-      ["Folio", "Almacen Origen", "Almacen Destino", "Fecha de movimiento", "Cantidad Entrada", "Cantidad Salida"],
+      ["Folio", "Tipo ", "Almacen involucrado", "Fecha de movimiento", "Cantidad Entrada", "Cantidad Salida"],
     ];
     let data = this.movimientos.map(function (item: any) {
       return {
         folio: item.nMovimientoAlmacen,
         cDescripcionMovimiento: item.cDescripcionMovimiento,
-        cDescripcionAlmacen: item.cDescripcionAlmacen,
         cDescripcionAlmacenRegistro: item.cDescripcionAlmacenRegistro,
         cFechaMovimiento: item.cFechaMovimiento,
         nCantidadEntrada: item.nEfecto == 1 ? Number(item.nCantidadMovimientoOrigen).toFixed(4) : '0.0000' ,
@@ -219,7 +218,6 @@ export class KardexOfMovementsComponent implements OnInit {
     let footer: any = {
       folio: '',
       cDescripcionMovimiento: '',
-      cDescripcionAlmacen: '',
       cDescripcionAlmacenRegistro: '',
       cFechaMovimiento: '',
       nCantidadEntrada: '',
